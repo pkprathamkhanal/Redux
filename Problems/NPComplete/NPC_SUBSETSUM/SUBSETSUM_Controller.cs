@@ -85,8 +85,11 @@ public class FengController : ControllerBase {
     }
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         Console.WriteLine(problemTo);
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
@@ -146,8 +149,11 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<response code="200">Returns solution to the reduced 0-1 Integer Programming instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION partition = new PARTITION(problemTo);

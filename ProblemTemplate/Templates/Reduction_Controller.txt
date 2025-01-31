@@ -37,8 +37,11 @@ public class {REDUCTION_PASCEL_CASE}Controller : ControllerBase {
     ///<param name="problemFromSolution" example="TODO">Solution to a {REDUCE_FROM} problem.</param>
     ///<response code="200">Returns a solution to the reduced {REDUCE_TO} instance</response>
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         Console.WriteLine(problemTo);
         var options = new JsonSerializerOptions { WriteIndented = true };
         {REDUCE_FROM} from = new {REDUCE_FROM}(problemFrom);
