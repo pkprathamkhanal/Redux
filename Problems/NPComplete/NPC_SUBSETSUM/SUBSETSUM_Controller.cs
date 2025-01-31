@@ -204,8 +204,8 @@ public class SubsetSumBruteForceController : ControllerBase {
     }
 
     // Solve an instance given a certificate
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM problem = new SUBSETSUM(problemInstance);

@@ -375,8 +375,8 @@ public class Sat3BacktrackingSolverController : ControllerBase {
 ///<response code="200">Returns a string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) { //FromQuery]string certificate, 
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) { //FromQuery]string certificate, 
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 SAT3_PROBLEM = new SAT3(problemInstance);
         Dictionary<string, bool> solution = SAT3_PROBLEM.defaultSolver.solve(SAT3_PROBLEM);

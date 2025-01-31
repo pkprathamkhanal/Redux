@@ -110,8 +110,8 @@ public class SetCoverBruteForceController : ControllerBase {
 ///<response code="200">Returns a solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SETCOVER problem = new SETCOVER(problemInstance);
@@ -151,8 +151,8 @@ public class HeuristicSolverController : ControllerBase {
 ///<response code="200">Returns a solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SETCOVER problem = new SETCOVER(problemInstance);
