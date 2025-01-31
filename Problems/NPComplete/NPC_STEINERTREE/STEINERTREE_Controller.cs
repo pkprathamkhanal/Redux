@@ -140,9 +140,10 @@ public class SteinerTreeVerifierController : ControllerBase
     ///<response code="200">Returns a boolean</response>
 
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery] string certificate, [FromQuery] string problemInstance)
-    {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         STEINERTREE STEINERTREE_PROBLEM = new STEINERTREE(problemInstance);
         SteinerTreeVerifier verifier = new SteinerTreeVerifier();

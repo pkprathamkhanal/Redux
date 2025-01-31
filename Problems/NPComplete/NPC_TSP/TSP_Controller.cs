@@ -151,9 +151,10 @@ public class TSPVerifierController : ControllerBase
     ///<response code="200">Returns a boolean</response>
 
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery] string certificate, [FromQuery] string problemInstance)
-    {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         TSP CUT_PROBLEM = new TSP(problemInstance);
         TSPVerifier verifier = new TSPVerifier();

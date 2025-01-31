@@ -270,8 +270,10 @@ public class CliqueVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-        public String verifyInstance([FromQuery]string problemInstance, string certificate){
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         string jsonString = String.Empty;
         CLIQUE vClique = new CLIQUE(problemInstance);
         CliqueVerifier verifier = vClique.defaultVerifier;

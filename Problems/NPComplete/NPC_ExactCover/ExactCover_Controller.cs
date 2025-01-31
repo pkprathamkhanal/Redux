@@ -73,8 +73,10 @@ public class ExactCoverVerifierController : ControllerBase {
     ///<param name="problemInstance" example="{{1,2,3},{2,3},{4,1} : {1,2,3,4}}">Exact Cover problem instance string.</param>
     ///<response code="200">Returns a boolean</response>
 
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover problem = new ExactCover(problemInstance);
         ExactCoverVerifier verifier = new ExactCoverVerifier();
