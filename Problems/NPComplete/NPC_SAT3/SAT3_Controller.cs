@@ -132,8 +132,11 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<response code="200">Returns solution to the reduced Clique instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("reverseMappedSolution")]
-    public String reverseMappedSolution([FromQuery]string problemFrom, string problemTo, string problemToSolution){
+    [HttpPost("reverseMappedSolution")]
+    public String reverseMappedSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemToSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
