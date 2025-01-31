@@ -154,8 +154,8 @@ public class KarpSATToSAT3Controller : ControllerBase
     ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(SATReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery] string problemInstance)
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT defaultSAT = new SAT(problemInstance);

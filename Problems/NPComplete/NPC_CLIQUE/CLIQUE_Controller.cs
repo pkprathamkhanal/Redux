@@ -107,8 +107,8 @@ public class sipserReduceToVCController : ControllerBase {
 ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
 
     [ProducesResponseType(typeof(SipserReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE(problemInstance);
         sipserReduction reduction = new sipserReduction(defaultCLIQUE);

@@ -185,8 +185,8 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(VertexCoverReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER(problemInstance);
         VertexCoverReduction reduction = new VertexCoverReduction(defaultVERTEXCOVER);
@@ -226,8 +226,8 @@ public class KarpVertexCoverToSetCoverController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(KarpVertexCoverToSetCover), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER(problemInstance);
         KarpVertexCoverToSetCover reduction = new KarpVertexCoverToSetCover(defaultVERTEXCOVER);
@@ -342,8 +342,8 @@ public class LawlerKarpController : ControllerBase {
 ///<response code="200">Returns Lawler and Karp's Vertex Cover to Feedback Arc Set reduction object</response>
 
     [ProducesResponseType(typeof(LawlerKarp), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         //from query is a query parameter
 
         var options = new JsonSerializerOptions { WriteIndented = true };

@@ -101,8 +101,8 @@ public class JOBSEQGenericController : ControllerBase {
 /////<response code="200">Returns Job Sequencing to CliqueReduction object</response>
 //
 //    [ProducesResponseType(typeof(CliqueReduction), 200)]
-//    [HttpGet("reduce")]
-//    public String getReduce([FromQuery]string problemInstance) {
+//    [HttpPost("reduce")]
+//    public String getReduce([FromBody]string problemInstance) {
 //        var options = new JsonSerializerOptions { WriteIndented = true };
 //        JOBSEQ defaultJOBSEQ = new JOBSEQ(problemInstance);
 //        CliqueReduction reduction = new CliqueReduction(defaultJOBSEQ);

@@ -72,8 +72,8 @@ public class KarpPartitionToCutController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(WEIGHTEDCUTReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         PARTITION defaultGRAPHCOLORING = new PARTITION(problemInstance);
         WEIGHTEDCUTReduction reduction = new WEIGHTEDCUTReduction(defaultGRAPHCOLORING);

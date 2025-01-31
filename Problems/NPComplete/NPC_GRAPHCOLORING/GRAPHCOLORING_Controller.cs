@@ -130,8 +130,8 @@ public class GraphColoringToCliqueCoverController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(CliqueCoverReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         GRAPHCOLORING defaultGRAPHCOLORING = new GRAPHCOLORING(problemInstance);
         CliqueCoverReduction reduction = new CliqueCoverReduction(defaultGRAPHCOLORING);
@@ -255,8 +255,8 @@ public class KarpReduceSATController : ControllerBase
     ///<response code="200">Returns Karps's Graph Coloring to SAT KarpReduceSAT reduction object</response>
 
     [ProducesResponseType(typeof(KarpReduceSAT), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance){
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance){
         KarpReduceSAT reduction = new KarpReduceSAT(new GRAPHCOLORING(problemInstance));
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(reduction, options);
@@ -295,8 +295,8 @@ public class KarpGraphColorToExactCoverController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(GraphColorToExactCoverReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         GRAPHCOLORING defaultGC = new GRAPHCOLORING(problemInstance);
         GraphColorToExactCoverReduction reduction = new GraphColorToExactCoverReduction(defaultGC);

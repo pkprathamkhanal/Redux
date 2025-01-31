@@ -104,8 +104,8 @@ public class reduceToCLIQUEController : ControllerBase {
 ///<response code="200">Returns Independent Set to CliqueReduction object</response>
 
     [ProducesResponseType(typeof(CliqueReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         INDEPENDENTSET defaultINDEPENDENTSET = new INDEPENDENTSET(problemInstance);
         CliqueReduction reduction = new CliqueReduction(defaultINDEPENDENTSET);

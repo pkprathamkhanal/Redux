@@ -75,8 +75,8 @@ public class FengController : ControllerBase {
 ///<response code="200">Returns Fengs's Subset Sum to Knapsack FengReduction object</response>
 
     [ProducesResponseType(typeof(FengReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM(problemInstance);
         FengReduction reduction = new FengReduction(defaultSUBSETSUM);
@@ -129,8 +129,8 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<response code="200">Returns Fengs's Subset Sum to Partition object</response>
 
     [ProducesResponseType(typeof(PartitionReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM(problemInstance);
         PartitionReduction reduction = new PartitionReduction(defaultSUBSETSUM);

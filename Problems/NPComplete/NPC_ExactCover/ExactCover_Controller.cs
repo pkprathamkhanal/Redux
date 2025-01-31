@@ -230,8 +230,8 @@ public class KarpExactCoverToSubsetSumController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(SubsetSumReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover defaultExactCover = new ExactCover(problemInstance);
         SubsetSumReduction reduction = new SubsetSumReduction(defaultExactCover);

@@ -76,8 +76,8 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<response code="200">Returns Sipser's 3SAT to Clique SipserReduction object</response>
 
     [ProducesResponseType(typeof(SipserReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         SipserReduction reduction = new SipserReduction(defaultSAT3);
@@ -168,8 +168,8 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
 ///<response code="200">Returns Karp's 3SAT to Graph Coloring KarpReduction object</response>
 
     [ProducesResponseType(typeof(KarpReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance){
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance){
          
         KarpReduction reduction = new KarpReduction(new SAT3(problemInstance));
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -218,8 +218,8 @@ public class KarpIntProgStandardController : ControllerBase {
 ///<response code="200">Returns Karps's 3SAT to 0-1 Integer Programming KarpIntProgStandard object</response>
 
     [ProducesResponseType(typeof(KarpIntProgStandard), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         KarpIntProgStandard reduction = new KarpIntProgStandard(defaultSAT3);
@@ -273,8 +273,8 @@ public class GareyJohnsonController : ControllerBase {
 ///<response code="200">Returns Garey and Johnson's 3SAT to 3 DImensional Matching GareyJohnson object</response>
 
     [ProducesResponseType(typeof(GareyJohnson), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         GareyJohnson reduction = new GareyJohnson(defaultSAT3);

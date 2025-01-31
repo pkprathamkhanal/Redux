@@ -22,8 +22,8 @@ public class {REDUCTION_PASCEL_CASE}Controller : ControllerBase {
     ///<param name="problemInstance" example="TODO">{REDUCTION} problem instance string.</param>
     ///<response code="200">Returns {REDUCTION_PASCEL_CASE} object.</response>
     [ProducesResponseType(typeof({REDUCTION_PASCEL_CASE}), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         {REDUCE_FROM} default{REDUCE_FROM} = new {REDUCE_FROM}(problemInstance);
         {REDUCTION_PASCEL_CASE} reduction = new {REDUCTION_PASCEL_CASE}(default{REDUCE_FROM});

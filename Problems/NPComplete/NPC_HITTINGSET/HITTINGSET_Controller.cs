@@ -203,8 +203,8 @@ public class reduceToEXACTCOVERController : ControllerBase {
 ///<response code="200">Returns Independent Set to CliqueReduction object</response>
 
     [ProducesResponseType(typeof(ExactCover), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET defaultHITTINGSET = new HITTINGSET(problemInstance);
         ExactCoverReduction reduction = new ExactCoverReduction(defaultHITTINGSET);
