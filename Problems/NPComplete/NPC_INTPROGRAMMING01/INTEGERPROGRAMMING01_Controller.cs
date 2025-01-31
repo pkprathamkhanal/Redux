@@ -29,8 +29,8 @@ public class INTPROGRAMMING01GenericController : ControllerBase {
 ///<response code="200">Returns INTPROGRAMMING01 problem object</response>
 
     [ProducesResponseType(typeof(INTPROGRAMMING01), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new INTPROGRAMMING01(problemInstance), options);
         return jsonString;

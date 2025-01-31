@@ -38,8 +38,8 @@ public class GRAPHCOLORINGGenericController : ControllerBase
     ///<response code="200">Returns GRAPHCOLORING problem object</response>
 
     [ProducesResponseType(typeof(GRAPHCOLORING), 200)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new GRAPHCOLORING(problemInstance), options);

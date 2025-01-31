@@ -36,8 +36,8 @@ public class CLIQUEGenericController : ControllerBase {
 ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(CLIQUE), 200)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE devClique = new CLIQUE(problemInstance);
@@ -176,8 +176,8 @@ public class CLIQUEDevController : ControllerBase
     }
     
     [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE devClique = new CLIQUE(problemInstance);

@@ -27,8 +27,8 @@ public class {NAME_UPPERCASE}GenericController : ControllerBase {
     ///<param name="problemInstance" example="TODO">{NAME} problem instance string.</param>
     ///<response code="200">Returns a {NAME_UPPERCASE} problem object.</response>
     [ProducesResponseType(typeof({NAME_UPPERCASE}), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new {NAME_UPPERCASE}(problemInstance), options);
         return jsonString;

@@ -32,8 +32,8 @@ public class ExactCoverGenericController : ControllerBase
     ///<response code="200">Returns ExactCover problem object</response>
 
     [ProducesResponseType(typeof(ExactCover), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new ExactCover(problemInstance), options);

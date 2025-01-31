@@ -36,8 +36,8 @@ public class SUBSETSUMGenericController : ControllerBase {
 ///<response code="200">Returns SUBSETSUM problem object</response>
 
     [ProducesResponseType(typeof(SUBSETSUM), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SUBSETSUM(problemInstance), options);
         return jsonString;

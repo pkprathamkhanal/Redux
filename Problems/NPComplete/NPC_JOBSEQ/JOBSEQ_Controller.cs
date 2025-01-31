@@ -31,8 +31,8 @@ public class JOBSEQGenericController : ControllerBase {
 ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(JOBSEQ), 200)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         JOBSEQ devIndependentSet = new JOBSEQ(problemInstance);

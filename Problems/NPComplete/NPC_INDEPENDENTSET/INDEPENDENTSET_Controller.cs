@@ -32,8 +32,8 @@ public class INDEPENDENTSETGenericController : ControllerBase {
 ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(INDEPENDENTSET), 200)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         INDEPENDENTSET devIndependentSet = new INDEPENDENTSET(problemInstance);

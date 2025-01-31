@@ -30,8 +30,8 @@ public class SETCOVERGenericController : ControllerBase {
 ///<response code="200">Returns Set Cover problem object</response>
 
     [ProducesResponseType(typeof(SETCOVER), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SETCOVER(problemInstance), options);
         return jsonString;

@@ -34,8 +34,8 @@ public class ARCSETGenericController : ControllerBase {
 ///<response code="200">Returns ARCSET problem Object</response>
 
     [ProducesResponseType(typeof(ARCSET), 200)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new ARCSET(problemInstance), options);
         return jsonString;
@@ -256,8 +256,8 @@ public class ARCSETDevController : ControllerBase {
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         
         ARCSET arcset = new ARCSET(problemInstance);

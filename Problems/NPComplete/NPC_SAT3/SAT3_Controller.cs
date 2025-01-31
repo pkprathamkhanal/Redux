@@ -41,8 +41,8 @@ public class SAT3GenericController : ControllerBase {
 ///<response code="200">Returns SAT3 problem object</response>
 
     [ProducesResponseType(typeof(SAT3), 200)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SAT3(problemInstance), options);
         return jsonString;
