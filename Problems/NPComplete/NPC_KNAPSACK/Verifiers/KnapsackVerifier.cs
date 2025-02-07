@@ -1,6 +1,6 @@
 using API.Interfaces;
 using System;
-using API.Tools.UtilCollection;
+using DiscreteParser;
 
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK.Verifiers;
