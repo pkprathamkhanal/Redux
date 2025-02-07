@@ -1,7 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_HITTINGSET.Solvers;
 using API.Problems.NPComplete.NPC_HITTINGSET.Verifiers;
-using API.Tools.UtilCollection;
+using DiscreteParser;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 

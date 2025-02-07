@@ -2,7 +2,9 @@ using System.Text.Json.Serialization;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_KNAPSACK.Solvers;
 using API.Problems.NPComplete.NPC_KNAPSACK.Verifiers;
-using API.Tools.UtilCollection;
+using DiscreteParser;
+
+using DiscreteParser;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK;
 
@@ -114,6 +116,12 @@ class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier>{
     }
 
     public KNAPSACK(string HWVInput) {
+        StringParser knapsack = new("{(i, w, v) | i subset int cross int, w is int, v is int}");
+        items = knapsack["i"];
+        W = int.Parse(knapsack["w"].ToString());
+        V = int.Parse(knapsack["v"].ToString());
+
+/*
         UtilCollection collection = new UtilCollection(HWVInput);
         instance = collection.ToString();
         collection.assertPair(3);
@@ -122,5 +130,6 @@ class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier>{
         W = int.Parse(collection[1].ToString());
         V = int.Parse(collection[2].ToString());
         foreach (UtilCollection item in items) item.assertPair();
+        */
     }
 }
