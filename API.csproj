@@ -12,7 +12,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="DiscreteParser" Version="0.1.0" />
+    <PackageReference Include="DiscreteParser" Version="0.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
       <Content Include="Problems\**" Exclude="Problems\NPComplete\NPC_VERTEXCOVER\graph.json" CopyToPublishDirectory="PreserveNewest" />
        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
