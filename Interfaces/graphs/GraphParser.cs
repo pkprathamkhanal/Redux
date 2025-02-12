@@ -202,4 +202,42 @@ public List<string> getNodesFromNodeListString(string input){
             return retList;
     }
 
+
+    /// <summary>
+    /// This function takes combined data of two graph along with k_value in the format; (({a,b,c},{{a,b},{a,c},{b,c}}),({a,b,c},{{a,b},{a,c},{b,c}}),0)  
+    /// Be careful using this because it will turn the input {{a,b,c},{(a,b},{b,c},0} into a list [({a,b,c},{(a,b},{b,c}),({a,b,c},{(a,b},{b,c}),0]
+    /// </summary>
+    /// <param name="Input"></param>
+    /// <returns> A list of strings</returns>
+     public List<string> getGraphData(string Input){
+        List<string> parameters = new List<string>();
+        try{
+            int graphAEndIndex = Input.IndexOf("),("); // Position after the first delimiter
+            int graphBStartIndex = Input.LastIndexOf(')'); // Position of the last closing parenthesis
+
+            string graphT = Input.Substring(0, graphAEndIndex);
+            // Console.WriteLine("graphT "+ graphT);
+            string graphP = Input.Substring(graphAEndIndex + 2 , graphBStartIndex - graphAEndIndex);
+            // Console.WriteLine("graphP "+ graphP);
+
+            // string k_value = Input.Substring(graphBStartIndex - 1, graphBStartIndex).Trim();
+            string k_value = Input.Substring(graphBStartIndex-2).Trim();
+            // Console.WriteLine("k "+ k_value);
+
+            // List<KeyValuePair<string,string>> parameters = new List<KeyValuePair<string, string>>{
+            //     new KeyValuePair<string, string>("graphT", graphT+k_value),
+            //     new KeyValuePair<string, string>("graphP", "("+graphP)
+            // };
+            parameters = new List<string>{
+                graphT+k_value,
+                "("+graphP
+            };
+        }
+        catch(Exception e){
+            Console.WriteLine("Invalid input GraphParser getGraphData");
+        }
+        // Console.WriteLine("final parameters "+ String.Join(", ", parameters));
+        return parameters;
+    }
+
 }
