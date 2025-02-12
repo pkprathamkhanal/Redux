@@ -142,8 +142,10 @@ public class VCVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String verifyInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER VCProblem = new VERTEXCOVER(problemInstance);
         VCVerifier verifier = new VCVerifier();
@@ -185,8 +187,8 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(VertexCoverReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER(problemInstance);
         VertexCoverReduction reduction = new VertexCoverReduction(defaultVERTEXCOVER);
@@ -226,8 +228,8 @@ public class KarpVertexCoverToSetCoverController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(KarpVertexCoverToSetCover), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER(problemInstance);
         KarpVertexCoverToSetCover reduction = new KarpVertexCoverToSetCover(defaultVERTEXCOVER);
@@ -284,8 +286,8 @@ public class VertexCoverBruteForceController : ControllerBase {
 ///<response code="200">Returns a solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance){
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance){
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER problem = new VERTEXCOVER(problemInstance);
         string solution = problem.defaultSolver.Solve(problem);
@@ -342,8 +344,8 @@ public class LawlerKarpController : ControllerBase {
 ///<response code="200">Returns Lawler and Karp's Vertex Cover to Feedback Arc Set reduction object</response>
 
     [ProducesResponseType(typeof(LawlerKarp), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         //from query is a query parameter
 
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -368,8 +370,11 @@ public class LawlerKarpController : ControllerBase {
 ///<response code="200">Returns solution to the reduced Feedback Arc Set problem instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemFrom);
         ARCSET arcset = new ARCSET(problemTo);

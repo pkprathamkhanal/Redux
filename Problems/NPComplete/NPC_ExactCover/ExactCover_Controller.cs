@@ -32,8 +32,8 @@ public class ExactCoverGenericController : ControllerBase
     ///<response code="200">Returns ExactCover problem object</response>
 
     [ProducesResponseType(typeof(ExactCover), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new ExactCover(problemInstance), options);
@@ -73,8 +73,10 @@ public class ExactCoverVerifierController : ControllerBase {
     ///<param name="problemInstance" example="{{1,2,3},{2,3},{4,1} : {1,2,3,4}}">Exact Cover problem instance string.</param>
     ///<response code="200">Returns a boolean</response>
 
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover problem = new ExactCover(problemInstance);
         ExactCoverVerifier verifier = new ExactCoverVerifier();
@@ -113,8 +115,8 @@ public class ExactCoverBruteForceController : ControllerBase {
     ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover problem = new ExactCover(problemInstance);
@@ -151,8 +153,8 @@ public class ExactCoverRecursiveController : ControllerBase {
     ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover problem = new ExactCover(problemInstance);
@@ -189,8 +191,8 @@ public class DancingLinksController : ControllerBase {
     ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover problem = new ExactCover(problemInstance);
@@ -230,8 +232,8 @@ public class KarpExactCoverToSubsetSumController : ControllerBase {
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(SubsetSumReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         ExactCover defaultExactCover = new ExactCover(problemInstance);
         SubsetSumReduction reduction = new SubsetSumReduction(defaultExactCover);

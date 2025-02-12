@@ -135,9 +135,10 @@ public class HamiltonianVerifierController : ControllerBase
     ///<response code="200">Returns a boolean</response>
 
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery] string certificate, [FromQuery] string problemInstance)
-    {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         HAMILTONIAN HAMILTONIAN_PROBLEM = new HAMILTONIAN(problemInstance);
         HamiltonianVerifier verifier = new HamiltonianVerifier();
@@ -187,8 +188,8 @@ public class HamiltonianBruteForceController : ControllerBase
     ///<response code="200">Returns solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery] string problemInstance)
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance)
     {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };

@@ -34,8 +34,8 @@ public class SATGenericController : ControllerBase
     ///<response code="200">Returns SAT problem object</response>
 
     [ProducesResponseType(typeof(SAT), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SAT(problemInstance), options);
@@ -73,9 +73,10 @@ public class SATVerifierController : ControllerBase
     ///<response code="200">Returns a boolean</response>
 
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String getInstance([FromQuery] string certificate, [FromQuery] string problemInstance)
-    {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT SATProblem = new SAT(problemInstance);
         SATVerifier verifier = new SATVerifier();
@@ -112,8 +113,8 @@ public class SATBruteForceSolverController : ControllerBase
     ///<response code="200">Returns solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery] string problemInstance)
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SATBruteForceSolver solver = new SATBruteForceSolver();
@@ -154,8 +155,8 @@ public class KarpSATToSAT3Controller : ControllerBase
     ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(SATReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery] string problemInstance)
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT defaultSAT = new SAT(problemInstance);

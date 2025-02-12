@@ -31,8 +31,8 @@ public class JOBSEQGenericController : ControllerBase {
 ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(JOBSEQ), 200)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         JOBSEQ devIndependentSet = new JOBSEQ(problemInstance);
@@ -101,8 +101,8 @@ public class JOBSEQGenericController : ControllerBase {
 /////<response code="200">Returns Job Sequencing to CliqueReduction object</response>
 //
 //    [ProducesResponseType(typeof(CliqueReduction), 200)]
-//    [HttpGet("reduce")]
-//    public String getReduce([FromQuery]string problemInstance) {
+//    [HttpPost("reduce")]
+//    public String getReduce([FromBody]string problemInstance) {
 //        var options = new JsonSerializerOptions { WriteIndented = true };
 //        JOBSEQ defaultJOBSEQ = new JOBSEQ(problemInstance);
 //        CliqueReduction reduction = new CliqueReduction(defaultJOBSEQ);
@@ -141,8 +141,8 @@ public class JobSeqBruteForceController : ControllerBase
 ///<response code="200">Returns a solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery] string problemInstance)
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         JOBSEQ problem = new JOBSEQ(problemInstance);
@@ -181,9 +181,10 @@ public class JobSeqVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-        
-        public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         JOBSEQ JOBSEQ_PROBLEM = new JOBSEQ(problemInstance);
         JobSeqVerifier verifier = new JobSeqVerifier();
