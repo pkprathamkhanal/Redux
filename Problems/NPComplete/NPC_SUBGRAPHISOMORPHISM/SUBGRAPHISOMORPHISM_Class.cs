@@ -5,6 +5,8 @@ using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Solvers;
 using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM;
+using DiscreteParser;
+
 
 // class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismUllmann, SubgraphIsomorphismVerifier> {
 class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsomorphismVerifier> {
@@ -194,18 +196,21 @@ class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsom
     // }
     public SUBGRAPHISOMORPHISM() {
         _instance = defaultInstance;
-        Console.WriteLine("Input default " +_instance);
-        // List<string> parameters = getParameter(_instance);
 
+        StringParser isograph = new("{((n1,e1),(n2,e2)) | n1 is set, e1 subset n1 unorderedcross n1, n2 is set, e2 subset n2 unorderedcross n2}");
+        isograph.parse(_instance);
+        
         // For Target Graph
-        _targetGraphAsGraph = new SubgraphIsomorphismGraph("(({a,b,c,d,e,f},{{a,b},{a,c},{b,c},{c,e},{b,d},{d,e},{e,f}}),3)", true);
+        string targetInstance = "((" + isograph["n1"] + "," + isograph["e1"] + "),3)";
+        _targetGraphAsGraph = new SubgraphIsomorphismGraph(targetInstance, true);
         nodesT = _targetGraphAsGraph.nodesStringList;
         edgesT = _targetGraphAsGraph.edgesKVP;
         _K = _targetGraphAsGraph.K;
         _instanceT = _targetGraphAsGraph.ToString();
 
         // For Pattern Graph
-        _patternGraphAsGraph = new SubgraphIsomorphismGraph("(({W,X,Y,Z},{{W,X},{W,Z},{X,Y},{Y,Z}}),3)", true);
+        string patternInstance = "((" + isograph["n2"] + "," + isograph["e2"] + "),3)";
+        _patternGraphAsGraph = new SubgraphIsomorphismGraph(patternInstance, true);
         nodesP = _patternGraphAsGraph.nodesStringList;
         edgesP = _patternGraphAsGraph.edgesKVP;
         _K = _patternGraphAsGraph.K;
@@ -213,39 +218,25 @@ class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsom
     }
 
     public SUBGRAPHISOMORPHISM(string GInput) {
-        Console.WriteLine("Input " +GInput);
-        // List<string> parameters = getParameter(GInput);
+        Console.WriteLine("Input " + GInput);
+        StringParser isograph = new("{((n1,e1),(n2,e2)) | n1 is set, e1 subset n1 unorderedcross n1, n2 is set, e2 subset n2 unorderedcross n2}");
+        isograph.parse(GInput);
 
-          // For Target Graph
-        _targetGraphAsGraph = new SubgraphIsomorphismGraph("(({a,b,c,d,e,f},{{a,b},{a,c},{b,c},{c,e},{b,d},{d,e},{e,f}}),3)", true);
+        // For Target Graph
+        string targetInstance = "((" + isograph["n1"].ToString() + "," + isograph["e1"].ToString() + "),3)";
+        _targetGraphAsGraph = new SubgraphIsomorphismGraph(targetInstance,true);
         nodesT = _targetGraphAsGraph.nodesStringList;
         edgesT = _targetGraphAsGraph.edgesKVP;
         _K = _targetGraphAsGraph.K;
         _instanceT = _targetGraphAsGraph.ToString();
 
         // For Pattern Graph
-        _patternGraphAsGraph = new SubgraphIsomorphismGraph("(({W,X,Y,Z},{{W,X},{W,Z},{X,Y},{Y,Z}}),3)", true);
+        string patternInstance = "((" + isograph["n2"].ToString() + "," + isograph["e2"].ToString() + "),3)";
+        _patternGraphAsGraph = new SubgraphIsomorphismGraph(patternInstance, true);
         nodesP = _patternGraphAsGraph.nodesStringList;
         edgesP = _patternGraphAsGraph.edgesKVP;
         _K = _patternGraphAsGraph.K;
         _instanceP = _patternGraphAsGraph.ToString();
-
-
-        // // For Target Graph
-        // _subgraphIsomorphismAsGraph = new SubgraphIsomorphismGraph(GInput, true);
-        // nodesT = _subgraphIsomorphismAsGraph.nodesStringList;
-        // edgesT = _subgraphIsomorphismAsGraph.edgesKVP;
-        // _K = _subgraphIsomorphismAsGraph.K;
-        // _instance = _subgraphIsomorphismAsGraph.ToString();
-
-        // // For Pattern Graph
-        // _subgraphIsomorphismAsGraph = new SubgraphIsomorphismGraph(GInput, true);
-        // nodesT = _subgraphIsomorphismAsGraph.nodesStringList;
-        // edgesT = _subgraphIsomorphismAsGraph.edgesKVP;
-        // _K = _subgraphIsomorphismAsGraph.K;
-        // _instance = _subgraphIsomorphismAsGraph.ToString();
-
-
 
         // TODO: implement parsing of string instance of Subgraph isomorphism. UtilCollections is a class meant to help with this step, see https://github.com/ReduxISU/Redux/blob/CSharpAPI/Documentation/UtilCollection.md for more information.
         //
