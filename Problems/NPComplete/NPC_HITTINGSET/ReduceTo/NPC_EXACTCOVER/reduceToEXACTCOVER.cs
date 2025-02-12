@@ -2,7 +2,7 @@ using System.ComponentModel;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_CLIQUECOVER;
 using API.Problems.NPComplete.NPC_ExactCover;
-using API.Tools.UtilCollection;
+using DiscreteParser;
 using Microsoft.Net.Http.Headers;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.ReduceTo.NPC_EXACTCOVER;

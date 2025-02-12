@@ -11,7 +11,6 @@ this will start a dotnet API server that will listen on port 27000
 ```bash
 $ dotnet watch --project API.csproj run -- --project API.csproj
 ```
-
 This is used to start an application and automatically restart it whenever changes are detected in the source code. This is useful for development as it allows you to see changes in real-time without manually restarting the application.
 
 When running properly, you should be able to access and test the API locally as seen in [apiDoc](./APIDocumentation.md).
@@ -35,4 +34,4 @@ docker run -it --rm -p 27000:80 --name reduxapi reduxapi
 ```
 
 This will start a local server via docker. Note that this server is using production binaries, so warnings will be distinct from using dotnet run, which is not converted to
-a binary only standalone image.
+a binary only standalone image. 
