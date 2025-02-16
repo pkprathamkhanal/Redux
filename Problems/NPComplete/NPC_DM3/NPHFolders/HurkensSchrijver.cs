@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_DM3.Solvers;
-class HurkensShrijver : ISolver {
+class HurkensShrijver /*: ISolver*/ {
 
     // --- Fields ---
     private string _solverName = "Hurkens Shriver";

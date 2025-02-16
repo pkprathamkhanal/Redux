@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT.Solvers;
-class WeightedCutBruteForce : ISolver
-{
+class WeightedCutBruteForce : ISolver<WEIGHTEDCUT> {
 
     // --- Fields ---
     private string _solverName = "Weighted Cut Brute Force";

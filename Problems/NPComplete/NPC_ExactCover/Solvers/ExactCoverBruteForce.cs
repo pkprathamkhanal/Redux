@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class ExactCoverBruteForce : ISolver {
+class ExactCoverBruteForce : ISolver<ExactCover> {
 
     // --- Fields ---
     private string _solverName = "Exact Cover Brute Force Solver";

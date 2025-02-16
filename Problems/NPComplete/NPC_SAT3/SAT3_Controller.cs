@@ -394,28 +394,9 @@ public class Sat3BacktrackingSolverController : ControllerBase {
     public String solveInstance([FromBody]string problemInstance) { //FromQuery]string certificate, 
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 SAT3_PROBLEM = new SAT3(problemInstance);
-        Dictionary<string, bool> solution = SAT3_PROBLEM.defaultSolver.solve(SAT3_PROBLEM);
-
-        string solutionString;
-        string jsonString;
-        if(solution == null){
-            solutionString = "No Solution";
-            jsonString = JsonSerializer.Serialize(solutionString, options);
-            return jsonString;
-        }
-
-        else{
-            //ALEX NOTE: This is a temporary fix. This logic should be moved to the SAT3 solver class soon. 
-            solutionString = "(";
-            foreach(KeyValuePair<string,bool> kvp in solution){
-                solutionString = solutionString + kvp.Key + ":" + kvp.Value.ToString() + ",";
-            }
-            solutionString = solutionString.TrimEnd(',');
-            solutionString = solutionString + ")"; 
-            jsonString = JsonSerializer.Serialize(solutionString, options);
-            return jsonString;
-        }
-
+        string solution = SAT3_PROBLEM.defaultSolver.solve(SAT3_PROBLEM);
+        string jsonString = JsonSerializer.Serialize(solution, options);
+        return jsonString;
     }
 
 }

@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class ExactCoverRecursive : ISolver {
+class ExactCoverRecursive : ISolver<ExactCover> {
 
     // --- Fields ---
     private string _solverName = "Exact Cover Recursive Solver";

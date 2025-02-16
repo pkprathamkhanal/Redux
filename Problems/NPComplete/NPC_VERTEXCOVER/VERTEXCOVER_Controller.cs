@@ -290,7 +290,7 @@ public class VertexCoverBruteForceController : ControllerBase {
     public String solveInstance([FromBody]string problemInstance){
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER problem = new VERTEXCOVER(problemInstance);
-        string solution = problem.defaultSolver.Solve(problem);
+        string solution = problem.defaultSolver.solve(problem);
         string jsonString = JsonSerializer.Serialize(solution, options);
         return jsonString;
     }

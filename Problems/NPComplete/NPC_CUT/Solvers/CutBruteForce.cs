@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_CUT.Solvers;
-class CutBruteForce : ISolver {
+class CutBruteForce : ISolver<CUT> {
 
     // --- Fields ---
     private string _solverName = "Cut Brute Force Solver";

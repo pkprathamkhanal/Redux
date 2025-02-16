@@ -4,7 +4,7 @@ using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.Solvers;
 
-class HittingSetBruteForce : ISolver {
+class HittingSetBruteForce : ISolver<HITTINGSET> {
 
     // --- Fields ---
     private string _solverName = "Hitting Set Brute Force";

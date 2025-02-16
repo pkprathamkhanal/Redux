@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_JOBSEQ.Solvers;
-class JobSeqBruteForce : ISolver {
+class JobSeqBruteForce : ISolver<JOBSEQ> {
 
     // --- Fields ---
     private string _solverName = "Job Sequencing Set Brute Force Solver";

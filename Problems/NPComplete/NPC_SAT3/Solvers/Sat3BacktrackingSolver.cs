@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SAT3;
 
 
 namespace API.Problems.NPComplete.NPC_SAT3.Solvers;
-class Sat3BacktrackingSolver : ISolver {
+class Sat3BacktrackingSolver : ISolver<SAT3> {
 
     // --- Fields ---
     private string _solverName = "3SAT Backtracking Solver";
@@ -41,10 +41,24 @@ class Sat3BacktrackingSolver : ISolver {
 
 
 
+    public string solve(SAT3 sat3) {
+        Dictionary<string, bool> solution = findSolution(sat3);
 
+        if (solution == null) {
+            return "No Solution";
+        }
+        
+        string solutionString = "(";
+        foreach(KeyValuePair<string,bool> kvp in solution){
+            solutionString = solutionString + kvp.Key + ":" + kvp.Value.ToString() + ",";
+        }
+        solutionString = solutionString.TrimEnd(',');
+        solutionString += ")"; 
+        return solutionString;
+    }
 
     // Return type varies
-    public Dictionary<string, bool> solve(SAT3 sat3) {
+    public Dictionary<string, bool> findSolution(SAT3 sat3) {
         ////O(n!)
         // while(!solutionFound && !satQueue.isEmpty()):
         // 	var = varQueue.pop() //O(1)

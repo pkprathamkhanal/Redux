@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
-class IndependentSetBruteForce : ISolver {
+class IndependentSetBruteForce : ISolver<INDEPENDENTSET> {
 
     // --- Fields ---
     private string _solverName = "Independent Set Brute Force";

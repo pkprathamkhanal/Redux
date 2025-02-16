@@ -4,8 +4,7 @@ using API.Interfaces.Graphs;
 using System.Numerics;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER.Solvers;
-class SetCoverBruteForce : ISolver
-{
+class SetCoverBruteForce : ISolver<SETCOVER> {
 
     // --- Fields ---
     private string _solverName = "Set Cover Brute Force Solver";

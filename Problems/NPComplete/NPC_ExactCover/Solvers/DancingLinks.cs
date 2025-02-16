@@ -2,7 +2,7 @@ using API.Interfaces;
 using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class DancingLinks : ISolver {
+class DancingLinks : ISolver<ExactCover> {
 
     // --- Fields ---
     private string _solverName = "Dancing Links";

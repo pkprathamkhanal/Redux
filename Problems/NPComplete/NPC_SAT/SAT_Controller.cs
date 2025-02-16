@@ -118,7 +118,7 @@ public class SATBruteForceSolverController : ControllerBase
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SATBruteForceSolver solver = new SATBruteForceSolver();
-        string testString = solver.Solver(problemInstance);
+        string testString = solver.solve(problemInstance);
         string jsonString = JsonSerializer.Serialize(testString, options);
         return jsonString;
     }

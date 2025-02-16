@@ -3,7 +3,7 @@ using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_ARCSET.Solvers;
-class ArcSetBruteForce : ISolver {
+class ArcSetBruteForce : ISolver<ARCSET> {
 
     // --- Fields ---
     private string _solverName = "Arc Set Brute Force Solver";

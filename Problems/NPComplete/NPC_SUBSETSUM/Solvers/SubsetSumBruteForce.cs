@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.Solvers;
-class SubsetSumBruteForce : ISolver {
+class SubsetSumBruteForce : ISolver<SUBSETSUM> {
 
     // --- Fields ---
     private string _solverName = "Subset Sum Brute Force Solver";

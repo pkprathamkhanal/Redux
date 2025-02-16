@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_PARTITION.Solvers;
-class PartitionBruteForce : ISolver {
+class PartitionBruteForce : ISolver<PARTITION> {
 
     // --- Fields ---
     private string _solverName = "Partition Brute Force Solver";

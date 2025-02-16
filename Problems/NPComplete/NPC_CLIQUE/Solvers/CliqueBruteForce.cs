@@ -4,7 +4,7 @@ using API.Interfaces.Graphs;
 using System.Numerics;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.Solvers;
-class CliqueBruteForce : ISolver {
+class CliqueBruteForce : ISolver<CLIQUE> {
 
     // --- Fields ---
     private string _solverName = "Clique Brute Force Solver";

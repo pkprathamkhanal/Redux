@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_INTPROGRAMMING01.Solvers;
-class IntegerProgrammingBruteForce : ISolver {
+class IntegerProgrammingBruteForce : ISolver<INTPROGRAMMING01> {
 
     // --- Fields ---
     private string _solverName = "Integer Programming Brute Force Solver";

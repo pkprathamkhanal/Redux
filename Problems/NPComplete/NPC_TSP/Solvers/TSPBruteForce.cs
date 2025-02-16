@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_TSP.Solvers;
-class TSPBruteForce : ISolver
-{
+class TSPBruteForce : ISolver<TSP> {
 
     // --- Fields ---
     private string _solverName = "Traveling Sales Person Brute Force Solver";

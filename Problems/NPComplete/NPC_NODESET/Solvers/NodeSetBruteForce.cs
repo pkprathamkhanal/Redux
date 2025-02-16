@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_NODESET.Solvers;
-class NodeSetBruteForce : ISolver {
+class NodeSetBruteForce : ISolver<NODESET> {
 
     // --- Fields ---
     private string _solverName = "Node Set Brute Force Solver";

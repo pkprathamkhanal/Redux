@@ -4,7 +4,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.NPHSolvers;
-class VCSolverJanita : ISolver {
+class VCSolverJanita /*: ISolver*/ {
 
     // --- Fields ---
     private string _solverName = "Generic Solver";

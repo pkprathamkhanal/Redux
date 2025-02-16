@@ -2,8 +2,7 @@ using API.Interfaces;
 using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER.Solvers;
-class HeuristicSolver : ISolver
-{
+class HeuristicSolver : ISolver<SETCOVER> {
 
     // --- Fields ---
     private string _solverName = "Heuristic Solver";

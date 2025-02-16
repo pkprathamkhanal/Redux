@@ -6,7 +6,7 @@ using API.Tools.Boolean_Parser;
 namespace API.Problems.NPComplete.NPC_SAT.Solvers;
 #pragma warning disable CS1591
 
-
+    // TODO: use generic `ISolver<SAT>` for type safety
     public class SATBruteForceSolver : ISolver {
 
 
@@ -134,7 +134,7 @@ namespace API.Problems.NPComplete.NPC_SAT.Solvers;
         return false;
     }
 
-        public string Solver(string SATInstance){
+        public string solve(string SATInstance){
         //string SATInstance = "(!x1 | !x2 | !x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1)";
         Boolean_Parser parser = new Boolean_Parser(SATInstance);
         List<string> literals = parser.getLiterals();

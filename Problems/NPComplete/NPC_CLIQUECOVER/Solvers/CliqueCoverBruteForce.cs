@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_CLIQUECOVER.Solvers;
-class CliqueCoverBruteForce : ISolver
-{
+class CliqueCoverBruteForce : ISolver<CLIQUECOVER> {
 
     // --- Fields ---
     private string _solverName = "Clique Cover Brute Force Solver";

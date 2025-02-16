@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.Solvers;
-class GraphColoringBruteForce : ISolver
-{
+class GraphColoringBruteForce : ISolver<GRAPHCOLORING> {
 
     // --- Fields ---
     private string _solverName = "Graph Coloring Brute Force";

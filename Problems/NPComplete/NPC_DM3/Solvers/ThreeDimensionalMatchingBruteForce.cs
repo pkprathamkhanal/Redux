@@ -2,7 +2,7 @@ using API.Interfaces;
 using System.Numerics;
 
 namespace API.Problems.NPComplete.NPC_DM3.Solvers;
-class ThreeDimensionalMatchingBruteForce : ISolver {
+class ThreeDimensionalMatchingBruteForce : ISolver<DM3> {
 
     // --- Fields ---
     private string _solverName = "3-Dimensional Matching Brute Force Solver";

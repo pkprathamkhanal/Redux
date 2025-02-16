@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_PARTITION;
 using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK.Solvers;
-class KnapsackBruteForce : ISolver {
+class KnapsackBruteForce : ISolver<KNAPSACK> {
 
     // --- Fields ---
     private string _solverName = "Knapsack Brute Force Solver";

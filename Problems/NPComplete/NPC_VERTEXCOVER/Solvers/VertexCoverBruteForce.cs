@@ -4,7 +4,7 @@ using System.Numerics;
 
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.Solvers;
-class VertexCoverBruteForce : ISolver {
+class VertexCoverBruteForce : ISolver<VERTEXCOVER> {
 
     // --- Fields ---
     private string _solverName = "Vertex Cover Brute Force Solver";
@@ -76,7 +76,7 @@ class VertexCoverBruteForce : ISolver {
 /// <returns>
 ///  Subset of nodes that cover whole graph. 
 /// </returns>
-    public string Solve(VERTEXCOVER G){
+    public string solve(VERTEXCOVER G){
         List<int> combination = new List<int>();
         for(int i=0; i<G.K; i++){
             combination.Add(i);

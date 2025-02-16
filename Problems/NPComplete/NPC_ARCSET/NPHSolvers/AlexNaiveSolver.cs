@@ -2,7 +2,7 @@ using API.Interfaces;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_ARCSET.Solvers;
-class AlexNaiveSolver : ISolver {
+class AlexNaiveSolver : ISolver<ARCSET> {
 
     // --- Fields ---
     private string _solverName = "Alex's Naive Arcset Solver";

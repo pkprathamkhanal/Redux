@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Solvers;
-class DirectedHamiltonianBruteForce : ISolver
-{
+class DirectedHamiltonianBruteForce : ISolver<DIRHAMILTONIAN> {
 
     // --- Fields ---
     private string _solverName = "Directed Hamiltonian Brute Force Solver";

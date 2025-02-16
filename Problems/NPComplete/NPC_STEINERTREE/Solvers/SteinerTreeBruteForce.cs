@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_STEINERTREE.Solvers;
-class SteinerTreeBruteForce : ISolver
-{
+class SteinerTreeBruteForce : ISolver<STEINERTREE> {
 
     // --- Fields ---
     private string _solverName = "Steiner Tree Brute Force Solver";

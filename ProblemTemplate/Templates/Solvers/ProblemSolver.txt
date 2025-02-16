@@ -1,7 +1,7 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_{PROBLEM}.Solvers;
-class {SOLVER_PASCEL_CASE} : ISolver {
+class {SOLVER_PASCEL_CASE} : ISolver<{PROBLEM}> {
 
     // --- Fields ---
     private string _solverName = "{SOLVER}";
