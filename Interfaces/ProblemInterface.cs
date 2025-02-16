@@ -1,6 +1,6 @@
 namespace API.Interfaces;
 
-interface IProblem<T,U> where T : ISolver where U : IVerifier{
+interface IProblem {
     string problemName{get;}
 
     string formalDefinition{get;}
@@ -10,8 +10,9 @@ interface IProblem<T,U> where T : ISolver where U : IVerifier{
     string defaultInstance{get;}
 
     string[] contributors{ get; }
+}
+
+interface IProblem<T,U> : IProblem where T : ISolver where U : IVerifier{
     T defaultSolver{get;}
     U defaultVerifier{get;}
-
-    
 }

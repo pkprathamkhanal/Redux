@@ -4,8 +4,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
 
-class GraphColoringVerifier : IVerifier
-{
+class GraphColoringVerifier : IVerifier<GRAPHCOLORING> {
 
 
 

@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_HAMILTONIAN.Verifiers;
 
-class HamiltonianVerifier : IVerifier
-{
+class HamiltonianVerifier : IVerifier<HAMILTONIAN> {
 
     // --- Fields ---
     private string _verifierName = "Hamiltonian Verifier";

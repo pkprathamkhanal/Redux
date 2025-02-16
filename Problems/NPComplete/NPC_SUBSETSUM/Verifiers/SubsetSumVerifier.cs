@@ -2,7 +2,7 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.Verifiers;
 
-class SubsetSumVerifier : IVerifier {
+class SubsetSumVerifier : IVerifier<SUBSETSUM> {
 
     // --- Fields ---
     private string _verifierName = "Subset Sum Verifier";
@@ -45,18 +45,18 @@ class SubsetSumVerifier : IVerifier {
         
     }
 
-    public bool verify(SUBSETSUM subsetSum, string certificate){
+    public bool verify(SUBSETSUM problem, string certificate){
         List<string> c = certificate.Replace("{","").Replace("}","").Replace(" ","").Split(",").ToList();
         int sum = 0;
         foreach(string a in c){
-            if(subsetSum.S.Contains(a)){    
+            if(problem.S.Contains(a)){    
                 sum += int.Parse(a);
             }
             else{
                 return false;
             }
         }
-        if(sum == subsetSum.T){
+        if(sum == problem.T){
             return true;
         }
 

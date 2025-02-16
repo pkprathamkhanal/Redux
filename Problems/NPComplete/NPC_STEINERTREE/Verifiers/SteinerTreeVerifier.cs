@@ -4,8 +4,7 @@ using API.Interfaces.Graphs.GraphParser;
 namespace API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
 
 
-class SteinerTreeVerifier : IVerifier
-{
+class SteinerTreeVerifier : IVerifier<STEINERTREE> {
 
     // --- Fields ---
     private string _verifierName = "Steiner Tree Verifier";

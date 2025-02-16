@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_CLIQUECOVER.Verifiers;
 
-class CliqueCoverVerifier : IVerifier
-{
+class CliqueCoverVerifier : IVerifier<CLIQUECOVER> {
 
     // --- Fields ---
     private string _verifierName = "Clique Cover Verifier";

@@ -84,7 +84,7 @@ class VertexCoverBruteForce : ISolver {
         BigInteger reps = factorial(G.nodes.Count) / (factorial(G.K) * factorial(G.nodes.Count - G.K));
         for(int i=0; i<reps; i++){
             string certificate = indexListToCertificate(combination,G.nodes);
-            if(G.defaultVerifier.Verify(G, certificate)){
+            if(G.defaultVerifier.verify(G, certificate)){
                 return certificate;
             }
             combination = nextComb(combination, G.nodes.Count);

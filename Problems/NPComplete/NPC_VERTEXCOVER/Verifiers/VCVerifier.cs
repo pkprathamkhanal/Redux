@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 
-class VCVerifier : IVerifier {
+class VCVerifier : IVerifier<VERTEXCOVER> {
 
     // --- Fields ---
     private string _verifierName = "Vertex Cover Verifier";
@@ -52,12 +52,12 @@ class VCVerifier : IVerifier {
     /// This Method Verifies whether a passed in Vertexcover (problem) is covered by the set of nodes (c). 
     /// </summary>
     /// <param name="problem"></param>
-    /// <param name="c"></param>
+    /// <param name="certificate"></param>
     /// <returns></returns>
-    public Boolean Verify(VERTEXCOVER problem, string c){
+    public bool verify(VERTEXCOVER problem, string certificate){
         //{{a,b,c,d,e,f,g} : {(a,b) & (a,c) & (c,d) & (c,e) & (d,f) & (e,f) & (e,g)} : 3}
         //{{a,d,e} : {(a,b) & (a,c) & (c,d) & (c,e) & (d,f) & (e,f) & (e,g)} }
-        List<string> certificateNodes = getNodes(c);
+        List<string> certificateNodes = getNodes(certificate);
        // List<KeyValuePair<string, string>> edges = getEdges(c);
         List<string> GNodes = problem.nodes;
         List<KeyValuePair<string, string>> Gedges = problem.edges;

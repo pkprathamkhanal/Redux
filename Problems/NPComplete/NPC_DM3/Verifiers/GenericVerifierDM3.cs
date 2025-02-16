@@ -2,7 +2,7 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_DM3.Verifiers;
 
-class GenericVerifierDM3 : IVerifier {
+class GenericVerifierDM3 : IVerifier<DM3> {
 
     // --- Fields ---
     private string _verifierName = "3-Dimensional Matching Verifier";
@@ -61,8 +61,8 @@ ParseCertificate(string certificate) takes the string representation of the 3-Di
     // Take in a problem and a possible solution and evaluate it. Expected userInput follows the format ({Matching in solution}{Matching in solution}{Matching in solution}...)
     // EXAMPLE: "{x1,y2,z4}{x2,y1,z1}{x2,y1,z2}{x2,y2,z1}"
     // ONLY true literal names should be included in the user input seperated by commas
-    public Boolean verify(DM3 Problem, string c){
-        List<string> problemVariables = ParseCertificate(c);
+    public bool verify(DM3 Problem, string certificate){
+        List<string> problemVariables = ParseCertificate(certificate);
         List<string> firstSet = new List<string>();
         List<string> secondSet = new List<string>();
         List<string> thirdSet = new List<string>();

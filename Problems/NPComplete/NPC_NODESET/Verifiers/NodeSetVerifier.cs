@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_NODESET.Verifiers;
 
-class NodeSetVerifier : IVerifier {
+class NodeSetVerifier : IVerifier<NODESET> {
 
     // --- Fields ---
     private string _verifierName = "Node Set Verifier";

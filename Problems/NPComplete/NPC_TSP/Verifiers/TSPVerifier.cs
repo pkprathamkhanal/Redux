@@ -3,8 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_TSP.Verifiers;
 
-class TSPVerifier : IVerifier
-{
+class TSPVerifier : IVerifier<TSP> {
 
     // --- Fields ---
     private string _verifierName = "Traveling Sales Person Verifier";

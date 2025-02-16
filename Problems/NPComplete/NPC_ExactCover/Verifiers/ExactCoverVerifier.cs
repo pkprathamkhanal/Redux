@@ -2,7 +2,7 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Verifiers;
 
-class ExactCoverVerifier : IVerifier {
+class ExactCoverVerifier : IVerifier<ExactCover> {
 
     // --- Fields ---
     private string _verifierName = "Exact Cover Verifier";
@@ -55,12 +55,12 @@ class ExactCoverVerifier : IVerifier {
         return parsedCertificate;
     }
     //Example certificate "{{1,2,3},{2,3,4},{1,2}}
-    public bool verify(ExactCover exactCover, string certificate){
+    public bool verify(ExactCover problem, string certificate){
         List<List<string>> parsedCertificate = parseCertificate(certificate);
 
         foreach(var subset_i in parsedCertificate){
             bool inS = false;
-            foreach(var subset_j in exactCover.S){
+            foreach(var subset_j in problem.S){
                 if(subset_i.OrderBy(e => e).SequenceEqual(subset_j.OrderBy(e => e))){
                     inS = true;
                 }
@@ -75,7 +75,7 @@ class ExactCoverVerifier : IVerifier {
                 cover.Add(element);
             }
         }
-        if(cover.OrderBy(e => e).SequenceEqual(exactCover.X.OrderBy(e => e))){
+        if(cover.OrderBy(e => e).SequenceEqual(problem.X.OrderBy(e => e))){
             
             return true;
         }

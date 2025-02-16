@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_CUT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CUT;
 
-class CUT : IProblem<CutBruteForce, CutVerifier>{
+class CUT : IProblem<CutBruteForce, CutVerifier> {
 
     // --- Fields ---
     private string _problemName = "Cut";

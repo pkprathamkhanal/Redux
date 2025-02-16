@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER.Verifiers;
 
-class SetCoverVerifier : IVerifier {
+class SetCoverVerifier : IVerifier<SETCOVER> {
 
     // --- Fields ---
     private string _verifierName = "Set Cover Verifier";

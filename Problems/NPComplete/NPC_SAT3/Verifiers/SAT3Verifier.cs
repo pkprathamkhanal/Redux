@@ -3,7 +3,7 @@ using API.Problems.NPComplete.NPC_SAT3;
 
 namespace API.Problems.NPComplete.NPC_SAT3.Verifiers;
 
-class SAT3Verifier : IVerifier {
+class SAT3Verifier : IVerifier<SAT3> {
 
     // --- Fields ---
     private string _verifierName = "3SAT Verifier";
@@ -51,14 +51,14 @@ class SAT3Verifier : IVerifier {
         
     }
 
-    // Take in a problem and a possible solution and evaluate it. Expected userInput follows the format (LiteralName = Assignement, LiteralName = Assignment, ...)
+    // Take in a problem and a possible solution and evaluate it. Expected certificate follows the format (LiteralName = Assignement, LiteralName = Assignment, ...)
     // EXAMPLE: (x1 = False, x2 = True, x3 = False)
     // ONLY true literal names should be included in the user input seperated by commas
-    public Boolean verify(SAT3 problem, string userInput) {
+    public bool verify(SAT3 problem, string certificate) {
 
         // User input is effectively asking for the list of variables assigned to "True"
         List<List<string>> clauses = problem.clauses;
-        string strippedInput = userInput.Replace(" ", "").Replace("(", "").Replace(")","");
+        string strippedInput = certificate.Replace(" ", "").Replace("(", "").Replace(")","");
 
         // Get user input and parse out true literals (including inverses)
         string[] assignments = strippedInput.Split(',');

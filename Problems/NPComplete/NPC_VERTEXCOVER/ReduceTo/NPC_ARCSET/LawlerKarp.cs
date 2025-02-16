@@ -107,7 +107,7 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
 
     public string mapSolutions(VERTEXCOVER problemFrom, ARCSET problemTo, string problemFromSolution){
         //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.Verify(problemFrom,problemFromSolution)){
+        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
             return "Solution is inccorect";
         }
 

@@ -3,7 +3,7 @@ using API.Problems.NPComplete.NPC_SAT;
 
 namespace API.Problems.NPComplete.NPC_SAT.Verifiers;
 
-    class SATVerifier : IVerifier {
+    class SATVerifier : IVerifier<SAT> {
 
     #region Fields
     private string _verifierName = "SAT Verifier";
@@ -73,10 +73,10 @@ namespace API.Problems.NPComplete.NPC_SAT.Verifiers;
     }
 
     // Identical verifier for the 3SAT for KadensSimpleVerifier. Works for any SAT instance not just 3SAT.
-    public Boolean verify(SAT problem, string userInput){
+    public bool verify(SAT problem, string certificate){
         List<List<string>> clauses = problem.clauses;
         
-        string strippedInput = userInput.Replace(" ", "").Replace("(", "").Replace(")","");
+        string strippedInput = certificate.Replace(" ", "").Replace("(", "").Replace(")","");
 
         string[] assignments = strippedInput.Split(',');
         List<string> trueLiterals = new List<string>();

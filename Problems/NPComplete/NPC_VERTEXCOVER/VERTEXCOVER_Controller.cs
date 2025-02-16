@@ -150,7 +150,7 @@ public class VCVerifierController : ControllerBase {
         VERTEXCOVER VCProblem = new VERTEXCOVER(problemInstance);
         VCVerifier verifier = new VCVerifier();
 
-        Boolean response = verifier.Verify(VCProblem,certificate);
+        Boolean response = verifier.verify(VCProblem,certificate);
         // Send back to API user
         string jsonString = JsonSerializer.Serialize(response.ToString(), options);
         return jsonString;

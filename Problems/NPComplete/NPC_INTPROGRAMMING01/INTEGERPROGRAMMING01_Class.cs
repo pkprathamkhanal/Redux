@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_INTPROGRAMMING01.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_INTPROGRAMMING01;
 
-class INTPROGRAMMING01 : IProblem<IntegerProgrammingBruteForce,GenericVerifier01INTP>{
+class INTPROGRAMMING01 : IProblem<IntegerProgrammingBruteForce,GenericVerifier01INTP> {
 
     // --- Fields ---
     private string _problemName = "0-1 Integer Programming";

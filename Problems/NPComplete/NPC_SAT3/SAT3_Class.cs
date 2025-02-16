@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SAT3.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_SAT3;
 
-class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier>{
+class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier> {
 
     // --- Fields ---
     private string _problemName = "3SAT";

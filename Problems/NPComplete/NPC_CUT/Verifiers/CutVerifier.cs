@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_CUT.Verifiers;
 
-class CutVerifier : IVerifier {
+class CutVerifier : IVerifier<CUT> {
 
     // --- Fields ---
     private string _verifierName = "Cut Verifier";

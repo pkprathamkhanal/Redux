@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT.Verifiers;
 
-class WeightedCutVerifier : IVerifier {
+class WeightedCutVerifier : IVerifier<WEIGHTEDCUT> {
 
     // --- Fields ---
     private string _verifierName = "Weighted Cut Verifier";

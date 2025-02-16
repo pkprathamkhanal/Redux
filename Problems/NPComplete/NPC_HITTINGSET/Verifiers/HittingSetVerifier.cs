@@ -3,7 +3,7 @@ using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.Verifiers;
 
-class HittingSetVerifier : IVerifier {
+class HittingSetVerifier : IVerifier<HITTINGSET> {
 
     // --- Fields ---
     private string _verifierName = "Hitting Set Verifier";

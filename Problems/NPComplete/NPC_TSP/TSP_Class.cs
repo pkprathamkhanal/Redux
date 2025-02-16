@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_TSP.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_TSP;
 
-class TSP : IProblem<TSPBruteForce, TSPVerifier>{
+class TSP : IProblem<TSPBruteForce, TSPVerifier> {
 
     // --- Fields ---
     private string _problemName = "Traveling Sales Person";

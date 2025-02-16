@@ -4,8 +4,7 @@ using API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_STEINERTREE;
 
-class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier>
-{
+class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier> {
 
     // --- Fields ---
     private string _problemName = "Steiner Tree";

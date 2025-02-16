@@ -5,8 +5,7 @@ using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 
-class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier>
-{
+class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
 
 
     #region Fields

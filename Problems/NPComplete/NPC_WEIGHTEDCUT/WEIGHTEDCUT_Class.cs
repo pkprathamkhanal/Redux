@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_WEIGHTEDCUT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT;
 
-class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
+class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier> {
 
     // --- Fields ---
     private string _problemName = "Weighted Cut";

@@ -3,10 +3,7 @@ using API.Interfaces.Graphs;
 namespace API.Problems.NPComplete.NPC_ARCSET.Verifiers;
 
 
-class ArcSetVerifier : IVerifier {
-
-    // --- Fields ---
-    private string _verifierName = "Arc Set Verifier";
+class ArcSetVerifier : IVerifier<ARCSET> {
     private string _verifierDefinition =  @"This Verifier takes in an arcset problem and a list of edges to remove from that problem. It removes those edges and then checks if the problem is still an instance of ARCSET
                                             ie. Does this input graph no longer have cycles after these input edges are removed? Returns true or false ";
     
@@ -16,11 +13,7 @@ class ArcSetVerifier : IVerifier {
     private string[] _contributors = {"Alex Diviney","Caleb Eardley"};
 
     // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
+    public string verifierName { get; } = "Arc Set Verifier";
     public string verifierDefinition {
         get {
             return _verifierDefinition;
@@ -53,23 +46,23 @@ public string[] contributors{
     * This method should take in an arcset problem and a list of edges to remove from that problem. It removes those edges and then checks if the problem is still an instance of ARCSET
     * ie. Does this input graph continue to have cycles after these input edges are removed? 
     **/
-    public Boolean verify(ARCSET problem, string userInput){
+    public bool verify(ARCSET problem, string certificate){
 
         ArcsetGraph graph = problem.directedGraph; 
 
         //Checks if certificate matches k-value;
-        if(graph.cerfitficateLength(userInput) > graph.K){
+        if(graph.cerfitficateLength(certificate) > graph.K){
             return false;
         }
-        graph.processCertificate(userInput);
+        graph.processCertificate(certificate);
         bool isACyclical = true;
         for(int i=0; i<graph.getNodeList.Count; i++){
             if(graph.isCyclical(i)){
                 isACyclical = false;
             }
         }
-        graph.reverseCertificate(userInput);
-        //when userInput is removed from graph is it no longer Cyclical? 
+        graph.reverseCertificate(certificate);
+        //when certificate is removed from graph is it no longer Cyclical? 
         return isACyclical;
     }
 }

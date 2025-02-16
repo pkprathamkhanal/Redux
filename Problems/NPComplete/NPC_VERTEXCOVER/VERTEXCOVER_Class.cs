@@ -5,7 +5,7 @@ using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER;
 
-class VERTEXCOVER : IProblem<VertexCoverBruteForce,VCVerifier>{
+class VERTEXCOVER : IProblem<VertexCoverBruteForce,VCVerifier> {
 
     // --- Fields ---
     private string _problemName = "Vertex Cover";

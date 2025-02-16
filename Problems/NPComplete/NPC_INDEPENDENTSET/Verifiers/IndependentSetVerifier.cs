@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 
-class IndependentSetVerifier : IVerifier {
+class IndependentSetVerifier : IVerifier<INDEPENDENTSET> {
 
     // --- Fields ---
     private string _verifierName = "Independent Verifier";

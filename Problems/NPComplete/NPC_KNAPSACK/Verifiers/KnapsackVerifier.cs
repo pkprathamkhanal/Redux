@@ -5,8 +5,7 @@ using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK.Verifiers;
 
-class KnapsackVerifier : IVerifier
-{
+class KnapsackVerifier : IVerifier<KNAPSACK> {
 
     // --- Fields ---
     private string _verifierName = "Knapsack Verifier";

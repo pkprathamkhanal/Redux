@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
-class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier>{
+class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier> {
 
 
     #region Fields

@@ -6,7 +6,7 @@ using API.Tools.UtilCollection;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK;
 
-class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier>{
+class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier> {
 
     // --- Fields ---
     private string _problemName = "Knapsack (Binary)";

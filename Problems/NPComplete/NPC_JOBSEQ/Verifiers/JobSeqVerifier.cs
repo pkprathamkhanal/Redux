@@ -2,7 +2,7 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_JOBSEQ.Verifiers;
 
-class JobSeqVerifier : IVerifier {
+class JobSeqVerifier : IVerifier<JOBSEQ> {
     private string _verifierName = "Job Sequencing Verifier";
     private string _verifierDefinition = "This is a verifier for Job Sequencing";
     private string _source = " ";
@@ -57,13 +57,13 @@ class JobSeqVerifier : IVerifier {
         return penaltySum <= jobseq.K;
     }
 
-    public bool verify(JOBSEQ jobseq, string certificate) {
+    public bool verify(JOBSEQ problem, string certificate) {
         List<int> indices = certificate.TrimStart('(')
                                        .TrimEnd(')')
                                        .Split(',')
                                        .Select(int.Parse)
                                        .ToList();
         
-        return verify(jobseq, indices);
+        return verify(problem, indices);
     }
 }

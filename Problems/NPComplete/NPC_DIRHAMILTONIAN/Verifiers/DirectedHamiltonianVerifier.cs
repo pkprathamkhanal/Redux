@@ -3,7 +3,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Verifiers;
 
-class DirectedHamiltonianVerifier : IVerifier
+class DirectedHamiltonianVerifier : IVerifier<DIRHAMILTONIAN>
 {
 
     // --- Fields ---
