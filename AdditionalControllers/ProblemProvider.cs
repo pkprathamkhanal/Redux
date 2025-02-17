@@ -9,6 +9,7 @@ public class ProblemProvider : ControllerBase {
     public static readonly Dictionary<string, Type> Problems = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IProblem).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name, x => x);
     public static readonly Dictionary<string, Type> Verifiers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVerifier).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name, x => x);
     public static readonly Dictionary<string, Type> Solvers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ISolver).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name, x => x);
+    public static readonly Dictionary<string, Type> Interfaces = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => (typeof(IProblem).IsAssignableFrom(p) || typeof(IVerifier).IsAssignableFrom(p) || typeof(ISolver).IsAssignableFrom(p)) && p.IsClass).ToDictionary(x => x.Name, x => x);
 
     #pragma warning disable CS8603 // Possible null reference return.
     static IProblem Problem(string name) {
@@ -47,11 +48,11 @@ public class ProblemProvider : ControllerBase {
         );
     }
 
-    [ProducesResponseType(typeof(IProblem), 200)]
-    [HttpGet("problemInfo")]
-    public string problemInfo(string problem) {
+    [ProducesResponseType(typeof(object), 200)]
+    [HttpGet("info")]
+    public string info(string @interface) {
         // TODO: validate arguments
-        return Newtonsoft.Json.JsonConvert.SerializeObject(Problem(problem));
+        return Newtonsoft.Json.JsonConvert.SerializeObject(Activator.CreateInstance(Interfaces[@interface]));
     }
 
     [ProducesResponseType(typeof(IProblem), 200)]
