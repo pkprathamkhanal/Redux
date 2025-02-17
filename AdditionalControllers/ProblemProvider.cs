@@ -15,6 +15,10 @@ public class ProblemProvider : ControllerBase {
         return Activator.CreateInstance(Problems[name]) as IProblem; // guaranteed success by `IsAssignableFrom`
     }
 
+    static IProblem ProblemInstance(string name, string instance) {
+        return Activator.CreateInstance(Problems[name], instance) as IProblem; // guaranteed success by `IsAssignableFrom`
+    }
+
     static IVerifier Verifier(string name) {
         return Activator.CreateInstance(Verifiers[name]) as IVerifier; // guaranteed success by `IsAssignableFrom`
     }
@@ -24,6 +28,7 @@ public class ProblemProvider : ControllerBase {
     }
     #pragma warning restore CS8603 // Possible null reference return.
 
+    [ProducesResponseType(typeof(bool), 200)]
     [HttpPost("verify")]
     public string verify(string verifier, [FromBody]Verify verify) {
         // TODO: validate arguments
@@ -40,6 +45,20 @@ public class ProblemProvider : ControllerBase {
             Solver(solver).solve(problemInstance),
             new JsonSerializerOptions { WriteIndented = true }
         );
+    }
+
+    [ProducesResponseType(typeof(IProblem), 200)]
+    [HttpGet("problemInfo")]
+    public string problemInfo(string problem) {
+        // TODO: validate arguments
+        return Newtonsoft.Json.JsonConvert.SerializeObject(Problem(problem));
+    }
+
+    [ProducesResponseType(typeof(IProblem), 200)]
+    [HttpPost("problemInstance")]
+    public string problemInstance(string problem, [FromBody]string problemInstance) {
+        // TODO: validate arguments
+        return Newtonsoft.Json.JsonConvert.SerializeObject(ProblemInstance(problem, problemInstance));
     }
 }
 
