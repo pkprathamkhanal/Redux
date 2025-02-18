@@ -34,8 +34,8 @@ public class ARCSETGenericController : ControllerBase {
 ///<response code="200">Returns ARCSET problem Object</response>
 
     [ProducesResponseType(typeof(ARCSET), 200)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new ARCSET(problemInstance), options);
         return jsonString;
@@ -112,8 +112,10 @@ public class ArcsetVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String getInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         ARCSET ARCSETProblem = new ARCSET(problemInstance);
         ArcSetVerifier verifier = new ArcSetVerifier();
@@ -190,8 +192,8 @@ public class ArcSetBruteForceController : ControllerBase {
 ///<response code="200">Returns a string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         ARCSET ARCSETProblem = new ARCSET(problemInstance);
         ArcSetBruteForce solver = new ArcSetBruteForce();
@@ -254,8 +256,8 @@ public class ARCSETDevController : ControllerBase {
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         
         ARCSET arcset = new ARCSET(problemInstance);

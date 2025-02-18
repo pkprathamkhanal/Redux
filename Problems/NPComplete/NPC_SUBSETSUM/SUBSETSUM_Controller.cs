@@ -36,8 +36,8 @@ public class SUBSETSUMGenericController : ControllerBase {
 ///<response code="200">Returns SUBSETSUM problem object</response>
 
     [ProducesResponseType(typeof(SUBSETSUM), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SUBSETSUM(problemInstance), options);
         return jsonString;
@@ -75,8 +75,8 @@ public class FengController : ControllerBase {
 ///<response code="200">Returns Fengs's Subset Sum to Knapsack FengReduction object</response>
 
     [ProducesResponseType(typeof(FengReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM(problemInstance);
         FengReduction reduction = new FengReduction(defaultSUBSETSUM);
@@ -85,8 +85,11 @@ public class FengController : ControllerBase {
     }
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         Console.WriteLine(problemTo);
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
@@ -129,8 +132,8 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<response code="200">Returns Fengs's Subset Sum to Partition object</response>
 
     [ProducesResponseType(typeof(PartitionReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM(problemInstance);
         PartitionReduction reduction = new PartitionReduction(defaultSUBSETSUM);
@@ -146,8 +149,11 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<response code="200">Returns solution to the reduced 0-1 Integer Programming instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION partition = new PARTITION(problemTo);
@@ -171,8 +177,10 @@ public class SubSetSumVerifierController : ControllerBase {
         return jsonString;
     }
 
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM subsetSum = new SUBSETSUM(problemInstance);
         SubsetSumVerifier verifier = new SubsetSumVerifier();
@@ -202,8 +210,8 @@ public class SubsetSumBruteForceController : ControllerBase {
     }
 
     // Solve an instance given a certificate
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM problem = new SUBSETSUM(problemInstance);

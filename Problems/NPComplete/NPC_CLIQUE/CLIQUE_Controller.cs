@@ -36,8 +36,8 @@ public class CLIQUEGenericController : ControllerBase {
 ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(CLIQUE), 200)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE devClique = new CLIQUE(problemInstance);
@@ -107,8 +107,8 @@ public class sipserReduceToVCController : ControllerBase {
 ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
 
     [ProducesResponseType(typeof(SipserReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE(problemInstance);
         sipserReduction reduction = new sipserReduction(defaultCLIQUE);
@@ -146,8 +146,11 @@ public class sipserReduceToVCController : ControllerBase {
 ///<response code="200">Returns solution to the reduced Vertex Cover instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemFrom);
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemTo);
@@ -176,8 +179,8 @@ public class CLIQUEDevController : ControllerBase
     }
     
     [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("instance")]
-    public String getDefault([FromQuery] string problemInstance)
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE devClique = new CLIQUE(problemInstance);
@@ -232,8 +235,8 @@ public class CliqueBruteForceController : ControllerBase
 ///<response code="200">Returns a solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery] string problemInstance)
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE problem = new CLIQUE(problemInstance);
@@ -270,8 +273,10 @@ public class CliqueVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-        public String verifyInstance([FromQuery]string problemInstance, string certificate){
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         string jsonString = String.Empty;
         CLIQUE vClique = new CLIQUE(problemInstance);
         CliqueVerifier verifier = vClique.defaultVerifier;

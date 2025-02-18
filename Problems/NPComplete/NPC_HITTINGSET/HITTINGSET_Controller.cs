@@ -114,8 +114,10 @@ public class HittingSetVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET HITTINGSET_PROBLEM = new HITTINGSET(problemInstance);
         HittingSetVerifier verifier = new HittingSetVerifier(); 
@@ -162,8 +164,8 @@ public class HittingSetBruteForceController : ControllerBase {
 ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET problem = new HITTINGSET(problemInstance);
@@ -203,8 +205,8 @@ public class reduceToEXACTCOVERController : ControllerBase {
 ///<response code="200">Returns Independent Set to CliqueReduction object</response>
 
     [ProducesResponseType(typeof(ExactCover), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET defaultHITTINGSET = new HITTINGSET(problemInstance);
         ExactCoverReduction reduction = new ExactCoverReduction(defaultHITTINGSET);

@@ -68,8 +68,10 @@ public class KnapsackVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String getInstance([FromQuery]string certificate, [FromQuery] string problemInstance){
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions {WriteIndented = true};
         KNAPSACK KNAPSACKProblem = new KNAPSACK(problemInstance);
         KnapsackVerifier verifier = new KnapsackVerifier();
@@ -105,8 +107,8 @@ public class KnapsackBruteForceController : ControllerBase {
 ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solvedInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
          
         var options = new JsonSerializerOptions { WriteIndented = true };
         KNAPSACK KNAPSACKProblem = new KNAPSACK(problemInstance);

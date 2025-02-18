@@ -29,8 +29,8 @@ public class INTPROGRAMMING01GenericController : ControllerBase {
 ///<response code="200">Returns INTPROGRAMMING01 problem object</response>
 
     [ProducesResponseType(typeof(INTPROGRAMMING01), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new INTPROGRAMMING01(problemInstance), options);
         return jsonString;
@@ -62,8 +62,10 @@ public class GenericVerifier01INTPController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         INTPROGRAMMING01 INTPROGRAMMING01_Problem = new INTPROGRAMMING01(problemInstance);
         GenericVerifier01INTP verifier = new GenericVerifier01INTP();
@@ -98,8 +100,8 @@ public class IntegerProgrammingBruteForceController : ControllerBase {
 ///<response code="200">Returns solution string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         INTPROGRAMMING01 problem = new INTPROGRAMMING01(problemInstance);
         string solution = problem.defaultSolver.solve(problem);

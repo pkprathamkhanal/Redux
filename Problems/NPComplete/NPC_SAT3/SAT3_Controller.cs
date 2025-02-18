@@ -41,8 +41,8 @@ public class SAT3GenericController : ControllerBase {
 ///<response code="200">Returns SAT3 problem object</response>
 
     [ProducesResponseType(typeof(SAT3), 200)]
-    [HttpGet("instance")]
-    public String getInstance([FromQuery]string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SAT3(problemInstance), options);
         return jsonString;
@@ -76,8 +76,8 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<response code="200">Returns Sipser's 3SAT to Clique SipserReduction object</response>
 
     [ProducesResponseType(typeof(SipserReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         SipserReduction reduction = new SipserReduction(defaultSAT3);
@@ -111,8 +111,11 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<response code="200">Returns solution to the reduced Clique instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
@@ -129,8 +132,11 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<response code="200">Returns solution to the reduced Clique instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("reverseMappedSolution")]
-    public String reverseMappedSolution([FromQuery]string problemFrom, string problemTo, string problemToSolution){
+    [HttpPost("reverseMappedSolution")]
+    public String reverseMappedSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemToSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
@@ -168,8 +174,8 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
 ///<response code="200">Returns Karp's 3SAT to Graph Coloring KarpReduction object</response>
 
     [ProducesResponseType(typeof(KarpReduction), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance){
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance){
          
         KarpReduction reduction = new KarpReduction(new SAT3(problemInstance));
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -177,10 +183,13 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
         return jsonString;
     }
     
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("mapSolution")]
     #pragma warning disable CS1591
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         GRAPHCOLORING graphColoring = new GRAPHCOLORING(problemTo);
@@ -218,8 +227,8 @@ public class KarpIntProgStandardController : ControllerBase {
 ///<response code="200">Returns Karps's 3SAT to 0-1 Integer Programming KarpIntProgStandard object</response>
 
     [ProducesResponseType(typeof(KarpIntProgStandard), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         KarpIntProgStandard reduction = new KarpIntProgStandard(defaultSAT3);
@@ -234,8 +243,11 @@ public class KarpIntProgStandardController : ControllerBase {
 ///<response code="200">Returns solution to the reduced 0-1 Integer Programming instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         Console.WriteLine(problemTo);
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
@@ -273,8 +285,8 @@ public class GareyJohnsonController : ControllerBase {
 ///<response code="200">Returns Garey and Johnson's 3SAT to 3 DImensional Matching GareyJohnson object</response>
 
     [ProducesResponseType(typeof(GareyJohnson), 200)]
-    [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    [HttpPost("reduce")]
+    public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
         GareyJohnson reduction = new GareyJohnson(defaultSAT3);
@@ -289,8 +301,11 @@ public class GareyJohnsonController : ControllerBase {
 ///<response code="200">Returns solution to the reduced 0-1 Integer Programming instance</response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    [HttpPost("mapSolution")]
+    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+        var problemFrom = mapSolution.ProblemFrom;
+        var problemTo = mapSolution.ProblemTo;
+        var problemFromSolution = mapSolution.ProblemFromSolution;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         DM3 dm3 = new DM3(problemTo);
@@ -330,8 +345,10 @@ public class SAT3VerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String getInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 SAT3Problem = new SAT3(problemInstance);
         SAT3Verifier verifier = new SAT3Verifier();
@@ -373,8 +390,8 @@ public class Sat3BacktrackingSolverController : ControllerBase {
 ///<response code="200">Returns a string </response>
     
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) { //FromQuery]string certificate, 
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) { //FromQuery]string certificate, 
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 SAT3_PROBLEM = new SAT3(problemInstance);
         Dictionary<string, bool> solution = SAT3_PROBLEM.defaultSolver.solve(SAT3_PROBLEM);

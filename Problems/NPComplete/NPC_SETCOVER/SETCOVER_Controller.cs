@@ -30,8 +30,8 @@ public class SETCOVERGenericController : ControllerBase {
 ///<response code="200">Returns Set Cover problem object</response>
 
     [ProducesResponseType(typeof(SETCOVER), 200)]
-    [HttpGet("instance")]
-    public String getInstance(string problemInstance) {
+    [HttpPost("instance")]
+    public String getInstance([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new SETCOVER(problemInstance), options);
         return jsonString;
@@ -66,8 +66,10 @@ public class SetCoverVerifierController : ControllerBase {
 ///<response code="200">Returns a boolean</response>
     
     [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpGet("verify")]
-    public String solveInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
+    [HttpPost("verify")]
+    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
+        var certificate = verify.Certificate;
+        var problemInstance = verify.ProblemInstance;
         var options = new JsonSerializerOptions { WriteIndented = true };
         SETCOVER SETCOVER_Problem = new SETCOVER(problemInstance);
         SetCoverVerifier verifier = new SetCoverVerifier();
@@ -108,8 +110,8 @@ public class SetCoverBruteForceController : ControllerBase {
 ///<response code="200">Returns a solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SETCOVER problem = new SETCOVER(problemInstance);
@@ -149,8 +151,8 @@ public class HeuristicSolverController : ControllerBase {
 ///<response code="200">Returns a solution string </response>
 
     [ProducesResponseType(typeof(string), 200)]
-    [HttpGet("solve")]
-    public String solveInstance([FromQuery]string problemInstance) {
+    [HttpPost("solve")]
+    public String solveInstance([FromBody]string problemInstance) {
         // Implement solver here
         var options = new JsonSerializerOptions { WriteIndented = true };
         SETCOVER problem = new SETCOVER(problemInstance);
