@@ -8,8 +8,8 @@ namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM;
 using DiscreteParser;
 
 
-// class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismUllmann, SubgraphIsomorphismVerifier> {
 class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsomorphismVerifier> {
+// class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismUllmann, SubgraphIsomorphismVerifier> {
 
 
     // knapsack look into it
@@ -218,7 +218,6 @@ class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsom
     }
 
     public SUBGRAPHISOMORPHISM(string GInput) {
-        Console.WriteLine("Input " + GInput);
         StringParser isograph = new("{((n1,e1),(n2,e2)) | n1 is set, e1 subset n1 unorderedcross n1, n2 is set, e2 subset n2 unorderedcross n2}");
         isograph.parse(GInput);
 

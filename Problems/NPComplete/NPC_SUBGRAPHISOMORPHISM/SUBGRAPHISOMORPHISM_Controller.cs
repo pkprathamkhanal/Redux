@@ -55,8 +55,6 @@ public class SUBGRAPHISOMORPHISMGenericController : ControllerBase {
     [HttpGet("visualize")]
     public String getVisualization([FromQuery] string problemInstance)
     {
-        Console.WriteLine("DATA "+ problemInstance);
-
         // TODO
         // Obtain target graph, pattern graph and k value from the problemInstance
         SUBGRAPHISOMORPHISM subgraphIsomorphism = new SUBGRAPHISOMORPHISM(problemInstance);
@@ -196,8 +194,8 @@ public class SubgraphIsomorphismVerifierController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBGRAPHISOMORPHISM SUBGRAPHISOMORPHISM_Problem = new SUBGRAPHISOMORPHISM(problemInstance);
         SubgraphIsomorphismVerifier verifier = new SubgraphIsomorphismVerifier();
-        // bool response = verifier.verify(SUBGRAPHISOMORPHISM_Problem,certificate);
-        bool response = true;
+        bool response = verifier.verify(SUBGRAPHISOMORPHISM_Problem,certificate);
+        // bool response = true;
         string jsonString = JsonSerializer.Serialize(response.ToString(), options);
         return jsonString;
     }
@@ -228,8 +226,39 @@ public class SubgraphIsomorphismBruteForceController : ControllerBase {
     [ProducesResponseType(typeof(string), 200)]
     [HttpGet("solve")]
     public String verifyInstance([FromQuery]string problemInstance) {
-        GraphParser gParser = new GraphParser();
-        List<string> instances = gParser.getGraphData(problemInstance);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        SUBGRAPHISOMORPHISM problem = new SUBGRAPHISOMORPHISM(problemInstance);
+        string solution = problem.defaultSolver.solve(problem);
+        string jsonString = JsonSerializer.Serialize(solution, options);
+        return jsonString;
+    }
+}
+
+
+[ApiController]
+[Route("[controller]")]
+[Tags("SubgraphIsomorphism")]
+#pragma warning disable CS1591
+public class SubgraphIsomorphismUllmannController : ControllerBase {
+#pragma warning restore CS1591
+
+    ///<summary>Returns information about the Subgraph isomorphism solver.</summary>
+    ///<response code="200">Returns SubgraphIsomorphismSolver solver Object.</response>
+    [ProducesResponseType(typeof(SubgraphIsomorphismUllmann), 200)]
+    [HttpGet("info")]
+    public String getGeneric() {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        SubgraphIsomorphismUllmann solver = new SubgraphIsomorphismUllmann();
+        string jsonString = JsonSerializer.Serialize(solver, options);
+        return jsonString;
+    }
+
+    ///<summary>Returns a solution to a given Subgraph isomorphism problem instance.</summary>
+    ///<param name="problemInstance" example="TODO">Subgraph isomorphism problem instance string.</param>
+    ///<response code="200">Returns solution string.</response>
+    [ProducesResponseType(typeof(string), 200)]
+    [HttpGet("solve")]
+    public String verifyInstance([FromQuery]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBGRAPHISOMORPHISM problem = new SUBGRAPHISOMORPHISM(problemInstance);
         string solution = problem.defaultSolver.solve(problem);
