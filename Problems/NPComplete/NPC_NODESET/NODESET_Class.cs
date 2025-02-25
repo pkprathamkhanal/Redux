@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_NODESET.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_NODESET;
 
-class NODESET : IProblem<NodeSetBruteForce,NodeSetVerifier> {
+class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
 
     // --- Fields ---
     private string _problemName = "Feedback Node Set";
@@ -110,6 +110,11 @@ class NODESET : IProblem<NodeSetBruteForce,NodeSetVerifier> {
         }
         set{
             _nodeSetAsGraph = value;
+        }
+    }
+    public NodeSetGraph graph {
+        get{
+            return _nodeSetAsGraph;
         }
     }
 

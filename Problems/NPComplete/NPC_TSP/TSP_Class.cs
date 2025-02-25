@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_TSP.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_TSP;
 
-class TSP : IProblem<TSPBruteForce, TSPVerifier> {
+class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPGraph> {
 
     // --- Fields ---
     private string _problemName = "Traveling Sales Person";
@@ -110,6 +110,11 @@ class TSP : IProblem<TSPBruteForce, TSPVerifier> {
     }
 
     public TSPGraph tspAsGraph {
+        get{
+            return _tspAsGraph;
+        }
+    }
+    public TSPGraph graph {
         get{
             return _tspAsGraph;
         }

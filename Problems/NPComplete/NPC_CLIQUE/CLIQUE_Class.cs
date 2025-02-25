@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
-class CLIQUE : IProblem<CliqueBruteForce,CliqueVerifier> {
+class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
 
     // --- Fields ---
     private string _problemName = "Clique";
@@ -110,6 +110,11 @@ class CLIQUE : IProblem<CliqueBruteForce,CliqueVerifier> {
         }
         set{
             _cliqueAsGraph = value;
+        }
+    }
+    public CliqueGraph graph {
+        get{
+            return _cliqueAsGraph;
         }
     }
 

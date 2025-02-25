@@ -5,15 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace API.Interfaces.Graphs;
 
-abstract class UnweightedUndirectedGraph : Graph
-{
+abstract class UnweightedUndirectedGraph : Graph {
 
 
     // --- Fields ---
     //Since we are inheriting from the graph abstract class, fields are blank. There is probably a better way to do this though.
-    // protected List<Node> _nodeList;
+    protected List<Node> _nodeList = new List<Node>();
 
-    // protected List<Edge> _edgeList;
+    protected List<Edge> _edgeList = new List<Edge>();
 
 
     protected int _K;
@@ -224,7 +223,7 @@ abstract class UnweightedUndirectedGraph : Graph
     /**
       * Takes a string representation of a directed graph and returns its Nodes as a list of strings.
     **/
-    protected override List<string> getNodes(string Ginput)
+    protected List<string> getNodes(string Ginput)
     {
 
         List<string> allGNodes = new List<string>();
@@ -247,7 +246,7 @@ abstract class UnweightedUndirectedGraph : Graph
     * Takes a string representation of a directed graph and returns its edges as a list of strings.
     **/
 
-    protected override List<KeyValuePair<string, string>> getEdges(string Ginput)
+    protected List<KeyValuePair<string, string>> getEdges(string Ginput)
     {
 
         List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
@@ -281,7 +280,7 @@ abstract class UnweightedUndirectedGraph : Graph
     /// </summary>
     /// <param name="Ginput"></param>
     /// <returns></returns>
-    protected override int getK(string Ginput)
+    protected int getK(string Ginput)
     {
         string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
 
@@ -294,18 +293,18 @@ abstract class UnweightedUndirectedGraph : Graph
 
 
     //Getters
-    public List<Node> getNodeList
+    public override List<Node> nodes
     {
         get
         {
-            return base._nodeList;
+            return _nodeList;
         }
     }
-    public List<Edge> getEdgeList
+    public override List<Edge> edges
     {
         get
         {
-            return base._edgeList;
+            return _edgeList;
         }
     }
 

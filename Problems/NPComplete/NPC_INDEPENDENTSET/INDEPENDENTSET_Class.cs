@@ -3,7 +3,7 @@ using API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
-class INDEPENDENTSET : IProblem<IndependentSetBruteForce,IndependentSetVerifier> {
+class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,IndependentSetGraph> {
 
     // --- Fields ---
     private string _problemName = "Independent Set";
@@ -109,6 +109,11 @@ class INDEPENDENTSET : IProblem<IndependentSetBruteForce,IndependentSetVerifier>
         }
         set{
             _independentSetAsGraph = value;
+        }
+    }
+    public IndependentSetGraph graph {
+        get{
+            return _independentSetAsGraph;
         }
     }
 

@@ -10,7 +10,7 @@ using API.Problems.NPComplete.NPC_ARCSET.Solvers;
 using API.Problems.NPComplete.NPC_ARCSET.Verifiers;
 namespace API.Problems.NPComplete.NPC_ARCSET;
 
-class ARCSET : IProblem<ArcSetBruteForce,ArcSetVerifier>{
+class ARCSET : IGraphProblem<ArcSetBruteForce,ArcSetVerifier,ArcsetGraph>{
 
     // --- Fields ---
     private string _problemName = "Feedback Arc Set";
@@ -93,6 +93,11 @@ class ARCSET : IProblem<ArcSetBruteForce,ArcSetVerifier>{
         }
     }
     public ArcsetGraph directedGraph{
+        get{
+            return _arcsetAsGraph;
+        }
+    }
+    public ArcsetGraph graph {
         get{
             return _arcsetAsGraph;
         }

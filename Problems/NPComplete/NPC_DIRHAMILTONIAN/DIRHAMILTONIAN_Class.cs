@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN;
 
-class DIRHAMILTONIAN : IProblem<DirectedHamiltonianBruteForce,DirectedHamiltonianVerifier> {
+class DIRHAMILTONIAN : IGraphProblem<DirectedHamiltonianBruteForce,DirectedHamiltonianVerifier,DirectedHamiltonianGraph> {
 
     // --- Fields ---
     private string _problemName = "Directed Hamiltonian";
@@ -101,6 +101,11 @@ class DIRHAMILTONIAN : IProblem<DirectedHamiltonianBruteForce,DirectedHamiltonia
         }
         set{
             _directedHamiltonianAsGraph = value;
+        }
+    }
+    public DirectedHamiltonianGraph graph {
+        get{
+            return _directedHamiltonianAsGraph;
         }
     }
 

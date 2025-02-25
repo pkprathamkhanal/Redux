@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_CUT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CUT;
 
-class CUT : IProblem<CutBruteForce, CutVerifier> {
+class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
 
     // --- Fields ---
     private string _problemName = "Cut";
@@ -111,6 +111,11 @@ class CUT : IProblem<CutBruteForce, CutVerifier> {
     public CutGraph cutAsGraph {
         get{
             return _cutAsGraph;
+        }
+    }
+    public CutGraph graph {
+        get{
+            return cutAsGraph;
         }
     }
 

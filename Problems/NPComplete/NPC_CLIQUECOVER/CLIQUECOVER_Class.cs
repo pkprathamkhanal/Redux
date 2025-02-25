@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_CLIQUECOVER.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CLIQUECOVER;
 
-class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
+class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,CliqueCoverGraph> {
 
     // --- Fields ---
     private string _problemName = "Clique Cover";
@@ -111,6 +111,11 @@ class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
         }
         set{
             _cliqueCoverAsGraph = value;
+        }
+    }
+    public CliqueCoverGraph graph {
+        get{
+            return _cliqueCoverAsGraph;
         }
     }
 

@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_HAMILTONIAN.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_HAMILTONIAN;
 
-class HAMILTONIAN : IProblem<HamiltonianBruteForce,HamiltonianVerifier> {
+class HAMILTONIAN : IGraphProblem<HamiltonianBruteForce,HamiltonianVerifier,HamiltonianGraph> {
 
     // --- Fields ---
     private string _problemName = "Hamiltonian";
@@ -101,6 +101,11 @@ class HAMILTONIAN : IProblem<HamiltonianBruteForce,HamiltonianVerifier> {
         }
         set{
             _hamiltonianAsGraph = value;
+        }
+    }
+    public HamiltonianGraph graph {
+        get{
+            return _hamiltonianAsGraph;
         }
     }
 

@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
-class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier> {
+class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifier, GraphColoringGraph> {
 
 
     #region Fields
@@ -135,6 +135,11 @@ class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier> {
         _graphColoringAsGraph = value;
     }
    }
+    public GraphColoringGraph graph {
+        get{
+            return _graphColoringAsGraph;
+        }
+    }
 
     
     public SortedSet<string> colors {
