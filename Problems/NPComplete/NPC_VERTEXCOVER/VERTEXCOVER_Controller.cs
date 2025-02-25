@@ -16,78 +16,12 @@ using System.Collections;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER;
 
-
-[ApiController]
-[Route("[controller]")]
-[ApiExplorerSettings(IgnoreApi = true)]
-[Tags("Vertex Cover")]
-#pragma warning disable CS1591
-
-public class testController : ControllerBase {
-
-    [HttpGet]
-
-    public String test() {
-
-
-        VERTEXCOVER testObj = new VERTEXCOVER();
-
-        if (testObj.instance == null) {
-            return testObj.defaultInstance;
-        }
-        else {
-            return "REALLY? API!";
-        }
-    }
-}
-#pragma warning restore CS1591
-
-
-
 [ApiController]
 [Route("[controller]")]
 [Tags("Vertex Cover")]
 #pragma warning disable CS1591
 public class VERTEXCOVERGenericController : ControllerBase {
 #pragma warning restore CS1591
-
-///<summary>Returns a default Vertex Cover object</summary>
-
-    [ProducesResponseType(typeof(VERTEXCOVER), 200)]
-    [HttpGet]
-    public String getDefault() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        // VERTEXCOVER v = new VERTEXCOVER();
-        // Console.Write(v.defaultSolver.Solve("{{a,b,c,d,e,f,g} : {(a,b) & (a,c) & (c,d) & (c,e) & (d,f) & (e,f) & (e,g)}}"));
-        string jsonString = JsonSerializer.Serialize(new VERTEXCOVER(), options);
-        return jsonString;
-    }
-    
-///<summary>Returns a Vertex Cover object created from a given instance </summary>
-///<param name="problemInstance" example="(({a,b,c,d,e},{{a,b},{a,c},{a,e},{b,e},{c,d}}),3)">Vertex Cover problem instance string.</param>
-///<response code="200">Returns VERTEXCOVER problem object</response>
-
-    [ProducesResponseType(typeof(VERTEXCOVER), 200)]
-    [HttpGet("{instance}")]
-    public String getInstance([FromQuery]string problemInstance,string kArgument="") {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(new VERTEXCOVER(problemInstance), options);
-        return jsonString;
-    }
-
-#pragma warning disable CS1591
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("visualize")]
-    public String getVisualization([FromQuery]string problemInstance) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VERTEXCOVER vCov = new VERTEXCOVER(problemInstance);
-        VertexCoverGraph vGraph = vCov.VCAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(vGraph.getNodeList, vGraph.getEdgeList);
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-    }
-
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("solvedVisualization")]
     public String solvedVisualization([FromQuery]string problemInstance, string solution){
@@ -109,51 +43,6 @@ public class VERTEXCOVERGenericController : ControllerBase {
         string jsonString = JsonSerializer.Serialize(apiGraph, options);
         return jsonString;
 
-    }
-    #pragma warning restore CS1591
-
-
-}
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Vertex Cover")]
-#pragma warning disable CS1591
-public class VCVerifierController : ControllerBase {
-#pragma warning restore CS1591
-
-///<summary>Returns information about the Vertex Cover generic verifier </summary>
-///<response code="200">Returns VCVerifier verifier object</response>
-
-    [ProducesResponseType(typeof(VCVerifier), 200)]
-    [HttpGet("info")]
-    public String getGeneric() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VCVerifier verifier = new VCVerifier();
-
-        // Send back to API user
-        string jsonString = JsonSerializer.Serialize(verifier, options);
-        return jsonString;
-    }
-
-///<summary>Verifies if a given certificate is a solution to a given Vertex Cover problem </summary>
-///<param name="certificate" example="{a,b,c}">certificate solution to Vertex Cover problem.</param>
-///<param name="problemInstance" example="(({a,b,c,d,e},{{a,b},{a,c},{a,e},{b,e},{c,d}}),3)">Vertex Cover problem instance string.</param>
-///<response code="200">Returns a boolean</response>
-    
-    [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpPost("verify")]
-    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
-        var certificate = verify.Certificate;
-        var problemInstance = verify.ProblemInstance;
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VERTEXCOVER VCProblem = new VERTEXCOVER(problemInstance);
-        VCVerifier verifier = new VCVerifier();
-
-        Boolean response = verifier.verify(VCProblem,certificate);
-        // Send back to API user
-        string jsonString = JsonSerializer.Serialize(response.ToString(), options);
-        return jsonString;
     }
 }
 
@@ -241,83 +130,6 @@ public class KarpVertexCoverToSetCoverController : ControllerBase {
 
 [ApiController]
 [Route("[controller]")]
-[ApiExplorerSettings(IgnoreApi = true)]
-[Tags("Vertex Cover")]
-#pragma warning disable CS1591
-
-public class testVCInstanceController : ControllerBase {
-
-    [HttpGet]
-    public String getSingleInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        
-        string returnString = certificate + problemInstance;
-        return returnString;
-    }
-    
-}
-#pragma warning restore CS1591
-
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Vertex Cover")]
-#pragma warning disable CS1591
-public class VertexCoverBruteForceController : ControllerBase {
-#pragma warning restore CS1591
-
-
-///<summary>Returns information about the Vertex Cover brute force solver </summary>
-///<response code="200">Returns VertexCoverBruteForce solver object</response>
-
-    [ProducesResponseType(typeof(VertexCoverBruteForce), 200)]
-    [HttpGet("info")]
-    public String getInstance() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VertexCoverBruteForce solver = new VertexCoverBruteForce();
-        string jsonString = JsonSerializer.Serialize(solver, options);
-
-     return jsonString;
-
-    }
-
-///<summary>Returns a solution to a given Vertex Cover instance </summary>
-///<param name="problemInstance" example="(({a,b,c,d,e},{{a,b},{a,c},{a,e},{b,e},{c,d}}),3)">Vertex Cover problem instance string.</param>
-///<response code="200">Returns a solution string </response>
-    
-    [ProducesResponseType(typeof(string), 200)]
-    [HttpPost("solve")]
-    public String solveInstance([FromBody]string problemInstance){
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VERTEXCOVER problem = new VERTEXCOVER(problemInstance);
-        string solution = problem.defaultSolver.solve(problem);
-        string jsonString = JsonSerializer.Serialize(solution, options);
-        return jsonString;
-    }
-
-#pragma warning disable CS1591
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("visualize")]
-    public String getVisualization([FromQuery]string problemInstance, [FromQuery]string solutionString) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VERTEXCOVER vCov = new VERTEXCOVER(problemInstance);
-        VertexCoverGraph vGraph = vCov.VCAsGraph;
-        API_UndirectedGraphJSON apiGraph = vGraph.visualizeSolution(solutionString);
-
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-
-     return jsonString;
-
-    }
-#pragma warning restore CS1591
-
-    
-
-}
-
-
-[ApiController]
-[Route("[controller]")]
 [Tags("Vertex Cover")]
 #pragma warning disable CS1591
 public class LawlerKarpController : ControllerBase {
@@ -385,4 +197,3 @@ public class LawlerKarpController : ControllerBase {
     }
 
 }
-
