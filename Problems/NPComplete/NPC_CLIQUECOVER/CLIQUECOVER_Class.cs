@@ -4,71 +4,27 @@ using API.Problems.NPComplete.NPC_CLIQUECOVER.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CLIQUECOVER;
 
-class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
+class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,CliqueCoverGraph> {
 
     // --- Fields ---
-    private string _problemName = "Clique Cover";
-    private string _formalDefinition = "Clique Cover = {<G, k> | G is a graph represnted by k or fewer cliques}";
-    private string _problemDefinition = "A clique cover is a partition of the vertices into cliques, subsets of vertices within which every two vertices are adjacent";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8}}),3)";
-    private string _instance = string.Empty;
+    public string problemName {get;} = "Clique Cover";
+    public string formalDefinition {get;} = "Clique Cover = {<G, k> | G is a graph represnted by k or fewer cliques}";
+    public string problemDefinition {get;} = "A clique cover is a partition of the vertices into cliques, subsets of vertices within which every two vertices are adjacent";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8}}),3)";
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K = 3;
-    private CliqueCoverBruteForce _defaultSolver = new CliqueCoverBruteForce();
-    private CliqueCoverVerifier _defaultVerifier = new CliqueCoverVerifier();
+    public CliqueCoverBruteForce defaultSolver {get;} = new CliqueCoverBruteForce();
+    public CliqueCoverVerifier defaultVerifier {get;} = new CliqueCoverVerifier();
     private CliqueCoverGraph _cliqueCoverAsGraph;
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public CliqueCoverGraph graph {get => _cliqueCoverAsGraph;}
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -94,16 +50,6 @@ class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
             _K = value;
         }
     }
-    public CliqueCoverBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public CliqueCoverVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public CliqueCoverGraph cliqueCoverAsGraph {
         get{
@@ -116,8 +62,8 @@ class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
 
     // --- Methods Including Constructors ---
     public CLIQUECOVER() {
-        _instance = defaultInstance;
-        _cliqueCoverAsGraph = new CliqueCoverGraph(_instance,true);
+        instance = defaultInstance;
+        _cliqueCoverAsGraph = new CliqueCoverGraph(instance,true);
         nodes = _cliqueCoverAsGraph.nodesStringList;
         edges = _cliqueCoverAsGraph.edgesKVP;
          _K = _cliqueCoverAsGraph.K;
@@ -129,7 +75,7 @@ class CLIQUECOVER : IProblem<CliqueCoverBruteForce,CliqueCoverVerifier> {
         nodes = _cliqueCoverAsGraph.nodesStringList;
         edges = _cliqueCoverAsGraph.edgesKVP;
         _K = _cliqueCoverAsGraph.K;
-        _instance = _cliqueCoverAsGraph.ToString();
+        instance = _cliqueCoverAsGraph.ToString();
 
 
     }

@@ -2,45 +2,14 @@ using API.Interfaces;
 using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER.Solvers;
-class HeuristicSolver : ISolver
-{
+class HeuristicSolver : ISolver<SETCOVER> {
 
     // --- Fields ---
-    private string _solverName = "Heuristic Solver";
-    private string _solverDefinition = "";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string solverName {get;} = "Heuristic Solver";
+    public string solverDefinition {get;} = "";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
-
-    // --- Properties ---
-    public string solverName
-    {
-        get
-        {
-            return _solverName;
-        }
-    }
-    public string solverDefinition
-    {
-        get
-        {
-            return _solverDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public HeuristicSolver()
     {

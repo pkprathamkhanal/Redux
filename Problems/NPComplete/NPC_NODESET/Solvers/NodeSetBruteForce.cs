@@ -3,36 +3,13 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_NODESET.Solvers;
-class NodeSetBruteForce : ISolver {
+class NodeSetBruteForce : ISolver<NODESET> {
 
     // --- Fields ---
-    private string _solverName = "Node Set Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the Node Set problem";
-    private string _source = "";
-    private string[] _contributors = {"Andrija Sevaljevic"};
-
-    // --- Properties ---
-
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
+    public string solverName {get;} = "Node Set Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the Node Set problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
 
 public NodeSetBruteForce() {
         
