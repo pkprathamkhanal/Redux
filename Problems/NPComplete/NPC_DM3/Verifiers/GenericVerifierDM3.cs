@@ -5,35 +5,14 @@ namespace API.Problems.NPComplete.NPC_DM3.Verifiers;
 class GenericVerifierDM3 : IVerifier<DM3> {
 
     // --- Fields ---
-    private string _verifierName = "3-Dimensional Matching Verifier";
-    private string _verifierDefinition = "This verifier checks that a given certificate is the correct size, and contains all elements of X, Y and Z";
-    private string _source = "";
-    private string[] _contributors = { "Caleb Eardley"};
+    public string verifierName {get;} = "3-Dimensional Matching Verifier";
+    public string verifierDefinition {get;} = "This verifier checks that a given certificate is the correct size, and contains all elements of X, Y and Z";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Caleb Eardley"};
 
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;

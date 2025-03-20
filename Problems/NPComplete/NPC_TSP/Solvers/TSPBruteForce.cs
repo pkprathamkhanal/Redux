@@ -6,41 +6,11 @@ namespace API.Problems.NPComplete.NPC_TSP.Solvers;
 class TSPBruteForce : ISolver<TSP> {
 
     // --- Fields ---
-    private string _solverName = "Traveling Sales Person Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Traveling Sales Person problem";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string solverName {get;} = "Traveling Sales Person Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Traveling Sales Person problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
-
-    // --- Properties ---
-    public string solverName
-    {
-        get
-        {
-            return _solverName;
-        }
-    }
-    public string solverDefinition
-    {
-        get
-        {
-            return _solverDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public TSPBruteForce()
     {

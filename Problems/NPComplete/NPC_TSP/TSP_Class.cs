@@ -7,72 +7,28 @@ namespace API.Problems.NPComplete.NPC_TSP;
 class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPGraph> {
 
     // --- Fields ---
-    private string _problemName = "Traveling Sales Person";
-    private string _formalDefinition = "TSP = {<G,k> | G is a weighted graph where there is a path through every vertex whose weights add up to less than k}";
-    private string _problemDefinition = "";
-    private string[] _contributors = {"Andrija Sevaljevic"};
+    public string problemName {get;} = "Traveling Sales Person";
+    public string formalDefinition {get;} = "TSP = {<G,k> | G is a weighted graph where there is a path through every vertex whose weights add up to less than k}";
+    public string problemDefinition {get;} = "";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
     
-    private string _source = "";
-    private string _defaultInstance = "(({Narnia,Atlantis,Wakanda,Pocatello,Neverland},{{Narnia,Atlantis,30},{Narnia,Wakanda,55},{Narnia,Pocatello,80},{Narnia,Neverland,45},{Atlantis,Wakanda,65},{Atlantis,Pocatello,15},{Atlantis,Neverland,30},{Wakanda,Pocatello,40},{Wakanda,Neverland,90},{Pocatello,Neverland,25}}),200)";
+    public string source {get;} = "";
+    public string defaultInstance {get;} = "(({Narnia,Atlantis,Wakanda,Pocatello,Neverland},{{Narnia,Atlantis,30},{Narnia,Wakanda,55},{Narnia,Pocatello,80},{Narnia,Neverland,45},{Atlantis,Wakanda,65},{Atlantis,Pocatello,15},{Atlantis,Neverland,30},{Wakanda,Pocatello,40},{Wakanda,Neverland,90},{Pocatello,Neverland,25}}),200)";
                                       
-    private string _instance = string.Empty;
+    public string instance {get;set;} = string.Empty;
     
     private List<string> _nodes = new List<string>();
     private List<(string source, string target, int weight)> _edges = new List<(string source, string destination, int weight)>();
     private int _K;
-    private TSPBruteForce _defaultSolver = new TSPBruteForce();
-    private TSPVerifier _defaultVerifier = new TSPVerifier();
+    public TSPBruteForce defaultSolver {get;} = new TSPBruteForce();
+    public TSPVerifier defaultVerifier {get;} = new TSPVerifier();
     private TSPGraph _tspAsGraph;
+    public TSPGraph graph {get => _tspAsGraph;}
     
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
   
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -98,23 +54,8 @@ class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPGraph> {
             _K = value;
         }
     }
-    public TSPBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public TSPVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public TSPGraph tspAsGraph {
-        get{
-            return _tspAsGraph;
-        }
-    }
-    public TSPGraph graph {
         get{
             return _tspAsGraph;
         }
@@ -122,8 +63,8 @@ class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPGraph> {
 
     // --- Methods Including Constructors ---
     public TSP() {
-        _instance = defaultInstance;
-        _tspAsGraph = new TSPGraph(_instance,true);
+        instance = defaultInstance;
+        _tspAsGraph = new TSPGraph(instance,true);
         nodes = _tspAsGraph.nodesStringList;
         edges = _tspAsGraph.edgesTuple;
          _K = _tspAsGraph.K;
@@ -135,9 +76,7 @@ class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPGraph> {
         nodes = _tspAsGraph.nodesStringList;
         edges = _tspAsGraph.edgesTuple;
         _K = _tspAsGraph.K;
-        _instance = _tspAsGraph.ToString();
-
-
+        instance = _tspAsGraph.ToString();
     }
 
 

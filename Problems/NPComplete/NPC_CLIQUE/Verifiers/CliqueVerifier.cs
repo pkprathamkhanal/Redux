@@ -6,35 +6,13 @@ namespace API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 class CliqueVerifier : IVerifier<CLIQUE> {
 
     // --- Fields ---
-    private string _verifierName = "Clique Verifier";
-    private string _verifierDefinition = "This is a verifier for Clique";
-    private string _source = " ";
-    private string[] _contributors = {"Caleb Eardley", "Kaden Marchetti"};
+    public string verifierName {get;} = "Clique Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Clique";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = {"Caleb Eardley", "Kaden Marchetti"};
 
 
     private string _certificate =  "";
-
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
 
       public string certificate {
         get {

@@ -6,35 +6,14 @@ namespace API.Problems.NPComplete.NPC_SAT3.Verifiers;
 class SAT3Verifier : IVerifier<SAT3> {
 
     // --- Fields ---
-    private string _verifierName = "3SAT Verifier";
-    private string _verifierDefinition = "This is a verifier for 3SAT. It takes the certificate from " + 
+    public string verifierName {get;} = "3SAT Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for 3SAT. It takes the certificate from " + 
                                          "the user and validates that every clause contains a true literal";
-    private string _source = " ";
-    private string[] _contributors = { "Kaden Marchetti"};
+    public string source {get;} = " ";
+    public string[] contributors {get;} = { "Kaden Marchetti"};
 
     private string _certificate = "";
-    
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-      public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
+
       public string certificate {
         get {
             return _certificate;

@@ -7,74 +7,30 @@ namespace API.Problems.NPComplete.NPC_NODESET;
 class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
 
     // --- Fields ---
-    private string _problemName = "Feedback Node Set";
-    private string _formalDefinition = "Feedback Node Set = ";
-    private string _problemDefinition = "Node Set is the problem";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
-    private string _instance = string.Empty;
+    public string problemName {get;} = "Feedback Node Set";
+    public string formalDefinition {get;} = "Feedback Node Set = ";
+    public string problemDefinition {get;} = "Node Set is the problem";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
+    public string instance {get;set;} = string.Empty;
     private int _K;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
-    private NodeSetBruteForce _defaultSolver = new NodeSetBruteForce();
-    private NodeSetVerifier _defaultVerifier = new NodeSetVerifier();
+    public NodeSetBruteForce defaultSolver {get;} = new NodeSetBruteForce();
+    public NodeSetVerifier defaultVerifier {get;} = new NodeSetVerifier();
     private NodeSetGraph _nodeSetAsGraph;
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public NodeSetGraph graph {get => _nodeSetAsGraph;}
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
     public int K {
         get {
             return _K;
         }
         set {
             _K = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
         }
     }
     public List<string> nodes {
@@ -93,16 +49,6 @@ class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
             _edges = value;
         }
     }
-    public NodeSetBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public NodeSetVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public NodeSetGraph nodeSetAsGraph {
         get{
@@ -112,16 +58,11 @@ class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
             _nodeSetAsGraph = value;
         }
     }
-    public NodeSetGraph graph {
-        get{
-            return _nodeSetAsGraph;
-        }
-    }
 
     // --- Methods Including Constructors ---
     public NODESET() {
-        _instance = defaultInstance;
-        _nodeSetAsGraph = new NodeSetGraph(_instance,true);
+        instance = defaultInstance;
+        _nodeSetAsGraph = new NodeSetGraph(instance,true);
         nodes = _nodeSetAsGraph.nodesStringList;
         edges = _nodeSetAsGraph.edgesKVP;
         K = _nodeSetAsGraph.K;
@@ -132,7 +73,7 @@ class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
         nodes = _nodeSetAsGraph.nodesStringList;
         edges = _nodeSetAsGraph.edgesKVP;
         K = _nodeSetAsGraph.K;
-        _instance = _nodeSetAsGraph.ToString();
+        instance = _nodeSetAsGraph.ToString();
 
     }
 

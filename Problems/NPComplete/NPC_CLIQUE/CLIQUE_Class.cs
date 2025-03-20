@@ -7,67 +7,23 @@ namespace API.Problems.NPComplete.NPC_CLIQUE;
 class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
 
     // --- Fields ---
-    private string _problemName = "Clique";
-    private string _formalDefinition = "Clique = {<G, k> | G is an graph that has a set of k mutually adjacent nodes}";
-    private string _problemDefinition = "A clique is the problem of uncovering a subset of vertices in an undirected graph G = (V, E) such that every two distinct vertices are adjacent";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)";
-    private string _instance = string.Empty;
-    private string _wikiName = "";
+    public string problemName {get;} = "Clique";
+    public string formalDefinition {get;} = "Clique = {<G, k> | G is an graph that has a set of k mutually adjacent nodes}";
+    public string problemDefinition {get;} = "A clique is the problem of uncovering a subset of vertices in an undirected graph G = (V, E) such that every two distinct vertices are adjacent";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)";
+    public string instance {get;set;} = string.Empty;
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K ;
-    private CliqueBruteForce _defaultSolver = new CliqueBruteForce();
-    private CliqueVerifier _defaultVerifier = new CliqueVerifier();
+    public CliqueBruteForce defaultSolver {get;} = new CliqueBruteForce();
+    public CliqueVerifier defaultVerifier {get;} = new CliqueVerifier();
     private CliqueGraph _cliqueAsGraph;
-    private string[] _contributors = { "Kaden Marchetti", "Alex Diviney" };
+    public CliqueGraph graph {get => _cliqueAsGraph;}
+    public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -93,16 +49,6 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
             _K = value;
         }
     }
-    public CliqueBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public CliqueVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public CliqueGraph cliqueAsGraph {
         get{
@@ -112,16 +58,11 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
             _cliqueAsGraph = value;
         }
     }
-    public CliqueGraph graph {
-        get{
-            return _cliqueAsGraph;
-        }
-    }
 
     // --- Methods Including Constructors ---
     public CLIQUE() {
-        _instance = defaultInstance;
-        _cliqueAsGraph = new CliqueGraph(_instance,true);
+        instance = defaultInstance;
+        _cliqueAsGraph = new CliqueGraph(instance,true);
         nodes = _cliqueAsGraph.nodesStringList;
         edges = _cliqueAsGraph.edgesKVP;
          _K = _cliqueAsGraph.K;
@@ -131,7 +72,7 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
         nodes = _cliqueAsGraph.nodesStringList;
         edges = _cliqueAsGraph.edgesKVP;
         _K = _cliqueAsGraph.K;
-        _instance = _cliqueAsGraph.ToString();
+        instance = _cliqueAsGraph.ToString();
     }
 
     public List<string> getNodes(string Ginput) {

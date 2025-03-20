@@ -6,36 +6,15 @@ namespace API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 class VCVerifier : IVerifier<VERTEXCOVER> {
 
     // --- Fields ---
-    private string _verifierName = "Vertex Cover Verifier";
-    private string _verifierDefinition = "This is a Vertex Cover Verifier.";
-    private string _source = "";
-    private string[] _contributors = { "Janita Aamir","Alex Diviney"};
+    public string verifierName {get;} = "Vertex Cover Verifier";
+    public string verifierDefinition {get;} = "This is a Vertex Cover Verifier.";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Janita Aamir","Alex Diviney"};
 
     private string _complexity = "";
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
- public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;

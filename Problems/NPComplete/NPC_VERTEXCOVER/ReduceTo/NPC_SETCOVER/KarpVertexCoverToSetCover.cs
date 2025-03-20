@@ -7,10 +7,10 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
 {
 
     // --- Fields ---
-    private string _reductionName = "Karp's Clique to Set Cover Reduction";
-    private string _reductionDefinition = "";
-    private string _source = "";
-    private string[] _contributors = { "Caleb Eardley" };
+    public string reductionName {get;} = "Karp's Clique to Set Cover Reduction";
+    public string reductionDefinition {get;} = "";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Caleb Eardley" };
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
     private VERTEXCOVER _reductionFrom;
@@ -18,34 +18,6 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
 
 
     // --- Properties ---
-    public string reductionName
-    {
-        get
-        {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition
-    {
-        get
-        {
-            return _reductionDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     public Dictionary<Object, Object> gadgetMap
     {
         get

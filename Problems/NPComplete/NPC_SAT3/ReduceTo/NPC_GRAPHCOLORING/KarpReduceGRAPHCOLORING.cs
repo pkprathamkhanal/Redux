@@ -9,10 +9,10 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
 
 
     #region Fields
-    private string _reductionName = "Karps's Graph Coloring Reduction";
-    private string _reductionDefinition = "Karp's reduction converts each clause from a 3CNF into an OR gadgets to establish the truth assignments using labels.";
-    private string _source = "http://cs.bme.hu/thalg/3sat-to-3col.pdf.";
-    private string[] _contributors = { "Daniel Igbokwe"};
+    public string reductionName {get;} = "Karps's Graph Coloring Reduction";
+    public string reductionDefinition {get;} = "Karp's reduction converts each clause from a 3CNF into an OR gadgets to establish the truth assignments using labels.";
+    public string source {get;} = "http://cs.bme.hu/thalg/3sat-to-3col.pdf.";
+    public string[] contributors {get;} = { "Daniel Igbokwe"};
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
 
     private SAT3 _reductionFrom;
@@ -22,33 +22,6 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
     #endregion
 
     #region Properties
-    public string reductionName
-    {
-        get
-        {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition
-    {
-        get
-        {
-            return _reductionDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-
     public string complexity
     {
         get

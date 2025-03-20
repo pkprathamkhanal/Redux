@@ -6,33 +6,11 @@ namespace API.Problems.NPComplete.NPC_JOBSEQ.Solvers;
 class JobSeqBruteForce : ISolver<JOBSEQ> {
 
     // --- Fields ---
-    private string _solverName = "Job Sequencing Set Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Job Sequencing problem";
-    private string _source = "";
-    private string[] _contributors = {"Russell Phillips"};
+    public string solverName {get;} = "Job Sequencing Set Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Job Sequencing problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public JobSeqBruteForce() {
         

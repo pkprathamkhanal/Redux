@@ -7,43 +7,13 @@ namespace API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
 class SteinerTreeVerifier : IVerifier<STEINERTREE> {
 
     // --- Fields ---
-    private string _verifierName = "Steiner Tree Verifier";
-    private string _verifierDefinition = "This is a verifier for Steiner Tree";
-    private string _source = "Andrija Sevaljevic";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string verifierName {get;} = "Steiner Tree Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Steiner Tree";
+    public string source {get;} = "Andrija Sevaljevic";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
 
     private string _certificate = "";
-
-    // --- Properties ---
-    public string verifierName
-    {
-        get
-        {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition
-    {
-        get
-        {
-            return _verifierDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
 
     public string certificate
     {

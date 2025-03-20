@@ -7,34 +7,10 @@ namespace API.Problems.NPComplete.NPC_VERTEXCOVER.Solvers;
 class VertexCoverBruteForce : ISolver<VERTEXCOVER> {
 
     // --- Fields ---
-    private string _solverName = "Vertex Cover Brute Force Solver";
-    private string _solverDefinition = "This solver simply tests combinations of nodes of size k until a solution is found, or all combinations are tested.";
-    private string _source = "";
-    private string[] _contributors = { "Caleb Eardley"};
-
-    private string _complexity = "";
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
+    public string solverName {get;} = "Vertex Cover Brute Force Solver";
+    public string solverDefinition {get;} = "This solver simply tests combinations of nodes of size k until a solution is found, or all combinations are tested.";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Caleb Eardley"};
 
     // --- Methods Including Constructors ---
     public VertexCoverBruteForce() {

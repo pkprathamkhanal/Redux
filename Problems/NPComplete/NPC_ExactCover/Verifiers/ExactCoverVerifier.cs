@@ -5,34 +5,13 @@ namespace API.Problems.NPComplete.NPC_ExactCover.Verifiers;
 class ExactCoverVerifier : IVerifier<ExactCover> {
 
     // --- Fields ---
-    private string _verifierName = "Exact Cover Verifier";
-    private string _verifierDefinition = "This is a verifier for Exact Cover";
-    private string _source = " ";
-    private string[] _contributors = { "Caleb Eardley"};
+    public string verifierName {get;} = "Exact Cover Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Exact Cover";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = { "Caleb Eardley"};
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;

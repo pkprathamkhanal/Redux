@@ -4,32 +4,16 @@ namespace API.Problems.NPComplete.NPC_ARCSET.Verifiers;
 
 
 class ArcSetVerifier : IVerifier<ARCSET> {
-    private string _verifierDefinition =  @"This Verifier takes in an arcset problem and a list of edges to remove from that problem. It removes those edges and then checks if the problem is still an instance of ARCSET
+    public string verifierDefinition {get;} =  @"This Verifier takes in an arcset problem and a list of edges to remove from that problem. It removes those edges and then checks if the problem is still an instance of ARCSET
                                             ie. Does this input graph no longer have cycles after these input edges are removed? Returns true or false ";
     
-    private string _source = "This verifier is essentially common knowledge, as it utilizes a widely recognized algorithm in computer science: The Depth First Search.";
+    public string source {get;} = "This verifier is essentially common knowledge, as it utilizes a widely recognized algorithm in computer science: The Depth First Search.";
 
     private string _certificate = "{(2,4)}"; //The certificate should be in the form of a set of directed edges
-    private string[] _contributors = {"Alex Diviney","Caleb Eardley"};
+    public string[] contributors {get;} = {"Alex Diviney","Caleb Eardley"};
 
     // --- Properties ---
     public string verifierName { get; } = "Arc Set Verifier";
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-public string[] contributors{
-
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;

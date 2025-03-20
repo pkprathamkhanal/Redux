@@ -11,10 +11,10 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
 {
 
     // --- Fields ---
-    private string _reductionName = "Hitting set Reduction";
-    private string _reductionDefinition = "Karp's Reduction from Hitting Set to Exact Cover";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = { "Russell Phillip" };
+    public string reductionName {get;} = "Hitting set Reduction";
+    public string reductionDefinition {get;} = "Karp's Reduction from Hitting Set to Exact Cover";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = { "Russell Phillip" };
 
     private string _complexity = "";
 
@@ -25,34 +25,6 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
 
 
     // --- Properties ---
-    public string reductionName
-    {
-        get
-        {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition
-    {
-        get
-        {
-            return _reductionDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
 
     public Dictionary<Object, Object> gadgetMap
     {

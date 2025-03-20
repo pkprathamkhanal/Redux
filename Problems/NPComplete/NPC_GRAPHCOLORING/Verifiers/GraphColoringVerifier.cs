@@ -9,10 +9,10 @@ class GraphColoringVerifier : IVerifier<GRAPHCOLORING> {
 
 
     #region Fields
-    private string _verifierName = "Graph Coloring Verifier";
-    private string _verifierDefinition = "This is a verifier for Graph Coloring.";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string verifierName {get;} = "Graph Coloring Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Graph Coloring.";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     private string _complexity = "";
     private string _certificate = "";
@@ -23,35 +23,6 @@ class GraphColoringVerifier : IVerifier<GRAPHCOLORING> {
     #endregion
 
     #region Properties
-    public string verifierName
-    {
-        get
-        {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition
-    {
-        get
-        {
-            return _verifierDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
-
     public string complexity
     {
         get

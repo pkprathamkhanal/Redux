@@ -3,35 +3,13 @@ using API.Interfaces;
 namespace API.Problems.NPComplete.NPC_JOBSEQ.Verifiers;
 
 class JobSeqVerifier : IVerifier<JOBSEQ> {
-    private string _verifierName = "Job Sequencing Verifier";
-    private string _verifierDefinition = "This is a verifier for Job Sequencing";
-    private string _source = " ";
-    private string[] _contributors = {"Russell Phillips"};
+    public string verifierName {get;} = "Job Sequencing Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Job Sequencing";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
 
     private string _certificate =  "";
-
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
 
       public string certificate {
         get {

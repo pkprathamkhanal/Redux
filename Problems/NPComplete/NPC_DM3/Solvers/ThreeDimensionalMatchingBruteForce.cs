@@ -5,33 +5,11 @@ namespace API.Problems.NPComplete.NPC_DM3.Solvers;
 class ThreeDimensionalMatchingBruteForce : ISolver<DM3> {
 
     // --- Fields ---
-    private string _solverName = "3-Dimensional Matching Brute Force Solver";
-    private string _solverDefinition = "This is a generic local search solver for 3-Dimensional Matching, which, while possible, removes one constraint from the current solution, and swaps in two more constraints.";
-    private string _source = "This is a brute force solver which simply test all combinations of hyper edges.";
-    private string[] _contributors = { "Caleb Eardley"};
+    public string solverName {get;} = "3-Dimensional Matching Brute Force Solver";
+    public string solverDefinition {get;} = "This is a generic local search solver for 3-Dimensional Matching, which, while possible, removes one constraint from the current solution, and swaps in two more constraints.";
+    public string source {get;} = "This is a brute force solver which simply test all combinations of hyper edges.";
+    public string[] contributors {get;} = { "Caleb Eardley"};
 
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public ThreeDimensionalMatchingBruteForce() {
 

@@ -7,77 +7,22 @@ namespace API.Problems.NPComplete.NPC_SAT3;
 class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier> {
 
     // --- Fields ---
-    private string _problemName = "3SAT";
-    private string _formalDefinition = "3SAT = {Φ | Φ is a satisfiabile Boolean forumla in 3CNF}";
-    private string _problemDefinition = "3SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi (with a maximum of 3 literals per clause) to result in 'True'";
-    private string[] _contributors = { "Kaden Marchetti"};
+    public string problemName {get;} = "3SAT";
+    public string formalDefinition {get;} = "3SAT = {Φ | Φ is a satisfiabile Boolean forumla in 3CNF}";
+    public string problemDefinition {get;} = "3SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi (with a maximum of 3 literals per clause) to result in 'True'";
+    public string[] contributors {get;} = { "Kaden Marchetti"};
     
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1)";
-    private Sat3BacktrackingSolver _defaultSolver = new Sat3BacktrackingSolver();
-    private SAT3Verifier _defaultVerifier = new SAT3Verifier();
-    private string _instance = string.Empty;
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1)";
+    public Sat3BacktrackingSolver defaultSolver {get;} = new Sat3BacktrackingSolver();
+    public SAT3Verifier defaultVerifier {get;} = new SAT3Verifier();
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<List<string>> _clauses = new List<List<string>>();
     private List<string> _literals = new List<string>();
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
-    
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public Sat3BacktrackingSolver defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public SAT3Verifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
     public List<List<string>> clauses {
         get {
             return _clauses;
@@ -98,17 +43,17 @@ class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier> {
 
     // --- Methods Including Constructors ---
     public SAT3() {
-        _instance = defaultInstance;
-        clauses = getClauses(_instance);
-        literals = getLiterals(_instance);
+        instance = defaultInstance;
+        clauses = getClauses(instance);
+        literals = getLiterals(instance);
     }
     public SAT3(string phiInput) {
 
         // TODO Validate there are only a maximum of 3 literals in each clause
 
-        _instance = phiInput;
-        clauses = getClauses(_instance);
-        literals = getLiterals(_instance);
+        instance = phiInput;
+        clauses = getClauses(instance);
+        literals = getLiterals(instance);
     }
 
     public List<List<string>> getClauses(string phiInput) {

@@ -6,33 +6,11 @@ namespace API.Problems.NPComplete.NPC_PARTITION.Solvers;
 class PartitionBruteForce : ISolver<PARTITION> {
 
     // --- Fields ---
-    private string _solverName = "Partition Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the Partition problem";
-    private string _source = "";
-    private string[] _contributors = {"Andrija Sevaljevic"};
+    public string solverName {get;} = "Partition Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the Partition problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public PartitionBruteForce() {
         
