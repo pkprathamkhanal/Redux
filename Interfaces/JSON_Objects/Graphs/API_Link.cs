@@ -9,18 +9,28 @@ class API_Link{
     private string _target;
     private string _attribute1;
     private string _attribute2;
+    private string _color;
+    private string _dashed;
+    private string _delay;
     public API_Link(){
         this._source = "DEFAULTSOURCE";
         this._target = "DEFAULTTARGET";
         this._attribute1 = "";
         this._attribute2 = "";
+        this._color = "";
+        this._dashed = "";
+        this._delay = "";
+
     }
 
-    public API_Link(string s, string t, string a1="", string a2=""){
+    public API_Link(string s, string t, string a1="", string a2="", string color="", string dashed="", string delay=""){
         _source = s;
         _target = t;
         _attribute1 = a1;
         _attribute2 = a2;
+        _color = color;
+        _dashed = dashed;
+        _delay = delay;
     }
     
     public string source{
@@ -47,6 +57,33 @@ class API_Link{
         }
         set{
             _attribute2 = value;
+        }
+    }
+
+    public string color{
+        get{
+            return _color;
+        }
+        set{
+            _color = value;
+        }
+    }
+
+    public string dashed{
+        get{
+            return _dashed;
+        }
+        set{
+            _dashed = value;
+        }
+    }
+
+    public string delay{
+        get{
+            return _delay;
+        }
+        set{
+            _delay = value;
         }
     }
     
