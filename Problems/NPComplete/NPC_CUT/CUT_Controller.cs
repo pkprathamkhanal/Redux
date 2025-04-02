@@ -76,11 +76,7 @@ public class CUTGenericController : ControllerBase {
             bool edgeVal = false;
             KeyValuePair<string, string> edge = new KeyValuePair<string, string>(apiGraph.links[i].source, apiGraph.links[i].target);
             solutionDict.TryGetValue(edge, out edgeVal);
-            if(edgeVal.ToString() == "True") {
-                apiGraph.links[i].color = "Solution";
-                apiGraph.links[i].dashed = "True";
-                apiGraph.links[i].delay = "4000";
-            }
+            apiGraph.links[i].attribute1 = edgeVal.ToString();
         }
 
         List<string> parsedS = solution.TrimEnd().TrimStart().Replace("{","").Replace("}","").Split(',').ToList();
@@ -88,8 +84,7 @@ public class CUTGenericController : ControllerBase {
         for (int i = 0; i < apiGraph.nodes.Count; i++) {
             apiGraph.nodes[i].attribute1 = i.ToString();
             if(parsedS.IndexOf(apiGraph.nodes[i].name) % 2 == 0) {
-                apiGraph.nodes[i].color = "Solution";
-                apiGraph.nodes[i].delay = 4000.ToString();
+                apiGraph.nodes[i].attribute2 = true.ToString();
             }
         }
 
