@@ -60,6 +60,27 @@ class CliqueBruteForce : ISolver<CLIQUE> {
         return "{}";
     }
 
+    public List<string> getSteps(CLIQUE clique){
+        List<int> combination = new List<int>();
+        List<string> steps = new List<string>();
+        for(int i=0; i<clique.K; i++){
+            combination.Add(i);
+        }
+        BigInteger reps = factorial(clique.nodes.Count) / (factorial(clique.K) * factorial(clique.nodes.Count - clique.K));
+        for(int i=0; i<reps; i++){
+            string certificate = indexListToCertificate(combination,clique.nodes);
+            
+            if(clique.defaultVerifier.verify(clique, certificate) || steps.Count == 99){
+                return steps;
+            }
+            if(steps.Count < 99) steps.Add(certificate);
+            combination = nextComb(combination, clique.nodes.Count);
+
+        }
+        steps.Add("{}");
+        return steps;
+    }
+
     /// <summary>
     /// Given Clique instance in string format and solution string, outputs a solution dictionary with 
     /// true values mapped to nodes that are in the solution set else false. 
