@@ -3,45 +3,13 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT.Solvers;
-class WeightedCutBruteForce : ISolver
-{
+class WeightedCutBruteForce : ISolver<WEIGHTEDCUT> {
 
     // --- Fields ---
-    private string _solverName = "Weighted Cut Brute Force";
-    private string _solverDefinition = "This is a brute force solver for the Weighted Cut problem";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
-
-    // --- Properties ---
-
-    public string solverName
-    {
-        get
-        {
-            return _solverName;
-        }
-    }
-    public string solverDefinition
-    {
-        get
-        {
-            return _solverDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
+    public string solverName {get;} = "Weighted Cut Brute Force";
+    public string solverDefinition {get;} = "This is a brute force solver for the Weighted Cut problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     public WeightedCutBruteForce()
     {

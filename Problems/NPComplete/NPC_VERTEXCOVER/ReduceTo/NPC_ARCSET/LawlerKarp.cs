@@ -13,8 +13,8 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
   
 
     // --- Fields ---
-    private string _reductionName = "Lawler and Karp Arcset Reduction";
-    private string _reductionDefinition = @"This Reduction is an implementation of Lawler and Karp's reduction as laid out in Karp's 21 NP_Complete Problems. 
+    public string reductionName {get;} = "Lawler and Karp Arcset Reduction";
+    public string reductionDefinition {get;} = @"This Reduction is an implementation of Lawler and Karp's reduction as laid out in Karp's 21 NP_Complete Problems. 
                                             It takes an instance of an undirected graph (specifically an instance of VERTEXCOVER) and returns an instance of ARCSET (ie. a Directed Graph)
                                             Specifically, a reduction follows the following algorithm: 
                                             For an undirected graph H: Where H is made up of <V,E>
@@ -23,34 +23,14 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
                                             Now looks at the pairs of edges in E and maps from 1 to 0. So an edge (A,B) turns into (<A,1>, <B,0>) and edge (B,A) becomes (<B,1>,<A,0>)
                                             Then add directed edges from every 0 node 'u' to 1 node 'u'. ie. creates edges from <A,0> to <A,1>, <B,0> to <B,1> … <Z,0> to <Z,1>
                                             Now the algorithm has created an ARCSET instance (in other words, a Digraph). ";
-    private string _source = "http://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf"; //Alex NOTE: Change later to real citation.
-    private string[] _contributors = { "Daniel Igbokwe","Caleb Eardley"};
+    public string source {get;} = "http://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf"; //Alex NOTE: Change later to real citation.
+    public string[] contributors {get;} = { "Daniel Igbokwe","Caleb Eardley"};
     private VERTEXCOVER _reductionFrom;
     private ARCSET _reductionTo;
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
 
 
     // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-     public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     public Dictionary<Object,Object> gadgetMap {
         get{
             return _gadgetMap;
@@ -107,7 +87,7 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
 
     public string mapSolutions(VERTEXCOVER problemFrom, ARCSET problemTo, string problemFromSolution){
         //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.Verify(problemFrom,problemFromSolution)){
+        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
             return "Solution is inccorect";
         }
 

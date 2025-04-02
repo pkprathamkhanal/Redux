@@ -4,36 +4,14 @@ using DiscreteParser;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.Solvers;
 
-class HittingSetBruteForce : ISolver {
+class HittingSetBruteForce : ISolver<HITTINGSET> {
 
     // --- Fields ---
-    private string _solverName = "Hitting Set Brute Force";
-    private string _solverDefinition = "This is a brute force solver for Hitting Set";
-    private string _source = "";
-    private string[] _contributors = {"Russell Phillips"};
+    public string solverName {get;} = "Hitting Set Brute Force";
+    public string solverDefinition {get;} = "This is a brute force solver for Hitting Set";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public HittingSetBruteForce() {
         

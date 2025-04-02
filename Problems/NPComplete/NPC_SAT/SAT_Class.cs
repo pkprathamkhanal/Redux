@@ -12,70 +12,27 @@ namespace API.Problems.NPComplete.NPC_SAT;
     #region Fields
 
     // --- Fields ---
-    private string _problemName = "SAT";
-    private string _formalDefinition = "SAT = {Φ | Φ is a satisfiable Boolean formula}";
-    private string _problemDefinition = "SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi to result in 'True'";
-    private string _source = ".";
-    private string[] _contributors = { "Daniel Igbokwe" };
+    public string problemName {get;} = "SAT";
+    public string formalDefinition {get;} = "SAT = {Φ | Φ is a satisfiable Boolean formula}";
+    public string problemDefinition {get;} = "SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi to result in 'True'";
+    public string source {get;} = ".";
+    public string[] contributors {get;} = { "Daniel Igbokwe" };
 
-    private string _defaultInstance = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1) & (!x3 | x4 | !x2 | x1) & (!x4 | !x1) & (x4 | x3 | !x1)";
-    private string _instance = string.Empty;
+    public string defaultInstance {get;} = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1) & (!x3 | x4 | !x2 | x1) & (!x4 | !x1) & (x4 | x3 | !x1)";
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<List<string>> _clauses = new List<List<string>>();
     private List<string> _literals = new List<string>();
    
-    private SATBruteForceSolver _defaultSolver = new SATBruteForceSolver();
-    private SATVerifier _defaultVerifier = new SATVerifier();
+    public SATBruteForceSolver defaultSolver {get;} = new SATBruteForceSolver();
+    public SATVerifier defaultVerifier {get;} = new SATVerifier();
 
     #endregion
 
 
     #region Properties
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-
-
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
-
-
      public List<List<string>> clauses {
         get {
             return _clauses;
@@ -93,42 +50,18 @@ namespace API.Problems.NPComplete.NPC_SAT;
         }
     }
 
-
-    public String instance  {
-        get{
-            return _instance ;
-        }
-
-        set {
-            _instance  = value;
-        }
-    }
-
-    public SATVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
-
-      public SATBruteForceSolver defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-
-
     #endregion
 
     #region Constructors
     // --- Methods Including Constructors ---
     public SAT() {
-        _instance = defaultInstance;
-         clauses = getClauses(_instance);
-        literals = getLiterals(_instance);
+        instance = defaultInstance;
+         clauses = getClauses(instance);
+        literals = getLiterals(instance);
       
     }
     public SAT(string phiInput) {
-        _instance = phiInput;
+        instance = phiInput;
          clauses = getClauses(phiInput);
         literals = getLiterals(phiInput);
      

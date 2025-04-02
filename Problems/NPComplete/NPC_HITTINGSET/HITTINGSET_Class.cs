@@ -5,27 +5,27 @@ using DiscreteParser;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 
-class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier>
-{
+class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
 
 
     #region Fields
-    private readonly string _problemName = "Hitting Set";
-    private readonly string _formalDefinition = "Hitting set family of subsets {U_i} of a set {S_j} where there is a set W such that, for each i, |W union U_i| = 1.";
-    private readonly string _problemDefinition = "Hitting set is the problem of finding a set where it shares exactly one element with each subset U_i. ";
+    public string problemName {get;} = "Hitting Set";
+    public string formalDefinition {get;} = "Hitting set family of subsets {U_i} of a set {S_j} where there is a set W such that, for each i, |W union U_i| = 1.";
+    public string problemDefinition {get;} = "Hitting set is the problem of finding a set where it shares exactly one element with each subset U_i. ";
 
-    private readonly string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = { "Russell Phillips" };
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = { "Russell Phillips" };
 
-    private static string _defaultInstance = "({1,2,3,4},{{1,3},{2,3,4},{1,4}})";
+    private static string _defaultInstance {get;} = "({1,2,3,4},{{1,3},{2,3,4},{1,4}})";
+    public string defaultInstance {get;} = _defaultInstance;
 
-    private string _instance  =  string.Empty;
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
 
-    private HittingSetBruteForce _defaultSolver = new HittingSetBruteForce();
+    public HittingSetBruteForce defaultSolver {get;} = new HittingSetBruteForce();
 
-    private HittingSetVerifier _defaultVerifier = new HittingSetVerifier();
+    public HittingSetVerifier defaultVerifier {get;} = new HittingSetVerifier();
 
     public UtilCollection _universalSet;
 
@@ -36,65 +36,6 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier>
 
 
     #region Properties
-
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-
-    public String instance  {
-        get{
-            return _instance ;
-        }
-
-        set {
-            _instance  = value;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
-
-    public HittingSetBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public HittingSetVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public UtilCollection universalSet {
         get {
@@ -117,11 +58,12 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier>
 
     public HITTINGSET() : this(_defaultInstance)
     {
+        
     }
 
     public HITTINGSET(string instanceStr)
     {
-        _instance = instanceStr;
+        instance = instanceStr;
         UtilCollection collection = new UtilCollection(instanceStr);
         collection.assertPair();
         _universalSet = collection[0];

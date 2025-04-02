@@ -8,41 +8,18 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
 
     // --- Fields ---
-    private string _reductionName = "Sipser's Vertex Cover Reduction";
-    private string _reductionDefinition = @"This Sipsers reduction converts the Clique problem into a Vertex Cover problem.
+    public string reductionName {get;} = "Sipser's Vertex Cover Reduction";
+    public string reductionDefinition {get;} = @"This Sipsers reduction converts the Clique problem into a Vertex Cover problem.
                                             This is done by first taking all possible edges in the original clique graph, and removing
                                             the edges that are actually in the clique graph from that set.";
-    private string _source = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
-    private string[] _contributors = {"Janita Aamir","Alex Diviney","Caleb Eardley"};
+    public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
+    public string[] contributors {get;} = {"Janita Aamir","Alex Diviney","Caleb Eardley"};
 
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
     private CLIQUE _reductionFrom;
     private VERTEXCOVER _reductionTo;
 
     private string _complexity = "";
-
-
-    // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
 
     public Dictionary<Object,Object> gadgetMap {
         get{

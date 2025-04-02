@@ -4,74 +4,30 @@ using API.Problems.NPComplete.NPC_CUT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_CUT;
 
-class CUT : IProblem<CutBruteForce, CutVerifier>{
+class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
 
     // --- Fields ---
-    private string _problemName = "Cut";
-    private string _formalDefinition = "Cut = {<G, k> | G is a graph with cut of size k}";
-    private string _problemDefinition = "A cut in an undirected graph is a partition of the graph's vertices into two complementary sets S and T, and the size of the cut is the number of edges between S and T.";
-    private string[] _contributors = {"Andrija Sevaljevic"};
+    public string problemName {get;} = "Cut";
+    public string formalDefinition {get;} = "Cut = {<G, k> | G is a graph with cut of size k}";
+    public string problemDefinition {get;} = "A cut in an undirected graph is a partition of the graph's vertices into two complementary sets S and T, and the size of the cut is the number of edges between S and T.";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
     
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}}),5)";
-    private string _instance = string.Empty;
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}}),5)";
+    public string instance {get;set;} = string.Empty;
     
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K;
-    private CutBruteForce _defaultSolver = new CutBruteForce();
-    private CutVerifier _defaultVerifier = new CutVerifier();
+    public CutBruteForce defaultSolver {get;} = new CutBruteForce();
+    public CutVerifier defaultVerifier {get;} = new CutVerifier();
     private CutGraph _cutAsGraph;
+    public CutGraph graph {get => _cutAsGraph;}
     
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
   
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -97,16 +53,6 @@ class CUT : IProblem<CutBruteForce, CutVerifier>{
             _K = value;
         }
     }
-    public CutBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public CutVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public CutGraph cutAsGraph {
         get{
@@ -116,8 +62,8 @@ class CUT : IProblem<CutBruteForce, CutVerifier>{
 
     // --- Methods Including Constructors ---
     public CUT() {
-        _instance = defaultInstance;
-        _cutAsGraph = new CutGraph(_instance,true);
+        instance = defaultInstance;
+        _cutAsGraph = new CutGraph(instance,true);
         nodes = _cutAsGraph.nodesStringList;
         edges = _cutAsGraph.edgesKVP;
          _K = _cutAsGraph.K;
@@ -129,7 +75,7 @@ class CUT : IProblem<CutBruteForce, CutVerifier>{
         nodes = _cutAsGraph.nodesStringList;
         edges = _cutAsGraph.edgesKVP;
         _K = _cutAsGraph.K;
-        _instance = _cutAsGraph.ToString();
+        instance = _cutAsGraph.ToString();
 
 
     }

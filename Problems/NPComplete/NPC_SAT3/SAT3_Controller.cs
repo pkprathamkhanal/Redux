@@ -1,55 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-using API.Problems.NPComplete.NPC_SAT3;
-using API.Problems.NPComplete.NPC_CLIQUE;
-using API.Problems.NPComplete.NPC_3DM;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_GRAPHCOLORING;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_DM3;
 using API.Problems.NPComplete.NPC_INTPROGRAMMING01;
-using API.Problems.NPComplete.NPC_SAT3.Verifiers;
 using API.Problems.NPComplete.NPC_SAT3.Solvers;
 using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using API.Problems.NPComplete.NPC_DM3;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING;
-using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_INTPROGRAMMING01;
 
 namespace API.Problems.NPComplete.NPC_SAT3;
-
-[ApiController]
-[Route("[controller]")]
-[Tags("3 SAT")]
-#pragma warning disable CS1591
-public class SAT3GenericController : ControllerBase {
-#pragma warning restore CS1591
-
-///<summary>Returns a default 3SAT problem object</summary>
-
-    [ProducesResponseType(typeof(SAT3), 200)]
-    [HttpGet()]
-    public String getDefault() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(new SAT3(), options);
-        return jsonString;
-    }
-
-///<summary>Returns a 3SAT problem object created from a given instance </summary>
-///<param name="problemInstance" example="(x1|!x2|x3)&amp;(!x1|x3|x1)&amp;(x2|!x3|x1)">3SAT problem instance string.</param>
-///<response code="200">Returns SAT3 problem object</response>
-
-    [ProducesResponseType(typeof(SAT3), 200)]
-    [HttpPost("instance")]
-    public String getInstance([FromBody]string problemInstance) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(new SAT3(problemInstance), options);
-        return jsonString;
-    }
-
-
-}
 
 [ApiController]
 [Route("[controller]")]
@@ -315,126 +277,3 @@ public class GareyJohnsonController : ControllerBase {
         return jsonString;
     }
 }
-
-[ApiController]
-[Route("[controller]")]
-[Tags("3 SAT")]
-#pragma warning disable CS1591
-public class SAT3VerifierController : ControllerBase {
-#pragma warning restore CS1591
-
-///<summary>Returns information about Kadens Simple Verifier </summary>
-///<response code="200">Returns SAT3Verifier verifier Object</response>
-
-    [ProducesResponseType(typeof(SAT3Verifier), 200)]
-    [HttpGet("info")]
-    public String getInfo() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        SAT3Verifier verifier = new SAT3Verifier();
-
-        // Send back to API user
-        string jsonString = JsonSerializer.Serialize(verifier, options);
-        return jsonString;
-    }
-
-    // Verify a instance given a certificate
-
-///<summary>Verifies if a given certificate is a solution to a given 3SAT problem </summary>
-///<param name="certificate" example="(x1:True)">certificate solution to 3SAT problem.</param>
-///<param name="problemInstance" example="(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">3SAT problem instance string.</param>
-///<response code="200">Returns a boolean</response>
-    
-    [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpPost("verify")]
-    public String verifyInstance([FromBody]Tools.ApiParameters.Verify verify) {
-        var certificate = verify.Certificate;
-        var problemInstance = verify.ProblemInstance;
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        SAT3 SAT3Problem = new SAT3(problemInstance);
-        SAT3Verifier verifier = new SAT3Verifier();
-
-        Boolean response = verifier.verify(SAT3Problem,certificate);
-        // Send back to API user
-        string jsonString = JsonSerializer.Serialize(response.ToString(), options);
-        return jsonString;
-    }
-
-}
-
-[ApiController]
-[Route("[controller]")]
-[Tags("3 SAT")]
-#pragma warning disable CS1591
-public class Sat3BacktrackingSolverController : ControllerBase {
-#pragma warning restore CS1591
-
-
-    // Return Generic Solver Class
-///<summary>Returns information about the 3SAT Backtracking Solver </summary>
-///<response code="200">Returns Sat3BacktrackingSolver solver Object</response>
-
-    [ProducesResponseType(typeof(Sat3BacktrackingSolver), 200)]
-    [HttpGet("info")]
-    public String getInfo() {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        Sat3BacktrackingSolver solver = new Sat3BacktrackingSolver();
-
-        // Send back to API user
-        string jsonString = JsonSerializer.Serialize(solver, options);
-        return jsonString;
-    }
-
-    // Solve a instance given a certificate
-///<summary>Returns a solution to a given 3SAT instance </summary>
-///<param name="problemInstance" example="(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">3SAT problem instance string.</param>
-///<response code="200">Returns a string </response>
-    
-    [ProducesResponseType(typeof(string), 200)]
-    [HttpPost("solve")]
-    public String solveInstance([FromBody]string problemInstance) { //FromQuery]string certificate, 
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        SAT3 SAT3_PROBLEM = new SAT3(problemInstance);
-        Dictionary<string, bool> solution = SAT3_PROBLEM.defaultSolver.solve(SAT3_PROBLEM);
-
-        string solutionString;
-        string jsonString;
-        if(solution == null){
-            solutionString = "No Solution";
-            jsonString = JsonSerializer.Serialize(solutionString, options);
-            return jsonString;
-        }
-
-        else{
-            //ALEX NOTE: This is a temporary fix. This logic should be moved to the SAT3 solver class soon. 
-            solutionString = "(";
-            foreach(KeyValuePair<string,bool> kvp in solution){
-                solutionString = solutionString + kvp.Key + ":" + kvp.Value.ToString() + ",";
-            }
-            solutionString = solutionString.TrimEnd(',');
-            solutionString = solutionString + ")"; 
-            jsonString = JsonSerializer.Serialize(solutionString, options);
-            return jsonString;
-        }
-
-    }
-
-}
-
-[ApiController]
-[Route("[controller]")]
-[Tags("3 SAT")]
-#pragma warning disable CS1591
-public class testSART3InstanceController : ControllerBase {
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet]
-    public String getSingleInstance([FromQuery]string certificate, [FromQuery]string problemInstance) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        
-        string returnString = certificate + problemInstance;
-        return returnString;
-    }
-
-}
-#pragma warning restore CS1591
-

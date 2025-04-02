@@ -1,36 +1,14 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.Solvers;
-class SubsetSumBruteForce : ISolver {
+class SubsetSumBruteForce : ISolver<SUBSETSUM> {
 
     // --- Fields ---
-    private string _solverName = "Subset Sum Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for Subset Sum";
-    private string _source = "";
-    private string[] _contributors = { "Caleb Eardley","Garret Stouffer"};
+    public string solverName {get;} = "Subset Sum Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for Subset Sum";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Caleb Eardley","Garret Stouffer"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public SubsetSumBruteForce() {
         

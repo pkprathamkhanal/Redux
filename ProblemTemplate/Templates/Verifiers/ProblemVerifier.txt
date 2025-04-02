@@ -2,36 +2,15 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_{PROBLEM}.Verifiers;
 
-class {VERIFIER_PASCEL_CASE} : IVerifier {
+class {VERIFIER_PASCEL_CASE} : IVerifier<{PROBLEM}> {
 
     // --- Fields ---
-    private string _verifierName = "{VERIFIER}";
-    private string _verifierDefinition = "TODO";
-    private string _source = " ";
+    public string verifierName {get;} = "{VERIFIER}";
+    public string verifierDefinition {get;} = "TODO";
+    public string source {get;} = " ";
     private string[] _contributers = { "TODO" };
     private string _certificate =  "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributers{
-        get {
-            return _contributers;
-        }
-    }
     public string certificate {
         get {
             return _certificate;

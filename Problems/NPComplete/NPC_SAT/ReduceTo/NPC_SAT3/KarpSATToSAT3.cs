@@ -8,10 +8,10 @@ class SATReduction : IReduction<SAT, SAT3>
 {
 
     // --- Fields ---
-    private string _reductionName = "Karp's SAT3 Reduction";
-    private string _reductionDefinition = "Karp's Reduction from SAT to SAT3";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string reductionName {get;} = "Karp's SAT3 Reduction";
+    public string reductionDefinition {get;} = "Karp's Reduction from SAT to SAT3";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     private string _complexity = "";
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
@@ -21,34 +21,6 @@ class SATReduction : IReduction<SAT, SAT3>
 
 
     // --- Properties ---
-    public string reductionName
-    {
-        get
-        {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition
-    {
-        get
-        {
-            return _reductionDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     public Dictionary<Object, Object> gadgetMap
     {
         get

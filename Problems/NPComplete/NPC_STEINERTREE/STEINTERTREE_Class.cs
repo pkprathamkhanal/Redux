@@ -4,90 +4,28 @@ using API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_STEINERTREE;
 
-class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier>
-{
+class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, SteinerGraph> {
 
     // --- Fields ---
-    private string _problemName = "Steiner Tree";
-    private string _formalDefinition = "Steiner = {<G,R,k> | G has a subtree of weight <= k containing the set of nodes in R}";
-    private string _problemDefinition = "Steiner tree problem in graphs requires a tree of minimum weight that contains all terminals";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8},{6,1}}),{5,2,8},6)";
-    private string _instance = string.Empty;
+    public string problemName {get;} = "Steiner Tree";
+    public string formalDefinition {get;} = "Steiner = {<G,R,k> | G has a subtree of weight <= k containing the set of nodes in R}";
+    public string problemDefinition {get;} = "Steiner tree problem in graphs requires a tree of minimum weight that contains all terminals";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8},{6,1}}),{5,2,8},6)";
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private int _K;
     private List<string> _nodes = new List<string>();
     private List<string> _terminals = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
-    private SteinerTreeBruteForce _defaultSolver = new SteinerTreeBruteForce();
-    private SteinerTreeVerifier _defaultVerifier = new SteinerTreeVerifier();
+    public SteinerTreeBruteForce defaultSolver {get;} = new SteinerTreeBruteForce();
+    public SteinerTreeVerifier defaultVerifier {get;} = new SteinerTreeVerifier();
     private SteinerGraph _steinerAsGraph;
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public SteinerGraph graph {get => _steinerAsGraph;}
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
-    public string problemName
-    {
-        get
-        {
-            return _problemName;
-        }
-    }
-    public string formalDefinition
-    {
-        get
-        {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition
-    {
-        get
-        {
-            return _problemDefinition;
-        }
-    }
-
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
-    public string defaultInstance
-    {
-        get
-        {
-            return _defaultInstance;
-        }
-    }
-    public string instance
-    {
-        get
-        {
-            return _instance;
-        }
-        set
-        {
-            _instance = value;
-        }
-    }
-    public string wikiName
-    {
-        get
-        {
-            return _wikiName;
-        }
-    }
     public List<string> nodes
     {
         get
@@ -121,20 +59,6 @@ class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier>
             _edges = value;
         }
     }
-    public SteinerTreeBruteForce defaultSolver
-    {
-        get
-        {
-            return _defaultSolver;
-        }
-    }
-    public SteinerTreeVerifier defaultVerifier
-    {
-        get
-        {
-            return _defaultVerifier;
-        }
-    }
     public int K
     {
         get
@@ -162,10 +86,10 @@ class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier>
     // --- Methods Including Constructors ---
     public STEINERTREE()
     {
-        _instance = defaultInstance;
-        _steinerAsGraph = new SteinerGraph(_instance,true);
+        instance = defaultInstance;
+        _steinerAsGraph = new SteinerGraph(instance,true);
         nodes = _steinerAsGraph.nodesStringList;
-        terminals = getTerminals(_instance);
+        terminals = getTerminals(instance);
         edges = _steinerAsGraph.edgesKVP;
         K = _steinerAsGraph.K;
 
@@ -176,7 +100,7 @@ class STEINERTREE : IProblem<SteinerTreeBruteForce, SteinerTreeVerifier>
         nodes = _steinerAsGraph.nodesStringList;
         edges = _steinerAsGraph.edgesKVP;
         K = _steinerAsGraph.K;
-        _instance = _steinerAsGraph.ToString();
+        instance = _steinerAsGraph.ToString();
         terminals = getTerminals(GInput);
 
     }
