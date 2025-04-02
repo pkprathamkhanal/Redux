@@ -3,45 +3,14 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Solvers;
-class DirectedHamiltonianBruteForce : ISolver
-{
+class DirectedHamiltonianBruteForce : ISolver<DIRHAMILTONIAN> {
 
     // --- Fields ---
-    private string _solverName = "Directed Hamiltonian Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Directed Hamiltonian problem";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string solverName {get;} = "Directed Hamiltonian Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Directed Hamiltonian problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
-
-    // --- Properties ---
-    public string solverName
-    {
-        get
-        {
-            return _solverName;
-        }
-    }
-    public string solverDefinition
-    {
-        get
-        {
-            return _solverDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public DirectedHamiltonianBruteForce()
     {

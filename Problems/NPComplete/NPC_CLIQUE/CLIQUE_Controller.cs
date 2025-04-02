@@ -22,45 +22,6 @@ public class CLIQUEGenericController : ControllerBase
 {
 #pragma warning restore CS1591
 
-    ///<summary>Returns a default Clique problem object</summary>
-
-    [ProducesResponseType(typeof(CLIQUE), 200)]
-    [HttpGet]
-    public String getDefault()
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string jsonString = JsonSerializer.Serialize(new CLIQUE(), options);
-        return jsonString;
-    }
-
-    ///<summary>Returns a Clique problem object created from a given instance </summary>
-    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-    ///<response code="200">Returns CLIQUE problem object</response>
-
-    [ProducesResponseType(typeof(CLIQUE), 200)]
-    [HttpPost("instance")]
-    public String getInstance([FromBody] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE devClique = new CLIQUE(problemInstance);
-        string jsonString = JsonSerializer.Serialize(devClique, options);
-        return jsonString;
-    }
-
-#pragma warning disable CS1591
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("visualize")]
-    public String getVisualization([FromQuery] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE clique = new CLIQUE(problemInstance);
-        CliqueGraph cGraph = clique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiFormat = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
-
-        string jsonString = JsonSerializer.Serialize(apiFormat, options);
-        return jsonString;
-    }
-
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("solvedVisualization")]
     public String getSolvedVisualization([FromQuery] string problemInstance, string solution)
@@ -82,8 +43,6 @@ public class CLIQUEGenericController : ControllerBase
         string jsonString = JsonSerializer.Serialize(apiGraph, options);
         return jsonString;
     }
-#pragma warning restore CS1591
-
 }
 
 [ApiController]
@@ -177,87 +136,10 @@ public class sipserReduceToVCController : ControllerBase
 [Route("[controller]")]
 [Tags("Clique")]
 #pragma warning disable CS1591
-public class CLIQUEDevController : ControllerBase
-{
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet]
-    public String getDefault()
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE devClique = new CLIQUE();
-        string jsonString = JsonSerializer.Serialize(devClique, options);
-        return jsonString;
-    }
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpPost("instance")]
-    public String getInstance([FromBody] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE devClique = new CLIQUE(problemInstance);
-        GraphParser gParser = new GraphParser();
-        List<string> nList = gParser.getNodeList(devClique.cliqueAsGraph.formalString());
-        string jsonString = JsonSerializer.Serialize(nList, options);
-        return jsonString;
-    }
-
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("visualize")]
-    public String getVisualization([FromQuery] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE clique = new CLIQUE(problemInstance);
-        CliqueGraph cGraph = clique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-    }
-
-}
-#pragma warning restore CS1591
-
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Clique")]
-#pragma warning disable CS1591
 public class CliqueBruteForceController : ControllerBase
 #pragma warning restore CS1591
 
 {
-
-    // Return Generic Solver Class
-    ///<summary>Returns information about the Clique brute force solver </summary>
-    ///<response code="200">Returns CliqueBruteForce solver object</response>
-
-    [ProducesResponseType(typeof(CliqueBruteForce), 200)]
-    [HttpGet("info")]
-    public String getGeneric()
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CliqueBruteForce solver = new CliqueBruteForce();
-        string jsonString = JsonSerializer.Serialize(solver, options);
-        return jsonString;
-    }
-
-    // Solve a instance given a certificate
-    ///<summary>Returns a solution to a given Clique problem instance </summary>
-    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-    ///<response code="200">Returns a solution string </response>
-
-    [ProducesResponseType(typeof(string), 200)]
-    [HttpPost("solve")]
-    public String solveInstance([FromBody] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE problem = new CLIQUE(problemInstance);
-        string solution = problem.defaultSolver.solve(problem);
-        string jsonString = JsonSerializer.Serialize(solution, options);
-        return jsonString;
-    }
-
     // Give the states of a solution
     ///<summary>Returns a solution to a given Clique problem instance </summary>
     ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
@@ -302,45 +184,3 @@ public class CliqueBruteForceController : ControllerBase
 
 }
 
-[ApiController]
-[Route("[controller]")]
-[Tags("Clique")]
-#pragma warning disable CS1591
-public class CliqueVerifierController : ControllerBase
-{
-#pragma warning restore CS1591
-
-
-    ///<summary>Returns information about the Clique generic Verifier </summary>
-    ///<response code="200">Returns CliqueVerifier Object</response>
-
-    [ProducesResponseType(typeof(CliqueVerifier), 200)]
-    [HttpGet("info")]
-    public String getInfo()
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CliqueVerifier verifier = new CliqueVerifier();
-        string jsonString = JsonSerializer.Serialize(verifier, options);
-        return jsonString;
-    }
-
-    ///<summary>Verifies if a given certificate is a solution to a given Clique problem</summary>
-    ///<param name="certificate" example="{1,2,4}">certificate solution to Clique problem.</param>
-    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-    ///<response code="200">Returns a boolean</response>
-
-    [ProducesResponseType(typeof(Boolean), 200)]
-    [HttpPost("verify")]
-    public String verifyInstance([FromBody] Tools.ApiParameters.Verify verify)
-    {
-        var certificate = verify.Certificate;
-        var problemInstance = verify.ProblemInstance;
-        string jsonString = String.Empty;
-        CLIQUE vClique = new CLIQUE(problemInstance);
-        CliqueVerifier verifier = vClique.defaultVerifier;
-        bool validClique = verifier.verify(vClique, certificate);
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        jsonString = JsonSerializer.Serialize(validClique, options);
-        return jsonString;
-    }
-}

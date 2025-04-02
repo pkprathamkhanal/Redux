@@ -4,77 +4,33 @@ using API.Problems.NPComplete.NPC_WEIGHTEDCUT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT;
 
-class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
+class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier> {
 
     // --- Fields ---
-    private string _problemName = "Weighted Cut";
-    private string _formalDefinition = "Cut = {<G, k> | G is a graph with cut of size k}";
-    private string _problemDefinition = "A cut in an undirected graph is a partition of the graph's vertices into two complementary sets S and T, and the size of the cut is the number of edges between S and T.";
-    private string[] _contributors = {"Andrija Sevaljevic"};
+    public string problemName {get;} = "Weighted Cut";
+    public string formalDefinition {get;} = "Cut = {<G, k> | G is a graph with cut of size k}";
+    public string problemDefinition {get;} = "A cut in an undirected graph is a partition of the graph's vertices into two complementary sets S and T, and the size of the cut is the number of edges between S and T.";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
     
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4,5},{{2,1,5},{1,3,4},{2,3,2},{3,5,1},{2,4,4},{4,5,2}}),5)";
-    private string _instance = string.Empty;
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "(({1,2,3,4,5},{{2,1,5},{1,3,4},{2,3,2},{3,5,1},{2,4,4},{4,5,2}}),5)";
+    public string instance {get;set;} = string.Empty;
     
     private List<string> _nodes = new List<string>();
     private List<(string source, string destination, int weight)> _edges = new List<(string source, string destination, int weight)>();
     private int _K;
-    private WeightedCutBruteForce _defaultSolver = new WeightedCutBruteForce();
-    private WeightedCutVerifier _defaultVerifier = new WeightedCutVerifier();
+    public WeightedCutBruteForce defaultSolver {get;} = new WeightedCutBruteForce();
+    public WeightedCutVerifier defaultVerifier {get;} = new WeightedCutVerifier();
     private WeightedCutGraph _weightedCutAsGraph;
+    public WeightedCutGraph graph {get => _weightedCutAsGraph;}
     
 
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     //private List<List<string>> _clauses = new List<List<string>>();
     //private List<string> _literals = new List<string>();
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -100,16 +56,6 @@ class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
             _K = value;
         }
     }
-    public WeightedCutBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public WeightedCutVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public WeightedCutGraph weightedCutAsGraph {
         get{
@@ -119,8 +65,8 @@ class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
 
     // --- Methods Including Constructors ---
     public WEIGHTEDCUT() {
-        _instance = defaultInstance;
-        _weightedCutAsGraph = new WeightedCutGraph(_instance,true);
+        instance = defaultInstance;
+        _weightedCutAsGraph = new WeightedCutGraph(instance,true);
         nodes = _weightedCutAsGraph.nodesStringList;
         edges = _weightedCutAsGraph.edgesTuple;
          _K = _weightedCutAsGraph.K;
@@ -132,7 +78,7 @@ class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
         nodes = _weightedCutAsGraph.nodesStringList;
         edges = _weightedCutAsGraph.edgesTuple;
         _K = _weightedCutAsGraph.K;
-        _instance = _weightedCutAsGraph.ToString();
+        instance = _weightedCutAsGraph.ToString();
 
 
     }
@@ -182,8 +128,4 @@ class WEIGHTEDCUT : IProblem<WeightedCutBruteForce, WeightedCutVerifier>{
         string[] Gsections = strippedInput.Split(':');
         return Int32.Parse(Gsections[2]);
     }
-
-    
-
-
 }

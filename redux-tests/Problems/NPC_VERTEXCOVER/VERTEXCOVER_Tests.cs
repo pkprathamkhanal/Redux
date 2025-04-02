@@ -54,7 +54,7 @@ public class VERTEXCOVER_Tests
     public void VERTEXCOVER_verify_theory_true(string VERTEXCOVER_Instance, string testCertificate){
         VERTEXCOVER testVert = new VERTEXCOVER(VERTEXCOVER_Instance);
         VCVerifier verifier = testVert.defaultVerifier;
-        bool isValidCover = verifier.Verify(testVert, testCertificate);
+        bool isValidCover = verifier.verify(testVert, testCertificate);
         Assert.True(isValidCover);
     }
 
@@ -65,7 +65,7 @@ public class VERTEXCOVER_Tests
      public void VERTEXCOVER_verify_theory_false(string VERTEXCOVER_Instance, string testCertificate){
         VERTEXCOVER testVert = new VERTEXCOVER(VERTEXCOVER_Instance);
         VCVerifier verifier = testVert.defaultVerifier;
-        bool isValidCover = verifier.Verify(testVert, testCertificate);
+        bool isValidCover = verifier.verify(testVert, testCertificate);
         Assert.False(isValidCover);
     }
 

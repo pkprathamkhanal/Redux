@@ -3,38 +3,15 @@ using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_ARCSET.Solvers;
-class ArcSetBruteForce : ISolver {
+class ArcSetBruteForce : ISolver<ARCSET> {
 
     // --- Fields ---
-    private string _solverName = "Arc Set Brute Force Solver";
-    private string _solverDefinition = @" This Solver is a brute force solver, which checks all combinations of k edges until a solution is found or its determined there is no solution";
-    private string _source = "wikipedia: https://en.wikipedia.org/wiki/Feedback_arc_set";
+    public string solverName {get;} = "Arc Set Brute Force Solver";
+    public string solverDefinition {get;} = @" This Solver is a brute force solver, which checks all combinations of k edges until a solution is found or its determined there is no solution";
+    public string source {get;} = "wikipedia: https://en.wikipedia.org/wiki/Feedback_arc_set";
 
-    private string[] _contributors = { "Alex Diviney","Caleb Eardley"};
+    public string[] contributors {get;} = { "Alex Diviney","Caleb Eardley"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public ArcSetBruteForce() {
 

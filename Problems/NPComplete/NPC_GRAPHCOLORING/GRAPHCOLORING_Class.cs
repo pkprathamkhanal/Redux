@@ -4,20 +4,20 @@ using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
-class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier>{
+class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifier, GraphColoringGraph> {
 
 
     #region Fields
-    private readonly string _problemName = "Graph Coloring";
-    private readonly string _formalDefinition = "GRAPHCOLORING = {<G,k> | G is a graph that has a k-coloring}";
-    private readonly string _problemDefinition = "An assignment of labels (e.g., colors) to the vertices of a graph such that no two adjacent vertices are of the same label. This is called a vertex coloring.";
+    public string problemName {get;} = "Graph Coloring";
+    public string formalDefinition {get;} = "GRAPHCOLORING = {<G,k> | G is a graph that has a k-coloring}";
+    public string problemDefinition {get;} = "An assignment of labels (e.g., colors) to the vertices of a graph such that no two adjacent vertices are of the same label. This is called a vertex coloring.";
 
-    private readonly string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = { "Daniel Igbokwe", "Alex Diviney" };
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = { "Daniel Igbokwe", "Alex Diviney" };
 
-    private string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,c},{a,c},{d,a},{d,e},{a,e},{a,f},{f,g},{g,a},{a,h},{h,i},{i,a}}),3)";
+    public string defaultInstance {get;} = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,c},{a,c},{d,a},{d,e},{a,e},{a,f},{f,g},{g,a},{a,h},{h,i},{i,a}}),3)";
 
-    private string _instance  =  string.Empty;
+    public string instance {get;set;} = string.Empty;
 
     private List<string> _nodes =  new List<string>();
 
@@ -29,65 +29,18 @@ class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier>{
   
     private int _K = 3;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
 
-    private GraphColoringBruteForce _defaultSolver = new GraphColoringBruteForce();
-    private GraphColoringVerifier _defaultVerifier = new GraphColoringVerifier();
+    public GraphColoringBruteForce defaultSolver {get;} = new GraphColoringBruteForce();
+    public GraphColoringVerifier defaultVerifier {get;} = new GraphColoringVerifier();
 
     private GraphColoringGraph _graphColoringAsGraph;
+    public GraphColoringGraph graph {get => _graphColoringAsGraph;}
 
     #endregion
 
 
     #region Properties
-
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-
-    public String instance  {
-        get{
-            return _instance ;
-        }
-
-        set {
-            _instance  = value;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
 
 
       public List<string> nodes {
@@ -145,32 +98,21 @@ class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier>{
             _colors = value;
         }
     }
-    
-    public GraphColoringBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public GraphColoringVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     #endregion
 
 
     #region Constructors
       public GRAPHCOLORING() {
-        _instance  = _defaultInstance;
-        _graphColoringAsGraph = new GraphColoringGraph(_instance, true);
+        instance  = defaultInstance;
+        _graphColoringAsGraph = new GraphColoringGraph(instance, true);
         nodes = _graphColoringAsGraph.nodesStringList;
         edges  = _graphColoringAsGraph.edgesKVP;
         K = _graphColoringAsGraph.K;
     }
     public GRAPHCOLORING(string GInput) {
-        _instance  = GInput;
-        _graphColoringAsGraph = new GraphColoringGraph(_instance, true);
+        instance  = GInput;
+        _graphColoringAsGraph = new GraphColoringGraph(instance, true);
         nodes = _graphColoringAsGraph.nodesStringList;
         edges  = _graphColoringAsGraph.edgesKVP;
         K = _graphColoringAsGraph.K; 
@@ -207,7 +149,7 @@ class GRAPHCOLORING : IProblem<GraphColoringBruteForce, GraphColoringVerifier>{
         // Parse k
         problem +="})," +this._K + ")";
         //this._defaultInstance = problem; //ALEX NOTE: We shouldn't ever update the defaultIntance. DEPRECATING
-        this._instance  = problem;
+        instance  = problem;
 
     }
 

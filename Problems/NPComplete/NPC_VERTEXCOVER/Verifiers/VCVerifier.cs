@@ -3,39 +3,18 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 
-class VCVerifier : IVerifier {
+class VCVerifier : IVerifier<VERTEXCOVER> {
 
     // --- Fields ---
-    private string _verifierName = "Vertex Cover Verifier";
-    private string _verifierDefinition = "This is a Vertex Cover Verifier.";
-    private string _source = "";
-    private string[] _contributors = { "Janita Aamir","Alex Diviney"};
+    public string verifierName {get;} = "Vertex Cover Verifier";
+    public string verifierDefinition {get;} = "This is a Vertex Cover Verifier.";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Janita Aamir","Alex Diviney"};
 
     private string _complexity = "";
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
- public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;
@@ -52,12 +31,12 @@ class VCVerifier : IVerifier {
     /// This Method Verifies whether a passed in Vertexcover (problem) is covered by the set of nodes (c). 
     /// </summary>
     /// <param name="problem"></param>
-    /// <param name="c"></param>
+    /// <param name="certificate"></param>
     /// <returns></returns>
-    public Boolean Verify(VERTEXCOVER problem, string c){
+    public bool verify(VERTEXCOVER problem, string certificate){
         //{{a,b,c,d,e,f,g} : {(a,b) & (a,c) & (c,d) & (c,e) & (d,f) & (e,f) & (e,g)} : 3}
         //{{a,d,e} : {(a,b) & (a,c) & (c,d) & (c,e) & (d,f) & (e,f) & (e,g)} }
-        List<string> certificateNodes = getNodes(c);
+        List<string> certificateNodes = getNodes(certificate);
        // List<KeyValuePair<string, string>> edges = getEdges(c);
         List<string> GNodes = problem.nodes;
         List<KeyValuePair<string, string>> Gedges = problem.edges;

@@ -8,70 +8,25 @@ namespace API.Problems.NPComplete.NPC_DM3;
 class DM3 : IProblem<ThreeDimensionalMatchingBruteForce,GenericVerifierDM3> {
 
     // --- Fields ---
-    private string _problemName = "3-Dimensional Matching";
-    private string _formalDefinition = "{<M,X,Y,Z> | M is a subset of X*Y*Z,|X|=|Y|=|Z| and a subset of M, M', exists, where |M'| = |A|,|B|,|C|, and no two elements of M' agree in any cooridinate}" ;
-    private string _problemDefinition = "3-Dimensional Matching is when, given 3 equally sized sets, X, Y, and Z, and a set of constraints M, being a subset of XxYxZ, are you able to select a set of constraints which contain each element of X, Y, and Z in one and only one 3-tuple.";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "{Paul,Sally,Dave}{Madison,Austin,Bob}{Chloe,Frank,Jake}{Paul,Madison,Chloe}{Paul,Austin,Jake}{Sally,Bob,Chloe}{Sally,Madison,Frank}{Dave,Austin,Chloe}{Dave,Bob,Chloe}"; // simply a list of sets with the elements divided by commas, the first three are asumed to be X, Y, and Z, and all subsequent sets are sets in M
-    private string _instance = string.Empty;
+    public string problemName {get;} = "3-Dimensional Matching";
+    public string formalDefinition {get;} = "{<M,X,Y,Z> | M is a subset of X*Y*Z,|X|=|Y|=|Z| and a subset of M, M', exists, where |M'| = |A|,|B|,|C|, and no two elements of M' agree in any cooridinate}" ;
+    public string problemDefinition {get;} = "3-Dimensional Matching is when, given 3 equally sized sets, X, Y, and Z, and a set of constraints M, being a subset of XxYxZ, are you able to select a set of constraints which contain each element of X, Y, and Z in one and only one 3-tuple.";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string defaultInstance {get;} = "{Paul,Sally,Dave}{Madison,Austin,Bob}{Chloe,Frank,Jake}{Paul,Madison,Chloe}{Paul,Austin,Jake}{Sally,Bob,Chloe}{Sally,Madison,Frank}{Dave,Austin,Chloe}{Dave,Bob,Chloe}"; // simply a list of sets with the elements divided by commas, the first three are asumed to be X, Y, and Z, and all subsequent sets are sets in M
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<string> _X;
     private List<string> _Y;
     private List<string> _Z;
     private List<List<string>> _M;
-    private ThreeDimensionalMatchingBruteForce _defaultSolver = new ThreeDimensionalMatchingBruteForce();
-    private GenericVerifierDM3 _defaultVerifier = new GenericVerifierDM3();
+    public ThreeDimensionalMatchingBruteForce defaultSolver {get;} = new ThreeDimensionalMatchingBruteForce();
+    public GenericVerifierDM3 defaultVerifier {get;} = new GenericVerifierDM3();
 
-    private string[] _contributors = { "Caleb Eardley" };
+    public string[] contributors {get;} = { "Caleb Eardley" };
 
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
     public List<string> X {
         get {
             return _X;
@@ -104,32 +59,21 @@ class DM3 : IProblem<ThreeDimensionalMatchingBruteForce,GenericVerifierDM3> {
             _M = value;
         }
     }
-    public ThreeDimensionalMatchingBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public GenericVerifierDM3 defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
-
 
     // --- Methods Including Constructors ---
     public DM3() {
-        _instance = defaultInstance;
-        _X = ParseProblem(_instance,"X");
-        _Y = ParseProblem(_instance,"Y");
-        _Z = ParseProblem(_instance,"Z");
-        _M = ParseM(_instance);
+        instance = defaultInstance;
+        _X = ParseProblem(instance,"X");
+        _Y = ParseProblem(instance,"Y");
+        _Z = ParseProblem(instance,"Z");
+        _M = ParseM(instance);
     }
     public DM3(string instanceInput) {
-        _instance = instanceInput;
-        _X = ParseProblem(_instance,"X");
-        _Y = ParseProblem(_instance,"Y");
-        _Z = ParseProblem(_instance,"Z");
-        _M = ParseM(_instance);
+        instance = instanceInput;
+        _X = ParseProblem(instance,"X");
+        _Y = ParseProblem(instance,"Y");
+        _Z = ParseProblem(instance,"Z");
+        _M = ParseM(instance);
     }
 /*************************************************
 parseSet(List<string> Set,string instanceInput,int start), is meant to take one set inside of a string, and put it into an array

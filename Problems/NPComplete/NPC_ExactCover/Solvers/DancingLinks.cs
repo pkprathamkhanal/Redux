@@ -2,36 +2,14 @@ using API.Interfaces;
 using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class DancingLinks : ISolver {
+class DancingLinks : ISolver<ExactCover> {
 
     // --- Fields ---
-    private string _solverName = "Dancing Links";
-    private string _solverDefinition = "";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic"};
+    public string solverName {get;} = "Dancing Links";
+    public string solverDefinition {get;} = "";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public DancingLinks() {
         

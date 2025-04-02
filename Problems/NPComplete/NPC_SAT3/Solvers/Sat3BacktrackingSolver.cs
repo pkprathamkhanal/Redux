@@ -4,47 +4,38 @@ using API.Problems.NPComplete.NPC_SAT3;
 
 
 namespace API.Problems.NPComplete.NPC_SAT3.Solvers;
-class Sat3BacktrackingSolver : ISolver {
+class Sat3BacktrackingSolver : ISolver<SAT3> {
 
     // --- Fields ---
-    private string _solverName = "3SAT Backtracking Solver";
-    private string _solverDefinition = "This is a O(n!) solution algorithm for the 3SAT problem which implements a back tracking algorithm to find and exact assignment boolean assignment of variable to satisfy the broblem instance.";
-    private string _source = "";
-    private string[] _contributors = {"David Lindeman","Kaden Marchetti"};
+    public string solverName {get;} = "3SAT Backtracking Solver";
+    public string solverDefinition {get;} = "This is a O(n!) solution algorithm for the 3SAT problem which implements a back tracking algorithm to find and exact assignment boolean assignment of variable to satisfy the broblem instance.";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"David Lindeman","Kaden Marchetti"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public Sat3BacktrackingSolver() {
     }
 
 
 
+    public string solve(SAT3 sat3) {
+        Dictionary<string, bool> solution = findSolution(sat3);
 
+        if (solution == null) {
+            return "No Solution";
+        }
+        
+        string solutionString = "(";
+        foreach(KeyValuePair<string,bool> kvp in solution){
+            solutionString = solutionString + kvp.Key + ":" + kvp.Value.ToString() + ",";
+        }
+        solutionString = solutionString.TrimEnd(',');
+        solutionString += ")"; 
+        return solutionString;
+    }
 
     // Return type varies
-    public Dictionary<string, bool> solve(SAT3 sat3) {
+    public Dictionary<string, bool> findSolution(SAT3 sat3) {
         ////O(n!)
         // while(!solutionFound && !satQueue.isEmpty()):
         // 	var = varQueue.pop() //O(1)

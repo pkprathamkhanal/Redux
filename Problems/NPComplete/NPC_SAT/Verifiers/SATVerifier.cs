@@ -3,13 +3,13 @@ using API.Problems.NPComplete.NPC_SAT;
 
 namespace API.Problems.NPComplete.NPC_SAT.Verifiers;
 
-    class SATVerifier : IVerifier {
+    class SATVerifier : IVerifier<SAT> {
 
     #region Fields
-    private string _verifierName = "SAT Verifier";
-    private string _verifierDefinition = "This is a verifier for SAT";
-    private string _source = " ";
-    private string[] _contributors = { "Daniel Igbokwe, Show Pratoomratana"};
+    public string verifierName {get;} = "SAT Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for SAT";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = { "Daniel Igbokwe, Show Pratoomratana"};
 
     private string _complexity = " ";
 
@@ -19,32 +19,6 @@ namespace API.Problems.NPComplete.NPC_SAT.Verifiers;
 
     #region Properties
 
-    // --- Properties ---
-    public string verifierName
-    {
-        get
-        {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition
-    {
-        get
-        {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get
-        {
-            return _source;
-        }
-    }
-      public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     public string complexity {
         get {
             return _complexity;
@@ -73,10 +47,10 @@ namespace API.Problems.NPComplete.NPC_SAT.Verifiers;
     }
 
     // Identical verifier for the 3SAT for KadensSimpleVerifier. Works for any SAT instance not just 3SAT.
-    public Boolean verify(SAT problem, string userInput){
+    public bool verify(SAT problem, string certificate){
         List<List<string>> clauses = problem.clauses;
         
-        string strippedInput = userInput.Replace(" ", "").Replace("(", "").Replace(")","");
+        string strippedInput = certificate.Replace(" ", "").Replace("(", "").Replace(")","");
 
         string[] assignments = strippedInput.Split(',');
         List<string> trueLiterals = new List<string>();

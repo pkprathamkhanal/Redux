@@ -6,10 +6,10 @@ namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_INTPROGRAMMING01;
 class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
 
     // --- Fields ---
-    private string _reductionName = "Karp's Integer Programming Reduction";
-    private string _reductionDefinition = "Karps reduction maps each clause of a SAT problem into a row in a integer programming matrix.";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = { "Caleb Eardley"};
+    public string reductionName {get;} = "Karp's Integer Programming Reduction";
+    public string reductionDefinition {get;} = "Karps reduction maps each clause of a SAT problem into a row in a integer programming matrix.";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = { "Caleb Eardley"};
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
 
     private SAT3 _reductionFrom;
@@ -17,26 +17,6 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
 
 
     // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     public Dictionary<Object,Object> gadgetMap {
         get{
             return _gadgetMap;

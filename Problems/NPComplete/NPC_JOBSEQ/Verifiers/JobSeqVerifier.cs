@@ -2,36 +2,14 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_JOBSEQ.Verifiers;
 
-class JobSeqVerifier : IVerifier {
-    private string _verifierName = "Job Sequencing Verifier";
-    private string _verifierDefinition = "This is a verifier for Job Sequencing";
-    private string _source = " ";
-    private string[] _contributors = {"Russell Phillips"};
+class JobSeqVerifier : IVerifier<JOBSEQ> {
+    public string verifierName {get;} = "Job Sequencing Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Job Sequencing";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
 
     private string _certificate =  "";
-
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
 
       public string certificate {
         get {
@@ -57,13 +35,13 @@ class JobSeqVerifier : IVerifier {
         return penaltySum <= jobseq.K;
     }
 
-    public bool verify(JOBSEQ jobseq, string certificate) {
+    public bool verify(JOBSEQ problem, string certificate) {
         List<int> indices = certificate.TrimStart('(')
                                        .TrimEnd(')')
                                        .Split(',')
                                        .Select(int.Parse)
                                        .ToList();
         
-        return verify(jobseq, indices);
+        return verify(problem, indices);
     }
 }

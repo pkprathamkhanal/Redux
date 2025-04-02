@@ -7,17 +7,17 @@ namespace API.Problems.NPComplete.NPC_JOBSEQ;
 class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
 
     // --- Fields ---
-    private string _problemName = "Job Sequencing";
-    private string _formalDefinition = "JobSeq = <T, D, P, K> is a vecter T of execution times, vector D of deadlines, vector P of penalties, and integer k where there exists a permutation pi of {1,2,3...,p} such that the sum of the penalties of every job that was not finished before the deadline is less than equal to k.";
-    private string _problemDefinition = "Job sequencing is the task of deciding in what order to do a series of jobs. Each job has a length of time it takes, a deadline, and a penalty that is applied if the deadline is missed. The task is to find an ordering of the jobs that results in a penalty that is less than k.";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string[] _contributors = {"Russell Phillips"};
+    public string problemName {get;} = "Job Sequencing";
+    public string formalDefinition {get;} = "JobSeq = <T, D, P, K> is a vecter T of execution times, vector D of deadlines, vector P of penalties, and integer k where there exists a permutation pi of {1,2,3...,p} such that the sum of the penalties of every job that was not finished before the deadline is less than equal to k.";
+    public string problemDefinition {get;} = "Job sequencing is the task of deciding in what order to do a series of jobs. Each job has a length of time it takes, a deadline, and a penalty that is applied if the deadline is missed. The task is to find an ordering of the jobs that results in a penalty that is less than k.";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
 
 
-    private string _defaultInstance = "((4,2,5,9,4,3),(9,13,2,17,21,16),(1,4,3,2,5,8),4)";
+    public string defaultInstance {get;} = "((4,2,5,9,4,3),(9,13,2,17,21,16),(1,4,3,2,5,8),4)";
 
-    private string _instance = string.Empty;
+    public string instance {get;set;} = string.Empty;
     private List<int> _T = new List<int>();
     private List<int> _D = new List<int>();
     private List<int> _P = new List<int>();
@@ -25,58 +25,11 @@ class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
 
     
 
-    private string _wikiName = "";
-    private JobSeqBruteForce _defaultSolver = new JobSeqBruteForce();
-    private JobSeqVerifier _defaultVerifier = new JobSeqVerifier();
+    public string wikiName {get;} = "";
+    public JobSeqBruteForce defaultSolver {get;} = new JobSeqBruteForce();
+    public JobSeqVerifier defaultVerifier {get;} = new JobSeqVerifier();
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
-
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
     public List<int> T {
         get {
             return _T;
@@ -112,31 +65,21 @@ class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
             _K = value;
         }
     }
-    
-    public JobSeqBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public JobSeqVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
+
     // --- Methods Including Constructors ---
     public JOBSEQ() {
-        _instance = defaultInstance;
-        T = getT(_instance);
-        D = getD(_instance);
-        P = getP(_instance);
-        K = getK(_instance);
+        instance = defaultInstance;
+        T = getT(instance);
+        D = getD(instance);
+        P = getP(instance);
+        K = getK(instance);
     }
     public JOBSEQ(string instance) {
-        _instance = instance;
-        T = getT(_instance);
-        D = getD(_instance);
-        P = getP(_instance);
-        K = getK(_instance);
+        instance = instance;
+        T = getT(instance);
+        D = getD(instance);
+        P = getP(instance);
+        K = getK(instance);
     }
     private List<int> getT(string instance)
     {

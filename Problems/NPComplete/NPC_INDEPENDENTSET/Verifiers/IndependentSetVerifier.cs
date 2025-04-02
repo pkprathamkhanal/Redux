@@ -3,38 +3,16 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 
-class IndependentSetVerifier : IVerifier {
+class IndependentSetVerifier : IVerifier<INDEPENDENTSET> {
 
     // --- Fields ---
-    private string _verifierName = "Independent Verifier";
-    private string _verifierDefinition = "This is a verifier for Independent Set";
-    private string _source = " ";
-    private string[] _contributors = {"Russell Phillips"};
+    public string verifierName {get;} = "Independent Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Independent Set";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
 
     private string _certificate =  "";
-
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
 
       public string certificate {
         get {
