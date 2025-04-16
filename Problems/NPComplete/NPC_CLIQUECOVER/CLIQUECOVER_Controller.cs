@@ -169,7 +169,7 @@ public class CliqueCoverBruteForceController : ControllerBase {
 #pragma warning restore CS1591
 
 
-    // Return Generic Solver Class
+// Return Generic Solver Class
 ///<summary>Returns information about the CliqueCover brute force solver </summary>
 ///<response code="200">Returns CliqueCoverBruteSolver solver Object</response>
 

@@ -5,7 +5,8 @@ using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER;
 
-class VERTEXCOVER : IProblem<VertexCoverBruteForce,VCVerifier>{
+class VERTEXCOVER : IProblem<VertexCoverBruteForce, VCVerifier>
+{
 
     // --- Fields ---
     private string _problemName = "Vertex Cover";
@@ -29,157 +30,196 @@ class VERTEXCOVER : IProblem<VertexCoverBruteForce,VCVerifier>{
 
 
     // --- Properties ---
-    public string problemName {
-        get {
+    public string problemName
+    {
+        get
+        {
             return _problemName;
         }
     }
-    public string formalDefinition {
-        get {
+    public string formalDefinition
+    {
+        get
+        {
             return _formalDefinition;
         }
     }
-    public string problemDefinition {
-        get {
+    public string problemDefinition
+    {
+        get
+        {
             return _problemDefinition;
         }
     }
 
-    public string source {
-        get {
+    public string source
+    {
+        get
+        {
             return _source;
         }
     }
-    public string defaultInstance {
-        get {
+    public string defaultInstance
+    {
+        get
+        {
             return _defaultInstance;
         }
     }
-    public string instance {
-        get {
+    public string instance
+    {
+        get
+        {
             return _instance;
         }
-        set {
+        set
+        {
             _instance = value;
         }
     }
 
-    public string wikiName {
-        get {
+    public string wikiName
+    {
+        get
+        {
             return _wikiName;
         }
     }
 
-    public List<string> nodes {
-        get {
+    public List<string> nodes
+    {
+        get
+        {
             return _nodes;
         }
-        set {
+        set
+        {
             _nodes = value;
         }
     }
-    public List<KeyValuePair<string, string>> edges {
-        get {
+    public List<KeyValuePair<string, string>> edges
+    {
+        get
+        {
             return _edges;
         }
-        set {
+        set
+        {
             _edges = value;
         }
     }
 
-    public int K {
-        get {
+    public int K
+    {
+        get
+        {
             return _K;
         }
-        set {
+        set
+        {
             _K = value;
         }
     }
-    public VertexCoverGraph VCAsGraph{
-        get{
+    public VertexCoverGraph VCAsGraph
+    {
+        get
+        {
             return _VCAsGraph;
         }
     }
 
-    public VertexCoverBruteForce defaultSolver {
-        get {
+    public VertexCoverBruteForce defaultSolver
+    {
+        get
+        {
             return _defaultSolver;
         }
     }
-    public VCVerifier defaultVerifier {
-        get {
+    public VCVerifier defaultVerifier
+    {
+        get
+        {
             return _defaultVerifier;
         }
     }
 
-    public string[] contributors{
-        get{
+    public string[] contributors
+    {
+        get
+        {
             return _contributors;
         }
     }
 
     // --- Methods Including Constructors ---
-    public VERTEXCOVER() {
+    public VERTEXCOVER()
+    {
         // string VCDefaultString = _defaultInstance;
         // _VCAsGraph = new UndirectedGraph();
         // _vertexCover = _vertexCover.ToString();
         _instance = _defaultInstance;
-        _VCAsGraph = new VertexCoverGraph(_instance,true);
+        _VCAsGraph = new VertexCoverGraph(_instance, true);
         nodes = _VCAsGraph.nodesStringList;
         edges = _VCAsGraph.edgesKVP;
         K = _VCAsGraph.K;
 
     }
-    public VERTEXCOVER(string instanceInput) {
+    public VERTEXCOVER(string instanceInput)
+    {
         // _VCAsGraph = new UndirectedGraph(GkInput);
         // _vertexCover = _VCAsGraph.ToString();
         _instance = instanceInput;
-        _VCAsGraph = new VertexCoverGraph(_instance,true);
+        _VCAsGraph = new VertexCoverGraph(_instance, true);
         nodes = _VCAsGraph.nodesStringList;
         edges = _VCAsGraph.edgesKVP;
         K = _VCAsGraph.K;
     }
 
-    public List<string> getNodes(string Ginput) {
+    public List<string> getNodes(string Ginput)
+    {
         List<string> allGNodes = new List<string>();
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
+
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         string[] Gnodes = Gsections[0].Split(',');
-        
-        foreach(string node in Gnodes) {
+
+        foreach (string node in Gnodes)
+        {
             allGNodes.Add(node);
         }
 
         return allGNodes;
     }
 
-    public List<KeyValuePair<string, string>> getEdges(string Ginput) {
+    public List<KeyValuePair<string, string>> getEdges(string Ginput)
+    {
 
         List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
 
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
+
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         string[] Gedges = Gsections[1].Split('&');
-        
-        foreach (string edge in Gedges) {
+
+        foreach (string edge in Gedges)
+        {
             string[] fromTo = edge.Split(',');
             string nodeFrom = fromTo[0];
             string nodeTo = fromTo[1];
-            
-            KeyValuePair<string,string> fullEdge = new KeyValuePair<string,string>(nodeFrom, nodeTo);
+
+            KeyValuePair<string, string> fullEdge = new KeyValuePair<string, string>(nodeFrom, nodeTo);
             allGEdges.Add(fullEdge);
         }
 
         return allGEdges;
     }
 
-    public int getK(string Ginput) {
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
+    public int getK(string Ginput)
+    {
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
+
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         return Int32.Parse(Gsections[2]);

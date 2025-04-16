@@ -55,11 +55,14 @@ class SubgraphIsomorphismBruteForce : ISolver
     {
         // TODO: implement Subgraph isomorphism Solver for Subgraph isomorphism
         Dictionary<int, int> mapping = new Dictionary<int, int>();
+        
         mapping = FindSubgraphIsomorphism(subgraph.nodesP, subgraph.edgesP, subgraph.nodesT, subgraph.edgesT);
-        if(mapping != null && mapping.Count > 0){
+        if (mapping != null && mapping.Count > 0)
+        {
             var options = new JsonSerializerOptions { WriteIndented = true };
-            Dictionary <string, string> mapped_pair = new Dictionary<string, string>();
-            foreach (KeyValuePair<int, int> pair in mapping){
+            Dictionary<string, string> mapped_pair = new Dictionary<string, string>();
+            foreach (KeyValuePair<int, int> pair in mapping)
+            {
                 string patternNode = subgraph.nodesP[pair.Key];
                 string targetNode = subgraph.nodesT[pair.Value];
                 mapped_pair[patternNode] = targetNode;
@@ -67,17 +70,17 @@ class SubgraphIsomorphismBruteForce : ISolver
             string jsonString = JsonSerializer.Serialize(mapped_pair, options);
             return jsonString;
         }
-        return "{}";        
+        return "{}";
     }
     public static Dictionary<int, int> FindSubgraphIsomorphism(
             List<string> nodes1,
             List<KeyValuePair<string, string>> edges1,
             List<string> nodes2,
             List<KeyValuePair<string, string>> edges2)
-            // nodes1 -> nodes of pattern graph
-            // nodes2 -> nodes of target graph
-            // edges1 -> nodes of pattern edges
-            // edges2 -> nodes of target edges
+    // nodes1 -> nodes of pattern graph
+    // nodes2 -> nodes of target graph
+    // edges1 -> nodes of pattern edges
+    // edges2 -> nodes of target edges
     {
         int n1 = nodes1.Count;  // Number of vertices in graph1
         int n2 = nodes2.Count;  // Number of vertices in graph2
@@ -94,6 +97,12 @@ class SubgraphIsomorphismBruteForce : ISolver
             {
                 int source1 = nodes1.IndexOf(edge.Key);
                 int target1 = nodes1.IndexOf(edge.Value);
+
+                if (source1 == -1 || target1 == -1)
+                {
+                    Console.WriteLine($"Error: {edge.Key} or {edge.Value} not found in nodes1");
+                    return false;
+                }
 
                 if (!mapping.ContainsKey(source1) || !mapping.ContainsKey(target1))
                     return false;
@@ -114,7 +123,6 @@ class SubgraphIsomorphismBruteForce : ISolver
 
         // Generate all permutations of n2 taken n1 at a time
         var permutations = Permutations(Enumerable.Range(0, n2), n1);
-
         foreach (var permutation in permutations)
         {
             var mapping = Enumerable.Range(0, n1).ToDictionary(i => i, i => permutation.ElementAt(i));

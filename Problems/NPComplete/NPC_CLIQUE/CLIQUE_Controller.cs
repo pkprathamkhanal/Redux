@@ -10,6 +10,9 @@ using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 using API.Interfaces.Graphs.GraphParser;
+using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM;
+using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_SubgraphIsomorphism;
+using API.Interfaces.Graphs;
 
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
@@ -18,22 +21,24 @@ namespace API.Problems.NPComplete.NPC_CLIQUE;
 [Route("[controller]")]
 [Tags("Clique")]
 #pragma warning disable CS1591
-public class CLIQUEGenericController : ControllerBase {
+public class CLIQUEGenericController : ControllerBase
+{
 #pragma warning restore CS1591
 
-///<summary>Returns a default Clique problem object</summary>
+    ///<summary>Returns a default Clique problem object</summary>
 
     [ProducesResponseType(typeof(CLIQUE), 200)]
     [HttpGet]
-    public String getDefault() {
+    public String getDefault()
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(new CLIQUE(), options);
         return jsonString;
     }
 
-///<summary>Returns a Clique problem object created from a given instance </summary>
-///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-///<response code="200">Returns CLIQUE problem object</response>
+    ///<summary>Returns a Clique problem object created from a given instance </summary>
+    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<response code="200">Returns CLIQUE problem object</response>
 
     [ProducesResponseType(typeof(CLIQUE), 200)]
     [HttpGet("instance")]
@@ -48,7 +53,8 @@ public class CLIQUEGenericController : ControllerBase {
 #pragma warning disable CS1591
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("visualize")]
-    public String getVisualization([FromQuery] string problemInstance) {
+    public String getVisualization([FromQuery] string problemInstance)
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
         CliqueGraph cGraph = clique.cliqueAsGraph;
@@ -60,18 +66,21 @@ public class CLIQUEGenericController : ControllerBase {
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("solvedVisualization")]
-    public String getSolvedVisualization([FromQuery]string problemInstance,string solution) {
+    public String getSolvedVisualization([FromQuery] string problemInstance, string solution)
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SipserClique sClique = new SipserClique(problemInstance);
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
         CliqueGraph cGraph = sClique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList,cGraph.getEdgeList);
-        for(int i=0;i<apiGraph.nodes.Count;i++){
+        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+        for (int i = 0; i < apiGraph.nodes.Count; i++)
+        {
             apiGraph.nodes[i].attribute1 = i.ToString();
-            if(solutionList.Contains(apiGraph.nodes[i].name)){ //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.
-                apiGraph.nodes[i].attribute2 = true.ToString(); 
+            if (solutionList.Contains(apiGraph.nodes[i].name))
+            { //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.
+                apiGraph.nodes[i].attribute2 = true.ToString();
             }
-            else{apiGraph.nodes[i].attribute2 = false.ToString();}
+            else { apiGraph.nodes[i].attribute2 = false.ToString(); }
         }
         string jsonString = JsonSerializer.Serialize(apiGraph, options);
         return jsonString;
@@ -84,16 +93,18 @@ public class CLIQUEGenericController : ControllerBase {
 [Route("[controller]")]
 [Tags("Clique")]
 #pragma warning disable CS1591
-public class sipserReduceToVCController : ControllerBase {
+public class sipserReduceToVCController : ControllerBase
+{
 
 
-///<summary>Returns a reduction object with info for Sipser's Clique to Vertex Cover reduction </summary>
-///<response code="200">Returns sipserReduction Object</response>
+    ///<summary>Returns a reduction object with info for Sipser's Clique to Vertex Cover reduction </summary>
+    ///<response code="200">Returns sipserReduction Object</response>
 
     [ProducesResponseType(typeof(sipserReduction), 200)]
     [HttpGet("info")]
 
-    public String getInfo() {
+    public String getInfo()
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
@@ -102,13 +113,14 @@ public class sipserReduceToVCController : ControllerBase {
         return jsonString;
     }
 
-///<summary>Returns a reduction from Clique to Vertex Cover based on the given Clique instance  </summary>
-///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
+    ///<summary>Returns a reduction from Clique to Vertex Cover based on the given Clique instance  </summary>
+    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
 
     [ProducesResponseType(typeof(SipserReduction), 200)]
     [HttpGet("reduce")]
-    public String getReduce([FromQuery]string problemInstance) {
+    public String getReduce([FromQuery] string problemInstance)
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE(problemInstance);
         sipserReduction reduction = new sipserReduction(defaultCLIQUE);
@@ -117,14 +129,18 @@ public class sipserReduceToVCController : ControllerBase {
     }
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("visualize")]
-    #pragma warning disable CS1591
+#pragma warning disable CS1591
 
-    public String getVisualization([FromQuery]string problemInstance) {
+    public String getVisualization([FromQuery] string problemInstance)
+    {
+        Console.WriteLine("Inside getVisualization Clique" + problemInstance);
+
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
         CliqueGraph cGraph = clique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(cGraph.getNodeList,cGraph.getEdgeList);
-        for(int i=0;i<apiGraphFrom.nodes.Count;i++){
+        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+        for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
+        {
             apiGraphFrom.nodes[i].attribute1 = i.ToString();
         }
         sipserReduction reduction = new sipserReduction(clique);
@@ -137,22 +153,23 @@ public class sipserReduceToVCController : ControllerBase {
         string jsonString = JsonSerializer.Serialize(apiArr, options);
         return jsonString;
     }
-    #pragma warning restore CS1591
+#pragma warning restore CS1591
 
-///<summary>Returns a solution to the a Vertex Cover problem, wich has been reduced from Clique using Sipser's reduction  </summary>
-///<param name="problemFrom" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-///<param name="problemTo" example="(({1,2,3,4},{{1,3}}),1)">Vertex Cover problem instance string reduced from Clique instance.</param>
-///<param name="problemFromSolution" example=" {1,2,4}">Solution to Clique problem.</param>
-///<response code="200">Returns solution to the reduced Vertex Cover instance</response>
-    
+    ///<summary>Returns a solution to the a Vertex Cover problem, wich has been reduced from Clique using Sipser's reduction  </summary>
+    ///<param name="problemFrom" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<param name="problemTo" example="(({1,2,3,4},{{1,3}}),1)">Vertex Cover problem instance string reduced from Clique instance.</param>
+    ///<param name="problemFromSolution" example=" {1,2,4}">Solution to Clique problem.</param>
+    ///<response code="200">Returns solution to the reduced Vertex Cover instance</response>
+
     [ProducesResponseType(typeof(string), 200)]
     [HttpGet("mapSolution")]
-    public String mapSolution([FromQuery]string problemFrom, string problemTo, string problemFromSolution){
+    public String mapSolution([FromQuery] string problemFrom, string problemTo, string problemFromSolution)
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemFrom);
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemTo);
         sipserReduction reduction = new sipserReduction(clique);
-        string mappedSolution = reduction.mapSolutions(clique,vertexCover,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(clique, vertexCover, problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }
@@ -174,7 +191,7 @@ public class CLIQUEDevController : ControllerBase
         string jsonString = JsonSerializer.Serialize(devClique, options);
         return jsonString;
     }
-    
+
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("instance")]
     public String getDefault([FromQuery] string problemInstance)
@@ -190,7 +207,9 @@ public class CLIQUEDevController : ControllerBase
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("visualize")]
-    public String getVisualization([FromQuery]string problemInstance) {
+    public String getVisualization([FromQuery] string problemInstance)
+    {
+        Console.WriteLine("Inside getVisualization Clique" + problemInstance);
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
         CliqueGraph cGraph = clique.cliqueAsGraph;
@@ -213,8 +232,8 @@ public class CliqueBruteForceController : ControllerBase
 {
 
     // Return Generic Solver Class
-///<summary>Returns information about the Clique brute force solver </summary>
-///<response code="200">Returns CliqueBruteForce solver object</response>
+    ///<summary>Returns information about the Clique brute force solver </summary>
+    ///<response code="200">Returns CliqueBruteForce solver object</response>
 
     [ProducesResponseType(typeof(CliqueBruteForce), 200)]
     [HttpGet("info")]
@@ -227,10 +246,10 @@ public class CliqueBruteForceController : ControllerBase
     }
 
     // Solve a instance given a certificate
-///<summary>Returns a solution to a given Clique problem instance </summary>
-///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-///<response code="200">Returns a solution string </response>
-    
+    ///<summary>Returns a solution to a given Clique problem instance </summary>
+    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<response code="200">Returns a solution string </response>
+
     [ProducesResponseType(typeof(string), 200)]
     [HttpGet("solve")]
     public String solveInstance([FromQuery] string problemInstance)
@@ -248,36 +267,202 @@ public class CliqueBruteForceController : ControllerBase
 [Route("[controller]")]
 [Tags("Clique")]
 #pragma warning disable CS1591
-public class CliqueVerifierController : ControllerBase {
-    #pragma warning restore CS1591
+public class CliqueVerifierController : ControllerBase
+{
+#pragma warning restore CS1591
 
 
-///<summary>Returns information about the Clique generic Verifier </summary>
-///<response code="200">Returns CliqueVerifier Object</response>
+    ///<summary>Returns information about the Clique generic Verifier </summary>
+    ///<response code="200">Returns CliqueVerifier Object</response>
 
     [ProducesResponseType(typeof(CliqueVerifier), 200)]
     [HttpGet("info")]
-    public String getInfo() {
+    public String getInfo()
+    {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CliqueVerifier verifier = new CliqueVerifier();
         string jsonString = JsonSerializer.Serialize(verifier, options);
         return jsonString;
     }
 
-///<summary>Verifies if a given certificate is a solution to a given Clique problem</summary>
-///<param name="certificate" example="{1,2,4}">certificate solution to Clique problem.</param>
-///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-///<response code="200">Returns a boolean</response>
-    
+    ///<summary>Verifies if a given certificate is a solution to a given Clique problem</summary>
+    ///<param name="certificate" example="{1,2,4}">certificate solution to Clique problem.</param>
+    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<response code="200">Returns a boolean</response>
+
     [ProducesResponseType(typeof(Boolean), 200)]
     [HttpGet("verify")]
-        public String verifyInstance([FromQuery]string problemInstance, string certificate){
+    public String verifyInstance([FromQuery] string problemInstance, string certificate)
+    {
         string jsonString = String.Empty;
         CLIQUE vClique = new CLIQUE(problemInstance);
         CliqueVerifier verifier = vClique.defaultVerifier;
         bool validClique = verifier.verify(vClique, certificate);
         var options = new JsonSerializerOptions { WriteIndented = true };
         jsonString = JsonSerializer.Serialize(validClique, options);
+        return jsonString;
+    }
+}
+
+
+[ApiController]
+[Route("[controller]")]
+[Tags("Clique")]
+#pragma warning disable CS1591
+public class GreeksForGreeksReduceToSGIController : ControllerBase
+{
+#pragma warning restore CS1591
+
+    ///<summary>Returns a reduction object with info for Sipser's Clique to Vertex Cover reduction </summary>
+    ///<response code="200">Returns sipserReduction Object</response>
+
+    [ProducesResponseType(typeof(GreeksForGreeksReduceToSGI), 200)]
+    [HttpGet("info")]
+
+    public String getInfo()
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        CLIQUE defaultCLIQUE = new CLIQUE();
+        GreeksForGreeksReduceToSGI reduction = new GreeksForGreeksReduceToSGI(defaultCLIQUE);
+        string jsonString = JsonSerializer.Serialize(reduction, options);
+        return jsonString;
+    }
+
+    ///<summary>Returns a reduction from Clique to Vertex Cover based on the given Clique instance  </summary>
+    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
+    /// 
+    /// Put everything related to clique controller from here (subgraph isomorphism) 
+    /// change name of the reduction
+
+    [ProducesResponseType(typeof(GreeksForGreeksReduceToSGI), 200)]
+    [HttpGet("reduce")]
+    public String getReduce([FromQuery] string problemInstance)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        Console.WriteLine("Inside GetReduce " + problemInstance);
+        CLIQUE defaultCLIQUE = new CLIQUE(problemInstance);
+        GreeksForGreeksReduceToSGI reduction = new GreeksForGreeksReduceToSGI(defaultCLIQUE);
+        string jsonString = JsonSerializer.Serialize(reduction, options);
+        return jsonString;
+    }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [HttpGet("visualize")]
+#pragma warning disable CS1591
+
+    public String getVisualization([FromQuery] string problemInstance)
+    {
+        Console.WriteLine("Inside getSolvedVisualization " + problemInstance);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        CLIQUE clique = new CLIQUE(problemInstance);
+        CliqueGraph cGraph = clique.cliqueAsGraph;
+        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+        for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
+        {
+            apiGraphFrom.nodes[i].attribute1 = i.ToString();
+        }
+        GreeksForGreeksReduceToSGI reduction = new GreeksForGreeksReduceToSGI(clique);
+        SUBGRAPHISOMORPHISM reducedVcov = reduction.reductionTo;
+        // For Target Graph
+        API_UndirectedGraphJSON apiGraphT = new API_UndirectedGraphJSON(ListNodesToGraphNodes(reducedVcov.nodesT), ListEdgesToGraphEdges(reducedVcov.edgesT));
+        PrintGraph("Target ", apiGraphT);
+        // For Pattern Graph
+        API_UndirectedGraphJSON apiGraphP = new API_UndirectedGraphJSON(ListNodesToGraphNodes(reducedVcov.nodesP), ListEdgesToGraphEdges(reducedVcov.edgesP));
+        PrintGraph("Pattern ", apiGraphP);
+
+        // merge the graphs
+        API_UndirectedGraphJSON apiGraphTo = mergeTwoUndirectedGraphJson(apiGraphT, apiGraphP);
+        PrintGraph("combined ", apiGraphTo);
+
+        // Prepare JSON output containing both graphs
+        API_UndirectedGraphJSON[] apiArr = new API_UndirectedGraphJSON[2];
+        apiArr[0] = apiGraphFrom; // Original graph (Clique)
+        apiArr[1] = apiGraphTo; // Reduced graph (Subgraph Isomorphism)
+        string jsonString = JsonSerializer.Serialize(apiArr, options);
+        return jsonString;
+    }
+
+    private void PrintGraph(string graphName, API_UndirectedGraphJSON graph)
+    {
+        Console.WriteLine($"--- {graphName} ---");
+
+        // Print Nodes
+        Console.WriteLine("Nodes:");
+        foreach (var node in graph.nodes)
+        {
+            Console.WriteLine($"- {node.name}"); // Assuming node has a property 'id'
+        }
+
+        // Print Edges
+        Console.WriteLine("Edges:");
+        foreach (var edge in graph._links)
+        {
+            Console.WriteLine($"- {edge.source} -- {edge.target}"); // Assuming 'source' and 'target'
+        }
+
+        Console.WriteLine();
+    }
+    private List<Node> ListNodesToGraphNodes(List<string> nodes)
+    {
+        List<Node> nodeList = nodes.Select(name => new Node(name)).ToList();
+        return nodeList;
+    }
+
+    private List<Edge> ListEdgesToGraphEdges(List<KeyValuePair<string, string>> edges)
+    {
+        List<Edge> edgeList = edges.Select(p => new Edge(new Node(p.Key), new Node(p.Value))).ToList();
+
+        return edgeList;
+    }
+
+    private API_UndirectedGraphJSON mergeTwoUndirectedGraphJson(API_UndirectedGraphJSON targetGraph, API_UndirectedGraphJSON patternGraph)
+    {
+        var mergedNodes = targetGraph._nodes
+                   .Concat(patternGraph._nodes)
+                   .GroupBy(n => n.name) // Ensuring unique nodes by name
+                   .Select(g => g.First())
+                   .ToList();
+
+        // Merge edges ensuring uniqueness
+        var mergedEdges = targetGraph._links
+            .Concat(patternGraph._links)
+            .GroupBy(e => $"{e.source}-{e.target}") // Ensuring unique edges
+            .Select(g => g.First())
+            .ToList();
+
+        // Create merged graph
+        API_UndirectedGraphJSON mergedGraph = new API_UndirectedGraphJSON
+        {
+            _nodes = mergedNodes,
+            _links = mergedEdges
+        };
+
+        return mergedGraph;
+    }
+#pragma warning restore CS1591
+
+    ///<summary>Returns a solution to the a Vertex Cover problem, wich has been reduced from Clique using Sipser's reduction  </summary>
+    ///<param name="problemFrom" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
+    ///<param name="problemTo" example="(({1,2,3,4},{{1,3}}),1)">Vertex Cover problem instance string reduced from Clique instance.</param>
+    ///<param name="problemFromSolution" example=" {1,2,4}">Solution to Clique problem.</param>
+    ///<response code="200">Returns solution to the reduced Vertex Cover instance</response>
+
+    [ProducesResponseType(typeof(string), 200)]
+    [HttpGet("mapSolution")]
+    public String mapSolution([FromQuery] string problemFrom, string problemTo, string problemFromSolution)
+    {
+        Console.WriteLine("Inside mapSolution problemForm " + problemFrom);
+        Console.WriteLine("Inside mapSolution problemTo " + problemTo);
+        Console.WriteLine("Inside mapSolution problemFromSolution " + problemFromSolution);
+
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        CLIQUE clique = new CLIQUE(problemFrom);
+        SUBGRAPHISOMORPHISM subgraph = new SUBGRAPHISOMORPHISM(problemTo);
+        GreeksForGreeksReduceToSGI reduction = new GreeksForGreeksReduceToSGI(clique);
+        string mappedSolution = reduction.mapSolutions(clique, subgraph, problemFromSolution);
+        string jsonString = JsonSerializer.Serialize(mappedSolution, options);
+        // string jsonString = JsonSerializer.Serialize("", options);
         return jsonString;
     }
 }

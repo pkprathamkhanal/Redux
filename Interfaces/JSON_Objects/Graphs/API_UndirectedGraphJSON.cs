@@ -30,8 +30,6 @@ class API_UndirectedGraphJSON
             API_Link newLink = new API_Link(e.source.name,e.target.name); //destructures an object with a nested node into an object with straight name reference.
             _links.Add(newLink);
         }
-        
-
     }
 
 
