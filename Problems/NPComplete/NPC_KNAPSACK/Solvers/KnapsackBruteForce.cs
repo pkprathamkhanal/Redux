@@ -1,7 +1,7 @@
 using API.Interfaces;
 using API.Interfaces.JSON_Objects;
 using API.Problems.NPComplete.NPC_PARTITION;
-using DiscreteParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK.Solvers;
 class KnapsackBruteForce : ISolver<KNAPSACK> {

@@ -1,5 +1,5 @@
 using API.Interfaces;
-using DiscreteParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.Verifiers;
 

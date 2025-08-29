@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_KNAPSACK.Solvers;
 using API.Problems.NPComplete.NPC_KNAPSACK.Verifiers;
-using DiscreteParser;
+using SPADE;
 
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK;

@@ -1,6 +1,6 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_HITTINGSET;
-using DiscreteParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.Solvers;
 

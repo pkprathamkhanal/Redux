@@ -1,6 +1,6 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_KNAPSACK;
-using DiscreteParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.ReduceTo.NPC_KNAPSACK;
 
