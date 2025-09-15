@@ -71,35 +71,20 @@ class {NAME_UPPERCASE} : IProblem<{NAME_PASCEL_CASE}Solver, {NAME_PASCEL_CASE}Ve
 
 
 
-        // TODO: implement parsing of string instance of {NAME}. UtilCollections is a class meant to help with this step, see https://github.com/ReduxISU/Redux/blob/CSharpAPI/Documentation/UtilCollection.md for more information.
+        // TODO: implement parsing of string instance of {NAME}. SPADE is a class meant to help with this step, see https://github.com/Jetison333/SPADE/blob/main/Documentation/index.md for more information.
         //
-        // UtilCollection Knapsack example:
-        // UtilCollection collection = new UtilCollection(HWVInput);
-        // instance = collection.ToString();
-        // collection.assertPair(3);
-        // items = collection[0];
-        // items.assertUnordered();
-        // W = int.Parse(collection[1].ToString());
-        // V = int.Parse(collection[2].ToString());
-        // foreach (UtilCollection item in items) item.assertPair();
-
-
-        // TODO: implement properties if {NAME} is a graphing problem without other variables 
-        // UtilCollection collection = new UtilCollection(instance);
-        // collection.assertPair();
-        // nodes = collection[0];
-        // edges = collection[1];
-        // for (UtilCollection item in collection)
-        // {
-        //     item.assertCount(2);
-        //     item.assertUnordered();
-        // }
+        // StringParser parser = new("{(i, w, v) | i subset int cross int, w is int, v is int}");
+        // parser.parse(instance);
+        // items = parser["i"];
+        // W = int.Parse(parser["w"].ToString());
+        // V = int.Parse(parser["v"].ToString());
         //
-        // or non UtilCollection method 
-        // _{NAME_CAMEL_CASE}AsGraph = new {NAME_PASCEL_CASE}Graph(instance, true);
-        // nodes = _{NAME_CAMEL_CASE}AsGraph.nodesStringList;
-        // edges = _{NAME_CAMEL_CASE}AsGraph.edgesTuple;
-        //  _K = _{NAME_CAMEL_CASE}AsGraph.K;
-        // _instance = _{NAME_CAMEL_CASE}AsGraph.ToString();
+        // Or a unidirected unweighted graph example using SPADE
+        // 
+        // StringParser parser = new("{(N,E) | N is set, E subset N unorderdcross N}");
+        // parser.parse(instance);
+        // edges = parser["E"];
+        // nodes = parser["N"];
+
     }
 }
