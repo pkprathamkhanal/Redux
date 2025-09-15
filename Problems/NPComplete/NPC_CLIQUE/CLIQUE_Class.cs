@@ -12,7 +12,8 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
     public string formalDefinition {get;} = "Clique = {<G, k> | G is an graph that has a set of k mutually adjacent nodes}";
     public string problemDefinition {get;} = "A clique is the problem of uncovering a subset of vertices in an undirected graph G = (V, E) such that every two distinct vertices are adjacent";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string defaultInstance {get;} = "(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)";
+    private static string _defaultInstance = "(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)"; 
+    public string defaultInstance {get;} = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
@@ -61,21 +62,11 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
     }
 
     // --- Methods Including Constructors ---
-    public CLIQUE() {
-        instance = defaultInstance;
-        _cliqueAsGraph = new CliqueGraph(instance,true);
-        nodes = _cliqueAsGraph.nodesStringList;
-        edges = _cliqueAsGraph.edgesKVP;
-         _K = _cliqueAsGraph.K;
+    public CLIQUE() : this(_defaultInstance) {
+
     }
     public CLIQUE(string GInput)
     {
-        _cliqueAsGraph = new CliqueGraph(GInput, true);
-        nodes = _cliqueAsGraph.nodesStringList;
-        edges = _cliqueAsGraph.edgesKVP;
-        _K = _cliqueAsGraph.K;
-        instance = _cliqueAsGraph.ToString();
-
         StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
         cliqueGraph.parse(GInput);
         nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
