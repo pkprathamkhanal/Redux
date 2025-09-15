@@ -1,6 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_CLIQUE.Solvers;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
@@ -67,58 +68,25 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
         edges = _cliqueAsGraph.edgesKVP;
          _K = _cliqueAsGraph.K;
     }
-    public CLIQUE(string GInput) {
+    public CLIQUE(string GInput)
+    {
         _cliqueAsGraph = new CliqueGraph(GInput, true);
         nodes = _cliqueAsGraph.nodesStringList;
         edges = _cliqueAsGraph.edgesKVP;
         _K = _cliqueAsGraph.K;
         instance = _cliqueAsGraph.ToString();
+
+        StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        cliqueGraph.parse(GInput);
+        nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = cliqueGraph["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(cliqueGraph["K"].ToString());
+
+        
     }
-
-    public List<string> getNodes(string Ginput) {
-
-        List<string> allGNodes = new List<string>();
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
-        // [0] is nodes,  [1] is edges,  [2] is k.
-        string[] Gsections = strippedInput.Split(':');
-        string[] Gnodes = Gsections[0].Split(',');
-        
-        foreach(string node in Gnodes) {
-            allGNodes.Add(node);
-        }
-        return allGNodes;
-    }
-
-    public List<KeyValuePair<string, string>> getEdges(string Ginput) {
-
-        List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
-        // [0] is nodes,  [1] is edges,  [2] is k.
-        string[] Gsections = strippedInput.Split(':');
-        string[] Gedges = Gsections[1].Split('&');
-        
-        foreach (string edge in Gedges) {
-            string[] fromTo = edge.Split(',');
-            string nodeFrom = fromTo[0];
-            string nodeTo = fromTo[1];
-            
-            KeyValuePair<string,string> fullEdge = new KeyValuePair<string,string>(nodeFrom, nodeTo);
-            allGEdges.Add(fullEdge);
-        }
-
-        return allGEdges;
-    }
-
-    public int getK(string Ginput) {
-
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
-        
-        // [0] is nodes,  [1] is edges,  [2] is k.
-        string[] Gsections = strippedInput.Split(':');
-        return Int32.Parse(Gsections[2]);
-    }
-
 
 }
