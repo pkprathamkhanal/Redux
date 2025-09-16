@@ -32,5 +32,10 @@ class CutGraph : UnweightedUndirectedGraph
 
     }
 
+    public CutGraph(List<string> nl, List<KeyValuePair<string, string>> el, int kVal) : base (nl, el, kVal)
+    {
+
+    }
+
 
 }
