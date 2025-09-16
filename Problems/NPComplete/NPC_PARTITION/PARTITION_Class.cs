@@ -1,6 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_PARTITION.Solvers;
 using API.Problems.NPComplete.NPC_PARTITION.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_PARTITION;
 
@@ -14,8 +15,8 @@ class PARTITION : IProblem<PartitionBruteForce,PartitionVerifier> {
     public string[] contributors {get;} = {"Andrija Sevaljevic"};
 
 
-
-    public string defaultInstance {get;} = "{1,7,12,15,33,12,11,5,6,9,21,18}";
+    private static string _defaultInstance = "{1,7,12,15,33,12,11,5,6,9,21,18}";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<string> _S = new List<string>();
     
@@ -35,30 +36,14 @@ class PARTITION : IProblem<PartitionBruteForce,PartitionVerifier> {
     }
     
     // --- Methods Including Constructors ---
-    public PARTITION() {
-        instance = defaultInstance;
-        S = getIntegers(instance);
+    public PARTITION() : this(_defaultInstance) {
     }
-    public PARTITION(string instance) {
+    public PARTITION(string instance)
+    {
         this.instance = instance;
-        S = getIntegers(instance);
+
+        StringParser partition = new("{N | N is set}");
+        S = partition["N"].ToList().Select(node => node.ToString()).ToList();
     }
-    public List<string> getIntegers(string instance) {
-
-        List<string> allIntegers = new List<string>();
-        string strippedInput = instance.Replace("{", "").Replace("}", "").Replace(" ", "");
-        
-        // [0] is integers,  [1] is T.
-        string[] SSsections = strippedInput.Split(':');
-        string[] SSintegers = SSsections[0].Split(',');
-        
-        foreach(string integer in SSintegers) {
-            allIntegers.Add(integer);
-        }
-
-        return allIntegers;
-    }
-    
-
 
 }
