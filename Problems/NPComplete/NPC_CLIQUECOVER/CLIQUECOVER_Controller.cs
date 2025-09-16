@@ -30,8 +30,7 @@ public class CLIQUECOVERGenericController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUECOVER sClique = new CLIQUECOVER(problemInstance);
         List<string> solutionList = solution.Replace("{{","").Replace("}}","").Split("},{").ToList();
-        CliqueCoverGraph cGraph = sClique.cliqueCoverAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList,cGraph.getEdgeList);
+        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(sClique.nodes,sClique.edges);
         for(int i=0;i<apiGraph.nodes.Count;i++){
             int number = 0;
             apiGraph.nodes[i].attribute1 = i.ToString();
