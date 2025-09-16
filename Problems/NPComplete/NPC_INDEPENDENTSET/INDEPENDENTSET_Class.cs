@@ -1,6 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
 class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,IndependentSetGraph> {
@@ -66,12 +67,21 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
         edges = _independentSetAsGraph.edgesKVP;
          _K = _independentSetAsGraph.K;
     }
-    public INDEPENDENTSET(string GInput) {
-        _independentSetAsGraph = new IndependentSetGraph(GInput, true);
-        nodes = _independentSetAsGraph.nodesStringList;
-        edges = _independentSetAsGraph.edgesKVP;
-        _K = _independentSetAsGraph.K;
-        instance = _independentSetAsGraph.ToString();
+    public INDEPENDENTSET(string GInput)
+    {
+        instance = GInput;
+
+        StringParser independentset = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        independentset.parse(GInput);
+        nodes = independentset["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = independentset["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(independentset["K"].ToString());
+
+        independentSetAsGraph = new IndependentSetGraph(nodes, edges, _K);
     }
 
     public List<string> getNodes(string Ginput) {
