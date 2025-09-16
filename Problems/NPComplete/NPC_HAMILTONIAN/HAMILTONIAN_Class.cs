@@ -54,10 +54,12 @@ class HAMILTONIAN : IGraphProblem<HamiltonianBruteForce,HamiltonianVerifier,Hami
     }
 
     // --- Methods Including Constructors ---
-    public HAMILTONIAN() {
+    public HAMILTONIAN() : this(_defaultInstance) {
 
     }
     public HAMILTONIAN(string GInput) {
+
+        instance = GInput;
 
         StringParser hamiltonian = new("{(N,E) | N is set, E subset N unorderedcross N}");
         hamiltonian.parse(GInput);
