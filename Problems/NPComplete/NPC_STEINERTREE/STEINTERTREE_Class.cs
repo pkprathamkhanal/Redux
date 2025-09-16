@@ -1,6 +1,8 @@
+using System.Runtime.Serialization;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_STEINERTREE.Solvers;
 using API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_STEINERTREE;
 
@@ -11,7 +13,8 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
     public string formalDefinition {get;} = "Steiner = {<G,R,k> | G has a subtree of weight <= k containing the set of nodes in R}";
     public string problemDefinition {get;} = "Steiner tree problem in graphs requires a tree of minimum weight that contains all terminals";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string defaultInstance {get;} = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8},{6,1}}),{5,2,8},6)";
+    public static string _defaultInstance = "(({1,2,3,4,5,6,7,8},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5},{6,7},{7,8},{6,8},{6,1}}),{5,2,8},6)";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";
@@ -84,24 +87,28 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
     }
 
     // --- Methods Including Constructors ---
-    public STEINERTREE()
+    public STEINERTREE() : this(_defaultInstance)
     {
-        instance = defaultInstance;
-        _steinerAsGraph = new SteinerGraph(instance,true);
-        nodes = _steinerAsGraph.nodesStringList;
-        terminals = getTerminals(instance);
-        edges = _steinerAsGraph.edgesKVP;
-        K = _steinerAsGraph.K;
 
     }
     public STEINERTREE(string GInput)
     {
-        _steinerAsGraph = new SteinerGraph(GInput, true);
-        nodes = _steinerAsGraph.nodesStringList;
-        edges = _steinerAsGraph.edgesKVP;
-        K = _steinerAsGraph.K;
-        instance = _steinerAsGraph.ToString();
+        instance = GInput;
+
         terminals = getTerminals(GInput);
+
+        StringParser cliqueGraph = new("{((N,E),R,K) | N is set, E subset N unorderedcross N, R is set, K is int}");
+        cliqueGraph.parse(GInput);
+        nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = cliqueGraph["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        terminals = cliqueGraph["R"].ToList().Select(node => node.ToString()).ToList();
+        _K = int.Parse(cliqueGraph["K"].ToString());
+
+        _steinerAsGraph = new SteinerGraph(nodes, edges, _K);
 
     }
     public List<string> getTerminals(string Ginput)
