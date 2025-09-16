@@ -1,6 +1,8 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_HAMILTONIAN.Solvers;
 using API.Problems.NPComplete.NPC_HAMILTONIAN.Verifiers;
+using SPADE;
+using Xunit.Sdk;
 
 namespace API.Problems.NPComplete.NPC_HAMILTONIAN;
 
@@ -11,7 +13,8 @@ class HAMILTONIAN : IGraphProblem<HamiltonianBruteForce,HamiltonianVerifier,Hami
     public string formalDefinition {get;} = "Hamiltonian = {<G> | G has a cycle which covers every node exactly once}";
     public string problemDefinition {get;} = "Hamiltonian is the problem of determining whether a Hamiltonian cycle (a path in an undirected or directed graph that visits each vertex exactly once).";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string defaultInstance {get;} = "({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}})";
+    private static string _defaultInstance = "({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}})";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";
@@ -52,18 +55,20 @@ class HAMILTONIAN : IGraphProblem<HamiltonianBruteForce,HamiltonianVerifier,Hami
 
     // --- Methods Including Constructors ---
     public HAMILTONIAN() {
-        instance = defaultInstance;
-        _hamiltonianAsGraph = new HamiltonianGraph(instance,true);
-        nodes = _hamiltonianAsGraph.nodesStringList;
-        edges = _hamiltonianAsGraph.edgesKVP;
 
     }
     public HAMILTONIAN(string GInput) {
-        _hamiltonianAsGraph = new HamiltonianGraph(GInput, true);
-        nodes = _hamiltonianAsGraph.nodesStringList;
-        edges = _hamiltonianAsGraph.edgesKVP;
-        instance = _hamiltonianAsGraph.ToString();
 
+        StringParser hamiltonian = new("{(N,E) | N is set, E subset N unorderedcross N}");
+        hamiltonian.parse(GInput);
+        nodes = hamiltonian["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = hamiltonian["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+
+        _hamiltonianAsGraph = new HamiltonianGraph(nodes, edges);
     }
 
 
