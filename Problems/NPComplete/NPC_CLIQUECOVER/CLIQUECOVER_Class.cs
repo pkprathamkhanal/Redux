@@ -66,10 +66,9 @@ class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,Cliq
     public CLIQUECOVER() : this(_defaultInstance) {
 
     }
-    public CLIQUECOVER(string GInput) {
+    public CLIQUECOVER(string GInput)
+    {
         instance = GInput;
-
-        _cliqueCoverAsGraph = new CliqueCoverGraph(instance,true);
 
         StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
         cliqueGraph.parse(GInput);
@@ -80,6 +79,8 @@ class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,Cliq
             return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
         }).ToList();
         _K = int.Parse(cliqueGraph["K"].ToString());
+
+        _cliqueCoverAsGraph = new CliqueCoverGraph(nodes, edges, _K);
 
     }
 
