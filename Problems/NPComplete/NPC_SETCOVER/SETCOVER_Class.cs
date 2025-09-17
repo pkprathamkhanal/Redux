@@ -65,40 +65,6 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
         subsets = cliqueGraph["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
         _K = int.Parse(cliqueGraph["K"].ToString());
 
-
     }
-
-
-    public List<string> getUniversalSet(string Ginput) {
-
-        List<string> allElements = new List<string>();
-        List<string> seperation = Ginput.Split("},{{").ToList();
-        string sections = seperation[0];
-        allElements = sections.Replace("{","").Split(',').ToList();
-
-        return allElements;
-    }
-    public List<List<string>> getSubsets(string Ginput) {
-        List<string> allSets = new List<string>();
-        List<string> seperation = Ginput.Split("},{{").ToList();
-        string sections = seperation[1];
-        List<string> seperation2 = sections.Split("}},").ToList();
-        string sections2 = seperation2[0];
-        allSets = sections2.Split("},{").ToList();
-
-        List<List<string>> subsets = new List<List<string>>();
-        foreach(var i in allSets) {
-            subsets.Add(i.Split(',').ToList());
-        }
-
-        return subsets;      
-    }
-
-    public int getK(string Ginput) {
-        List<string> sections = Ginput.Split("},{{").ToList();
-        sections = sections[1].Split("}},").ToList();
-        return Int32.Parse(sections[1].Replace("}",""));
-    }
-
 
 }
