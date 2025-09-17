@@ -2,6 +2,7 @@ using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.Solvers;
 class CliqueBruteForce : ISolver<CLIQUE> {
@@ -92,7 +93,8 @@ class CliqueBruteForce : ISolver<CLIQUE> {
 
         Dictionary<string, bool> solutionDict = new Dictionary<string, bool>();
         GraphParser gParser = new GraphParser();
-        CliqueGraph cGraph = new CliqueGraph(problemInstance, true);
+        CLIQUE clique = new CLIQUE(problemInstance);
+        CliqueGraph cGraph = clique.cliqueAsGraph;
         List<string> problemInstanceNodes = cGraph.nodesStringList;
         List<string> solvedNodes = gParser.getNodesFromNodeListString(solutionString);
         

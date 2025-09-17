@@ -104,7 +104,8 @@ public CutBruteForce() {
    public Dictionary<KeyValuePair<string,string>, bool> getSolutionDict(string problemInstance, string solutionString){
 
         Dictionary<KeyValuePair<string,string>, bool> solutionDict = new Dictionary<KeyValuePair<string,string>, bool>();
-        CutGraph cGraph = new CutGraph(problemInstance, true);
+        CUT cut = new CUT(problemInstance);
+        CutGraph cGraph = cut.cutAsGraph;
         List<KeyValuePair<string, string>> problemInstanceEdges = cGraph.edgesKVP;
         List<KeyValuePair<string, string>> solvedEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solutionString);
 

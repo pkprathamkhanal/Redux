@@ -70,7 +70,8 @@ class IndependentSetBruteForce : ISolver<INDEPENDENTSET> {
 
         Dictionary<string, bool> solutionDict = new Dictionary<string, bool>();
         GraphParser gParser = new GraphParser();
-        IndependentSetGraph cGraph = new IndependentSetGraph(problemInstance, true);
+        INDEPENDENTSET independentset = new INDEPENDENTSET(problemInstance);
+        IndependentSetGraph cGraph = independentset.independentSetAsGraph;
         List<string> problemInstanceNodes = cGraph.nodesStringList;
         List<string> solvedNodes = gParser.getNodesFromNodeListString(solutionString);
         

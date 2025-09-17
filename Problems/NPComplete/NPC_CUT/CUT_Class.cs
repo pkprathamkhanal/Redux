@@ -14,7 +14,8 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
     public string[] contributors {get;} = {"Andrija Sevaljevic"};
     
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string defaultInstance {get;} = "(({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}}),5)";
+    private static string _defaultInstance = "(({1,2,3,4,5},{{2,1},{1,3},{2,3},{3,5},{2,4},{4,5}}),5)";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     
     private List<string> _nodes = new List<string>();
@@ -62,13 +63,7 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
     }
 
     // --- Methods Including Constructors ---
-    public CUT() {
-        instance = defaultInstance;
-        _cutAsGraph = new CutGraph(instance,true);
-        nodes = _cutAsGraph.nodesStringList;
-        edges = _cutAsGraph.edgesKVP;
-         _K = _cutAsGraph.K;
-
+    public CUT() : this(_defaultInstance) {
 
     }
     public CUT(string GInput) {
