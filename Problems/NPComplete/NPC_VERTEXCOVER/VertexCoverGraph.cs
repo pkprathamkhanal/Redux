@@ -37,9 +37,15 @@ class VertexCoverGraph:UnweightedUndirectedGraph{
     
     }
 
+    public VertexCoverGraph(List<string> nl, List<KeyValuePair<string, string>> el, int kVal) : base(nl, el, kVal)
+    {
 
-    public API_UndirectedGraphJSON visualizeGraph(){
-        API_UndirectedGraphJSON apiGraphRepresentation = new API_UndirectedGraphJSON(this._nodeList,this._edgeList);
+    }
+
+
+    public API_UndirectedGraphJSON visualizeGraph()
+    {
+        API_UndirectedGraphJSON apiGraphRepresentation = new API_UndirectedGraphJSON(this._nodeList, this._edgeList);
         return apiGraphRepresentation;
     }
 

@@ -2,6 +2,7 @@ using API.Interfaces;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Solvers;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 using API.Interfaces.Graphs;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER;
 
@@ -13,7 +14,8 @@ class VERTEXCOVER : IGraphProblem<VertexCoverBruteForce,VCVerifier,VertexCoverGr
     public string problemDefinition {get;} = "A vertex cover is a subset of nodes S, such that every edge in the graph, G, touches a node in S.";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     //public string defaultInstance {get;} = "{{a,b,c,d,e,f,g} : {{a,b} & {a,c} & {c,d} & {c,e} & {d,f} & {e,f} & {e,g}} : 3}";
-    public string defaultInstance {get;} = "(({a,b,c,d,e},{{a,b},{a,c},{a,e},{b,e},{c,d}}),3)";
+    private static string _defaultInstance = "(({a,b,c,d,e},{{a,b},{a,c},{a,e},{b,e},{c,d}}),3)";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
@@ -62,25 +64,23 @@ class VERTEXCOVER : IGraphProblem<VertexCoverBruteForce,VCVerifier,VertexCoverGr
     }
 
     // --- Methods Including Constructors ---
-    public VERTEXCOVER() {
-        // string VCDefaultString = _defaultInstance;
-        // _VCAsGraph = new UndirectedGraph();
-        // _vertexCover = _vertexCover.ToString();
-        instance = defaultInstance;
-        _VCAsGraph = new VertexCoverGraph(instance,true);
-        nodes = _VCAsGraph.nodesStringList;
-        edges = _VCAsGraph.edgesKVP;
-        K = _VCAsGraph.K;
+    public VERTEXCOVER() : this(_defaultInstance) {
 
     }
     public VERTEXCOVER(string instanceInput) {
-        // _VCAsGraph = new UndirectedGraph(GkInput);
-        // _vertexCover = _VCAsGraph.ToString();
         instance = instanceInput;
-        _VCAsGraph = new VertexCoverGraph(instance,true);
-        nodes = _VCAsGraph.nodesStringList;
-        edges = _VCAsGraph.edgesKVP;
-        K = _VCAsGraph.K;
+
+        StringParser vertexCover = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        vertexCover.parse(instanceInput);
+        nodes = vertexCover["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = vertexCover["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(vertexCover["K"].ToString());
+
+        _VCAsGraph = new VertexCoverGraph(nodes, edges, _K);
     }
 
     public List<string> getNodes(string Ginput) {
