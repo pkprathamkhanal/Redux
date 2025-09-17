@@ -59,7 +59,10 @@ class DIRHAMILTONIAN : IGraphProblem<DirectedHamiltonianBruteForce,DirectedHamil
     }
     public DIRHAMILTONIAN(string GInput)
     {
+        instance = GInput;
+
         StringParser dirhamiltonianparser = new("{(N,E) | N is set, E subset N cross N}");
+        dirhamiltonianparser.parse(GInput);
         nodes = dirhamiltonianparser["N"].ToList().Select(node => node.ToString()).ToList();
         edges = dirhamiltonianparser["E"].ToList().Select(edge =>
         {

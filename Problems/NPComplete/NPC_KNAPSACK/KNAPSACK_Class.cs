@@ -56,6 +56,7 @@ class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier> {
     }
 
     public KNAPSACK(string HWVInput) {
+        instance = HWVInput;
         StringParser parser = new("{(i, w, v) | i subset int cross int, w is int, v is int}");
         parser.parse(HWVInput);
         items = parser["i"];

@@ -65,7 +65,6 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     public CLIQUE reduce() {
         INDEPENDENTSET INDPENDENTSETInstance = _reductionFrom;
         CLIQUE reducedCLIQUE = new CLIQUE();
-
         reducedCLIQUE.nodes = INDPENDENTSETInstance.nodes;
 
         List<KeyValuePair<string, string>> edges = new List<KeyValuePair<string, string>>();

@@ -58,6 +58,7 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     public SETCOVER() : this(_defaultInstance) {
     }
     public SETCOVER(string GInput) {
+        instance = GInput;
 
         StringParser cliqueGraph = new("{(U,S,K) | U is set S subset {a | a subset U}}");
         cliqueGraph.parse(GInput);

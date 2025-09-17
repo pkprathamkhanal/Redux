@@ -67,6 +67,7 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
     }
     public CLIQUE(string GInput)
     {
+        instance = GInput;
         StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
         cliqueGraph.parse(GInput);
         nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();

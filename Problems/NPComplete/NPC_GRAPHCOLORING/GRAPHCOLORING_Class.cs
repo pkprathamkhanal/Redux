@@ -109,6 +109,7 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
 
     }
     public GRAPHCOLORING(string GInput) {
+        instance = GInput;
 
         StringParser graphcoloring = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
         graphcoloring.parse(GInput);

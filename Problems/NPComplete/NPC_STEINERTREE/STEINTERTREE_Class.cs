@@ -95,8 +95,6 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
     {
         instance = GInput;
 
-        terminals = getTerminals(GInput);
-
         StringParser cliqueGraph = new("{((N,E),R,K) | N is set, E subset N unorderedcross N, R is set, K is int}");
         cliqueGraph.parse(GInput);
         nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();

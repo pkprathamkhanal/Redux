@@ -67,6 +67,7 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
 
     }
     public CUT(string GInput) {
+        instance = GInput;
 
         StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
         cliqueGraph.parse(GInput);
