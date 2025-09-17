@@ -1,6 +1,8 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_SETCOVER.Solvers;
 using API.Problems.NPComplete.NPC_SETCOVER.Verifiers;
+using Microsoft.AspNetCore.Http.Features;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER;
 
@@ -12,7 +14,8 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     public string problemDefinition {get;} = "Given a set of elements and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
 
-    public string defaultInstance {get;} = "{{1,2,3,4,5},{{1,2,3},{2,4},{3,4},{4,5}},3}";
+    private static string _defaultInstance = "{{1,2,3,4,5},{{1,2,3},{2,4},{3,4},{4,5}},3}";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<string> _universal = new List<string>();
     private List<List<string>> _subsets = new List<List<string>>();
@@ -52,17 +55,17 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     }
 
     // --- Methods Including Constructors ---
-    public SETCOVER() {
-        instance = defaultInstance;
-        universal = getUniversalSet(instance);
-        subsets = getSubsets(instance);
-        _K = getK(instance);
+    public SETCOVER() : this(_defaultInstance) {
     }
     public SETCOVER(string GInput) {
-        instance = GInput;
-        universal = getUniversalSet(instance);
-        subsets = getSubsets(instance);
-        _K = getK(instance);
+
+        StringParser cliqueGraph = new("{(U,S,K) | U is set S subset {a | a subset U}}");
+        cliqueGraph.parse(GInput);
+        universal = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
+        subsets = cliqueGraph["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
+        _K = int.Parse(cliqueGraph["K"].ToString());
+
+
     }
 
 
