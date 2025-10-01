@@ -25,12 +25,6 @@ namespace API.Problems.NPComplete.NPC_DOMINATINGSET
 
 
         /// <summary>
-        /// DEPRECATED direct-base constructor (mirrors SteinerGraph). Kept for API compatibility.
-        /// </summary>
-
-        public DominatingSetGraph(string input) : base(input) { }
-
-        /// <summary>
         /// Preferred constructor that validates & parses the Dominating Set instance string.
         /// Expected format: (({v1,v2,...},{{a,b},{c,d},...}),K)
         /// </summary>

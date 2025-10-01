@@ -6,7 +6,7 @@ using API.Problems.NPComplete.NPC_DOMINATINGSET;
 
 namespace API.Problems.NPComplete.NPC_DOMINATINGSET.Verifiers;
 
-class DominatingSetVerifier : IVerifier
+class DominatingSetVerifier : IVerifier<DOMINATINGSET>
 {
 
     // --- Fields ---

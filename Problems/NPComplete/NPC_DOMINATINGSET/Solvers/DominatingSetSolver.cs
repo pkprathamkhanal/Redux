@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace API.Problems.NPComplete.NPC_DOMINATINGSET.Solvers
 {
-    class DominatingSetSolver : ISolver
+    class DominatingSetSolver : ISolver<DOMINATINGSET>
     {
 
         // --- Fields ---
