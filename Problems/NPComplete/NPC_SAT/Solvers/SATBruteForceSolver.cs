@@ -6,55 +6,17 @@ using API.Tools.Boolean_Parser;
 namespace API.Problems.NPComplete.NPC_SAT.Solvers;
 #pragma warning disable CS1591
 
-
+    // TODO: use generic `ISolver<SAT>` for type safety
     public class SATBruteForceSolver : ISolver {
 
 
     #region Fields
 
     // --- Fields ---
-    private string _solverName = "SAT Brute Force Solver";
-    private string _solverDefinition = "This is a simple brute force solver for SAT";
-    private string _source = "";
-    private string[] _contributors = { "Daniel Igbokwe, Show Pratoomratana"};
-
-    private string _complexity = "";
-
-
-    #endregion
-
-
-    #region Properties
-   // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string complexity {
-        get {
-            return _complexity;
-        }
-
-        set{
-            _complexity = value;
-        }
-    }
+    public string solverName {get;} = "SAT Brute Force Solver";
+    public string solverDefinition {get;} = "This is a simple brute force solver for SAT";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Daniel Igbokwe, Show Pratoomratana"};
 
     #endregion
 
@@ -134,7 +96,7 @@ namespace API.Problems.NPComplete.NPC_SAT.Solvers;
         return false;
     }
 
-        public string Solver(string SATInstance){
+        public string solve(string SATInstance){
         //string SATInstance = "(!x1 | !x2 | !x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1)";
         Boolean_Parser parser = new Boolean_Parser(SATInstance);
         List<string> literals = parser.getLiterals();

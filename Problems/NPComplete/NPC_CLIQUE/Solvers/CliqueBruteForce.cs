@@ -2,38 +2,17 @@ using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.Solvers;
-class CliqueBruteForce : ISolver {
+class CliqueBruteForce : ISolver<CLIQUE> {
 
     // --- Fields ---
-    private string _solverName = "Clique Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Clique problem";
-    private string _source = "";
-    private string[] _contributors = {"Caleb Eardley", "Kaden Marchetti"};
+    public string solverName {get;} = "Clique Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Clique problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Caleb Eardley", "Kaden Marchetti"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public CliqueBruteForce() {
         
@@ -82,6 +61,27 @@ class CliqueBruteForce : ISolver {
         return "{}";
     }
 
+    public List<string> getSteps(CLIQUE clique){
+        List<int> combination = new List<int>();
+        List<string> steps = new List<string>();
+        for(int i=0; i<clique.K; i++){
+            combination.Add(i);
+        }
+        BigInteger reps = factorial(clique.nodes.Count) / (factorial(clique.K) * factorial(clique.nodes.Count - clique.K));
+        for(int i=0; i<reps; i++){
+            string certificate = indexListToCertificate(combination,clique.nodes);
+            
+            if(clique.defaultVerifier.verify(clique, certificate) || steps.Count == 99){
+                return steps;
+            }
+            if(steps.Count < 99) steps.Add(certificate);
+            combination = nextComb(combination, clique.nodes.Count);
+
+        }
+        steps.Add("{}");
+        return steps;
+    }
+
     /// <summary>
     /// Given Clique instance in string format and solution string, outputs a solution dictionary with 
     /// true values mapped to nodes that are in the solution set else false. 
@@ -93,7 +93,8 @@ class CliqueBruteForce : ISolver {
 
         Dictionary<string, bool> solutionDict = new Dictionary<string, bool>();
         GraphParser gParser = new GraphParser();
-        CliqueGraph cGraph = new CliqueGraph(problemInstance, true);
+        CLIQUE clique = new CLIQUE(problemInstance);
+        CliqueGraph cGraph = clique.cliqueAsGraph;
         List<string> problemInstanceNodes = cGraph.nodesStringList;
         List<string> solvedNodes = gParser.getNodesFromNodeListString(solutionString);
         

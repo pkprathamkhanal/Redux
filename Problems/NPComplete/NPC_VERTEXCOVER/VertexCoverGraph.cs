@@ -16,30 +16,16 @@ class VertexCoverGraph:UnweightedUndirectedGraph{
         
     }
 
-    /// <summary>
- /// Takes a String and creates a VertexCoverGraph from it
- /// NOTE: DEPRECATED format, ex: {{a,b,c} : {{a,b} &amp; {b,c}} : 1}
- /// </summary>
- /// <param name="vertInput"> string input</param>
-    public VertexCoverGraph(string vertInput) : base (vertInput){
-        
-    }
 
-    //Constructor for standard graph formatted string input.
-     /// <summary>
-     /// 
-     /// </summary>
-     /// <param name="vertInput"> Undirected Graph string input
-     /// ex. {{1,2,3},{{1,2},{2,3}},0}
-     /// </param>
-     /// <param name="decoy"></param>
-    public VertexCoverGraph(string vertInput, bool decoy) : base (vertInput, decoy){
-    
+    public VertexCoverGraph(List<string> nl, List<KeyValuePair<string, string>> el, int kVal) : base(nl, el, kVal)
+    {
+
     }
 
 
-    public API_UndirectedGraphJSON visualizeGraph(){
-        API_UndirectedGraphJSON apiGraphRepresentation = new API_UndirectedGraphJSON(this._nodeList,this._edgeList);
+    public API_UndirectedGraphJSON visualizeGraph()
+    {
+        API_UndirectedGraphJSON apiGraphRepresentation = new API_UndirectedGraphJSON(this._nodeList, this._edgeList);
         return apiGraphRepresentation;
     }
 

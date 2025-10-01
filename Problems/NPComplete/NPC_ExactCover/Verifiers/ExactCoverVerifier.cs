@@ -2,37 +2,16 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.Verifiers;
 
-class ExactCoverVerifier : IVerifier {
+class ExactCoverVerifier : IVerifier<ExactCover> {
 
     // --- Fields ---
-    private string _verifierName = "Exact Cover Verifier";
-    private string _verifierDefinition = "This is a verifier for Exact Cover";
-    private string _source = " ";
-    private string[] _contributors = { "Caleb Eardley"};
+    public string verifierName {get;} = "Exact Cover Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Exact Cover";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = { "Caleb Eardley"};
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
       public string certificate {
         get {
             return _certificate;
@@ -55,12 +34,12 @@ class ExactCoverVerifier : IVerifier {
         return parsedCertificate;
     }
     //Example certificate "{{1,2,3},{2,3,4},{1,2}}
-    public bool verify(ExactCover exactCover, string certificate){
+    public bool verify(ExactCover problem, string certificate){
         List<List<string>> parsedCertificate = parseCertificate(certificate);
 
         foreach(var subset_i in parsedCertificate){
             bool inS = false;
-            foreach(var subset_j in exactCover.S){
+            foreach(var subset_j in problem.S){
                 if(subset_i.OrderBy(e => e).SequenceEqual(subset_j.OrderBy(e => e))){
                     inS = true;
                 }
@@ -75,7 +54,7 @@ class ExactCoverVerifier : IVerifier {
                 cover.Add(element);
             }
         }
-        if(cover.OrderBy(e => e).SequenceEqual(exactCover.X.OrderBy(e => e))){
+        if(cover.OrderBy(e => e).SequenceEqual(problem.X.OrderBy(e => e))){
             
             return true;
         }

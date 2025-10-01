@@ -11,15 +11,15 @@ using API.Interfaces.Graphs;
 
 namespace API.Interfaces.Graphs;
 
-abstract class DirectedGraph:Graph{
+abstract class DirectedGraph : Graph {
 
 
     // --- Fields ---
 
     //private list nodeList // Node obj
-    //protected List<Node> _nodeList;
+    protected List<Node> _nodeList;
     //private list edge list // edge obj
-    //protected List<Edge> _edgeList;
+    protected List<Edge> _edgeList;
 
     protected Dictionary<string,Node> _nodeDict;
     protected List<string> _nodeStringList = new List<string>();
@@ -84,6 +84,34 @@ abstract class DirectedGraph:Graph{
  
     }
 
+    // Make graph using existing nodes and edge list
+    public DirectedGraph(List<string> nl, List<KeyValuePair<string, string>> el)
+    {
+        
+        //The following generates the dictionaries for our Nodes and Edges
+        _nodeDict = new Dictionary<string,Node>();
+
+         _nodeList = new List<Node>();
+        foreach (string nodeStr in nl){
+            Node node = new Node(nodeStr);
+            _nodeList.Add(node); //adds node to nodeList
+            _nodeDict.Add(nodeStr,node); //adds node to nodeDIct
+        }
+        //Note that this is initializing unique node instances. May want to compose edges of already existing nodes instead. 
+        _edgeList = new List<Edge>();
+        foreach(KeyValuePair<string,string> edgeKV in el){
+            string eStr1= edgeKV.Key;
+            string eStr2 = edgeKV.Value;
+            Node n1 = new Node(eStr1);
+            Node n2 = new Node(eStr2);
+            Edge edge = new Edge(n1,n2);
+            _edgeList.Add(edge); //adds edge to edgeList
+        }
+
+        _adjacencyMatrix = new Dictionary<string,List<KeyValuePair<string,Node>>>();
+        generateAdjacencyMatrix();
+    }
+
 
 
     ///<summary>
@@ -92,69 +120,77 @@ abstract class DirectedGraph:Graph{
     ///</summary>
     ///<param name="graphStr">A Directed Graph string</param>
     ///<param name = "decoy"> This is a temp variable for constructor overloading while deprecating the original format </param>
-    public DirectedGraph(String graphStr,bool decoy){
+    public DirectedGraph(String graphStr, bool decoy)
+    {
 
-        _nodeDict = new Dictionary<string,Node>();
+        _nodeList = new List<Node>();
+        _edgeList = new List<Edge>();
+        _nodeDict = new Dictionary<string, Node>();
         _adjacencyMatrix = new Dictionary<string, List<KeyValuePair<string, Node>>>();
 
         string pattern;
         pattern = @"\(\({(([\w!]+)+(,([\w!]+))*)},{(\(([\w!]+),([\w!]+)\)(,\(([\w!]+),([\w!]+)\))*)*}\),\d+\)"; //checks for directed graph format
         Regex reg = new Regex(pattern);
         bool inputIsValid = reg.IsMatch(graphStr);
-        if(inputIsValid){
-            
+        if (inputIsValid)
+        {
+
             //nodes
             string nodePattern = @"{((([\w!]+))*(([\w!]+),)*)+}";
-            MatchCollection nMatches =  Regex.Matches(graphStr,nodePattern);
+            MatchCollection nMatches = Regex.Matches(graphStr, nodePattern);
             string nodeStr = nMatches[0].ToString();
             nodeStr = nodeStr.TrimStart('{');
             nodeStr = nodeStr.TrimEnd('}');
             string[] nodeStringList = nodeStr.Split(',');
-            foreach(string nodeName in nodeStringList){
-               _nodeList.Add(new Node(nodeName));
-               _nodeDict.Add(nodeName, new Node(nodeName));
+            foreach (string nodeName in nodeStringList)
+            {
+                _nodeList.Add(new Node(nodeName));
+                _nodeDict.Add(nodeName, new Node(nodeName));
             }
-           //Console.WriteLine(nMatches[0]);
-            
+            //Console.WriteLine(nMatches[0]);
+
             //edges
             string edgePattern = @"{(\(([\w!]+),([\w!]+)\)(,\(([\w!]+),([\w!]+)\))*)*}";
-            MatchCollection eMatches = Regex.Matches(graphStr,edgePattern);
+            MatchCollection eMatches = Regex.Matches(graphStr, edgePattern);
             string edgeStr = eMatches[0].ToString();
             string edgePatternInner = @"([\w!]+)+,([\w!]+)";
-            MatchCollection eMatches2 = Regex.Matches(edgeStr,edgePatternInner);
-            foreach(Match medge in eMatches2){
+            MatchCollection eMatches2 = Regex.Matches(edgeStr, edgePatternInner);
+            foreach (Match medge in eMatches2)
+            {
                 string[] edgeSplit = medge.ToString().Split(',');
                 Node n1 = new Node(edgeSplit[0]);
                 Node n2 = new Node(edgeSplit[1]);
-                _edgeList.Add(new Edge(n1,n2));
+                _edgeList.Add(new Edge(n1, n2));
             }
-            
+
             //end num
-             string endNumPatternOuter = @"\),\d+\)"; //gets the end section of the graph string
-            MatchCollection numMatches = Regex.Matches(graphStr,endNumPatternOuter);
+            string endNumPatternOuter = @"\),\d+\)"; //gets the end section of the graph string
+            MatchCollection numMatches = Regex.Matches(graphStr, endNumPatternOuter);
             string outerString = numMatches[0].ToString();
             string endNumPatternInner = @"\d+"; //parses out number from end section.
-            MatchCollection numMatches2 = Regex.Matches(outerString,endNumPatternInner);
+            MatchCollection numMatches2 = Regex.Matches(outerString, endNumPatternInner);
             string innerString = numMatches2[0].ToString();
             int convNum = Int32.Parse(innerString);
             _K = convNum;
-            _adjacencyMatrix = new Dictionary<string,List<KeyValuePair<string,Node>>>();
+            _adjacencyMatrix = new Dictionary<string, List<KeyValuePair<string, Node>>>();
             generateAdjacencyMatrix();
 
-            
-          foreach(Node n in _nodeList){
-            _nodeStringList.Add(n.name);
-        }
-        foreach(Edge e in _edgeList){
+
+            foreach (Node n in _nodeList)
+            {
+                _nodeStringList.Add(n.name);
+            }
+            foreach (Edge e in _edgeList)
+            {
                 KeyValuePair<string, string> tempKVP = new KeyValuePair<string, string>(e.source.name, e.target.name);
                 _edgesKVP.Add(tempKVP);
             }
- 
+
         }
         else
         {
-           Console.WriteLine("NOT VALID INPUT for Regex evaluation! INITIALIZATION FAILED");
-            
+            Console.WriteLine("NOT VALID INPUT for Regex evaluation! INITIALIZATION FAILED");
+
         }
 
 
@@ -185,7 +221,7 @@ abstract class DirectedGraph:Graph{
 ///Takes a string representation of a directed graph and returns its Nodes as a list of strings.
 ///NOTE: DEPRECATED
 ///</summary>
-    protected override List<string> getNodes(string Ginput) {
+    protected List<string> getNodes(string Ginput) {
 
         List<string> allGNodes = new List<string>();
         string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")",""); //Looks for ( and ) as delimiters for edge pairs
@@ -207,7 +243,7 @@ abstract class DirectedGraph:Graph{
 ///Takes a string representation of a directed graph and returns its edges as a list of strings.
 ///NOTE: DEPRECATED
 ///</summary>
-    protected override List<KeyValuePair<string, string>> getEdges(string Ginput) {
+    protected List<KeyValuePair<string, string>> getEdges(string Ginput) {
 
         List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
 
@@ -235,7 +271,7 @@ abstract class DirectedGraph:Graph{
 ///Takes a string representation of a directed graph and returns its k value as a list of strings.
 ///NOTE: DEPRECATED
 ///</summary>
-    protected override int getK(string Ginput) {
+    protected int getK(string Ginput) {
         string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
         
         // [0] is nodes,  [1] is edges,  [2] is k.
@@ -377,14 +413,14 @@ abstract class DirectedGraph:Graph{
 
 
 
-    public List<Node> getNodeList{
+    public override List<Node> nodes{
         get{
-            return base._nodeList;
+            return _nodeList;
         }
     }
-    public List<Edge> getEdgeList{
+    public override List<Edge> edges{
         get{
-            return base._edgeList;
+            return _edgeList;
         }
     }
     public int K{

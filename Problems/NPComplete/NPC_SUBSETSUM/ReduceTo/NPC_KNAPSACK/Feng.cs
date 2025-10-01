@@ -1,16 +1,16 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_KNAPSACK;
-using DiscreteParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.ReduceTo.NPC_KNAPSACK;
 
 class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
 
     // --- Fields ---
-    private string _reductionName = "Feng's Knapsack Reduction";
-    private string _reductionDefinition = "Fengs reduction converts positive integers in SUBSETSUM to items in KNAPSACK";
-    private string _source = "Feng, Thomas http://cgm.cs.mcgill.ca/~avis/courses/360/2003/assignments/sol4.pdf";
-    private string[] _contributors = {"Garret Stouffer, Daniel Igbokwe"};
+    public string reductionName {get;} = "Feng's Knapsack Reduction";
+    public string reductionDefinition {get;} = "Fengs reduction converts positive integers in SUBSETSUM to items in KNAPSACK";
+    public string source {get;} = "Feng, Thomas http://cgm.cs.mcgill.ca/~avis/courses/360/2003/assignments/sol4.pdf";
+    public string[] contributors {get;} = {"Garret Stouffer, Daniel Igbokwe"};
   
     private string _complexity ="O(n)";
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
@@ -20,27 +20,6 @@ class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
 
 
     // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-     public string[] contributors{
-        get
-        {
-            return _contributors;
-        }
-    }
     public Dictionary<Object,Object> gadgetMap {
         get{
             return _gadgetMap;

@@ -9,4 +9,4 @@ Welcome to the documentation for the Redux Backend. Note for standard deployment
 - [Code Base Additions](./CodeBaseAdditions.md)
 - [API Documentation](./APIDocumentation.md)
 - [Testing](Testing.md)
-- [UtilCollection class](./utilcollection.md)
+- [SPADE](./SPADE.md)

@@ -1,72 +1,30 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
-class INDEPENDENTSET : IProblem<IndependentSetBruteForce,IndependentSetVerifier> {
+class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,IndependentSetGraph> {
 
     // --- Fields ---
-    private string _problemName = "Independent Set";
-    private string _formalDefinition = "In a graph G = (V, E), an independent set is a subset X of vertices no two of which are adjacent";
-    private string _problemDefinition = "An Independent Set is a set of nodes in a graph G, where no node is connected to another node in the set";
-    private string _source = "Golumbic, M. C. (2004). Algorithmic graph theory and perfect graphs. Elsevier.";
-    private string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,a},{b,c},{c,a},{a,c},{c,b},{a,d},{d,a},{d,e},{e,a},{a,e},{e,d},{a,f},{f,a},{f,g},{g,a},{a,g},{g,f},{a,h},{h,a},{h,i},{i,a},{a,i},{i,h}}),4)";
-    private string _instance = string.Empty;
-    private string _wikiName = "";
+    public string problemName {get;} = "Independent Set";
+    public string formalDefinition {get;} = "In a graph G = (V, E), an independent set is a subset X of vertices no two of which are adjacent";
+    public string problemDefinition {get;} = "An Independent Set is a set of nodes in a graph G, where no node is connected to another node in the set";
+    public string source {get;} = "Golumbic, M. C. (2004). Algorithmic graph theory and perfect graphs. Elsevier.";
+    private static string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,a},{b,c},{c,a},{a,c},{c,b},{a,d},{d,a},{d,e},{e,a},{a,e},{e,d},{a,f},{f,a},{f,g},{g,a},{a,g},{g,f},{a,h},{h,a},{h,i},{i,a},{a,i},{i,h}}),4)";
+    public string defaultInstance { get; } = _defaultInstance;
+    public string instance {get;set;} = string.Empty;
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K ;
-    private IndependentSetBruteForce _defaultSolver = new IndependentSetBruteForce();
-    private IndependentSetVerifier _defaultVerifier = new IndependentSetVerifier();
+    public IndependentSetBruteForce defaultSolver {get;} = new IndependentSetBruteForce();
+    public IndependentSetVerifier defaultVerifier {get;} = new IndependentSetVerifier();
     private IndependentSetGraph _independentSetAsGraph;
-    private string[] _contributors = { "Russell Phillips" };
+    public IndependentSetGraph graph {get => _independentSetAsGraph;}
+    public string[] contributors {get;} = { "Russell Phillips" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -92,16 +50,6 @@ class INDEPENDENTSET : IProblem<IndependentSetBruteForce,IndependentSetVerifier>
             _K = value;
         }
     }
-    public IndependentSetBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public IndependentSetVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public IndependentSetGraph independentSetAsGraph {
         get{
@@ -113,19 +61,24 @@ class INDEPENDENTSET : IProblem<IndependentSetBruteForce,IndependentSetVerifier>
     }
 
     // --- Methods Including Constructors ---
-    public INDEPENDENTSET() {
-        _instance = defaultInstance;
-        _independentSetAsGraph = new IndependentSetGraph(_instance,true);
-        nodes = _independentSetAsGraph.nodesStringList;
-        edges = _independentSetAsGraph.edgesKVP;
-         _K = _independentSetAsGraph.K;
+    public INDEPENDENTSET() : this(_defaultInstance) {
+        
     }
-    public INDEPENDENTSET(string GInput) {
-        _independentSetAsGraph = new IndependentSetGraph(GInput, true);
-        nodes = _independentSetAsGraph.nodesStringList;
-        edges = _independentSetAsGraph.edgesKVP;
-        _K = _independentSetAsGraph.K;
-        _instance = _independentSetAsGraph.ToString();
+    public INDEPENDENTSET(string GInput)
+    {
+        instance = GInput;
+
+        StringParser independentset = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        independentset.parse(GInput);
+        nodes = independentset["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = independentset["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(independentset["K"].ToString());
+
+        _independentSetAsGraph = new IndependentSetGraph(nodes, edges, _K);
     }
 
     public List<string> getNodes(string Ginput) {

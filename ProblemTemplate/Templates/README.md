@@ -3,7 +3,6 @@ New problems should be added into the back end repository in the Problems/NPComp
 * A file named PROBLEMNAME_Class.cs
 * A folder named "Solvers"
 * A folder named "Verifiers"
-* A file named PROBLEMNAME_Controller.cs
 
 *Any NPHFolders contain code for a NP Hard version of that problem, and include deprecated code, that may be useful as the code base is expanded.*
 
@@ -40,29 +39,10 @@ The Verifiers folder should contain all verifier files for that problem. Each of
 
 The file should also include a function which takes a problem object and certificate, and returns a Boolean for if the certificate is a solution to the given problem. As well as any other necessary functions.
 
-### Problem Controller
-PROBLEMNAME_Controller.cs should contain all necessary API endpoints for the problem. This includes
-* API endpoint for general problem named PROBLEMNAMEGenericController, with the following calls,
-    * `HttpGet` : Returns default problem object
-    * `HttpGet("instance")` : Returns problem object for given parameter `problemInstance`
-* API endpoint for each verifier class named VerifierNameController, with the following calls,
-    * `HttpGet("info")` : Returns verifier object
-    * `HttpGet("verify")` : Returns results of the verify function given parameters `certificate`, and `problemInstance`
-* API endpoint for each solution class named SolverNameController, with the following calls,
-    * `HttpGet("info")` : Returns solver object.
-    * `HttpGet("solve")` : Returns solution string for given parameter, `problemInstance`
-
 ## DOD - Definition of Done
 ### New Problems
 All added problems should fulfill the following requirements,
 * Correctly implements all interfaces
 * Includes at least one solver
 * Includes at least one verifier
-* Includes API endpoints for problem, all verifiers, and all solvers
 * Tests for all solvers and verifiers have been created and pass
-
-### API Additions
-All API additions should fulfill the following requirements,
-* The controller is named properly
-* Controller is in the proper controller class for related problem
-* Proper XML comments for all Http calls

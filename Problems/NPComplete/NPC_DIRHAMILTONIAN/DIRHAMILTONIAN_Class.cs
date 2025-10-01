@@ -1,73 +1,32 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Solvers;
 using API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Verifiers;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN;
 
-class DIRHAMILTONIAN : IProblem<DirectedHamiltonianBruteForce,DirectedHamiltonianVerifier> {
+class DIRHAMILTONIAN : IGraphProblem<DirectedHamiltonianBruteForce,DirectedHamiltonianVerifier,DirectedHamiltonianGraph> {
 
     // --- Fields ---
-    private string _problemName = "Directed Hamiltonian";
-    private string _formalDefinition = "Directed Hamiltonian = {<G> | G has a cycle which covers every node exactly once}";
-    private string _problemDefinition = "Directed Hamiltonian is the problem of determining whether a Hamiltonian cycle (a path in an undirected or directed graph that visits each vertex exactly once).";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "({1,2,3,4,5},{(2,1),(1,3),(2,3),(3,5),(4,2),(5,4)})";
-    private string _instance = string.Empty;
+    public string problemName {get;} = "Directed Hamiltonian";
+    public string formalDefinition {get;} = "Directed Hamiltonian = {<G> | G has a cycle which covers every node exactly once}";
+    public string problemDefinition {get;} = "Directed Hamiltonian is the problem of determining whether a Hamiltonian cycle (a path in an undirected or directed graph that visits each vertex exactly once).";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    private static string _defaultInstance = "({1,2,3,4,5},{(2,1),(1,3),(2,3),(3,5),(4,2),(5,4)})";
+    public string defaultInstance { get; } = _defaultInstance;
+    public string instance {get;set;} = string.Empty;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
-    private DirectedHamiltonianBruteForce _defaultSolver = new DirectedHamiltonianBruteForce();
-    private DirectedHamiltonianVerifier _defaultVerifier = new DirectedHamiltonianVerifier();
+    public DirectedHamiltonianBruteForce defaultSolver {get;} = new DirectedHamiltonianBruteForce();
+    public DirectedHamiltonianVerifier defaultVerifier {get;} = new DirectedHamiltonianVerifier();
     private DirectedHamiltonianGraph _directedHamiltonianAsGraph;
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public DirectedHamiltonianGraph graph {get => _directedHamiltonianAsGraph;}
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
-        }
-    }
     public List<string> nodes {
         get {
             return _nodes;
@@ -84,16 +43,6 @@ class DIRHAMILTONIAN : IProblem<DirectedHamiltonianBruteForce,DirectedHamiltonia
             _edges = value;
         }
     }
-    public DirectedHamiltonianBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public DirectedHamiltonianVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public DirectedHamiltonianGraph directedHamiltonianAsGraph {
         get{
@@ -105,19 +54,23 @@ class DIRHAMILTONIAN : IProblem<DirectedHamiltonianBruteForce,DirectedHamiltonia
     }
 
     // --- Methods Including Constructors ---
-    public DIRHAMILTONIAN() {
-        _instance = defaultInstance;
-        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(_instance,true);
-        nodes = _directedHamiltonianAsGraph.nodesStringList;
-        edges = _directedHamiltonianAsGraph.edgesKVP;
+    public DIRHAMILTONIAN() : this(_defaultInstance) {
 
     }
-    public DIRHAMILTONIAN(string GInput) {
-        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(GInput, true);
-        nodes = _directedHamiltonianAsGraph.nodesStringList;
-        edges = _directedHamiltonianAsGraph.edgesKVP;
-        _instance = _directedHamiltonianAsGraph.ToString();
+    public DIRHAMILTONIAN(string GInput)
+    {
+        instance = GInput;
 
+        StringParser dirhamiltonianparser = new("{(N,E) | N is set, E subset N cross N}");
+        dirhamiltonianparser.parse(GInput);
+        nodes = dirhamiltonianparser["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = dirhamiltonianparser["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+
+        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(nodes, edges);
     }
 
 
