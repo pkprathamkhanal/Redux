@@ -1,6 +1,8 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Solvers;
 using API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Verifiers;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN;
 
@@ -11,7 +13,8 @@ class DIRHAMILTONIAN : IGraphProblem<DirectedHamiltonianBruteForce,DirectedHamil
     public string formalDefinition {get;} = "Directed Hamiltonian = {<G> | G has a cycle which covers every node exactly once}";
     public string problemDefinition {get;} = "Directed Hamiltonian is the problem of determining whether a Hamiltonian cycle (a path in an undirected or directed graph that visits each vertex exactly once).";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string defaultInstance {get;} = "({1,2,3,4,5},{(2,1),(1,3),(2,3),(3,5),(4,2),(5,4)})";
+    private static string _defaultInstance = "({1,2,3,4,5},{(2,1),(1,3),(2,3),(3,5),(4,2),(5,4)})";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";
@@ -51,19 +54,23 @@ class DIRHAMILTONIAN : IGraphProblem<DirectedHamiltonianBruteForce,DirectedHamil
     }
 
     // --- Methods Including Constructors ---
-    public DIRHAMILTONIAN() {
-        instance = defaultInstance;
-        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(instance,true);
-        nodes = _directedHamiltonianAsGraph.nodesStringList;
-        edges = _directedHamiltonianAsGraph.edgesKVP;
+    public DIRHAMILTONIAN() : this(_defaultInstance) {
 
     }
-    public DIRHAMILTONIAN(string GInput) {
-        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(GInput, true);
-        nodes = _directedHamiltonianAsGraph.nodesStringList;
-        edges = _directedHamiltonianAsGraph.edgesKVP;
-        instance = _directedHamiltonianAsGraph.ToString();
+    public DIRHAMILTONIAN(string GInput)
+    {
+        instance = GInput;
 
+        StringParser dirhamiltonianparser = new("{(N,E) | N is set, E subset N cross N}");
+        dirhamiltonianparser.parse(GInput);
+        nodes = dirhamiltonianparser["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = dirhamiltonianparser["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+
+        _directedHamiltonianAsGraph = new DirectedHamiltonianGraph(nodes, edges);
     }
 
 

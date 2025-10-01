@@ -1,6 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.Solvers;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
@@ -15,7 +16,8 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string[] contributors {get;} = { "Daniel Igbokwe", "Alex Diviney" };
 
-    public string defaultInstance {get;} = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,c},{a,c},{d,a},{d,e},{a,e},{a,f},{f,g},{g,a},{a,h},{h,i},{i,a}}),3)";
+    private static string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,c},{a,c},{d,a},{d,e},{a,e},{a,f},{f,g},{g,a},{a,h},{h,i},{i,a}}),3)";
+    public string defaultInstance { get; } = _defaultInstance;
 
     public string instance {get;set;} = string.Empty;
 
@@ -103,19 +105,23 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
 
 
     #region Constructors
-      public GRAPHCOLORING() {
-        instance  = defaultInstance;
-        _graphColoringAsGraph = new GraphColoringGraph(instance, true);
-        nodes = _graphColoringAsGraph.nodesStringList;
-        edges  = _graphColoringAsGraph.edgesKVP;
-        K = _graphColoringAsGraph.K;
+    public GRAPHCOLORING() : this(_defaultInstance) {
+
     }
     public GRAPHCOLORING(string GInput) {
-        instance  = GInput;
-        _graphColoringAsGraph = new GraphColoringGraph(instance, true);
-        nodes = _graphColoringAsGraph.nodesStringList;
-        edges  = _graphColoringAsGraph.edgesKVP;
-        K = _graphColoringAsGraph.K; 
+        instance = GInput;
+
+        StringParser graphcoloring = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        graphcoloring.parse(GInput);
+        nodes = graphcoloring["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = graphcoloring["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(graphcoloring["K"].ToString());
+
+        _graphColoringAsGraph = new GraphColoringGraph(nodes, edges, _K);
     }
 
     #endregion

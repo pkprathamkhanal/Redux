@@ -29,8 +29,7 @@ public class CLIQUEGenericController : ControllerBase
         var options = new JsonSerializerOptions { WriteIndented = true };
         SipserClique sClique = new SipserClique(problemInstance);
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
-        CliqueGraph cGraph = sClique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(sClique.nodes, sClique.edges);
         for (int i = 0; i < apiGraph.nodes.Count; i++)
         {
             apiGraph.nodes[i].attribute1 = i.ToString();
@@ -91,8 +90,7 @@ public class sipserReduceToVCController : ControllerBase
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
-        CliqueGraph cGraph = clique.cliqueAsGraph;
-        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(clique.nodes, clique.edges);
         for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
         {
             apiGraphFrom.nodes[i].attribute1 = i.ToString();
@@ -159,8 +157,8 @@ public class CliqueBruteForceController : ControllerBase
         {
             SipserClique sClique = new SipserClique(problemInstance);
             List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(step); // Convert step to list
-            CliqueGraph cGraph = sClique.cliqueAsGraph;
-            API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
+
+            API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(sClique.nodes, sClique.edges);
 
             for (int i = 0; i < apiGraph.nodes.Count; i++)
             {

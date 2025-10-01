@@ -64,10 +64,10 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
     public HITTINGSET(string instanceStr)
     {
         instance = instanceStr;
-        UtilCollection collection = new UtilCollection(instanceStr);
-        collection.assertPair();
-        _universalSet = collection[0];
-        _subsets = collection[1];
+        StringParser HittingSet = new("{(U,S) | U is set, S subset {a | a subset U}}");
+        HittingSet.parse(instance);
+        _universalSet = HittingSet["U"];
+        _subsets = HittingSet["S"];
     }
 
 }
