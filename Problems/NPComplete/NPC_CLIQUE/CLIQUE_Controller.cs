@@ -90,7 +90,7 @@ public class sipserReduceToVCController : ControllerBase
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
-        API_UndirectedGraphJSON apiGraphFrom = new API_UndirectedGraphJSON(clique.nodes, clique.edges);
+        API_UndirectedGraphJSON apiGraphFrom = clique.graph.ToAPIGraph();
         for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
         {
             apiGraphFrom.nodes[i].attribute1 = i.ToString();

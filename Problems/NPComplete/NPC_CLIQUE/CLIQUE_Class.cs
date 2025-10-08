@@ -5,7 +5,7 @@ using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
-class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
+class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Clique";
@@ -21,8 +21,7 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
     private int _K ;
     public CliqueBruteForce defaultSolver {get;} = new CliqueBruteForce();
     public CliqueVerifier defaultVerifier {get;} = new CliqueVerifier();
-    private CliqueGraph _cliqueAsGraph;
-    public CliqueGraph graph {get => _cliqueAsGraph;}
+    public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney" };
 
     // --- Properties ---
@@ -52,15 +51,6 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
         }
     }
 
-    public CliqueGraph cliqueAsGraph {
-        get{
-            return _cliqueAsGraph;
-        }
-        set{
-            _cliqueAsGraph = value;
-        }
-    }
-
     // --- Methods Including Constructors ---
     public CLIQUE() : this(_defaultInstance) {
 
@@ -79,7 +69,7 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,CliqueGraph> {
         _K = int.Parse(cliqueGraph["K"].ToString());
 
 
-        _cliqueAsGraph = new CliqueGraph(nodes, edges, _K);
+        graph = new UtilCollectionGraph(cliqueGraph["N"], cliqueGraph["E"], false, false);
     }
 
 }

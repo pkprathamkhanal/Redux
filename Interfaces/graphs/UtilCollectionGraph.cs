@@ -10,9 +10,10 @@ namespace API.Interfaces;
 /// Expects graphs in the following formats:
 /// unweighted undirected: (N,E) where N is set of nodes, E is a set of edges represented as {a,b}
 /// unweighted directed  : (N,E) where N is set of nodes, E is a set of edges represented as (a,b)
-/// weighted undirected  : (N,E) where N is set of nodes, E is a set of edges represented as {a,b, w} where w is the weight (this needs to be looked at)
-/// weighted directed    : (N,E) where N is set of nodes, E is a set of edges represented as (a,b, w) where w is the weight
-class UtilCollectionGraph
+/// weighted undirected  : (N,E) where N is set of nodes, E is a set of edges represented as ({a,b}, w) where w is the weight (this needs to be looked at)
+/// weighted directed    : (N,E) where N is set of nodes, E is a set of edges represented as ((a,b), w) where w is the weight
+/// Child of Graph class to fix some typing issues while codebase is converted. Expected to be removed
+class UtilCollectionGraph : Graph
 {
     public UtilCollection Nodes;
 
@@ -30,58 +31,78 @@ class UtilCollectionGraph
         IsWeighted = isWeighted;
     }
 
-    public API_UndirectedGraphJSON toAPIGraph()
+    public override List<Node> nodes => null;
+
+    public override List<Edge> edges => null;
+
+    public override API_UndirectedGraphJSON ToAPIGraph()
     {
+        //nodes are always the same
+        List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList(); 
+        //edges need special handling based on case
+        List<KeyValuePair<string, string>> edges;
+        List<UtilCollection> EdgeList = Edges.ToList();
+
+        API_UndirectedGraphJSON graph;
+
         if (IsDirected)
         {
-            if (IsWeighted) //same as default case, but also needs to keep track of weights
+            if (IsWeighted)
             {
-                List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList();
-                List<UtilCollection> EdgeList = Edges.ToList();
-                List<KeyValuePair<string, string>> edges = EdgeList.Select(edge =>
+                edges = EdgeList.Select(edge =>
                 {
-                    List<UtilCollection> cast = edge.ToList();
-                    return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+                    return new KeyValuePair<string, string>(edge[0][0].ToString(), edge[0][1].ToString());
                 }).ToList();
-                API_UndirectedGraphJSON graph = new API_UndirectedGraphJSON(nodes, edges);
+
+                graph = new API_UndirectedGraphJSON(nodes, edges);
 
                 for (int i = 0; i < graph.links.Count; i++)
                 {
-                    graph.links[i].weight = EdgeList[i][2].ToString();
+                    graph.links[i].weight = EdgeList[i][1].ToString();
                 }
 
-                return graph;
             }
-            else // same as default case
+            else 
             {
-                List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList();
-                List<KeyValuePair<string, string>> edges = Edges.ToList().Select(edge =>
+                edges = EdgeList.Select(edge =>
                 {
-                    List<UtilCollection> cast = edge.ToList();
-                    return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+                    return new KeyValuePair<string, string>(edge[0].ToString(), edge[1].ToString());
                 }).ToList();
 
+                graph = new API_UndirectedGraphJSON(nodes, edges);
             }
         }
         else
         {
             if (IsWeighted)
             {
+                edges = EdgeList.Select(edge =>
+                {
+                    List<UtilCollection> cast = edge[0].ToList();
+                    return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+                }).ToList();
+
+                graph = new API_UndirectedGraphJSON(nodes, edges);
+
+                for (int i = 0; i < graph.links.Count; i++)
+                {
+                    graph.links[i].weight = EdgeList[i][1].ToString();
+                }
 
             }
             else //default case
             {
 
-                List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList();
-                List<KeyValuePair<string, string>> edges = Edges.ToList().Select(edge =>
+                edges = EdgeList.Select(edge =>
                 {
                     List<UtilCollection> cast = edge.ToList();
                     return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
                 }).ToList();
-                return new API_UndirectedGraphJSON(nodes, edges);
+
+                graph = new API_UndirectedGraphJSON(nodes, edges);
             }
         }
-        return new API_UndirectedGraphJSON();
+        return graph;
     }
 
 }

@@ -27,6 +27,11 @@ interface IProblem<T,U> : IProblem where T : ISolver where U : IVerifier {
 interface IGraphProblem : IProblem {
     Graph graph {get;}
     API_UndirectedGraphJSON visualize() {
+        if (graph.GetType() == typeof(UtilCollectionGraph))
+        {
+            return graph.ToAPIGraph();
+        }
+
         return new API_UndirectedGraphJSON(graph.nodes, graph.edges);
     }
 }
