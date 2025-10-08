@@ -91,7 +91,7 @@ namespace API.Problems.NPComplete.NPC_DOMINATINGSET.Solvers
             List<int> chosen,
             out List<int> solution)
         {
-            solution = null!;
+            solution = null;
 
             // Fast check: are we done?
             if (AllDominated(dominated))

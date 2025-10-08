@@ -1,95 +1,98 @@
 using API.Interfaces;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using System.Linq;
 using API.Problems.NPComplete.NPC_DOMINATINGSET.Solvers;
 using API.Problems.NPComplete.NPC_DOMINATINGSET.Verifiers;
-using SPADE;
-
 
 namespace API.Problems.NPComplete.NPC_DOMINATINGSET;
 
-class DOMINATINGSET : IGraphProblem<DominatingSetSolver, DominatingSetVerifier, DominatingSetGraph>
+class DOMINATINGSET : IProblem<DominatingSetSolver, DominatingSetVerifier>
 {
+
+    // --- Fields ---
+    private string _problemName =  "Dominating Set" ;
+    private string _formalDefinition =  "Dominating Set = {<G, k> | G is a graph with a dominating set greater or equal to k}" ;
+    private string _problemDefinition = "A dominating set of a graph G is a subset D of the vertices of G such that every vertex v of G is either in the set D or v has at least one neighbour that is in D.";
+    private string[] _contributors = { "Quinton Smith" };
+
+    private string _source = "https://webhome.cs.uvic.ca/~wendym/courses/425/14/notes/425_03_dom_alg.pdf";
+    private string _defaultInstance = "(({0,1,2,3,4},{{1,0},{0,3},{1,2},{2,4},{1,3},{3,4},{4,1}}),5)";
+    private string _instance = string.Empty;
+
+
+   
+    
+    private List<string> _nodes = new();
+    private List<KeyValuePair<string,string>> _edges = new();
+    private int _K ;
+
+    private DominatingSetSolver _defaultSolver = new DominatingSetSolver();
+    private DominatingSetVerifier _defaultVerifier = new DominatingSetVerifier();
+    private DominatingSetGraph _dominatingSetAsGraph;
+
+    private string _wikiName = "";
+
     // --- Properties ---
-    public string problemName { get; } = "Dominating Set";
-    public string formalDefinition { get; } = "Dominating Set = {<G, k> | G is a graph with a dominating set greater or equal to k}";
-    public string problemDefinition { get; } = "A dominating set of a graph G is a subset D of the vertices of G such that every vertex v of G is either in the set D or v has at least one neighbour that is in D.";
-    public string[] contributors { get; } = { "Quinton Smith" };
+    public string problemName => _problemName;
+    public string formalDefinition => _formalDefinition;
+    public string problemDefinition => _problemDefinition;
+    public string source => _source;
+    public string[] contributors => _contributors;
 
-    public string source { get; } = "https://webhome.cs.uvic.ca/~wendym/courses/425/14/notes/425_03_dom_alg.pdf";
+    public string defaultInstance => _defaultInstance;
 
-    private static string _defaultInstance = "(({0,1,2,3,4},{{1,0},{0,3},{1,2},{2,4},{1,3},{3,4},{4,1}}),5)";
-    public string defaultInstance { get; } = _defaultInstance;
-    public string instance { get; set; } = string.Empty;
-
-    private List<string> _nodes = new List<string>();
-    private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
-
-    public List<KeyValuePair<string, string>> edges
+    public string instance
     {
-        get { return _edges; }
-        set { _edges = value; }
+        get => _instance;
+        set => _instance = value;
     }
 
-    private int _K;
-
-    public DominatingSetSolver defaultSolver {get;} = new DominatingSetSolver();
-    public DominatingSetVerifier defaultVerifier {get;} = new DominatingSetVerifier();
-    private DominatingSetGraph _dominatingSetGraph;
-    public DominatingSetGraph graph {get => _dominatingSetGraph;}
-
-    public string wikiName { get; } = string.Empty;
+    public string wikiName => _wikiName;
 
     public List<string> nodes
     {
-        get
-        {
-            return _nodes;
-        }
-        set
-        {
-            _nodes = value;
-        }
+        get => _nodes;
+        set => _nodes = value;
     }
-    
+
+    public List<KeyValuePair<string, string>> edges
+    {
+        get => _edges;
+        set => _edges = value;
+    }
 
     public int K
     {
-        get
-        {
-            return _K;
-        }
-        set
-        {
-            _K = value;
-        }
+        get => _K;
+        set => _K = value;
     }
 
-    // --- Constructors ---
-    public DOMINATINGSET() : this(_defaultInstance)
+    public DominatingSetGraph dominatingSetAsGraph
     {
+        get => _dominatingSetAsGraph;
+        set => _dominatingSetAsGraph = value;
     }
 
-    public DOMINATINGSET(string GInput)
+    public DominatingSetSolver defaultSolver => _defaultSolver;
+    public DominatingSetVerifier defaultVerifier => _defaultVerifier;
+
+
+    // --- Methods and Constructors ---
+    public DOMINATINGSET()
     {
-         instance = GInput;
+        _instance = _defaultInstance;
+        _dominatingSetAsGraph = new DominatingSetGraph(_instance, true);
+        _nodes = _dominatingSetAsGraph.nodesStringList;
+        _edges = _dominatingSetAsGraph.edgesTuple;
+        _K = _dominatingSetAsGraph.K;
+    }
 
-        StringParser dominatingSetGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
-        dominatingSetGraph.parse(GInput);
-        nodes = dominatingSetGraph["N"].ToList().Select(node => node.ToString()).ToList();
-        edges = dominatingSetGraph["E"].ToList().Select(edge =>
-        {
-            List<UtilCollection> cast = edge.ToList();
-            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
-        }).ToList();
-        _K = int.Parse(dominatingSetGraph["K"].ToString());
+    public DOMINATINGSET(string instance)
+    {
+        _dominatingSetAsGraph = new DominatingSetGraph(instance, true);
+        _nodes = _dominatingSetAsGraph.nodesStringList;
+        _edges = _dominatingSetAsGraph.edgesTuple;
+        _K = _dominatingSetAsGraph.K;
 
-        _dominatingSetGraph = new DominatingSetGraph(nodes, edges, _K);
-        instance = _dominatingSetGraph.ToString();
+        _instance = _dominatingSetAsGraph.ToString();
+
     }
 }
