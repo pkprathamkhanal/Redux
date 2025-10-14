@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
-class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,IndependentSetGraph> {
+class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Independent Set";
@@ -20,8 +20,7 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
     private int _K ;
     public IndependentSetBruteForce defaultSolver {get;} = new IndependentSetBruteForce();
     public IndependentSetVerifier defaultVerifier {get;} = new IndependentSetVerifier();
-    private IndependentSetGraph _independentSetAsGraph;
-    public IndependentSetGraph graph {get => _independentSetAsGraph;}
+    public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Russell Phillips" };
 
     // --- Properties ---
@@ -51,15 +50,6 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
         }
     }
 
-    public IndependentSetGraph independentSetAsGraph {
-        get{
-            return _independentSetAsGraph;
-        }
-        set{
-            _independentSetAsGraph = value;
-        }
-    }
-
     // --- Methods Including Constructors ---
     public INDEPENDENTSET() : this(_defaultInstance) {
         
@@ -78,7 +68,7 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
         }).ToList();
         _K = int.Parse(independentset["K"].ToString());
 
-        _independentSetAsGraph = new IndependentSetGraph(nodes, edges, _K);
+        graph = new UtilCollectionGraph(independentset["N"], independentset["E"]);
     }
 
     public List<string> getNodes(string Ginput) {

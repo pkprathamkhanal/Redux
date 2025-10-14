@@ -22,8 +22,7 @@ public class INDEPENDENTSETGenericController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
         INDEPENDENTSET independentSet = new INDEPENDENTSET(problemInstance);
-        IndependentSetGraph cGraph = independentSet.independentSetAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList,cGraph.getEdgeList);
+        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph();
         for(int i=0;i<apiGraph.nodes.Count;i++){
             apiGraph.nodes[i].attribute1 = i.ToString();
             if(solutionList.Contains(apiGraph.nodes[i].name)){ //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.

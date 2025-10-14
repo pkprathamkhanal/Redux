@@ -29,7 +29,7 @@ class UtilCollectionGraph : Graph
 
         UtilCollection EdgeExample = Edges.ToList()[0];
 
-        if (EdgeExample[0].IsValue())
+        if (!EdgeExample.IsOrdered() || EdgeExample[0].IsValue())
         {
             IsWeighted = false;
             IsDirected = EdgeExample.IsOrdered();
@@ -48,7 +48,7 @@ class UtilCollectionGraph : Graph
     public override API_UndirectedGraphJSON ToAPIGraph()
     {
         //nodes are always the same
-        List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList(); 
+        List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList();
         //edges need special handling based on case
         List<KeyValuePair<string, string>> edges;
         List<UtilCollection> EdgeList = Edges.ToList();
@@ -72,7 +72,7 @@ class UtilCollectionGraph : Graph
                 }
 
             }
-            else 
+            else
             {
                 edges = EdgeList.Select(edge =>
                 {
@@ -113,6 +113,11 @@ class UtilCollectionGraph : Graph
             }
         }
         return graph;
+    }
+
+    public override string ToString()
+    {
+        return @"({nodes},{edges})";
     }
 
 }
