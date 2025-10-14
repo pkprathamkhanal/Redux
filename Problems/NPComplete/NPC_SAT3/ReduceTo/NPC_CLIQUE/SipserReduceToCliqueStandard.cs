@@ -215,8 +215,8 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         }
 
         CLIQUE clique = new CLIQUE(G);
-        reducedCLIQUE.cliqueAsGraph = clique.graph; //ALEX NOTE: Since undirected graphs are backwards compatible, I am able to take in an old format string here. This is a bandaid solution
-        reducedCLIQUE.instance = reducedCLIQUE.cliqueAsGraph.formalString(); //Outputs a standard graph notation instance.
+        reducedCLIQUE.graph = clique.graph; 
+        reducedCLIQUE.instance = G;
         reductionTo = reducedCLIQUE;
         return reducedCLIQUE;
     }
