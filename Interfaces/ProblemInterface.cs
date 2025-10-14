@@ -15,13 +15,17 @@ interface IProblem {
 
     ISolver defaultSolver {get;}
     IVerifier defaultVerifier {get;}
+    IVisualization defaultVisualization { get; }
 }
 
-interface IProblem<T,U> : IProblem where T : ISolver where U : IVerifier {
-    new T defaultSolver{get;}
-    ISolver IProblem.defaultSolver {get => defaultSolver;}
-    new U defaultVerifier{get;}
-    IVerifier IProblem.defaultVerifier {get => defaultVerifier;}
+interface IProblem<T, U, V> : IProblem where T : ISolver where U : IVerifier where V : IVisualization
+{
+    new T defaultSolver { get; }
+    ISolver IProblem.defaultSolver { get => defaultSolver; }
+    new U defaultVerifier { get; }
+    IVerifier IProblem.defaultVerifier { get => defaultVerifier; }
+    new V defaultVisualization { get; }
+    IVisualization IProblem.defaultVisualization { get => defaultVisualization; }
 }
 
 interface IGraphProblem : IProblem {
@@ -36,7 +40,7 @@ interface IGraphProblem : IProblem {
     }
 }
 
-interface IGraphProblem<T,U,V> : IProblem<T,U>, IGraphProblem where T : ISolver where U : IVerifier where V : Graph {
-    new V graph {get;}
+interface IGraphProblem<T,U,V,W> : IProblem<T,U,V>, IGraphProblem where T : ISolver where U : IVerifier where V : IVisualization where W : Graph {
+    new W graph {get;}
     Graph IGraphProblem.graph {get => graph;}
 }

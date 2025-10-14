@@ -35,6 +35,7 @@ public class INDEPENDENTSETGenericController : ControllerBase {
     }
 }
 
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Independent Set")]
@@ -72,3 +73,5 @@ public class reduceToCLIQUEController : ControllerBase {
     }
 
 }
+
+*/

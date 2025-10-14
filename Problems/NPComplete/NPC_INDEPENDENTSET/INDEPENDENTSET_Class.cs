@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
-class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,UtilCollectionGraph> {
+class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVerifier,IndependentSetDefaultVisualization,UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Independent Set";
@@ -20,6 +20,7 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
     private int _K ;
     public IndependentSetBruteForce defaultSolver {get;} = new IndependentSetBruteForce();
     public IndependentSetVerifier defaultVerifier {get;} = new IndependentSetVerifier();
+    public IndependentSetDefaultVisualization defaultVisualization { get; } = new IndependentSetDefaultVisualization();
     public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Russell Phillips" };
 
