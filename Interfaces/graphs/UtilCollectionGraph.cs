@@ -22,13 +22,23 @@ class UtilCollectionGraph : Graph
     bool IsDirected;
     bool IsWeighted;
 
-    public UtilCollectionGraph(UtilCollection n, UtilCollection e, bool isDirected, bool isWeighted)
+    public UtilCollectionGraph(UtilCollection n, UtilCollection e)
     {
         Nodes = n;
         Edges = e;
 
-        IsDirected = isDirected;
-        IsWeighted = isWeighted;
+        UtilCollection EdgeExample = Edges.ToList()[0];
+
+        if (EdgeExample[0].IsValue())
+        {
+            IsWeighted = false;
+            IsDirected = EdgeExample.IsOrdered();
+        }
+        else
+        {
+            IsWeighted = true;
+            IsDirected = EdgeExample[0].IsOrdered();
+        }
     }
 
     public override List<Node> nodes => null;

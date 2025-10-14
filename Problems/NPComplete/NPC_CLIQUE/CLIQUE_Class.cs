@@ -69,7 +69,7 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,UtilCollectionGraph
         _K = int.Parse(cliqueGraph["K"].ToString());
 
 
-        graph = new UtilCollectionGraph(cliqueGraph["N"], cliqueGraph["E"], false, false);
+        graph = new UtilCollectionGraph(cliqueGraph["N"], cliqueGraph["E"]);
     }
 
 }
