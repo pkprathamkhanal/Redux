@@ -55,7 +55,7 @@ public class ProblemProvider : ControllerBase {
     }
 
     [ProducesResponseType(typeof(object), 200)]
-    [HttpGet("info")]
+    [HttpPost("info")]
     public string info(string @interface) {
         // TODO: validate arguments
         return Newtonsoft.Json.JsonConvert.SerializeObject(Activator.CreateInstance(Interfaces[@interface.ToLower()]));
