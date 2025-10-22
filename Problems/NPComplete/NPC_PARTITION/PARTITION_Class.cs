@@ -43,6 +43,7 @@ class PARTITION : IProblem<PartitionBruteForce,PartitionVerifier> {
         this.instance = instance;
 
         StringParser partition = new("{N | N is set}");
+        partition.parse(instance);
         S = partition["N"].ToList().Select(node => node.ToString()).ToList();
     }
 

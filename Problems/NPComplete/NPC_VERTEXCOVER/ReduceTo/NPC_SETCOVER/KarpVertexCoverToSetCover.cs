@@ -84,7 +84,7 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
             }
         }
 
-        string instance = "{{";
+        string instance = "({";
 
         foreach (var i in universal)
         {
@@ -101,7 +101,7 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
             instance = instance.TrimEnd(',') + "},{";
             if (i.Count == 0) instance = instance.TrimEnd('{').TrimEnd(',').TrimEnd('}');
         }
-        instance = instance.TrimEnd('{').TrimEnd(',') + "}," + reductionFrom.K + "}";
+        instance = instance.TrimEnd('{').TrimEnd(',') + "}," + reductionFrom.K + ")";
 
         reducedSetCover.universal = universal;
         reducedSetCover.subsets = subsets;
