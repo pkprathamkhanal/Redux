@@ -11,6 +11,7 @@ public class ProblemProvider : ControllerBase {
     public static readonly Dictionary<string, Type> GraphProblems = Problems.Where(p => typeof(IGraphProblem).IsAssignableFrom(p.Value)).ToDictionary(x => x.Key, x => x.Value);
     public static readonly Dictionary<string, Type> Verifiers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVerifier).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Solvers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ISolver).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
+    public static readonly Dictionary<string, Type> Visualizers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVisualization).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Interfaces = (new[] {Problems, Verifiers, Solvers}).SelectMany(d => d).ToDictionary(x => x.Key, x => x.Value);
 
     #pragma warning disable CS8603 // Possible null reference return.
@@ -32,6 +33,11 @@ public class ProblemProvider : ControllerBase {
 
     static ISolver Solver(string name) {
         return Activator.CreateInstance(Solvers[name.ToLower()]) as ISolver; // guaranteed success by `IsAssignableFrom`
+    }
+
+    static IVisualization Visualization(string name)
+    {
+        return Activator.CreateInstance(Visualizers[name.ToLower()]) as IVisualization;
     }
     #pragma warning restore CS8603 // Possible null reference return.
 
@@ -69,12 +75,17 @@ public class ProblemProvider : ControllerBase {
     }
 
     [HttpPost("visualize")]
-    public string visualize(string problem, [FromBody]string instance) {
-        // TODO: validate arguments
-        return JsonSerializer.Serialize(
-            GraphProblem(problem, instance).visualize(),
-            new JsonSerializerOptions { WriteIndented = true }
-        );
+    public string visualize(string problem, [FromBody] string instance)
+    {
+        IVisualization visual = Visualization(problem);
+        return visual.visualize(instance);
+    }
+
+    [HttpPost("solvedVisualize")]
+    public string solvedVisualize(string name, [FromBody] string instance)
+    {
+        IVisualization visual = Visualization(name);
+        return visual.getSolvedVisualization(instance);
     }
 }
 

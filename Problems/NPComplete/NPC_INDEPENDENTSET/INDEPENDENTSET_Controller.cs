@@ -10,31 +10,6 @@ using API.Problems.NPComplete.NPC_INDEPENDENTSET.ReduceTo.NPC_CLIQUE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
 
-[ApiController]
-[Route("[controller]")]
-[Tags("Independent Set")]
-#pragma warning disable CS1591
-public class INDEPENDENTSETGenericController : ControllerBase {
-#pragma warning restore CS1591
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("solvedVisualization")]
-    public String getSolvedVisualization([FromQuery]string problemInstance,string solution) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
-        INDEPENDENTSET independentSet = new INDEPENDENTSET(problemInstance);
-        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph();
-        for(int i=0;i<apiGraph.nodes.Count;i++){
-            apiGraph.nodes[i].attribute1 = i.ToString();
-            if(solutionList.Contains(apiGraph.nodes[i].name)){ //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.
-                apiGraph.nodes[i].attribute2 = true.ToString(); 
-            }
-            else{apiGraph.nodes[i].attribute2 = false.ToString();}
-        }
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-    }
-}
-
 /*
 [ApiController]
 [Route("[controller]")]
