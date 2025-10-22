@@ -12,7 +12,7 @@ public class ProblemProvider : ControllerBase {
     public static readonly Dictionary<string, Type> Verifiers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVerifier).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Solvers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ISolver).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Visualizers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVisualization).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
-    public static readonly Dictionary<string, Type> Interfaces = (new[] {Problems, Verifiers, Solvers}).SelectMany(d => d).ToDictionary(x => x.Key, x => x.Value);
+    public static readonly Dictionary<string, Type> Interfaces = (new[] {Problems, Verifiers, Solvers, Visualizers}).SelectMany(d => d).ToDictionary(x => x.Key, x => x.Value);
 
     #pragma warning disable CS8603 // Possible null reference return.
     static IProblem Problem(string name) {
