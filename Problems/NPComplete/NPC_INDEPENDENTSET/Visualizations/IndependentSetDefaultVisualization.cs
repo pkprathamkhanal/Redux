@@ -2,6 +2,7 @@ using API.Interfaces;
 using System.Text.Json;
 using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.JSON_Objects.Graphs;
+using API.Interfaces.JSON_Objects;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
 
@@ -12,38 +13,30 @@ class IndependentSetDefaultVisualization : IVisualization<INDEPENDENTSET> {
     public string visualizationDefinition {get;} = "This is a default visualization for Independent Set";
     public string source {get;} = " ";
     public string[] contributors {get;} = {"Russell Phillips"};
-    public string visualizationFileName { get; } = "IndependentSetDefaultVisualization.js";
+    public string visualizationType { get; } = "Graph D3";
 
     // --- Methods Including Constructors ---
     public IndependentSetDefaultVisualization() {
         
     }
-    public string visualize(INDEPENDENTSET independentSet)
+    public API_JSON visualize(INDEPENDENTSET independentSet)
     {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-
-        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph();
-
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
+        return independentSet.graph.ToAPIGraph(visualizationType);
     }
     
-    public string getSolvedVisualization(INDEPENDENTSET independentSet)
+    public API_JSON getSolvedVisualization(INDEPENDENTSET independentSet)
     {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-
         string solution = independentSet.defaultSolver.solve(independentSet);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
-        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph();
+        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph(visualizationType);
         for(int i=0;i<apiGraph.nodes.Count;i++){
-            apiGraph.nodes[i].attribute1 = i.ToString();
-            if(solutionNodes.Contains(apiGraph.nodes[i].name)){ //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.
-                apiGraph.nodes[i].attribute2 = true.ToString(); 
+            if(solutionNodes.Contains(apiGraph.nodes[i].name)){ 
+               apiGraph.nodes[i].attribute2 = true.ToString(); 
+               apiGraph.nodes[i].color = "Solution"; 
             }
-            else{apiGraph.nodes[i].attribute2 = false.ToString();}
+            else{apiGraph.nodes[i].color = "Background";}
         }
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
+        return apiGraph;
     }
 }

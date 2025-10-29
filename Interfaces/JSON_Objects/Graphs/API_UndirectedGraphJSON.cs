@@ -3,11 +3,13 @@ using System.Collections;
 using API.Interfaces.Graphs;
 namespace API.Interfaces.JSON_Objects.Graphs;
 
-class API_UndirectedGraphJSON
+class API_UndirectedGraphJSON : API_JSON
 {
 
     public List<API_Node_Programmable_Small> _nodes;
-    public List<API_Link> _links; 
+    public List<API_Link> _links;
+
+    public string filename { get; }
 
     public API_UndirectedGraphJSON()
     {
@@ -15,9 +17,10 @@ class API_UndirectedGraphJSON
         this._nodes.Add(new API_Node_Programmable_Small("DEFAULTNODE"));
         this._links = new List<API_Link>();
         this._links.Add(new API_Link());
+        this.filename = "";
 
     }
-    public API_UndirectedGraphJSON(List<Node> nodes, List<Edge> inputEdges){
+    public API_UndirectedGraphJSON(List<Node> nodes, List<Edge> inputEdges, string filename){
         // this._nodes = nodes;
         _nodes = new List<API_Node_Programmable_Small>();
         foreach(Node n in nodes){
@@ -30,11 +33,11 @@ class API_UndirectedGraphJSON
             API_Link newLink = new API_Link(e.source.name,e.target.name); //destructures an object with a nested node into an object with straight name reference.
             _links.Add(newLink);
         }
-        
 
+        this.filename = filename;
     }
 
-    public API_UndirectedGraphJSON(List<string> nodes, List<KeyValuePair<string, string>> inputEdges)
+    public API_UndirectedGraphJSON(List<string> nodes, List<KeyValuePair<string, string>> inputEdges, string filename)
     {
         _nodes = new List<API_Node_Programmable_Small>();
         foreach(string n in nodes){
@@ -43,11 +46,13 @@ class API_UndirectedGraphJSON
         }
 
         _links = new List<API_Link>();
-        foreach(KeyValuePair<string, string> e in inputEdges){
+        foreach (KeyValuePair<string, string> e in inputEdges)
+        {
             API_Link newLink = new API_Link(e.Key, e.Value); //destructures an object with a nested node into an object with straight name reference.
             _links.Add(newLink);
         }
-        
+
+        this.filename = filename;
     }
 
 

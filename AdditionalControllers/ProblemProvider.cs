@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using API.Interfaces;
 using API.Interfaces.JSON_Objects.Graphs;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 [ApiController]
 [Route("[controller]")]
@@ -75,17 +76,23 @@ public class ProblemProvider : ControllerBase {
     }
 
     [HttpPost("visualize")]
-    public string visualize(string problem, [FromBody] string instance)
+    public string visualize(string visualizationName, [FromBody] string instance)
     {
-        IVisualization visual = Visualization(problem);
-        return visual.visualize(instance);
+        IVisualization visual = Visualization(visualizationName);
+        return JsonSerializer.Serialize(
+            visual.visualize(instance),
+            new JsonSerializerOptions { WriteIndented = true }
+        );
     }
 
     [HttpPost("solvedVisualize")]
-    public string solvedVisualize(string name, [FromBody] string instance)
+    public string solvedVisualize(string visualizationName, [FromBody] string instance)
     {
-        IVisualization visual = Visualization(name);
-        return visual.getSolvedVisualization(instance);
+        IVisualization visual = Visualization(visualizationName);
+        return JsonSerializer.Serialize(
+            visual.getSolvedVisualization(instance),
+            new JsonSerializerOptions { WriteIndented = true }
+        );
     }
 }
 
