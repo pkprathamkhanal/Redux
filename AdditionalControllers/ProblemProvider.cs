@@ -76,9 +76,9 @@ public class ProblemProvider : ControllerBase {
     }
 
     [HttpPost("visualize")]
-    public string visualize(string problem, [FromBody] string instance)
+    public string visualize(string visualizationName, [FromBody] string instance)
     {
-        IVisualization visual = Visualization(problem);
+        IVisualization visual = Visualization(visualizationName);
         return JsonSerializer.Serialize(
             visual.visualize(instance),
             new JsonSerializerOptions { WriteIndented = true }
