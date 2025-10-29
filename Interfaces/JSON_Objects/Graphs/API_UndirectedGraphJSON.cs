@@ -9,18 +9,14 @@ class API_UndirectedGraphJSON : API_JSON
     public List<API_Node_Programmable_Small> _nodes;
     public List<API_Link> _links;
 
-    public string filename { get; }
-
     public API_UndirectedGraphJSON()
     {
         this._nodes = new List<API_Node_Programmable_Small>();
         this._nodes.Add(new API_Node_Programmable_Small("DEFAULTNODE"));
         this._links = new List<API_Link>();
         this._links.Add(new API_Link());
-        this.filename = "";
-
     }
-    public API_UndirectedGraphJSON(List<Node> nodes, List<Edge> inputEdges, string filename){
+    public API_UndirectedGraphJSON(List<Node> nodes, List<Edge> inputEdges){
         // this._nodes = nodes;
         _nodes = new List<API_Node_Programmable_Small>();
         foreach(Node n in nodes){
@@ -33,11 +29,9 @@ class API_UndirectedGraphJSON : API_JSON
             API_Link newLink = new API_Link(e.source.name,e.target.name); //destructures an object with a nested node into an object with straight name reference.
             _links.Add(newLink);
         }
-
-        this.filename = filename;
     }
 
-    public API_UndirectedGraphJSON(List<string> nodes, List<KeyValuePair<string, string>> inputEdges, string filename)
+    public API_UndirectedGraphJSON(List<string> nodes, List<KeyValuePair<string, string>> inputEdges)
     {
         _nodes = new List<API_Node_Programmable_Small>();
         foreach(string n in nodes){
@@ -52,7 +46,6 @@ class API_UndirectedGraphJSON : API_JSON
             _links.Add(newLink);
         }
 
-        this.filename = filename;
     }
 
 

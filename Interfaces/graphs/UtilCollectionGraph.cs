@@ -45,7 +45,7 @@ class UtilCollectionGraph : Graph
 
     public override List<Edge> edges => null;
 
-    public override API_UndirectedGraphJSON ToAPIGraph(string filename)
+    public override API_UndirectedGraphJSON ToAPIGraph()
     {
         //nodes are always the same
         List<string> nodes = Nodes.ToList().Select(node => node.ToString()).ToList();
@@ -64,7 +64,7 @@ class UtilCollectionGraph : Graph
                     return new KeyValuePair<string, string>(edge[0][0].ToString(), edge[0][1].ToString());
                 }).ToList();
 
-                graph = new API_UndirectedGraphJSON(nodes, edges, filename);
+                graph = new API_UndirectedGraphJSON(nodes, edges);
 
                 for (int i = 0; i < graph.links.Count; i++)
                 {
@@ -79,7 +79,7 @@ class UtilCollectionGraph : Graph
                     return new KeyValuePair<string, string>(edge[0].ToString(), edge[1].ToString());
                 }).ToList();
 
-                graph = new API_UndirectedGraphJSON(nodes, edges, filename);
+                graph = new API_UndirectedGraphJSON(nodes, edges);
             }
         }
         else
@@ -92,7 +92,7 @@ class UtilCollectionGraph : Graph
                     return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
                 }).ToList();
 
-                graph = new API_UndirectedGraphJSON(nodes, edges, filename);
+                graph = new API_UndirectedGraphJSON(nodes, edges);
 
                 for (int i = 0; i < graph.links.Count; i++)
                 {
@@ -109,7 +109,7 @@ class UtilCollectionGraph : Graph
                     return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
                 }).ToList();
 
-                graph = new API_UndirectedGraphJSON(nodes, edges, filename);
+                graph = new API_UndirectedGraphJSON(nodes, edges);
             }
         }
         return graph;
