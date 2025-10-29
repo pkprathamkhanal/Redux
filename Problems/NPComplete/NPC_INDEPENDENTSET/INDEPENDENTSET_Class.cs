@@ -60,7 +60,6 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
         instance = GInput;
 
         StringParser independentset = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
-        Console.WriteLine(GInput);
         independentset.parse(GInput);
         nodes = independentset["N"].ToList().Select(node => node.ToString()).ToList();
         edges = independentset["E"].ToList().Select(edge =>

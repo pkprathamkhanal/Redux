@@ -99,6 +99,7 @@ public class ProblemProvider : ControllerBase {
         {
             WriteIndented = true
         };
+        options.Converters.Add(new API_JSON_Converter<API_JSON>());
         IVisualization visual = Visualization(visualizationName);
         return JsonSerializer.Serialize(
             visual.getSolvedVisualization(instance),
