@@ -12,6 +12,7 @@ class IndependentSetDefaultVisualization : IVisualization<INDEPENDENTSET> {
     public string visualizationDefinition {get;} = "This is a default visualization for Independent Set";
     public string source {get;} = " ";
     public string[] contributors {get;} = {"Russell Phillips"};
+    public string visualizationFileName { get; } = "IndependentSetDefaultVisualization.js";
 
     // --- Methods Including Constructors ---
     public IndependentSetDefaultVisualization() {
