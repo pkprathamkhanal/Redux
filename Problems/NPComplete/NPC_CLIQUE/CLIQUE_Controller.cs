@@ -10,6 +10,9 @@ using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 using API.Interfaces.Graphs.GraphParser;
+using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM;
+using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_SubgraphIsomorphism;
+using API.Interfaces.Graphs;
 
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;

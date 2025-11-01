@@ -26,7 +26,8 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         get{
             return _gadgetMap;
         }
-        set{
+        set
+        {
             _gadgetMap = value;
         }
     }
@@ -68,32 +69,43 @@ class SipserReduction : IReduction<SAT3, SipserClique>
 
         //number literals of sat before reduction
         List<List<String>> newClauses = new List<List<string>>();
-        foreach(var clause in SAT3Instance.clauses){
+        foreach (var clause in SAT3Instance.clauses)
+        {
             List<String> temp = new List<String>();
-            foreach(var element in clause){
+            foreach (var element in clause)
+            {
                 temp.Add(element);
             }
             newClauses.Add(temp);
         }
-        for (int i = 0; i < SAT3Instance.clauses.Count; i++){
-            for (int j = 0; j < SAT3Instance.clauses[i].Count; j++){
+        for (int i = 0; i < SAT3Instance.clauses.Count; i++)
+        {
+            for (int j = 0; j < SAT3Instance.clauses[i].Count; j++)
+            {
                 int count = 0;
-                for( int k = 0; k<i; k++){
-                    foreach(var element in SAT3Instance.clauses[k]){
-                        if(element == SAT3Instance.clauses[i][j]){
-                            count ++;
+                for (int k = 0; k < i; k++)
+                {
+                    foreach (var element in SAT3Instance.clauses[k])
+                    {
+                        if (element == SAT3Instance.clauses[i][j])
+                        {
+                            count++;
                         }
                     }
                 }
-                for( int k = 0; k<j; k++){
-                    if(SAT3Instance.clauses[i][j] == SAT3Instance.clauses[i][k]){
-                        count ++;
+                for (int k = 0; k < j; k++)
+                {
+                    if (SAT3Instance.clauses[i][j] == SAT3Instance.clauses[i][k])
+                    {
+                        count++;
                     }
                 }
-                if(count >0){
-                    newClauses[i][j] = SAT3Instance.clauses[i][j] + "_" +count;
+                if (count > 0)
+                {
+                    newClauses[i][j] = SAT3Instance.clauses[i][j] + "_" + count;
                 }
-                else{
+                else
+                {
                     newClauses[i][j] = SAT3Instance.clauses[i][j];
                 }
             }
@@ -102,8 +114,8 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         // SAT3 literals become nodes.
         reducedCLIQUE.nodes = SAT3Instance.literals;
 
-      
-       
+
+
 
         List<KeyValuePair<string, string>> edges = new List<KeyValuePair<string, string>>();
         List<string> usedNames = new List<string>(); // Used to track what names have been used for nodes
@@ -128,7 +140,7 @@ class SipserReduction : IReduction<SAT3, SipserClique>
 
                     for (int b = 0; b < newClauses[a].Count; b++)
                     {
-                        
+
                         string nodeTo = newClauses[a][b];
                         bool inverse = false;
                         bool samecluser = false;
@@ -149,8 +161,10 @@ class SipserReduction : IReduction<SAT3, SipserClique>
 
                         if (!inverse && !samecluser && nodeFrom != nodeTo)
                         {
-                            if(i == 0 && a ==1 && j == 0 && b == 1){
-                                foreach(var name in usedNames){
+                            if (i == 0 && a == 1 && j == 0 && b == 1)
+                            {
+                                foreach (var name in usedNames)
+                                {
                                 }
                             }
                             edges.Add(fullEdge);
@@ -194,23 +208,26 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         List<string> satGadgetList = new List<string>();
         List<string> cliqueGadgetList = new List<string>();
         int id = 0;
-        foreach(string l in SAT3Instance.literals ){
+        foreach (string l in SAT3Instance.literals)
+        {
             id++;
-            SAT3Gadget sGadget = new SAT3Gadget("SipserReduceToCliqueStandard",l,id);
+            SAT3Gadget sGadget = new SAT3Gadget("SipserReduceToCliqueStandard", l, id);
             // string[] sGadget = new string[] {l};
             string serializedGadget = JsonSerializer.Serialize(sGadget, options);
             satGadgetList.Add(serializedGadget);
         }
         id = 0;
-        foreach(string l in usedNamesLiterals ){
+        foreach (string l in usedNamesLiterals)
+        {
             id++;
-            CLIQUEGadget cGadget = new CLIQUEGadget("SipserReduceToCliqueStandard",l,id);
+            CLIQUEGadget cGadget = new CLIQUEGadget("SipserReduceToCliqueStandard", l, id);
             // string[] cGadget = new string[] { l };
             string serializedGadget = JsonSerializer.Serialize(cGadget, options);
             cliqueGadgetList.Add(serializedGadget);
         }
-    
-        for (int i = 0; i < satGadgetList.Count;i++){
+
+        for (int i = 0; i < satGadgetList.Count; i++)
+        {
             _gadgetMap.Add(satGadgetList[i], cliqueGadgetList[i]);
         }
 
@@ -243,8 +260,10 @@ class SipserReduction : IReduction<SAT3, SipserClique>
     public SipserClique solutionMappedToClusterNodes(SipserClique sipserInput, List<string> solution)
     {
 
-        foreach (var s in sipserInput.clusterNodes){
-            if(solution.Contains(s.name)){
+        foreach (var s in sipserInput.clusterNodes)
+        {
+            if (solution.Contains(s.name))
+            {
                 s.solutionState = true.ToString();
             }
         }
@@ -271,45 +290,60 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         return searchList;
 
     }
-    private string removeIndex(string node){
-        if(node.Contains("_")){
+    private string removeIndex(string node)
+    {
+        if (node.Contains("_"))
+        {
             return node.Split("_")[0];
         }
         return node;
     }
 
-    public string mapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemFromSolution){
+    public string mapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemFromSolution)
+    {
         //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
+        if (!problemFrom.defaultVerifier.verify(problemFrom, problemFromSolution))
+        {
             return "3SAT Solution is incorect";
         }
         List<List<String>> newClauses = new List<List<string>>();
-        foreach(var clause in problemFrom.clauses){
+        foreach (var clause in problemFrom.clauses)
+        {
             List<String> temp = new List<String>();
-            foreach(var element in clause){
+            foreach (var element in clause)
+            {
                 temp.Add(element);
             }
             newClauses.Add(temp);
         }
-        for (int i = 0; i < problemFrom.clauses.Count; i++){
-            for (int j = 0; j < problemFrom.clauses[i].Count; j++){
+        for (int i = 0; i < problemFrom.clauses.Count; i++)
+        {
+            for (int j = 0; j < problemFrom.clauses[i].Count; j++)
+            {
                 int count = 0;
-                for( int k = 0; k<i; k++){
-                    foreach(var element in problemFrom.clauses[k]){
-                        if(element == problemFrom.clauses[i][j]){
-                            count ++;
+                for (int k = 0; k < i; k++)
+                {
+                    foreach (var element in problemFrom.clauses[k])
+                    {
+                        if (element == problemFrom.clauses[i][j])
+                        {
+                            count++;
                         }
                     }
                 }
-                for( int k = 0; k<j; k++){
-                    if(problemFrom.clauses[i][j] == problemFrom.clauses[i][k]){
-                        count ++;
+                for (int k = 0; k < j; k++)
+                {
+                    if (problemFrom.clauses[i][j] == problemFrom.clauses[i][k])
+                    {
+                        count++;
                     }
                 }
-                if(count >0){
-                    newClauses[i][j] = problemFrom.clauses[i][j] + "_" +count;
+                if (count > 0)
+                {
+                    newClauses[i][j] = problemFrom.clauses[i][j] + "_" + count;
                 }
-                else{
+                else
+                {
                     newClauses[i][j] = problemFrom.clauses[i][j];
                 }
             }
@@ -317,69 +351,84 @@ class SipserReduction : IReduction<SAT3, SipserClique>
         problemFrom.clauses = newClauses;
 
         //Parse problemFromSolution into a list of nodes
-        List<string> solutionList = problemFromSolution.Replace(" ","").Replace("(","").Replace(")","").Split(",").ToList();
-        for(int i=0; i<solutionList.Count; i++){
+        List<string> solutionList = problemFromSolution.Replace(" ", "").Replace("(", "").Replace(")", "").Split(",").ToList();
+        for (int i = 0; i < solutionList.Count; i++)
+        {
             string[] tempSplit = solutionList[i].Split(":");
-            if(tempSplit[1] == "False"){
-                solutionList[i] = "!"+tempSplit[0];
+            if (tempSplit[1] == "False")
+            {
+                solutionList[i] = "!" + tempSplit[0];
             }
-            else if(tempSplit[1] == "True"){
+            else if (tempSplit[1] == "True")
+            {
                 solutionList[i] = tempSplit[0];
             }
-            else{solutionList[i] = "";}
-            
+            else { solutionList[i] = ""; }
+
         }
         solutionList.RemoveAll(x => string.IsNullOrEmpty(x));
 
         //Map solution
         List<string> tempMappedSolutionList = new List<string>();
         List<string> mappedSolutionList = new List<string>();
-        foreach(string node in problemTo.nodes){
-            if(solutionList.Contains(node.Split("_")[0])){
+        foreach (string node in problemTo.nodes)
+        {
+            if (solutionList.Contains(node.Split("_")[0]))
+            {
                 tempMappedSolutionList.Add(node);
             }
         }
-        foreach(List<string> clause in problemFrom.clauses){
-            foreach(string node in tempMappedSolutionList){
-                if (clause.Contains(node) && !mappedSolutionList.Contains(node)){
+        foreach (List<string> clause in problemFrom.clauses)
+        {
+            foreach (string node in tempMappedSolutionList)
+            {
+                if (clause.Contains(node) && !mappedSolutionList.Contains(node))
+                {
                     mappedSolutionList.Add(node);
                     break;
                 }
             }
         }
         string problemToSolution = "";
-        foreach(string node in mappedSolutionList){
+        foreach (string node in mappedSolutionList)
+        {
             problemToSolution += node + ',';
         }
         return '{' + problemToSolution.TrimEnd(',') + '}';
     }
 
-    public string reverseMapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemToSolution){
-        if(!problemTo.defaultVerifier.verify(problemTo,problemToSolution)){
+    public string reverseMapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemToSolution)
+    {
+        if (!problemTo.defaultVerifier.verify(problemTo, problemToSolution))
+        {
             return "Clique Solution is incorect";
         }
 
         //Parse problemFromSolution into a list of nodes
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemToSolution);
-      
+
 
         //Reverse Mapping
         List<string> reverseMappedSolutionList = new List<string>();
-        foreach(string node in solutionList){
+        foreach (string node in solutionList)
+        {
             string temp = node;
-            if(temp.Contains("_")){temp = temp.Substring(0,temp.IndexOf("_"));}
-            if(temp.Contains("!")){
-                temp = temp.Replace("!","") + ":False";
+            if (temp.Contains("_")) { temp = temp.Substring(0, temp.IndexOf("_")); }
+            if (temp.Contains("!"))
+            {
+                temp = temp.Replace("!", "") + ":False";
             }
-            else{
+            else
+            {
                 temp = temp + ":True";
             }
-            if(!reverseMappedSolutionList.Contains(temp)){reverseMappedSolutionList.Add(temp);}
+            if (!reverseMappedSolutionList.Contains(temp)) { reverseMappedSolutionList.Add(temp); }
 
         }
-        
+
         string problemFromSolution = "";
-        foreach(string literal in reverseMappedSolutionList){
+        foreach (string literal in reverseMappedSolutionList)
+        {
             problemFromSolution += literal + ',';
         }
         return '(' + problemFromSolution.TrimEnd(',') + ')';

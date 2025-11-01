@@ -4,7 +4,8 @@ using API.Problems.NPComplete.NPC_VERTEXCOVER;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 
-class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
+class sipserReduction : IReduction<CLIQUE, VERTEXCOVER>
+{
 
 
     // --- Fields ---
@@ -15,7 +16,7 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
     public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
     public string[] contributors {get;} = {"Janita Aamir","Alex Diviney","Caleb Eardley"};
 
-    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
+    private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
     private CLIQUE _reductionFrom;
     private VERTEXCOVER _reductionTo;
 
@@ -25,29 +26,37 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
         get{
             return _gadgetMap;
         }
-        set{
+        set
+        {
             _gadgetMap = value;
         }
     }
-    public CLIQUE reductionFrom {
-        get {
+    public CLIQUE reductionFrom
+    {
+        get
+        {
             return _reductionFrom;
         }
-        set {
+        set
+        {
             _reductionFrom = value;
         }
     }
-    public VERTEXCOVER reductionTo {
-        get {
+    public VERTEXCOVER reductionTo
+    {
+        get
+        {
             return _reductionTo;
         }
-        set {
+        set
+        {
             _reductionTo = value;
         }
     }
 
     // --- Methods Including Constructors ---
-    public sipserReduction(CLIQUE from) {
+    public sipserReduction(CLIQUE from)
+    {
         _reductionFrom = from;
         _reductionTo = reduce();
 
@@ -60,7 +69,8 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
     /// <remarks>
     /// authored by Janita Aamir. Contributed to by Alex Diviney.
     /// </remarks>
-    public VERTEXCOVER reduce() {
+    public VERTEXCOVER reduce()
+    {
         CLIQUE CLIQUEInstance = _reductionFrom;
         VERTEXCOVER reducedVERTEXCOVER = new VERTEXCOVER();
 
@@ -71,38 +81,47 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
         //this nested loop creates every possible combination of edges that aren't self edges between the nodes in the set and adds them to a list. 
         // ie. nodes 1,2,3 become edges {1,2},{2,1},{1,3},{3,1},{2,3},{3,2}
-        for (int i = 0; i < reducedVERTEXCOVER.nodes.Count; i++){
-            for (int j = 0; j < reducedVERTEXCOVER.nodes.Count; j++){
-                if (reducedVERTEXCOVER.nodes[i] != reducedVERTEXCOVER.nodes[j]){
-                    KeyValuePair<string,string> fullEdge = new KeyValuePair<string,string>(reducedVERTEXCOVER.nodes[i], reducedVERTEXCOVER.nodes[j]);
+        for (int i = 0; i < reducedVERTEXCOVER.nodes.Count; i++)
+        {
+            for (int j = 0; j < reducedVERTEXCOVER.nodes.Count; j++)
+            {
+                if (reducedVERTEXCOVER.nodes[i] != reducedVERTEXCOVER.nodes[j])
+                {
+                    KeyValuePair<string, string> fullEdge = new KeyValuePair<string, string>(reducedVERTEXCOVER.nodes[i], reducedVERTEXCOVER.nodes[j]);
                     edges.Add(fullEdge);
                 }
             }
         }
-        
+
         //for every edge in clique, removes the edge from the total list of edges.
-        for (int i = 0; i < CLIQUEInstance.edges.Count; i++){
-            edges.Remove(new KeyValuePair<string,string>(CLIQUEInstance.edges[i].Key, CLIQUEInstance.edges[i].Value));
-            edges.Remove(new KeyValuePair<string,string>(CLIQUEInstance.edges[i].Value, CLIQUEInstance.edges[i].Key));
+        for (int i = 0; i < CLIQUEInstance.edges.Count; i++)
+        {
+            edges.Remove(new KeyValuePair<string, string>(CLIQUEInstance.edges[i].Key, CLIQUEInstance.edges[i].Value));
+            edges.Remove(new KeyValuePair<string, string>(CLIQUEInstance.edges[i].Value, CLIQUEInstance.edges[i].Key));
         }
 
         //For every edge in the remaining set, removes any edge that would be redundant. So if we have {1,3} and {3,1} then we only leave {1,3}
-        for (int i = 0; i < edges.Count; i++){
-            for (int j = 0; j < edges.Count; j++){
-                if (edges[i].Key == edges[j].Value && edges[i].Value == edges[j].Key){
-                    edges.Remove(new KeyValuePair<string,string>(edges[j].Key, edges[j].Value));
+        for (int i = 0; i < edges.Count; i++)
+        {
+            for (int j = 0; j < edges.Count; j++)
+            {
+                if (edges[i].Key == edges[j].Value && edges[i].Value == edges[j].Key)
+                {
+                    edges.Remove(new KeyValuePair<string, string>(edges[j].Key, edges[j].Value));
                 }
             }
         }
 
         // --- Generate G string for new CLIQUE ---
         string nodesString = "";
-        foreach (string nodes in CLIQUEInstance.nodes) {
+        foreach (string nodes in CLIQUEInstance.nodes)
+        {
             nodesString += nodes + ",";
         }
         nodesString = nodesString.Trim(',');
         string edgesString = "";
-        foreach (KeyValuePair<string,string> edge in edges) {
+        foreach (KeyValuePair<string, string> edge in edges)
+        {
             edgesString += "{" + edge.Key + "," + edge.Value + "}" + ",";
         }
         edgesString = edgesString.Trim(',');
@@ -115,9 +134,11 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
     }
 
-    public string mapSolutions(CLIQUE problemFrom, VERTEXCOVER problemTo, string problemFromSolution){
+    public string mapSolutions(CLIQUE problemFrom, VERTEXCOVER problemTo, string problemFromSolution)
+    {
         //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
+        if (!problemFrom.defaultVerifier.verify(problemFrom, problemFromSolution))
+        {
             return "Clique solution is incorect " + problemFromSolution;
         }
 
@@ -126,13 +147,16 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
         //Map solution
         List<string> mappedSolutionList = new List<string>();
-        foreach(string node in problemFrom.nodes){
-            if(!solutionList.Contains(node)){
+        foreach (string node in problemFrom.nodes)
+        {
+            if (!solutionList.Contains(node))
+            {
                 mappedSolutionList.Add(node);
             }
         }
         string problemToSolution = "";
-        foreach(string node in mappedSolutionList){
+        foreach (string node in mappedSolutionList)
+        {
             problemToSolution += node + ',';
         }
         return '{' + problemToSolution.TrimEnd(',') + '}';

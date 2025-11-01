@@ -88,7 +88,7 @@ class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
             }
         }
 
-        instance = instance.TrimEnd('{').TrimEnd(',') +"})," + reductionFrom.K.ToString() + ')';
+        instance = instance.TrimEnd('{').TrimEnd(',') + "})," + reductionFrom.K.ToString() + ')';
 
         reducedCLIQUECOVER.K = reductionFrom.K;
         reducedCLIQUECOVER.nodes = reductionFrom.nodes;
