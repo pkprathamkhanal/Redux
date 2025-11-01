@@ -1,25 +1,13 @@
-//Graph.cs
-//This is an abstract class for Undirected and Directed graphs to inherit from
+using System.Text.Json;
+using API.Interfaces.Graphs;
+using API.Interfaces.JSON_Objects.Graphs;
 
-using System.Collections.Generic;
+namespace API.Interfaces;
 
-namespace API.Interfaces.Graphs;
+abstract class Graph {
+    public abstract List<Node> nodes {get;}
+    public abstract List<Edge> edges {get;}
 
-
- abstract class Graph{
-
- protected List<Node> _nodeList;
- protected List<Edge> _edgeList;
-
-
-public Graph(){
-    _nodeList = new List<Node>();
-    _edgeList = new List<Edge>();
-
-}
-protected abstract List<string> getNodes(string gInput);
-protected abstract List<KeyValuePair<string,string>> getEdges(string gInput);
-
-protected abstract int getK(string gInput);
-
+    public List<Node> getNodeList {get => nodes;}
+    public List<Edge> getEdgeList {get => edges;}
 }

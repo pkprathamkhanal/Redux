@@ -9,11 +9,11 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
 
 
     // --- Fields ---
-    private string _reductionName = "Clique reduction";
-    private string _reductionDefinition = @"This reduction converts an independent set problem into a clique problem, 
+    public string reductionName {get;} = "Clique reduction";
+    public string reductionDefinition {get;} = @"This reduction converts an independent set problem into a clique problem, 
                                             by taking the complement of the graph, or inverting all the edges.";
-    private string _source = "";
-    private string[] _contributors = {"Russell Phillips"};
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
     private INDEPENDENTSET _reductionFrom;
@@ -23,27 +23,6 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
 
 
     // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-       public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-
     public Dictionary<Object,Object> gadgetMap {
         get{
             return _gadgetMap;
@@ -86,7 +65,6 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     public CLIQUE reduce() {
         INDEPENDENTSET INDPENDENTSETInstance = _reductionFrom;
         CLIQUE reducedCLIQUE = new CLIQUE();
-
         reducedCLIQUE.nodes = INDPENDENTSETInstance.nodes;
 
         List<KeyValuePair<string, string>> edges = new List<KeyValuePair<string, string>>();

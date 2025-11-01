@@ -6,9 +6,9 @@ namespace API.Problems.NPComplete.NPC_{REDUCE_FROM}.ReduceTo.NPC_{REDUCE_TO};
 class {REDUCTION_PASCEL_CASE} : IReduction<{REDUCE_FROM}, {REDUCE_TO}> {
 
     // --- Fields ---
-    private string _reductionName = "{REDUCTION}";
-    private string _reductionDefinition = "TODO";
-    private string _source = "TODO";
+    public string reductionName {get;} = "{REDUCTION}";
+    public string reductionDefinition {get;} = "TODO";
+    public string source {get;} = "TODO";
     private string[] _contributers = { "TODO" };
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
@@ -17,26 +17,6 @@ class {REDUCTION_PASCEL_CASE} : IReduction<{REDUCE_FROM}, {REDUCE_TO}> {
 
 
     // --- Properties ---
-    public string reductionName {
-        get {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition {
-        get {
-            return _reductionDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributers{
-        get{
-            return _contributers;
-        }
-    }
     public Dictionary<Object, Object> gadgetMap {
         get{
             return _gadgetMap;

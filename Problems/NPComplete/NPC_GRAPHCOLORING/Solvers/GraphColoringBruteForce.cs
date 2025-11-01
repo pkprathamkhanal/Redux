@@ -3,45 +3,14 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.Solvers;
-class GraphColoringBruteForce : ISolver
-{
+class GraphColoringBruteForce : ISolver<GRAPHCOLORING> {
 
     // --- Fields ---
-    private string _solverName = "Graph Coloring Brute Force";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Graph Coloring problem";
-    private string _source = "";
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public string solverName {get;} = "Graph Coloring Brute Force";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Graph Coloring problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
-
-    // --- Properties ---
-    public string solverName
-    {
-        get
-        {
-            return _solverName;
-        }
-    }
-    public string solverDefinition
-    {
-        get
-        {
-            return _solverDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public GraphColoringBruteForce()
     {

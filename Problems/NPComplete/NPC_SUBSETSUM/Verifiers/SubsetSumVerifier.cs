@@ -2,37 +2,16 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.Verifiers;
 
-class SubsetSumVerifier : IVerifier {
+class SubsetSumVerifier : IVerifier<SUBSETSUM> {
 
     // --- Fields ---
-    private string _verifierName = "Subset Sum Verifier";
-    private string _verifierDefinition = "This is a verifier for Subset Summ";
-    private string _source = " ";
-    private string[] _contributors = { "Garret Stouffer"};
+    public string verifierName {get;} = "Subset Sum Verifier";
+    public string verifierDefinition {get;} = "This is a verifier for Subset Summ";
+    public string source {get;} = " ";
+    public string[] contributors {get;} = { "Garret Stouffer"};
 
     private string _certificate = "";
 
-    // --- Properties ---
-    public string verifierName {
-        get {
-            return _verifierName;
-        }
-    }
-    public string verifierDefinition {
-        get {
-            return _verifierDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
- public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
      public string certificate {
         get {
             return _certificate;
@@ -45,18 +24,18 @@ class SubsetSumVerifier : IVerifier {
         
     }
 
-    public bool verify(SUBSETSUM subsetSum, string certificate){
+    public bool verify(SUBSETSUM problem, string certificate){
         List<string> c = certificate.Replace("{","").Replace("}","").Replace(" ","").Split(",").ToList();
         int sum = 0;
         foreach(string a in c){
-            if(subsetSum.S.Contains(a)){    
+            if(problem.S.Contains(a)){    
                 sum += int.Parse(a);
             }
             else{
                 return false;
             }
         }
-        if(sum == subsetSum.T){
+        if(sum == problem.T){
             return true;
         }
 

@@ -11,49 +11,19 @@ class SipserReduction : IReduction<SAT3, SipserClique>
 {
 
     // --- Fields ---
-    private string _reductionName = "Sipser's Clique Reduction";
-    private string _reductionDefinition = "Sipsers reduction converts clauses from 3SAT into clusters of nodes in a graph for which CLIQUES exist";
-    private string _source = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
-    private string[] _contributors = { "Kaden Marchetti", "Alex Diviney", "Caleb Eardley" };
-    private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
+    public string reductionName {get;} = "Sipser's Clique Reduction";
+    public string reductionDefinition {get;} = "Sipsers reduction converts clauses from 3SAT into clusters of nodes in a graph for which CLIQUES exist";
+    public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
+    public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney", "Caleb Eardley"};
+    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
 
     private SAT3 _reductionFrom;
     private SipserClique _reductionTo;
 
 
     // --- Properties ---
-    public string reductionName
-    {
-        get
-        {
-            return _reductionName;
-        }
-    }
-    public string reductionDefinition
-    {
-        get
-        {
-            return _reductionDefinition;
-        }
-    }
-    public string source
-    {
-        get
-        {
-            return _source;
-        }
-    }
-    public string[] contributors
-    {
-        get
-        {
-            return _contributors;
-        }
-    }
-    public Dictionary<Object, Object> gadgetMap
-    {
-        get
-        {
+    public Dictionary<Object,Object> gadgetMap {
+        get{
             return _gadgetMap;
         }
         set
@@ -261,7 +231,8 @@ class SipserReduction : IReduction<SAT3, SipserClique>
             _gadgetMap.Add(satGadgetList[i], cliqueGadgetList[i]);
         }
 
-        reducedCLIQUE.cliqueAsGraph = new CliqueGraph(G, true); //ALEX NOTE: Since undirected graphs are backwards compatible, I am able to take in an old format string here. This is a bandaid solution
+        CLIQUE clique = new CLIQUE(G);
+        reducedCLIQUE.cliqueAsGraph = clique.graph; //ALEX NOTE: Since undirected graphs are backwards compatible, I am able to take in an old format string here. This is a bandaid solution
         reducedCLIQUE.instance = reducedCLIQUE.cliqueAsGraph.formalString(); //Outputs a standard graph notation instance.
         reductionTo = reducedCLIQUE;
         return reducedCLIQUE;

@@ -3,36 +3,14 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
-class IndependentSetBruteForce : ISolver {
+class IndependentSetBruteForce : ISolver<INDEPENDENTSET> {
 
     // --- Fields ---
-    private string _solverName = "Independent Set Brute Force";
-    private string _solverDefinition = "This is a brute force solver for the NP-Complete Independent Set problem";
-    private string _source = "";
-    private string[] _contributors = {"Russell Phillips"};
+    public string solverName {get;} = "Independent Set Brute Force";
+    public string solverDefinition {get;} = "This is a brute force solver for the NP-Complete Independent Set problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Russell Phillips"};
 
-
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
     // --- Methods Including Constructors ---
     public IndependentSetBruteForce() {
         
@@ -92,7 +70,8 @@ class IndependentSetBruteForce : ISolver {
 
         Dictionary<string, bool> solutionDict = new Dictionary<string, bool>();
         GraphParser gParser = new GraphParser();
-        IndependentSetGraph cGraph = new IndependentSetGraph(problemInstance, true);
+        INDEPENDENTSET independentset = new INDEPENDENTSET(problemInstance);
+        IndependentSetGraph cGraph = independentset.independentSetAsGraph;
         List<string> problemInstanceNodes = cGraph.nodesStringList;
         List<string> solvedNodes = gParser.getNodesFromNodeListString(solutionString);
         

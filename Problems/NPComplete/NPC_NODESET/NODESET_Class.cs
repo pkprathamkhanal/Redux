@@ -1,80 +1,39 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_NODESET.Solvers;
 using API.Problems.NPComplete.NPC_NODESET.Verifiers;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_NODESET;
 
-class NODESET : IProblem<NodeSetBruteForce,NodeSetVerifier> {
+class NODESET : IGraphProblem<NodeSetBruteForce,NodeSetVerifier,NodeSetGraph> {
 
     // --- Fields ---
-    private string _problemName = "Feedback Node Set";
-    private string _formalDefinition = "Feedback Node Set = ";
-    private string _problemDefinition = "Node Set is the problem";
-    private string _source = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    private string _defaultInstance = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
-    private string _instance = string.Empty;
+    public string problemName {get;} = "Feedback Node Set";
+    public string formalDefinition {get;} = "Feedback Node Set = ";
+    public string problemDefinition {get;} = "Node Set is the problem";
+    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    private static string _defaultInstance = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
+    public string defaultInstance { get; } = _defaultInstance;
+    public string instance {get;set;} = string.Empty;
     private int _K;
 
-    private string _wikiName = "";
+    public string wikiName {get;} = "";
     private List<string> _nodes = new List<string>();
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
-    private NodeSetBruteForce _defaultSolver = new NodeSetBruteForce();
-    private NodeSetVerifier _defaultVerifier = new NodeSetVerifier();
+    public NodeSetBruteForce defaultSolver {get;} = new NodeSetBruteForce();
+    public NodeSetVerifier defaultVerifier {get;} = new NodeSetVerifier();
     private NodeSetGraph _nodeSetAsGraph;
-    private string[] _contributors = { "Andrija Sevaljevic" };
+    public NodeSetGraph graph {get => _nodeSetAsGraph;}
+    public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
-    public string problemName {
-        get {
-            return _problemName;
-        }
-    }
-    public string formalDefinition {
-        get {
-            return _formalDefinition;
-        }
-    }
-    public string problemDefinition {
-        get {
-            return _problemDefinition;
-        }
-    }
-
-    public string source {
-        get {
-            return _source;
-        }
-    }
-
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
-    public string defaultInstance {
-        get {
-            return _defaultInstance;
-        }
-    }
-    public string instance {
-        get {
-            return _instance;
-        }
-        set {
-            _instance = value;
-        }
-    }
     public int K {
         get {
             return _K;
         }
         set {
             _K = value;
-        }
-    }
-    public string wikiName {
-        get {
-            return _wikiName;
         }
     }
     public List<string> nodes {
@@ -93,16 +52,6 @@ class NODESET : IProblem<NodeSetBruteForce,NodeSetVerifier> {
             _edges = value;
         }
     }
-    public NodeSetBruteForce defaultSolver {
-        get {
-            return _defaultSolver;
-        }
-    }
-    public NodeSetVerifier defaultVerifier {
-        get {
-            return _defaultVerifier;
-        }
-    }
 
     public NodeSetGraph nodeSetAsGraph {
         get{
@@ -114,20 +63,24 @@ class NODESET : IProblem<NodeSetBruteForce,NodeSetVerifier> {
     }
 
     // --- Methods Including Constructors ---
-    public NODESET() {
-        _instance = defaultInstance;
-        _nodeSetAsGraph = new NodeSetGraph(_instance,true);
-        nodes = _nodeSetAsGraph.nodesStringList;
-        edges = _nodeSetAsGraph.edgesKVP;
-        K = _nodeSetAsGraph.K;
+    public NODESET() : this(_defaultInstance) {
 
     }
-    public NODESET(string GInput) {
-        _nodeSetAsGraph = new NodeSetGraph(GInput, true);
-        nodes = _nodeSetAsGraph.nodesStringList;
-        edges = _nodeSetAsGraph.edgesKVP;
-        K = _nodeSetAsGraph.K;
-        _instance = _nodeSetAsGraph.ToString();
+    public NODESET(string GInput)
+    {
+        instance = GInput;
+
+        StringParser nodeset = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        nodeset.parse(GInput);
+        nodes = nodeset["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = nodeset["E"].ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge.ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
+        }).ToList();
+        _K = int.Parse(nodeset["K"].ToString());
+
+        _nodeSetAsGraph = new NodeSetGraph(nodes, edges);
 
     }
 

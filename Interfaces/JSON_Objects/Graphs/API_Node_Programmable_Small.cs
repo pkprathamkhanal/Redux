@@ -11,20 +11,31 @@ class API_Node_Programmable_Small{
     private string _attribute1;
     private string _attribute2;
     private string _attribute3;
+    private string _color;
+    private string _outline;
+    private string _delay;
+    private string _dashed;
 
     public API_Node_Programmable_Small(){
         this._name = "APINODE";
         this._attribute1 = "";
         this._attribute2 = "";
         this._attribute3 = "";
-
+        this._color = "";
+        this._outline = "";
+        this._delay = "";
+        this._dashed = "";
     }
 
-    public API_Node_Programmable_Small(string nm,string attr1="",string attr2="", string attr3=""){
+    public API_Node_Programmable_Small(string nm,string attr1="",string attr2="", string attr3="", string color="", string outline="", string delay="", string dashed="") {
         _name = nm;
         _attribute1 = attr1;
         _attribute2 = attr2;
         _attribute3 = attr3;
+        _color = color;
+        _outline = outline;
+        _delay = delay;
+        _dashed = dashed;
     }
     
     public string name{
@@ -54,6 +65,42 @@ class API_Node_Programmable_Small{
         }
         set{
             _attribute3 = value;
+        }
+    }
+
+    public string color{
+        get{
+            return _color;
+        }
+        set{
+            _color = value;
+        }
+    }
+
+    public string outline{
+        get{
+            return _outline;
+        }
+        set{
+            _outline = value;
+        }
+    }
+
+    public string delay{
+        get{
+            return _delay;
+        }
+        set{
+            _delay = value;
+        }
+    }
+
+    public string dashed{
+        get{
+            return _dashed;
+        }
+        set{
+            _dashed = value;
         }
     }
     

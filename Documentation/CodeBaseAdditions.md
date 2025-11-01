@@ -52,22 +52,9 @@ The Verifiers folder should contain all verifier files for that problem. Each of
 - string[] contributors : A list of names of all developers who have worked on the verifier
             
 The file should also include a function which takes a problem object and certificate, and returns a Boolean for if the certificate is a solution to the given problem. As well as any other necessary functions.
-        
-#### Problem Controller
-PROBLEMNAME\textunderscore controller.cs should contain all necessary API endpoints for the problem. This includes 
-
-- API endpoint for general problem named PROBLEMNAMEGenericController, with the following calls, 
-    - HttpGet : returns default problem object
-    - HttpGet("instance") : returns problem object for given parameter "problemInstance"
-- API endpoint for each verifier class named VerifierNameController, with the following calls,
-    - HttpGet("info") : returns verifier object
-    - HttpGet("verify") : returns results of the verify function given parameters "certificate", and "problemInstance"
-- API endpoint for each solution class named SolverNameController, with the following calls,
-    - HttpGet("info") : returns solver object.
-    - HttpGet("solve") : returns solution string for given parameter, "problemInstance"
 
 ### API endpoints
-When adding an API endpoint, the current practice is to add a controller into the problem controller class, which corresponds to a specific class for that problem. Meaning each problem/verifier/solver/reduction has its own controller, all in the controller class. The current naming convention is NameOfRelatedClassController. If not named correctly, the GUI will not function properly. Each controller should include [Route("controller")], and [Tag("Problem Name")]. 
+When adding an API endpoint, the current practice is to add a controller into the problem reduction controller class, which corresponds to a specific class for that problem reduction. Meaning each reduction has its own controller, all in the controller class. The current naming convention is NameOfRelatedClassController. If not named correctly, the GUI will not function properly. Each controller should include [Route("controller")], and [Tag("Problem Name")]. 
 
 ![APIAttriutes](./images/APIAttributes.png)
 
@@ -85,7 +72,6 @@ All added problems should fulfill the following requirements,
 - Correctly implements all interfaces
 - Includes at least one solver
 - Includes at least one verifier
-- Includes API endpoints for problem, all verifiers, and all solvers
 - Tests for all solvers and verifiers have been created and pass.
 
 ### New Reductions

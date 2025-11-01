@@ -32,12 +32,30 @@ class API_UndirectedGraphJSON
         }
     }
 
+    public API_UndirectedGraphJSON(List<string> nodes, List<KeyValuePair<string, string>> inputEdges)
+    {
+        _nodes = new List<API_Node_Programmable_Small>();
+        foreach(string n in nodes){
+            API_Node_Programmable_Small newNode = new API_Node_Programmable_Small(n);
+            _nodes.Add(newNode);
+        }
 
-public List<API_Node_Programmable_Small> nodes {
-    get {
-        return _nodes;
+        _links = new List<API_Link>();
+        foreach(KeyValuePair<string, string> e in inputEdges){
+            API_Link newLink = new API_Link(e.Key, e.Value); //destructures an object with a nested node into an object with straight name reference.
+            _links.Add(newLink);
+        }
+        
     }
-}
+
+
+public List<API_Node_Programmable_Small> nodes
+    {
+        get
+        {
+            return _nodes;
+        }
+    }
 public List<API_Link> links {
     get {
         return _links;

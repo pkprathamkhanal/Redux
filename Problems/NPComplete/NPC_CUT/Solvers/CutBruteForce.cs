@@ -3,36 +3,13 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_CUT.Solvers;
-class CutBruteForce : ISolver {
+class CutBruteForce : ISolver<CUT> {
 
     // --- Fields ---
-    private string _solverName = "Cut Brute Force Solver";
-    private string _solverDefinition = "This is a brute force solver for the Cut problem";
-    private string _source = "";
-    private string[] _contributors = {"Andrija Sevaljevic"};
-
-    // --- Properties ---
-
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    public string[] contributors{
-        get{
-            return _contributors;
-        }
-    }
+    public string solverName {get;} = "Cut Brute Force Solver";
+    public string solverDefinition {get;} = "This is a brute force solver for the Cut problem";
+    public string source {get;} = "";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
 
 public CutBruteForce() {
         
@@ -127,7 +104,8 @@ public CutBruteForce() {
    public Dictionary<KeyValuePair<string,string>, bool> getSolutionDict(string problemInstance, string solutionString){
 
         Dictionary<KeyValuePair<string,string>, bool> solutionDict = new Dictionary<KeyValuePair<string,string>, bool>();
-        CutGraph cGraph = new CutGraph(problemInstance, true);
+        CUT cut = new CUT(problemInstance);
+        CutGraph cGraph = cut.cutAsGraph;
         List<KeyValuePair<string, string>> problemInstanceEdges = cGraph.edgesKVP;
         List<KeyValuePair<string, string>> solvedEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solutionString);
 

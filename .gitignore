@@ -4,3 +4,5 @@ obj/
 bin/
 bin/Debug/net6.0/API.exe
 API.sln
+Redux.sln
+global.json

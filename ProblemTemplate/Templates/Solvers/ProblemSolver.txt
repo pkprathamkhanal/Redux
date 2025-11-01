@@ -1,37 +1,14 @@
 using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_{PROBLEM}.Solvers;
-class {SOLVER_PASCEL_CASE} : ISolver {
+class {SOLVER_PASCEL_CASE} : ISolver<{PROBLEM}> {
 
     // --- Fields ---
-    private string _solverName = "{SOLVER}";
-    private string _solverDefinition = "TODO";
-    private string _source = "TODO";
-    private string[] _contributers = { "TODO" };
+    public string solverName {get;} = "{SOLVER}";
+    public string solverDefinition {get;} = "TODO";
+    public string source {get;} = "TODO";
+    public string[] contributers {get;} = { "TODO" };
 
-    // --- Properties ---
-    public string solverName {
-        get {
-            return _solverName;
-        }
-    }
-    public string solverDefinition {
-        get {
-            return _solverDefinition;
-        }
-    }
-    public string source {
-        get {
-            return _source;
-        }
-    }
-    
-    public string[] contributers{
-        get{
-            return _contributers;
-        }
-    }
-    
     // --- Methods Including Constructors ---
     public {SOLVER_PASCEL_CASE}() {}
 
