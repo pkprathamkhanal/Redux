@@ -36,7 +36,7 @@ class SUBGRAPHISOMORPHISM : IProblem<SubgraphIsomorphismBruteForce, SubgraphIsom
     private SubgraphIsomorphismBruteForce _defaultSolver = new SubgraphIsomorphismBruteForce();
 
     private SubgraphIsomorphismVerifier _defaultVerifier = new SubgraphIsomorphismVerifier();
-    private string[] _contributers = { "TODO" };
+    private string[] _contributers = { "Sabal Subedi" };
 
     // TODO: implement properties if Subgraph isomorphism is a graphing problem
     // For Target Graph

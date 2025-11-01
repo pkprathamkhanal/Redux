@@ -11,8 +11,8 @@ class SubgraphIsomorphismUllmann : ISolver<SUBGRAPHISOMORPHISM>
     // --- Fields ---
     private string _solverName = "Subgraph  Isomorphism Solver Based On Ullmann's Algorithm";
     private string _solverDefinition = "This is a solver for the NP-Complete Subgraph Isomorphism problem using Ullmann's algorithm";
-    private string _source = "TODO";
-    private string[] _contributers = { "TODO" };
+    private string _source = "https://dl.acm.org/doi/10.1145/321921.321925";
+    private string[] _contributers = { "Sabal Subedi" };
 
     // --- Properties ---
     public string solverName
@@ -59,11 +59,9 @@ class SubgraphIsomorphismUllmann : ISolver<SUBGRAPHISOMORPHISM>
 
         //computing the adjacent matrix of target graph
         int[,] adjacentMatrixTarget = getAdjacentMatrix(subgraph.nodesT, subgraph.edgesT);
-        displayMatrix(adjacentMatrixTarget);
 
         // computing the adjacent matrix for pattern matrix 
         int[,] adjacentMatrixPattern = getAdjacentMatrix(subgraph.nodesP, subgraph.edgesP);
-        displayMatrix(adjacentMatrixPattern);
 
 
         // call Ullmann Algorithm class here
@@ -190,12 +188,7 @@ class UllmannAlgorithm
         if (depth == patternSize) // If all pattern nodes are assigned, check isomorphism
         {
             // return IsIsomorphism();
-            if (IsIsomorphism())
-            {
-                PrintMapping();
-                return true;
-            }
-            return false;
+            return IsIsomorphism();
         }
 
         for (int j = 0; j < targetSize; j++)

@@ -9,7 +9,7 @@ class SubgraphIsomorphismVerifier : IVerifier<SUBGRAPHISOMORPHISM>
     private string _verifierName = "Subgraph Isomorphism Verifier";
     private string _verifierDefinition = "This is a verifier for the NP-Complete Subgraph Isomorphism problem";
     private string _source = " ";
-    private string[] _contributers = { "TODO" };
+    private string[] _contributers = { "Sabal Subedi" };
     private string _certificate = "W : b, X : c, Y : e, Z : d";
 
     // --- Properties ---
