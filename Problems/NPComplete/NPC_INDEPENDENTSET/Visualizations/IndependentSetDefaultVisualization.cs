@@ -29,7 +29,7 @@ class IndependentSetDefaultVisualization : IVisualization<INDEPENDENTSET> {
         string solution = independentSet.defaultSolver.solve(independentSet);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
-        API_UndirectedGraphJSON apiGraph = independentSet.graph.ToAPIGraph();
+        API_GraphJSON apiGraph = independentSet.graph.ToAPIGraph();
         for(int i=0;i<apiGraph.nodes.Count;i++){
             if(solutionNodes.Contains(apiGraph.nodes[i].name)){ 
                apiGraph.nodes[i].attribute2 = true.ToString(); 

@@ -1,3 +1,6 @@
+using API.Interfaces.JSON_Objects;
+using API.Interfaces.JSON_Objects.Graphs;
+
 namespace API.Interfaces;
 
 interface ISolver {
@@ -7,6 +10,11 @@ interface ISolver {
     string[] contributors { get; }
 
     string solve(string problem);
+
+    List<API_JSON> getSteps(string instance)
+    {
+        return new List<API_JSON> { new API_GraphJSON() };
+    }
 }
 
 interface ISolver<T> : ISolver where T : IProblem {

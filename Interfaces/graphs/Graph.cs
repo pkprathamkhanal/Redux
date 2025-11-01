@@ -12,8 +12,8 @@ abstract class Graph
     public List<Node> getNodeList { get => nodes; }
     public List<Edge> getEdgeList { get => edges; }
 
-    public virtual API_UndirectedGraphJSON ToAPIGraph()
+    public virtual API_GraphJSON ToAPIGraph()
     {
-        return new API_UndirectedGraphJSON(nodes, edges);
+        return new API_GraphJSON(nodes, edges);
     }
 }

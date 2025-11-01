@@ -106,6 +106,15 @@ public class ProblemProvider : ControllerBase {
             options
         );
     }
+
+    [HttpPost("steps")]
+    public string steps(string solver, [FromBody] string instance)
+    {
+        return JsonSerializer.Serialize(
+            Solver(solver).getSteps(instance),
+            new JsonSerializerOptions { WriteIndented = true }
+        );
+    }
 }
 
 public class Verify {
