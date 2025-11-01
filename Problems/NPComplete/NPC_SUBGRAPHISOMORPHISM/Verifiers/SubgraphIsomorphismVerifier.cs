@@ -2,7 +2,7 @@ using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Verifiers;
 
-class SubgraphIsomorphismVerifier : IVerifier
+class SubgraphIsomorphismVerifier : IVerifier<SUBGRAPHISOMORPHISM>
 {
 
     // --- Fields ---

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text.Json;
 
 namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Solvers;
-class SubgraphIsomorphismBruteForce : ISolver
+class SubgraphIsomorphismBruteForce : ISolver<SUBGRAPHISOMORPHISM>
 {
 
     // --- Fields ---

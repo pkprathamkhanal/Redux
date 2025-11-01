@@ -5,7 +5,7 @@ using System.Text.Json;
 
 
 namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Solvers;
-class SubgraphIsomorphismUllmann : ISolver
+class SubgraphIsomorphismUllmann : ISolver<SUBGRAPHISOMORPHISM>
 {
 
     // --- Fields ---

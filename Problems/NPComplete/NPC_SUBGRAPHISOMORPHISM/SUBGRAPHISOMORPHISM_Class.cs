@@ -5,7 +5,7 @@ using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Solvers;
 using API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_SUBGRAPHISOMORPHISM;
-using DiscreteParser;
+using SPADE;
 using API.Interfaces.Graphs.GraphParser;
 using Microsoft.AspNetCore.Components;
 using Xunit;
