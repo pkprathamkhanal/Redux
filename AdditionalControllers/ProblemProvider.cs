@@ -5,6 +5,7 @@ using API.Interfaces.JSON_Objects.Graphs;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using API.Interfaces.Tools;
 using API.Interfaces.JSON_Objects;
+using API.Tools;
 
 [ApiController]
 [Route("[controller]")]
@@ -78,41 +79,32 @@ public class ProblemProvider : ControllerBase {
     }
 
     [HttpPost("visualize")]
-    public string visualize(string visualizationName, [FromBody] string instance)
+    public string visualize(string visualization, string solver, [FromBody] string instance)
     {
         var options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
         options.Converters.Add(new API_JSON_Converter<API_JSON>());
-        API_JSON visual = Visualization(visualizationName).visualize(instance);
-        return JsonSerializer.Serialize(
-            visual,
-            options
-        );
-    }
+        API_JSON visual = Visualization(visualization).visualize(instance);
+        Steps steps = Solver(solver).GetSteps(instance);
+        API_JSON API_steps = Visualization(visualization).StepsVisualization(instance, steps);
+        API_JSON solution = Visualization(visualization).SolvedVisualization(instance);
 
-    [HttpPost("solvedVisualize")]
-    public string solvedVisualize(string visualizationName, [FromBody] string instance)
-    {
-        var options = new JsonSerializerOptions
+        List<API_JSON> list = new List<API_JSON>();
+        list.Add(visual);
+        if (steps.GetType() != typeof(API_empty))
         {
-            WriteIndented = true
-        };
-        options.Converters.Add(new API_JSON_Converter<API_JSON>());
-        IVisualization visual = Visualization(visualizationName);
-        return JsonSerializer.Serialize(
-            visual.getSolvedVisualization(instance),
-            options
-        );
-    }
+            list.Add(API_steps);
+        }
+        if (solution.GetType() != typeof(API_empty))
+        {
+            list.Add(solution);
+        }
 
-    [HttpPost("steps")]
-    public string steps(string solver, [FromBody] string instance)
-    {
         return JsonSerializer.Serialize(
-            Solver(solver).getSteps(instance),
-            new JsonSerializerOptions { WriteIndented = true }
+            list,
+            options
         );
     }
 }

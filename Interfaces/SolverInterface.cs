@@ -1,5 +1,6 @@
 using API.Interfaces.JSON_Objects;
 using API.Interfaces.JSON_Objects.Graphs;
+using API.Tools;
 
 namespace API.Interfaces;
 
@@ -11,9 +12,11 @@ interface ISolver {
 
     string solve(string problem);
 
-    List<API_JSON> getSteps(string instance)
+    Steps GetSteps(string instance)
     {
-        return new List<API_JSON> { new API_GraphJSON() };
+        Steps steps = new Steps();
+        steps.Implemented = false;
+        return steps;
     }
 }
 
@@ -25,4 +28,17 @@ interface ISolver<T> : ISolver where T : IProblem {
         return solve((T)Activator.CreateInstance(typeof(T), problem));
     }
     string solve(T problem);
+
+
+    Steps ISolver.GetSteps(string instance)
+    {
+        return GetSteps((T)Activator.CreateInstance(typeof(T), instance));
+    }
+
+    Steps GetSteps(T problem)
+    {
+        Steps steps = new Steps();
+        steps.Implemented = false;
+        return steps;
+    }
 }
