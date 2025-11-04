@@ -1,11 +1,12 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_CLIQUE.Solvers;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
+using API.Problems.NPComplete.NPC_CLIQUE.Visualizers;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
-class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,UtilCollectionGraph> {
+class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,cliqueDefaultVisualization,UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Clique";
@@ -20,7 +21,8 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,UtilCollectionGraph
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K ;
     public CliqueBruteForce defaultSolver {get;} = new CliqueBruteForce();
-    public CliqueVerifier defaultVerifier {get;} = new CliqueVerifier();
+    public CliqueVerifier defaultVerifier { get; } = new CliqueVerifier();
+    public cliqueDefaultVisualization defaultVisualization { get; } = new cliqueDefaultVisualization();
     public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney" };
 

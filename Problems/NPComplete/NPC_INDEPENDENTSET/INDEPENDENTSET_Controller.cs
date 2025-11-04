@@ -10,7 +10,7 @@ using API.Problems.NPComplete.NPC_INDEPENDENTSET.ReduceTo.NPC_CLIQUE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
 
-/*
+
 [ApiController]
 [Route("[controller]")]
 [Tags("Independent Set")]
@@ -48,5 +48,3 @@ public class reduceToCLIQUEController : ControllerBase {
     }
 
 }
-
-*/

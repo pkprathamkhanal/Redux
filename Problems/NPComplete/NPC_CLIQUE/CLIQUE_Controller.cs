@@ -5,45 +5,15 @@ using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using API.Interfaces.JSON_Objects.Graphs;
-using API.Problems.NPComplete.NPC_VERTEXCOVER;
+//using API.Problems.NPComplete.NPC_VERTEXCOVER;
 using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
-using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
+//using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 using API.Interfaces.Graphs.GraphParser;
 
-
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
-[ApiController]
-[Route("[controller]")]
-[Tags("Clique")]
-#pragma warning disable CS1591
-public class CLIQUEGenericController : ControllerBase
-{
-#pragma warning restore CS1591
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("solvedVisualization")]
-    public String getSolvedVisualization([FromQuery] string problemInstance, string solution)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        SipserClique sClique = new SipserClique(problemInstance);
-        List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(sClique.nodes, sClique.edges);
-        for (int i = 0; i < apiGraph.nodes.Count; i++)
-        {
-            apiGraph.nodes[i].attribute1 = i.ToString();
-            if (solutionList.Contains(apiGraph.nodes[i].name))
-            { //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.
-                apiGraph.nodes[i].attribute2 = true.ToString();
-            }
-            else { apiGraph.nodes[i].attribute2 = false.ToString(); }
-        }
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-    }
-}
-
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Clique")]
@@ -90,7 +60,7 @@ public class sipserReduceToVCController : ControllerBase
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
-        API_UndirectedGraphJSON apiGraphFrom = clique.graph.ToAPIGraph();
+        API_GraphJSON apiGraphFrom = clique.graph.ToAPIGraph();
         for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
         {
             apiGraphFrom.nodes[i].attribute1 = i.ToString();
@@ -98,8 +68,8 @@ public class sipserReduceToVCController : ControllerBase
         sipserReduction reduction = new sipserReduction(clique);
         VERTEXCOVER reducedVcov = reduction.reductionTo;
         VertexCoverGraph vGraph = reducedVcov.VCAsGraph;
-        API_UndirectedGraphJSON apiGraphTo = new API_UndirectedGraphJSON(vGraph.getNodeList, vGraph.getEdgeList);
-        API_UndirectedGraphJSON[] apiArr = new API_UndirectedGraphJSON[2];
+        API_GraphJSON apiGraphTo = new API_UndirectedGraphJSON(vGraph.getNodeList, vGraph.getEdgeList);
+        API_GraphJSON[] apiArr = new API_GraphJSON[2];
         apiArr[0] = apiGraphFrom;
         apiArr[1] = apiGraphTo;
         string jsonString = JsonSerializer.Serialize(apiArr, options);
@@ -129,56 +99,4 @@ public class sipserReduceToVCController : ControllerBase
         return jsonString;
     }
 }
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Clique")]
-#pragma warning disable CS1591
-public class CliqueBruteForceController : ControllerBase
-#pragma warning restore CS1591
-
-{
-    // Give the states of a solution
-    ///<summary>Returns a solution to a given Clique problem instance </summary>
-    ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
-    ///<response code="200">Returns the steps of the solver </response>
-
-    [ProducesResponseType(typeof(string), 200)]
-    [HttpPost("steps")]
-    public String steps([FromBody] string problemInstance)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        CLIQUE problem = new CLIQUE(problemInstance);
-        List<string> steps = new CliqueBruteForce().getSteps(problem); // List of strings, each representing a step
-
-        List<API_UndirectedGraphJSON> stepGraphs = new List<API_UndirectedGraphJSON>();
-
-        foreach (var step in steps)
-        {
-            SipserClique sClique = new SipserClique(problemInstance);
-            List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(step); // Convert step to list
-
-            API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(sClique.nodes, sClique.edges);
-
-            for (int i = 0; i < apiGraph.nodes.Count; i++)
-            {
-                apiGraph.nodes[i].attribute1 = i.ToString();
-                if (solutionList.Contains(apiGraph.nodes[i].name))
-                {
-                    apiGraph.nodes[i].attribute2 = "Pending"; // Highlight node
-                }
-                else
-                {
-                    apiGraph.nodes[i].attribute2 = false.ToString();
-                }
-            }
-
-            stepGraphs.Add(apiGraph);
-        }
-
-        string jsonString = JsonSerializer.Serialize(stepGraphs, options);
-        return jsonString;
-    }
-
-}
-
+*/

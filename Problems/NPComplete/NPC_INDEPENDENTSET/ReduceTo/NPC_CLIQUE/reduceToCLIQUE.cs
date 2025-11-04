@@ -1,10 +1,10 @@
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
-//using API.Problems.NPComplete.NPC_CLIQUE;
+using API.Problems.NPComplete.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.ReduceTo.NPC_CLIQUE;
-/*
+
 class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
 
 
@@ -123,5 +123,3 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
 
     }
 }
-
-*/
