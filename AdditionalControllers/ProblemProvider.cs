@@ -97,16 +97,16 @@ public class ProblemProvider : ControllerBase
         };
         options.Converters.Add(new API_JSON_Converter<API_JSON>());
 
-        var viz = Visualization(visualization);      
-        var visual = viz.visualize(instance);
-        var stepsObj = Solver(solver).GetSteps(instance);
-        var apiSteps = viz.StepsVisualization(instance, stepsObj);
-        var solution = viz.SolvedVisualization(instance);
+        IVisualization viz = Visualization(visualization);
+        API_JSON visual = viz.visualize(instance);
+        Steps steps = Solver(solver).GetSteps(instance);
+        API_JSON apiSteps = viz.StepsVisualization(instance, steps);
+        API_JSON solution = viz.SolvedVisualization(instance);
 
-        var list = new List<API_JSON> { visual };
+        List<API_JSON> list = new List<API_JSON> { visual };
 
-        if (stepsObj.GetType() != typeof(API_empty)) list.Add(apiSteps);
-        if (stepsObj.GetType() != typeof(API_empty)) list.Add(solution);
+        if (apiSteps.GetType() != typeof(API_empty)) list.Add(apiSteps);
+        if (solution.GetType() != typeof(API_empty)) list.Add(solution);
 
         return JsonSerializer.Serialize(list, options);
     }
