@@ -44,10 +44,10 @@ public class GRAPHCOLORINGGenericController : ControllerBase
             {
                 if (j.Split(',').ToList().Contains(apiGraph.nodes[i].name))
                 {
-                    apiGraph.nodes[i].attribute2 = parsing.IndexOf(j).ToString();
+                    apiGraph.nodes[i].attribute2 = parsing.IndexOf(j).ToString();  
                 }
             }
-
+            
         }
 
         string jsonString = JsonSerializer.Serialize(apiGraph, options);
@@ -65,18 +65,16 @@ public class GRAPHCOLORINGGenericController : ControllerBase
 
 #pragma warning disable CS1591
 
-public class GraphColoringToCliqueCoverController : ControllerBase
-{
+public class GraphColoringToCliqueCoverController : ControllerBase {
 #pragma warning restore CS1591
 
-
-    ///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
-    ///<response code="200">Returns CliqueCoverReduction object</response>
+  
+///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
+///<response code="200">Returns CliqueCoverReduction object</response>
 
     [ProducesResponseType(typeof(CliqueCoverReduction), 200)]
     [HttpGet("info")]
-    public String getInfo()
-    {
+    public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         GRAPHCOLORING defaultGRAPHCOLORING = new GRAPHCOLORING();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
@@ -85,9 +83,9 @@ public class GraphColoringToCliqueCoverController : ControllerBase
         return jsonString;
     }
 
-    ///<summary>Returns a reduction from Graph Coloring to CliqueCover based on the given Graph Coloring instance  </summary>
-    ///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
-    ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
+///<summary>Returns a reduction from Graph Coloring to CliqueCover based on the given Graph Coloring instance  </summary>
+///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
+///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(CliqueCoverReduction), 200)]
     [HttpPost("reduce")]
@@ -114,8 +112,7 @@ public class KarpReduceSATController : ControllerBase
 
     [ProducesResponseType(typeof(KarpReduceSAT), 200)]
     [HttpGet("info")]
-    public String getInfo()
-    {
+    public String getInfo(){
         var options = new JsonSerializerOptions { WriteIndented = true };
         GRAPHCOLORING defaultGRAPHCOLORING = new GRAPHCOLORING();
         KarpReduceSAT reduction = new KarpReduceSAT(defaultGRAPHCOLORING);
@@ -146,18 +143,16 @@ public class KarpReduceSATController : ControllerBase
 
 #pragma warning disable CS1591
 
-public class KarpGraphColorToExactCoverController : ControllerBase
-{
+public class KarpGraphColorToExactCoverController : ControllerBase {
 #pragma warning restore CS1591
 
-
-    ///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
-    ///<response code="200">Returns CliqueCoverReduction object</response>
+  
+///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
+///<response code="200">Returns CliqueCoverReduction object</response>
 
     [ProducesResponseType(typeof(GraphColorToExactCoverReduction), 200)]
     [HttpGet("info")]
-    public String getInfo()
-    {
+    public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         GRAPHCOLORING defaultGC = new GRAPHCOLORING();
         GraphColorToExactCoverReduction reduction = new GraphColorToExactCoverReduction(defaultGC);
@@ -165,9 +160,9 @@ public class KarpGraphColorToExactCoverController : ControllerBase
         return jsonString;
     }
 
-    ///<summary>Returns a reduction from Graph Coloring to CliqueCover based on the given Graph Coloring instance  </summary>
-    ///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
-    ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
+///<summary>Returns a reduction from Graph Coloring to CliqueCover based on the given Graph Coloring instance  </summary>
+///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
+///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
     [ProducesResponseType(typeof(GraphColorToExactCoverReduction), 200)]
     [HttpPost("reduce")]

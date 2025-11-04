@@ -36,38 +36,29 @@ class VERTEXCOVER : IGraphProblem<VertexCoverBruteForce,VCVerifier,VertexCoverGr
         get {
             return _nodes;
         }
-        set
-        {
+        set {
             _nodes = value;
         }
     }
-    public List<KeyValuePair<string, string>> edges
-    {
-        get
-        {
+    public List<KeyValuePair<string, string>> edges {
+        get {
             return _edges;
         }
-        set
-        {
+        set {
             _edges = value;
         }
     }
 
-    public int K
-    {
-        get
-        {
+    public int K {
+        get {
             return _K;
         }
-        set
-        {
+        set {
             _K = value;
         }
     }
-    public VertexCoverGraph VCAsGraph
-    {
-        get
-        {
+    public VertexCoverGraph VCAsGraph{
+        get{
             return _VCAsGraph;
         }
     }
@@ -92,51 +83,46 @@ class VERTEXCOVER : IGraphProblem<VertexCoverBruteForce,VCVerifier,VertexCoverGr
         _VCAsGraph = new VertexCoverGraph(nodes, edges, _K);
     }
 
-    public List<string> getNodes(string Ginput)
-    {
+    public List<string> getNodes(string Ginput) {
         List<string> allGNodes = new List<string>();
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
+        
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         string[] Gnodes = Gsections[0].Split(',');
-
-        foreach (string node in Gnodes)
-        {
+        
+        foreach(string node in Gnodes) {
             allGNodes.Add(node);
         }
 
         return allGNodes;
     }
 
-    public List<KeyValuePair<string, string>> getEdges(string Ginput)
-    {
+    public List<KeyValuePair<string, string>> getEdges(string Ginput) {
 
         List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
 
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
+        
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         string[] Gedges = Gsections[1].Split('&');
-
-        foreach (string edge in Gedges)
-        {
+        
+        foreach (string edge in Gedges) {
             string[] fromTo = edge.Split(',');
             string nodeFrom = fromTo[0];
             string nodeTo = fromTo[1];
-
-            KeyValuePair<string, string> fullEdge = new KeyValuePair<string, string>(nodeFrom, nodeTo);
+            
+            KeyValuePair<string,string> fullEdge = new KeyValuePair<string,string>(nodeFrom, nodeTo);
             allGEdges.Add(fullEdge);
         }
 
         return allGEdges;
     }
 
-    public int getK(string Ginput)
-    {
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-
+    public int getK(string Ginput) {
+        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")","");
+        
         // [0] is nodes,  [1] is edges,  [2] is k.
         string[] Gsections = strippedInput.Split(':');
         return Int32.Parse(Gsections[2]);
