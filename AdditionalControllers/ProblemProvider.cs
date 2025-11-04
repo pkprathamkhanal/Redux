@@ -91,11 +91,9 @@ public class ProblemProvider : ControllerBase {
         API_JSON API_steps = Visualization(visualization).StepsVisualization(instance, steps);
         API_JSON solution = Visualization(visualization).SolvedVisualization(instance);
 
-        List<API_JSON> list = new List<API_JSON>
-        {
-            visual
-        };
-        if (steps.GetType() != typeof(API_empty))
+        List<API_JSON> list = new List<API_JSON>();
+        list.Add(visual);
+        if (API_steps.GetType() != typeof(API_empty))
         {
             list.Add(API_steps);
         }

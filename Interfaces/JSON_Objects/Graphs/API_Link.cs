@@ -24,12 +24,12 @@ class API_Link
         this._color = "";
         this._dashed = "";
         this._delay = "";
-        this._weight = "";
+        this._weight = "1";
         this._directed = false;
 
     }
 
-    public API_Link(string s, string t, string a1 = "", string a2 = "", string color = "", string dashed = "", string delay = "", bool directed = false)
+    public API_Link(string s, string t, string a1 = "", string a2 = "", string color = "", string dashed = "", string delay = "",string weight = "1", bool directed = false)
     {
         _source = s;
         _target = t;
@@ -38,6 +38,7 @@ class API_Link
         _color = color;
         _dashed = dashed;
         _delay = delay;
+        _weight = weight;
         _directed = directed;
     }
 
