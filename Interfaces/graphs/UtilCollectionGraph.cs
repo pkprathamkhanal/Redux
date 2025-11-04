@@ -71,6 +71,11 @@ class UtilCollectionGraph : Graph
                     graph.links[i].weight = EdgeList[i][1].ToString();
                 }
 
+                foreach (var link in graph.links)
+                {
+                    link.directed = true;
+                }
+
             }
             else
             {
@@ -80,6 +85,11 @@ class UtilCollectionGraph : Graph
                 }).ToList();
 
                 graph = new API_GraphJSON(nodes, edges);
+
+                foreach (var link in graph.links)
+                {
+                    link.directed = true;
+                }
             }
         }
         else
