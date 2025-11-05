@@ -24,7 +24,7 @@ class cliqueDefaultVisualization : IVisualization<CLIQUE>
         return clique.graph.ToAPIGraph();
     }
 
-    public API_JSON getSolvedVisualization(CLIQUE clique)
+    public API_JSON SolvedVisualization(CLIQUE clique)
     {
         SipserClique sClique = new SipserClique(clique.instance);
         string solution = clique.defaultSolver.solve(clique);
