@@ -4,35 +4,35 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.JSON_Objects.Graphs;
 using API.Interfaces.JSON_Objects;
 
-namespace API.Problems.NPComplete.NPC_TSP.Visualizations;
+namespace API.Problems.NPComplete.NPC_DIRECTEDHAMILTONIAN.Visualizations;
 
-class TSPDefaultVisualization : IVisualization<TSP>
+class DirectedHamiltonianDefaultVisualization : IVisualization<DIRECTEDHAMILTONIAN>
 {
 
     // --- Fields ---
-    public string visualizationName { get; } = "Travelling Sales Person Visualization";
-    public string visualizationDefinition { get; } = "This is a default visualization for Travelling Sales Person";
+    public string visualizationName { get; } = "Directed Hamiltonian Visualization";
+    public string visualizationDefinition { get; } = "This is a default visualization for Directed Hamiltonian";
     public string source { get; } = " ";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
     public UtilCollectionGraph graph { get; set; }
     public string visualizationType { get; } = "Graph D3";
 
     // --- Methods Including Constructors ---
-    public TSPDefaultVisualization()
+    public DirectedHamiltonianDefaultVisualization()
     {
 
     }
-    public API_JSON visualize(TSP tsp)
+    public API_JSON visualize(DIRECTEDHAMILTONIAN directedHamiltonian)
     {
-        return tsp.graph.ToAPIGraph();
+        return directedHamiltonian.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(TSP tsp)
+    public API_JSON SolvedVisualization(DIRECTEDHAMILTONIAN directedHamiltonian)
     {
-        string solution = tsp.defaultSolver.solve(tsp);
+        string solution = directedHamiltonian.defaultSolver.solve(directedHamiltonian);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
-        API_GraphJSON apiGraph = tsp.graph.ToAPIGraph();
+        API_GraphJSON apiGraph = directedHamiltonian.graph.ToAPIGraph();
         for (int i = 0; i < apiGraph.nodes.Count; i++)
             apiGraph.nodes[i].color = "Solution";
 
@@ -42,12 +42,14 @@ class TSPDefaultVisualization : IVisualization<TSP>
             var to = solutionNodes[i + 1];
 
             var link = apiGraph.links.FirstOrDefault(l =>
-                (l.source == from && l.target == to) ||
-                (l.source == to && l.target == from)
+                l.source == from && l.target == to
             );
 
             if (link != null)
+            {
                 link.color = "Solution";
+                link.delay = ((i + 1) * 5000 / apiGraph.nodes.Count).ToString();
+            }
         }
         return apiGraph;
     }

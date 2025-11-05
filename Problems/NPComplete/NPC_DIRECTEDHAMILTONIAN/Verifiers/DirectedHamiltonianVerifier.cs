@@ -1,9 +1,9 @@
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 
-namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Verifiers;
+namespace API.Problems.NPComplete.NPC_DIRECTEDHAMILTONIAN.Verifiers;
 
-class DirectedHamiltonianVerifier : IVerifier<DIRHAMILTONIAN>
+class DirectedHamiltonianVerifier : IVerifier<DIRECTEDHAMILTONIAN>
 {
 
     // --- Fields ---
@@ -31,7 +31,7 @@ class DirectedHamiltonianVerifier : IVerifier<DIRHAMILTONIAN>
     }
 
    
-    public bool verify(DIRHAMILTONIAN problem, string certificate)
+    public bool verify(DIRECTEDHAMILTONIAN problem, string certificate)
     {
         List<string> order = certificate.Replace("{","").Replace("}","").Split(',').ToList();
         List<string> check = new List<string>(problem.nodes);

@@ -2,8 +2,8 @@ using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.Graphs;
 
-namespace API.Problems.NPComplete.NPC_DIRHAMILTONIAN.Solvers;
-class DirectedHamiltonianBruteForce : ISolver<DIRHAMILTONIAN> {
+namespace API.Problems.NPComplete.NPC_DIRECTEDHAMILTONIAN.Solvers;
+class DirectedHamiltonianBruteForce : ISolver<DIRECTEDHAMILTONIAN> {
 
     // --- Fields ---
     public string solverName {get;} = "Directed Hamiltonian Brute Force Solver";
@@ -83,7 +83,7 @@ class DirectedHamiltonianBruteForce : ISolver<DIRHAMILTONIAN> {
     }
 
 
-    public string solve(DIRHAMILTONIAN hamiltonian)
+    public string solve(DIRECTEDHAMILTONIAN hamiltonian)
     {
         List<List<int>> combinations = GenerateCombinations(hamiltonian.nodes.Count);
 
