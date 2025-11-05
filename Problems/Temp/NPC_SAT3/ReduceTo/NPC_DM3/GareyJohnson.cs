@@ -1,8 +1,8 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_DM3;
+//using API.Problems.NPComplete.NPC_DM3;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_DM3;
-
+/*
 class GareyJohnson : IReduction<SAT3, DM3> {
 
     // --- Fields ---
@@ -51,7 +51,7 @@ class GareyJohnson : IReduction<SAT3, DM3> {
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the SAT3 object passed into GareyAndJohnsonReduction.
-     */
+     
     public DM3 reduce() {
         SAT3 SAT3Instance = _reductionFrom;
         DM3 reduced3DM = new DM3();
@@ -205,3 +205,4 @@ class GareyJohnson : IReduction<SAT3, DM3> {
         return '{' + problemToSolution.TrimEnd(',') + '}';
     }
 }
+*/

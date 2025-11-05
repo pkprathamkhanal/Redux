@@ -1,8 +1,8 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_INTPROGRAMMING01;
+//using API.Problems.NPComplete.NPC_INTPROGRAMMING01;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_INTPROGRAMMING01;
-
+/*
 class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
 
     // --- Fields ---
@@ -160,3 +160,4 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
         return '(' + problemToSolution.TrimEnd(' ') + ')';
     }
 }
+*/

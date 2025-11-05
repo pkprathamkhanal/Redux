@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SAT3.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_SAT3;
 
-class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier> {
+class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier,Sat3DefaultVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "3SAT";
@@ -16,6 +16,7 @@ class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier> {
     public string defaultInstance {get;} = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1)";
     public Sat3BacktrackingSolver defaultSolver {get;} = new Sat3BacktrackingSolver();
     public SAT3Verifier defaultVerifier {get;} = new SAT3Verifier();
+    public Sat3DefaultVisualization defaultVisualization { get; } = new Sat3DefaultVisualization();
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";

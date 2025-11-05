@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_GRAPHCOLORING;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_DM3;
-using API.Problems.NPComplete.NPC_INTPROGRAMMING01;
+//using API.Problems.NPComplete.NPC_INTPROGRAMMING01;
 using API.Problems.NPComplete.NPC_SAT3.Solvers;
 using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using System.Text.Json;
-using API.Problems.NPComplete.NPC_DM3;
-using API.Problems.NPComplete.NPC_GRAPHCOLORING;
+//using API.Problems.NPComplete.NPC_DM3;
+//using API.Problems.NPComplete.NPC_GRAPHCOLORING;
 using API.Interfaces.Graphs.GraphParser;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_INTPROGRAMMING01;
 
 namespace API.Problems.NPComplete.NPC_SAT3;
+
 
 [ApiController]
 [Route("[controller]")]
@@ -46,23 +47,6 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("solvedVisualization")]
-    #pragma warning disable CS1591
-    public String getSolvedVisualization([FromQuery]string problemInstance, string solution) {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        SAT3 defaultSAT3 = new SAT3(problemInstance);
-        Sat3BacktrackingSolver solver = defaultSAT3.defaultSolver;
-        SipserReduction reduction = new SipserReduction(defaultSAT3);
-        SipserClique reducedClique = reduction.reduce();
-        //Turn string into solution dictionary
-        List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution);
-        SipserClique sClique = reduction.solutionMappedToClusterNodes(reducedClique,solutionList);
-        string jsonString = JsonSerializer.Serialize(sClique.clusterNodes, options);
-        return jsonString;
-    }
-    #pragma warning disable CS1591
 
 
 
@@ -110,6 +94,8 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 
 }
 
+
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("3 SAT")]
@@ -162,8 +148,9 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
     }
     #pragma warning restore CS1591
 }
+*/
 
-
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("3 SAT")]
@@ -221,7 +208,9 @@ public class KarpIntProgStandardController : ControllerBase {
     }
 
 }
+*/
 
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("3 SAT")]
@@ -277,3 +266,4 @@ public class GareyJohnsonController : ControllerBase {
         return jsonString;
     }
 }
+*/
