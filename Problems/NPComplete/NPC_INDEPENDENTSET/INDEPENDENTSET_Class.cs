@@ -1,6 +1,7 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Solvers;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET.Verifiers;
+using API.Problems.NPComplete.NPC_INDEPENDENTSET.Visualizations;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET;
