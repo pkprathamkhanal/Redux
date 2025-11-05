@@ -1,5 +1,5 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_ARCSET;
+//using API.Problems.NPComplete.NPC_ARCSET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -7,7 +7,7 @@ using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_ARCSET;
-
+/*
 class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
 
   
@@ -110,3 +110,4 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     }
 }
 // return an instance of what you are reducing to
+*/

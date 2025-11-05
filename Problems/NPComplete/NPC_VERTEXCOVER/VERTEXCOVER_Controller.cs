@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
-using API.Problems.NPComplete.NPC_ARCSET;
+//using API.Problems.NPComplete.NPC_ARCSET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Solvers;
 using System.Text.Json;
@@ -13,46 +13,11 @@ using API.Interfaces.JSON_Objects;
 
 using System.Collections;
 
-
-namespace API.Problems.NPComplete.NPC_VERTEXCOVER;
-
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Vertex Cover")]
 #pragma warning disable CS1591
-public class VERTEXCOVERGenericController : ControllerBase {
-#pragma warning restore CS1591
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("solvedVisualization")]
-    public String solvedVisualization([FromQuery]string problemInstance, string solution){
-
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        VERTEXCOVER vCover = new VERTEXCOVER(problemInstance);
-        VertexCoverGraph vGraph = vCover.VCAsGraph;
-        Dictionary<string, bool> solutionDict = vCover.defaultSolver.getSolutionDict(problemInstance, solution);
-        
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(vGraph.getNodeList,vGraph.getEdgeList);
-        for(int i=0;i<apiGraph.nodes.Count;i++){
-            apiGraph.nodes[i].attribute1 = i.ToString();
-            bool nodeVal = false;
-            solutionDict.TryGetValue(apiGraph.nodes[i].name, out nodeVal);
-            apiGraph.nodes[i].attribute2 = nodeVal.ToString();
-        }
-
-        
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-
-    }
-}
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Vertex Cover")]
-
-
-#pragma warning disable CS1591
-
 public class KarpVertexCoverToNodeSetController : ControllerBase {
 #pragma warning restore CS1591
 
@@ -86,7 +51,8 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
     }
 
 }
-
+*/
+/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Vertex Cover")]
@@ -197,3 +163,4 @@ public class LawlerKarpController : ControllerBase {
     }
 
 }
+*/
