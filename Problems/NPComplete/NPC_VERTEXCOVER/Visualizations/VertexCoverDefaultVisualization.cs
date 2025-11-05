@@ -35,7 +35,6 @@ class VertexCoverDefaultVisualization : IVisualization<VERTEXCOVER>
         {
             if (solutionNodes.Contains(apiGraph.nodes[i].name))
             {
-                apiGraph.nodes[i].attribute2 = true.ToString();
                 apiGraph.nodes[i].color = "Solution";
             }
             else { apiGraph.nodes[i].color = "Background"; }
