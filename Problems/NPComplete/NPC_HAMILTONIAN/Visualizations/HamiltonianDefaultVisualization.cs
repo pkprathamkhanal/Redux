@@ -10,8 +10,8 @@ class HamiltonianDefaultVisualization : IVisualization<HAMILTONIAN>
 {
 
     // --- Fields ---
-    public string visualizationName { get; } = " Hamiltonian Visualization";
-    public string visualizationDefinition { get; } = "This is a default visualization for  Hamiltonian";
+    public string visualizationName { get; } = " Hamiltonian Path Visualization";
+    public string visualizationDefinition { get; } = "This is a default visualization for Hamiltonian Path";
     public string source { get; } = " ";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
     public UtilCollectionGraph graph { get; set; }
@@ -49,7 +49,7 @@ class HamiltonianDefaultVisualization : IVisualization<HAMILTONIAN>
                 link.color = "Solution";
                 link.delay = ((i + 1) * 5000 / apiGraph.nodes.Count).ToString();
             }
-            
+
             if (node != null)
             {
                 node.color = "Solution";
