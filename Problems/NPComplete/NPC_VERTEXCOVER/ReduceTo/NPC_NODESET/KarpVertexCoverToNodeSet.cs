@@ -1,9 +1,10 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_NODESET;
+//using API.Problems.NPComplete.NPC_NODESET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_NODESET;
 
+/*
 class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
 {
 
@@ -115,3 +116,4 @@ class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
     }
 }
 // return an instance of what you are reducing to
+*/

@@ -1,8 +1,9 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_SETCOVER;
+//using API.Problems.NPComplete.NPC_SETCOVER;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_SETCOVER;
 
+/*
 class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
 {
 
@@ -62,7 +63,6 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the VERTEXCOVER object passed into GareyAndJohnsonReduction.
-     */
     public SETCOVER reduce()
     {
         VERTEXCOVER VERTEXCOVERInstance = _reductionFrom;
@@ -116,3 +116,4 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
         return "No mapping";
     }
 }
+*/
