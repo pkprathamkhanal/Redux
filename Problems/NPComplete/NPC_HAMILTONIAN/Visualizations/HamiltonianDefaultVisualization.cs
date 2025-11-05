@@ -4,43 +4,43 @@ using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.JSON_Objects.Graphs;
 using API.Interfaces.JSON_Objects;
 
-namespace API.Problems.NPComplete.NPC_DIRECTEDHAMILTONIAN.Visualizations;
+namespace API.Problems.NPComplete.NPC_HAMILTONIAN.Visualizations;
 
-class DirectedHamiltonianDefaultVisualization : IVisualization<DIRECTEDHAMILTONIAN>
+class HamiltonianDefaultVisualization : IVisualization<HAMILTONIAN>
 {
 
     // --- Fields ---
-    public string visualizationName { get; } = "Directed Hamiltonian Visualization";
-    public string visualizationDefinition { get; } = "This is a default visualization for Directed Hamiltonian";
+    public string visualizationName { get; } = " Hamiltonian Visualization";
+    public string visualizationDefinition { get; } = "This is a default visualization for  Hamiltonian";
     public string source { get; } = " ";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
     public UtilCollectionGraph graph { get; set; }
     public string visualizationType { get; } = "Graph D3";
 
     // --- Methods Including Constructors ---
-    public DirectedHamiltonianDefaultVisualization()
+    public HamiltonianDefaultVisualization()
     {
 
     }
-    public API_JSON visualize(DIRECTEDHAMILTONIAN directedHamiltonian)
+    public API_JSON visualize(HAMILTONIAN hamiltonian)
     {
-        return directedHamiltonian.graph.ToAPIGraph();
+        return hamiltonian.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(DIRECTEDHAMILTONIAN directedHamiltonian)
+    public API_JSON SolvedVisualization(HAMILTONIAN hamiltonian)
     {
-        string solution = directedHamiltonian.defaultSolver.solve(directedHamiltonian);
+        string solution = hamiltonian.defaultSolver.solve(hamiltonian);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
-        API_GraphJSON apiGraph = directedHamiltonian.graph.ToAPIGraph();
-
+        API_GraphJSON apiGraph = hamiltonian.graph.ToAPIGraph();
+       
         for (int i = 0; i < solutionNodes.Count - 1; i++)
         {
             var from = solutionNodes[i];
             var to = solutionNodes[i + 1];
 
             var link = apiGraph.links.FirstOrDefault(l =>
-                l.source == from && l.target == to
+                (l.source == from && l.target == to) || (l.source == to && l.target == from)
             );
             var node = apiGraph.nodes.FirstOrDefault(n => n.name == solutionNodes[i]);
 
@@ -49,7 +49,7 @@ class DirectedHamiltonianDefaultVisualization : IVisualization<DIRECTEDHAMILTONI
                 link.color = "Solution";
                 link.delay = ((i + 1) * 5000 / apiGraph.nodes.Count).ToString();
             }
-
+            
             if (node != null)
             {
                 node.color = "Solution";
