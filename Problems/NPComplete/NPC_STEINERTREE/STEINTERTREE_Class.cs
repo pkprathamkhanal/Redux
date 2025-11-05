@@ -2,11 +2,12 @@ using System.Runtime.Serialization;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_STEINERTREE.Solvers;
 using API.Problems.NPComplete.NPC_STEINERTREE.Verifiers;
+using API.Problems.NPComplete.NPC_STEINERTREE.Visualizations;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_STEINERTREE;
 
-class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, SteinerGraph> {
+class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, SteinerTreeDefaultVisualization, UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Steiner Tree";
@@ -24,8 +25,8 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     public SteinerTreeBruteForce defaultSolver {get;} = new SteinerTreeBruteForce();
     public SteinerTreeVerifier defaultVerifier {get;} = new SteinerTreeVerifier();
-    private SteinerGraph _steinerAsGraph;
-    public SteinerGraph graph {get => _steinerAsGraph;}
+    public SteinerTreeDefaultVisualization defaultVisualization { get; } = new SteinerTreeDefaultVisualization();
+    public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
@@ -74,18 +75,6 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
         }
     }
 
-    public SteinerGraph steinerAsGraph
-    {
-        get
-        {
-            return _steinerAsGraph;
-        }
-        set
-        {
-            _steinerAsGraph = value;
-        }
-    }
-
     // --- Methods Including Constructors ---
     public STEINERTREE() : this(_defaultInstance)
     {
@@ -95,29 +84,17 @@ class STEINERTREE : IGraphProblem<SteinerTreeBruteForce, SteinerTreeVerifier, St
     {
         instance = GInput;
 
-        StringParser cliqueGraph = new("{((N,E),R,K) | N is set, E subset N unorderedcross N, R is set, K is int}");
-        cliqueGraph.parse(GInput);
-        nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
-        edges = cliqueGraph["E"].ToList().Select(edge =>
+        StringParser steinerTreeGraph = new("{((N,E),R,K) | N is set, E subset N unorderedcross N, R is set, K is int}");
+        steinerTreeGraph.parse(GInput);
+        nodes = steinerTreeGraph["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = steinerTreeGraph["E"].ToList().Select(edge =>
         {
             List<UtilCollection> cast = edge.ToList();
             return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
         }).ToList();
-        terminals = cliqueGraph["R"].ToList().Select(node => node.ToString()).ToList();
-        _K = int.Parse(cliqueGraph["K"].ToString());
+        terminals = steinerTreeGraph["R"].ToList().Select(node => node.ToString()).ToList();
+        _K = int.Parse(steinerTreeGraph["K"].ToString());
 
-        _steinerAsGraph = new SteinerGraph(nodes, edges, _K);
-
+        graph = new UtilCollectionGraph(steinerTreeGraph["N"], steinerTreeGraph["E"]);
     }
-    public List<string> getTerminals(string Ginput)
-    {
-
-        List<string> seperate = Ginput.Split("}}),{").ToList();
-        List<string> allGNodes = seperate[1].Split("},").ToList();
-        allGNodes = allGNodes[0].Split(",").ToList();
-
-        return allGNodes;
-    }
-
-
 }
