@@ -4,7 +4,7 @@ using System.Text.Json;
 using API.Problems.NPComplete.NPC_ExactCover.ReduceTo.NPC_SUBSETSUM;
 
 namespace API.Problems.NPComplete.NPC_ExactCover;
-/*
+
 [ApiController]
 [Route("[controller]")]
 [Tags("Exact Cover")]
@@ -44,5 +44,3 @@ public class KarpExactCoverToSubsetSumController : ControllerBase {
     }
 
 }
-
-*/

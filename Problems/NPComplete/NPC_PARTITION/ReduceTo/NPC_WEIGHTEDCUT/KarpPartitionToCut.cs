@@ -84,7 +84,7 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
             for (int j = i + 1; j < reductionFrom.S.Count; j++)
             {
                 int weight = int.Parse(reductionFrom.S[i]) * int.Parse(reductionFrom.S[j]);
-                instance += $"({i + 1},{j + 1}),{weight}),(";
+                instance += $"{{{i + 1},{j + 1}}},{weight}),(";
                 edges.Add(((i + 1).ToString(), (j + 1).ToString(), weight));
             }
         }

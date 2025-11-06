@@ -1,11 +1,12 @@
 using API.Interfaces;
+using API.DummyClasses;
 using API.Problems.NPComplete.NPC_HITTINGSET.Solvers;
 using API.Problems.NPComplete.NPC_HITTINGSET.Verifiers;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 
-class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
+class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier, DummyVisualization> {
 
 
     #region Fields
@@ -25,7 +26,8 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
 
     public HittingSetBruteForce defaultSolver {get;} = new HittingSetBruteForce();
 
-    public HittingSetVerifier defaultVerifier {get;} = new HittingSetVerifier();
+    public HittingSetVerifier defaultVerifier { get; } = new HittingSetVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     public UtilCollection _universalSet;
 
@@ -65,9 +67,9 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier> {
     {
         instance = instanceStr;
         StringParser HittingSet = new("{(U,S) | U is set, S subset {a | a subset U}}");
+        Console.WriteLine("Parsing Hitting Set instance: " + instance);
         HittingSet.parse(instance);
         _universalSet = HittingSet["U"];
         _subsets = HittingSet["S"];
     }
-
 }

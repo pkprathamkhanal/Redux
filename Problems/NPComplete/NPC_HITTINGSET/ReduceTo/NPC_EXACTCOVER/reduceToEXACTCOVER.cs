@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_CLIQUECOVER;
 using API.Problems.NPComplete.NPC_ExactCover;
 using SPADE;
 using Microsoft.Net.Http.Headers;
@@ -11,7 +10,7 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
 {
 
     // --- Fields ---
-    public string reductionName {get;} = "Hitting set Reduction";
+    public string reductionName {get;} = "Hitting Set Reduction";
     public string reductionDefinition {get;} = "Karp's Reduction from Hitting Set to Exact Cover";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string[] contributors {get;} = { "Russell Phillip" };
@@ -95,7 +94,9 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
             subsets.Add(newSubset);
         }
 
-        ExactCover reductionTo = new ExactCover($"{{{subsets} : {universal}}}");
+        string input = "(" + universal.ToString() + "," + subsets.ToString() + ")";
+        reductionTo = new ExactCover(input);
+
         return reductionTo;
     }
 

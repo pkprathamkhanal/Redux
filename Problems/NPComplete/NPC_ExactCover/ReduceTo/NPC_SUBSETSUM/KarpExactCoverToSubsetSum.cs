@@ -1,9 +1,9 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_ExactCover;
-//using API.Problems.NPComplete.NPC_SUBSETSUM;
+using API.Problems.NPComplete.NPC_SUBSETSUM;
 
 namespace API.Problems.NPComplete.NPC_ExactCover.ReduceTo.NPC_SUBSETSUM;
-/*
+
 class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
 {
 
@@ -118,4 +118,3 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
 
 }
 // return an instance of what you are reducing to
-*/

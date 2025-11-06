@@ -1,4 +1,5 @@
 using API.Interfaces;
+using API.DummyClasses;
 using API.Problems.NPComplete.NPC_SUBSETSUM.Solvers;
 using API.Problems.NPComplete.NPC_SUBSETSUM.Verifiers;
 using SPADE;
@@ -13,11 +14,8 @@ class SUBSETSUM : IProblem<SubsetSumBruteForce,SubsetSumVerifier, DummyVisualiza
     public string problemDefinition {get;} = "The problem is to determine whether there exists a sum of elements that totals to the number T.";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string[] contributors {get;} = { "Garret Stouffer, Caleb Eardley"};
-
-    //{{10,20,30},{(10,60),(20,100),(30,120)},50}
-    //{{}, {}, 28}
-
-    public string defaultInstance {get;} = "{{1,7,12,15} : 28}";
+    public static string _defaultInstance { get; } = "{{1,7,12,15} : 28}";
+    public string defaultInstance {get;} = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<string> _S = new List<string>();
     private int _T;
@@ -46,11 +44,11 @@ class SUBSETSUM : IProblem<SubsetSumBruteForce,SubsetSumVerifier, DummyVisualiza
     }
 
     // --- Methods Including Constructors ---
-    public SUBSETSUM() {
-        instance = defaultInstance;
-        S = getIntegers(instance);
-        T = getT(instance);
+    public SUBSETSUM() : this(_defaultInstance)
+    {
+        
     }
+
     public SUBSETSUM(string instance) {
         this.instance = instance;
         S = getIntegers(instance);

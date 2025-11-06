@@ -4,7 +4,6 @@ using System.Text.Json;
 using API.Problems.NPComplete.NPC_HITTINGSET.ReduceTo.NPC_EXACTCOVER;
 using API.Problems.NPComplete.NPC_ExactCover;
 
-
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 
 [ApiController]
