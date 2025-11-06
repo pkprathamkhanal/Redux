@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using API.Interfaces;
+using API.DummyClasses;
 using API.Problems.NPComplete.NPC_KNAPSACK.Solvers;
 using API.Problems.NPComplete.NPC_KNAPSACK.Verifiers;
 using SPADE;
@@ -7,7 +8,7 @@ using SPADE;
 
 namespace API.Problems.NPComplete.NPC_KNAPSACK;
 
-class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier> {
+class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier, DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Knapsack (Binary)";
@@ -38,7 +39,8 @@ class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier> {
 
 
     public KnapsackBruteForce defaultSolver {get;} = new KnapsackBruteForce();
-    public KnapsackVerifier defaultVerifier {get;} = new KnapsackVerifier();
+    public KnapsackVerifier defaultVerifier { get; } = new KnapsackVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     // --- Properties ---
     public int W {
@@ -62,15 +64,5 @@ class KNAPSACK : IProblem<KnapsackBruteForce, KnapsackVerifier> {
         items = parser["i"];
         W = int.Parse(parser["w"].ToString());
         V = int.Parse(parser["v"].ToString());
-/*
-        UtilCollection collection = new UtilCollection(HWVInput);
-        instance = collection.ToString();
-        collection.assertPair(3);
-        items = collection[0];
-        items.assertUnordered();
-        W = int.Parse(collection[1].ToString());
-        V = int.Parse(collection[2].ToString());
-        foreach (UtilCollection item in items) item.assertPair();
-        */
     }
 }

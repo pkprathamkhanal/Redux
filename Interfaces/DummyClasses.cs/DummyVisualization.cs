@@ -9,7 +9,7 @@ namespace API.DummyClasses;
 class DummyVisualization : IVisualization<IProblem> {
 
     // --- Fields ---
-    public string visualizationName {get;} = "No Visualization";
+    public string visualizationName {get;} = "";
     public string visualizationDefinition {get;} = "This is a placeholder visualization class for problems with no visualization";
     public string source {get;} = " ";
     public string[] contributors {get;} = {""};
