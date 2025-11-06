@@ -1,11 +1,13 @@
+using API.DummyClasses;
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
 using API.Problems.NPComplete.NPC_ExactCover.Solvers;
 using API.Problems.NPComplete.NPC_ExactCover.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_ExactCover;
 
-class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier> {
+class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier,DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Exact Cover";
@@ -15,12 +17,14 @@ class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier> {
     public string[] contributors {get;} = { "Caleb Eardley", "Alex Diviney" };
 
     
-    public string defaultInstance {get;} = "{{1,2,3},{2,3},{4,1} : {1,2,3,4}}";
+    private static string _defaultInstance = "({1,2,3,4},{{1,2,3},{2,3},{4,1}})";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";
     public ExactCoverBruteForce defaultSolver {get;} = new ExactCoverBruteForce();
-    public ExactCoverVerifier defaultVerifier {get;} = new ExactCoverVerifier();
+    public ExactCoverVerifier defaultVerifier { get; } = new ExactCoverVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
     List<List<string>> _S = new List<List<string>>();
     List<string> _X = new List<string>();
 
@@ -44,30 +48,15 @@ class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier> {
     }
     // --- Methods Including Constructors ---
 
-    private List<List<string>> GetS(string instance){
-        List<List<string>> S = new List<List<string>>();
-        List<string> S_stringList = instance.Replace(" ","").Split(":")[0].Split("},{").ToList();
-        foreach(string stringSet in S_stringList){
-            List<string> subset = GraphParser.parseNodeListWithStringFunctions(stringSet);
-            S.Add(subset);
-        }
-        return S;
+    public ExactCover() : this(_defaultInstance) {
+    }
+    public ExactCover(string input) {
+        instance = input;
 
-
-    }
-    private List<string> GetX(string instance){
-        List<string> X = instance.Split(":")[1].Replace("{","").Replace("}","").Replace(" ","").Split(",").ToList();
-        return X;
-    }
-    public ExactCover() {
-        instance = defaultInstance;
-        _S = GetS(instance);
-        _X = GetX(instance);
-    }
-    public ExactCover(string instance) {
-        this.instance = instance;
-        _S = GetS(instance);
-        _X = GetX(instance);
+        StringParser setcover = new("{(U,S) | U is set, S subset {a | a subset U}}");
+        setcover.parse(input);
+        X = setcover["U"].ToList().Select(node => node.ToString()).ToList();
+        S = setcover["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
     }
 
 
