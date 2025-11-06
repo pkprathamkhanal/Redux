@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using API.Problems.NPComplete.NPC_HITTINGSET.ReduceTo.NPC_EXACTCOVER;
-using API.Problems.NPComplete.NPC_ExactCover;
+using API.Problems.NPComplete.NPC_EXACTCOVER;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET;
 
@@ -29,10 +29,10 @@ public class reduceToEXACTCOVERController : ControllerBase {
     }
 
 ///<summary>Returns a reduction from Independent Set to Clique based on the given Independent Set instance  </summary>
-///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),2)">Independent Set problem instance string.</param>
+///<param name="problemInstance" example="({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}})">Independent Set problem instance string.</param>
 ///<response code="200">Returns Independent Set to CliqueReduction object</response>
 
-    [ProducesResponseType(typeof(ExactCover), 200)]
+    [ProducesResponseType(typeof(EXACTCOVER), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };

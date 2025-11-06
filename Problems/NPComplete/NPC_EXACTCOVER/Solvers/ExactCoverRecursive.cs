@@ -1,7 +1,7 @@
 using API.Interfaces;
 
-namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class ExactCoverRecursive : ISolver<ExactCover> {
+namespace API.Problems.NPComplete.NPC_EXACTCOVER.Solvers;
+class ExactCoverRecursive : ISolver<EXACTCOVER> {
 
     // --- Fields ---
     public string solverName {get;} = "Exact Cover Recursive Solver";
@@ -73,7 +73,7 @@ class ExactCoverRecursive : ISolver<ExactCover> {
         return false;
     }
 
-    public string solve(ExactCover exactCover)
+    public string solve(EXACTCOVER exactCover)
     {
         List<string> uSet = new List<string>(exactCover.X);
         List<List<string>> subsets = new List<List<string>>(exactCover.S);
@@ -81,7 +81,7 @@ class ExactCoverRecursive : ISolver<ExactCover> {
         return subsetsToCertificate(solve_r(exactCover, uSet, subsets, choosenSubsets));
     }
 
-    public List<List<string>> solve_r(ExactCover exactCover, List<string> uSet, List<List<string>> subsetList, List<List<string>> choosenSubsets) 
+    public List<List<string>> solve_r(EXACTCOVER exactCover, List<string> uSet, List<List<string>> subsetList, List<List<string>> choosenSubsets) 
     {
         //check if choosen subsets is a solution, if it is, return it
         if (exactCover.defaultVerifier.verify(exactCover, subsetsToCertificate(choosenSubsets)))

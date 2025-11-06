@@ -1,8 +1,8 @@
 using API.Interfaces;
 using System.Diagnostics;
 
-namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class DancingLinks : ISolver<ExactCover> {
+namespace API.Problems.NPComplete.NPC_EXACTCOVER.Solvers;
+class DancingLinks : ISolver<EXACTCOVER> {
 
     // --- Fields ---
     public string solverName {get;} = "Dancing Links";
@@ -15,7 +15,7 @@ class DancingLinks : ISolver<ExactCover> {
         
     }
        
-    public string solve(ExactCover exactCover) {
+    public string solve(EXACTCOVER exactCover) {
 
         Dictionary<int,List<int>> Y = new Dictionary<int, List<int>>();
         Dictionary<int,List<int>> X = new Dictionary<int, List<int>>();
@@ -99,7 +99,7 @@ class DancingLinks : ISolver<ExactCover> {
         }
     }
 
-    public string solutionToCertificate(Stack<int> selectedSets, ExactCover exactCover) {
+    public string solutionToCertificate(Stack<int> selectedSets, EXACTCOVER exactCover) {
         string solution = "{";
         foreach(var i in selectedSets) {
             solution += "{";

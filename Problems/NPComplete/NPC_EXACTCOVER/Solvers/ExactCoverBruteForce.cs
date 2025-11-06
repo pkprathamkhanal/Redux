@@ -1,7 +1,7 @@
 using API.Interfaces;
 
-namespace API.Problems.NPComplete.NPC_ExactCover.Solvers;
-class ExactCoverBruteForce : ISolver<ExactCover> {
+namespace API.Problems.NPComplete.NPC_EXACTCOVER.Solvers;
+class ExactCoverBruteForce : ISolver<EXACTCOVER> {
 
     // --- Fields ---
     public string solverName {get;} = "Exact Cover Brute Force Solver";
@@ -39,7 +39,7 @@ class ExactCoverBruteForce : ISolver<ExactCover> {
         }
     }
        
-    public string solve(ExactCover exactCover){
+    public string solve(EXACTCOVER exactCover){
         List<int> binary = new List<int>(){};
         for(int i = 0; i < exactCover.S.Count; i++){
             binary.Add(0);

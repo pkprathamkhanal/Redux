@@ -1,8 +1,8 @@
 using API.Interfaces;
 
-namespace API.Problems.NPComplete.NPC_ExactCover.Verifiers;
+namespace API.Problems.NPComplete.NPC_EXACTCOVER.Verifiers;
 
-class ExactCoverVerifier : IVerifier<ExactCover> {
+class ExactCoverVerifier : IVerifier<EXACTCOVER> {
 
     // --- Fields ---
     public string verifierName {get;} = "Exact Cover Verifier";
@@ -34,7 +34,7 @@ class ExactCoverVerifier : IVerifier<ExactCover> {
         return parsedCertificate;
     }
     //Example certificate "{{1,2,3},{2,3,4},{1,2}}
-    public bool verify(ExactCover problem, string certificate){
+    public bool verify(EXACTCOVER problem, string certificate){
         List<List<string>> parsedCertificate = parseCertificate(certificate);
 
         foreach(var subset_i in parsedCertificate){
