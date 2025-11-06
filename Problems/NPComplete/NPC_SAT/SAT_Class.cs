@@ -1,4 +1,5 @@
 using API.Interfaces;
+using API.DummyClasses;
 using API.Problems.NPComplete.NPC_SAT.Solvers;
 using API.Problems.NPComplete.NPC_SAT.Verifiers;
 
@@ -6,7 +7,7 @@ using API.Problems.NPComplete.NPC_SAT.Verifiers;
 
 namespace API.Problems.NPComplete.NPC_SAT;
 
- class SAT : IProblem<SATBruteForceSolver, SATVerifier> {
+ class SAT : IProblem<SATBruteForceSolver, SATVerifier, DummyVisualization> {
 
 
     #region Fields
@@ -18,7 +19,8 @@ namespace API.Problems.NPComplete.NPC_SAT;
     public string source {get;} = ".";
     public string[] contributors {get;} = { "Daniel Igbokwe" };
 
-    public string defaultInstance {get;} = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1) & (!x3 | x4 | !x2 | x1) & (!x4 | !x1) & (x4 | x3 | !x1)";
+    public static string _defaultInstance { get; } = "(x1 | !x2 | x3) & (!x1 | x3 | x1) & (x2 | !x3 | x1) & (!x3 | x4 | !x2 | x1) & (!x4 | !x1) & (x4 | x3 | !x1)";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
 
     public string wikiName {get;} = "";
@@ -26,7 +28,8 @@ namespace API.Problems.NPComplete.NPC_SAT;
     private List<string> _literals = new List<string>();
    
     public SATBruteForceSolver defaultSolver {get;} = new SATBruteForceSolver();
-    public SATVerifier defaultVerifier {get;} = new SATVerifier();
+    public SATVerifier defaultVerifier { get; } = new SATVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     #endregion
 

@@ -1,11 +1,12 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.Solvers;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
+using API.Problems.NPComplete.NPC_GRAPHCOLORING.Visualizations;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
-class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifier, GraphColoringGraph> {
+class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifier, GraphColoringDefaultVisualization, UtilCollectionGraph> {
 
 
     #region Fields
@@ -36,8 +37,8 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
     public GraphColoringBruteForce defaultSolver {get;} = new GraphColoringBruteForce();
     public GraphColoringVerifier defaultVerifier {get;} = new GraphColoringVerifier();
 
-    private GraphColoringGraph _graphColoringAsGraph;
-    public GraphColoringGraph graph {get => _graphColoringAsGraph;}
+    public GraphColoringDefaultVisualization defaultVisualization { get; } = new GraphColoringDefaultVisualization();
+    public UtilCollectionGraph graph { get; }
 
     #endregion
 
@@ -82,16 +83,6 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
         }
     }
 
-   public GraphColoringGraph graphColoringAsGraph {
-    get {
-        return _graphColoringAsGraph;
-    }
-    set {
-        _graphColoringAsGraph = value;
-    }
-   }
-
-    
     public SortedSet<string> colors {
         get {
             return _colors;
@@ -121,7 +112,7 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
         }).ToList();
         _K = int.Parse(graphcoloring["K"].ToString());
 
-        _graphColoringAsGraph = new GraphColoringGraph(nodes, edges, _K);
+        graph = new UtilCollectionGraph(graphcoloring["N"], graphcoloring["E"]);
     }
 
     #endregion

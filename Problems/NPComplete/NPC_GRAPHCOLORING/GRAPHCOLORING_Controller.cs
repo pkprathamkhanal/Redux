@@ -9,54 +9,7 @@ using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_SAT;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_CLIQUECOVER;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_ExactCover;
 
-
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
-
-
-[ApiController]
-[Route("[controller]")]
-[Tags("Graph Coloring")]
-#pragma warning disable CS1591
-public class GRAPHCOLORINGGenericController : ControllerBase
-{
-#pragma warning restore CS1591
-    ///<summary>Returns a graph object used for dynamic solved visualization </summary>
-    ///<param name="problemInstance" example="{{a,b,c,d,e,f,g,h,i},{{a,b},{b,a},{b,c},{c,a},{a,c},{c,b},{a,d},{d,a},{d,e},{e,a},{a,e},{e,d},{a,f},{f,a},{f,g},{g,a},{a,g},{g,f},{a,h},{h,a},{h,i},{i,a},{a,i},{i,h}},3}">GraphColoring problem instance string.</param>
-    ///<param name="solution" example="{(a:0,b:1,c:2,d:1,e:2,f:1,g:2,h:1,i:2):3}">GraphColoring instance string.</param>
-
-    ///<response code="200">Returns graph object</response>
-
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("solvedVisualization")]
-#pragma warning disable CS1591
-    public String getSolvedVisualization([FromQuery] string problemInstance, string solution)
-    {
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        GRAPHCOLORING gColor = new GRAPHCOLORING(problemInstance);
-        GraphColoringGraph cGraph = gColor.graphColoringAsGraph;
-        API_UndirectedGraphJSON apiGraph = new API_UndirectedGraphJSON(cGraph.getNodeList, cGraph.getEdgeList);
-        for (int i = 0; i < apiGraph.nodes.Count; i++)
-        {
-            apiGraph.nodes[i].attribute1 = i.ToString();
-            List<string> parsing = solution.TrimStart('{').TrimStart('{').TrimEnd('}').TrimEnd('}').Split("},{").ToList();
-
-            foreach (var j in parsing)
-            {
-                if (j.Split(',').ToList().Contains(apiGraph.nodes[i].name))
-                {
-                    apiGraph.nodes[i].attribute2 = parsing.IndexOf(j).ToString();  
-                }
-            }
-            
-        }
-
-        string jsonString = JsonSerializer.Serialize(apiGraph, options);
-        return jsonString;
-
-    }
-
-}
-
 
 [ApiController]
 [Route("[controller]")]

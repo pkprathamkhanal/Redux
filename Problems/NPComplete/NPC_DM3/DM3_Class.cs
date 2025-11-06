@@ -25,7 +25,7 @@ class DM3 : IProblem<ThreeDimensionalMatchingBruteForce,GenericVerifierDM3, Dumm
     private List<List<string>> _M;
     public ThreeDimensionalMatchingBruteForce defaultSolver {get;} = new ThreeDimensionalMatchingBruteForce();
     public GenericVerifierDM3 defaultVerifier { get; } = new GenericVerifierDM3();
-     public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     public string[] contributors {get;} = { "Caleb Eardley" };
 
