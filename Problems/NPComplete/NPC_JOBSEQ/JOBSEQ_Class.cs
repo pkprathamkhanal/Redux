@@ -1,10 +1,12 @@
 using API.Interfaces;
+using API.DummyClasses;
 using API.Problems.NPComplete.NPC_JOBSEQ.Solvers;
 using API.Problems.NPComplete.NPC_JOBSEQ.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_JOBSEQ;
 
-class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
+class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier, DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Job Sequencing";
@@ -13,10 +15,8 @@ class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string[] contributors {get;} = {"Russell Phillips"};
 
-
-
-    public string defaultInstance {get;} = "((4,2,5,9,4,3),(9,13,2,17,21,16),(1,4,3,2,5,8),4)";
-
+    public static string _defaultInstance { get; } = "((4,2,5,9,4,3),(9,13,2,17,21,16),(1,4,3,2,5,8),4)";
+    public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<int> _T = new List<int>();
     private List<int> _D = new List<int>();
@@ -27,7 +27,8 @@ class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
 
     public string wikiName {get;} = "";
     public JobSeqBruteForce defaultSolver {get;} = new JobSeqBruteForce();
-    public JobSeqVerifier defaultVerifier {get;} = new JobSeqVerifier();
+    public JobSeqVerifier defaultVerifier { get; } = new JobSeqVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     // --- Properties ---
     public List<int> T {
@@ -67,59 +68,17 @@ class JOBSEQ : IProblem<JobSeqBruteForce,JobSeqVerifier> {
     }
 
     // --- Methods Including Constructors ---
-    public JOBSEQ() {
-        instance = defaultInstance;
-        T = getT(instance);
-        D = getD(instance);
-        P = getP(instance);
-        K = getK(instance);
-    }
-    public JOBSEQ(string instance) {
-        instance = instance;
-        T = getT(instance);
-        D = getD(instance);
-        P = getP(instance);
-        K = getK(instance);
-    }
-    private List<int> getT(string instance)
-    {
-        return instance.TrimStart('(')
-                            .TrimStart('(')
-                            .Split("),(")[0]
-                            .Split(',')
-                            .Select(int.Parse)
-                            .ToList();
-        
-    }
+    public JOBSEQ() : this(_defaultInstance) {
 
-    private List<int> getD(string instance)
-    {
-        return instance.TrimStart('(')
-                            .TrimStart('(')
-                            .Split("),(")[1]
-                            .Split(',')
-                            .Select(int.Parse)
-                            .ToList();
     }
+    public JOBSEQ(string input) {
+        instance = input;
 
-    private List<int> getP(string instance)
-    {
-        return instance.TrimStart('(')
-                            .TrimStart('(')
-                            .Split("),(")[2]
-                            .Split("),")[0]
-                            .Split(',')
-                            .Select(int.Parse)
-                            .ToList();
+        StringParser jobSeq = new("{(T,D,P,K) | T is list, D is list, P is list, k is int}");
+        jobSeq.parse(input);
+        _T = jobSeq["T"].ToList().Select(node => Int32.Parse(node.ToString())).ToList();
+        _D = jobSeq["D"].ToList().Select(node => Int32.Parse(node.ToString())).ToList();
+        _P = jobSeq["P"].ToList().Select(node => Int32.Parse(node.ToString())).ToList();
+        _K = int.Parse(jobSeq["K"].ToString());
     }
-
-    private int getK(string instance) {
-        return Int32.Parse(instance.TrimStart('(')
-                            .TrimStart('(')
-                            .Split("),(")[2]
-                            .Split("),")[1]
-                            .TrimEnd(')'));
-        
-    }
-
 }
