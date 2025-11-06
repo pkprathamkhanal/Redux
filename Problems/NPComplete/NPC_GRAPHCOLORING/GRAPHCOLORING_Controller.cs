@@ -7,7 +7,7 @@ using API.Problems.NPComplete.NPC_GRAPHCOLORING.Verifiers;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.Solvers;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_SAT;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_CLIQUECOVER;
-using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_ExactCover;
+using API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_EXACTCOVER;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING;
 

@@ -1,10 +1,10 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING;
-using API.Problems.NPComplete.NPC_ExactCover;
+using API.Problems.NPComplete.NPC_EXACTCOVER;
 
-namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_ExactCover;
+namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_EXACTCOVER;
 
-class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, ExactCover>
+class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
 {
 
     // --- Fields ---
@@ -17,7 +17,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, ExactCover>
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
     private GRAPHCOLORING _reductionFrom;
-    private ExactCover _reductionTo;
+    private EXACTCOVER _reductionTo;
 
 
     // --- Properties ---
@@ -43,7 +43,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, ExactCover>
             _reductionFrom = value;
         }
     }
-    public ExactCover reductionTo
+    public EXACTCOVER reductionTo
     {
         get
         {
@@ -64,10 +64,10 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, ExactCover>
         _reductionTo = reduce();
 
     }
-    public ExactCover reduce()
+    public EXACTCOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;
-        ExactCover reducedExactCover = new ExactCover();
+        EXACTCOVER reducedExactCover = new EXACTCOVER();
 
         List<string> universalSet = new List<string>();
         List<List<string>> subsets = new List<List<string>>();
@@ -168,7 +168,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, ExactCover>
         return reducedExactCover;
     }
 
-    public string mapSolutions(GRAPHCOLORING reductionFrom, ExactCover problemTo, string reductionFromSolution)
+    public string mapSolutions(GRAPHCOLORING reductionFrom, EXACTCOVER problemTo, string reductionFromSolution)
     {
         if (!reductionFrom.defaultVerifier.verify(reductionFrom, reductionFromSolution))
         {
