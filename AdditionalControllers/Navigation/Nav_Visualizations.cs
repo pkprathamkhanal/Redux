@@ -100,7 +100,7 @@ public class Problem_VisualizationsRefactorController : ControllerBase {
     [ProducesResponseType(typeof(string[]), 200)]
     [HttpGet]
     public String getDefault([FromQuery]string chosenProblem,[FromQuery]string problemType) {
-                string NOT_FOUND_ERR_Visualization = "entered a Visualization that does not exist";
+        List<string> NOT_FOUND_ERR_Visualization = new();
 
         // Determine the directory to search based on prefix. chosenProblem expected to be a problemName like "NPC_PROBLEM"\
         string problemTypeDirectory = "";
@@ -135,7 +135,6 @@ public class Problem_VisualizationsRefactorController : ControllerBase {
         catch (System.IO.DirectoryNotFoundException)
         {
             jsonString = JsonSerializer.Serialize(NOT_FOUND_ERR_Visualization, options);
-
         }
         return jsonString;
     }
