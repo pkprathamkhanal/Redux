@@ -1,11 +1,12 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_CUT.Solvers;
 using API.Problems.NPComplete.NPC_CUT.Verifiers;
+using API.Problems.NPComplete.NPC_CUT.Visualizations;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CUT;
 
-class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
+class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutDefaultVisualization, UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Cut";
@@ -23,8 +24,8 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
     private int _K;
     public CutBruteForce defaultSolver {get;} = new CutBruteForce();
     public CutVerifier defaultVerifier {get;} = new CutVerifier();
-    private CutGraph _cutAsGraph;
-    public CutGraph graph {get => _cutAsGraph;}
+    public CutDefaultVisualization defaultVisualization { get; } = new CutDefaultVisualization();
+    public UtilCollectionGraph graph { get; set; }
     
     public string wikiName {get;} = "";
   
@@ -56,12 +57,6 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
         }
     }
 
-    public CutGraph cutAsGraph {
-        get{
-            return _cutAsGraph;
-        }
-    }
-
     // --- Methods Including Constructors ---
     public CUT() : this(_defaultInstance) {
 
@@ -69,18 +64,16 @@ class CUT : IGraphProblem<CutBruteForce, CutVerifier, CutGraph> {
     public CUT(string GInput) {
         instance = GInput;
 
-        StringParser cliqueGraph = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
-        cliqueGraph.parse(GInput);
-        nodes = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
-        edges = cliqueGraph["E"].ToList().Select(edge =>
+        StringParser cut = new("{((N,E),K) | N is set, E subset N unorderedcross N, K is int}");
+        cut.parse(GInput);
+        nodes = cut["N"].ToList().Select(node => node.ToString()).ToList();
+        edges = cut["E"].ToList().Select(edge =>
         {
             List<UtilCollection> cast = edge.ToList();
             return new KeyValuePair<string, string>(cast[0].ToString(), cast[1].ToString());
         }).ToList();
-        _K = int.Parse(cliqueGraph["K"].ToString());
+        _K = int.Parse(cut["K"].ToString());
 
-        _cutAsGraph = new CutGraph(nodes, edges, _K);
+        graph = new UtilCollectionGraph(cut["N"], cut["E"]);
     }
-
-
 }
