@@ -1,6 +1,8 @@
+using System.Runtime.ConstrainedExecution;
 using API.Interfaces;
 using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_ARCSET.Solvers;
 class ArcSetBruteForce : ISolver<ARCSET> {
@@ -48,37 +50,13 @@ class ArcSetBruteForce : ISolver<ARCSET> {
     */
 
     public string solve(ARCSET arc){
-        ArcsetGraph graph = arc.directedGraph;
-        List<int> combination = new List<int>();
-        for(int i=0; i<graph.K; i++){
-            combination.Add(i);
-        }
-        long reps = factorial(graph.getEdgeList.Count) / (factorial(graph.K) * factorial(graph.getEdgeList.Count - graph.K));
-        for(int i=0; i<reps; i++){
-            string certificate = indexListToCertificate(combination,graph.getEdgeList);
-            bool verified = arc.defaultVerifier.verify(arc, certificate);
-            if(verified){
-                return certificate;
-            }
-            if(i != reps-1)combination = nextComb(combination, graph.getEdgeList.Count);
+        UtilCollectionGraph graph = arc.graph;
+
+        foreach (UtilCollection potentialSolution in graph.Edges.ChooseUpTo(arc.K))
+        {
+            string certificate = potentialSolution.ToString();
+            if (arc.defaultVerifier.verify(arc, certificate)) return certificate;
         }
         return "{}";
     }
-
-    public Dictionary<KeyValuePair<string,string>, bool> getSolutionDict(string problemInstance, string solutionString){
-        Dictionary<KeyValuePair<string,string>, bool> solutionDict = new Dictionary<KeyValuePair<string,string>, bool>();
-        ArcsetGraph aGraph = new ArcsetGraph(problemInstance, true);
-        List<KeyValuePair<string, string>> problemInstanceEdges = aGraph.edgesKVP;
-        List<KeyValuePair<string, string>> solvedEdges = GraphParser.parseDirectedEdgeListWithStringFunctions(solutionString);
-
-        foreach(var edge in solvedEdges){
-            problemInstanceEdges.Remove(edge);
-            solutionDict.Add(edge, true);
-        }
-        foreach(var edge in problemInstanceEdges){
-            solutionDict.Add(edge, false);
-        }
-        return solutionDict;
-    }
-
 }

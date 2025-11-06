@@ -5,15 +5,15 @@ using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using API.Interfaces.JSON_Objects.Graphs;
-//using API.Problems.NPComplete.NPC_VERTEXCOVER;
+using API.Problems.NPComplete.NPC_VERTEXCOVER;
 using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 //using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.Verifiers;
 using API.Interfaces.Graphs.GraphParser;
+using API.Interfaces;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE;
 
-/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Clique")]
@@ -42,7 +42,7 @@ public class sipserReduceToVCController : ControllerBase
     ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
     ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
 
-    [ProducesResponseType(typeof(SipserReduction), 200)]
+    [ProducesResponseType(typeof(sipserReduction), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody] string problemInstance)
     {
@@ -67,8 +67,8 @@ public class sipserReduceToVCController : ControllerBase
         }
         sipserReduction reduction = new sipserReduction(clique);
         VERTEXCOVER reducedVcov = reduction.reductionTo;
-        VertexCoverGraph vGraph = reducedVcov.VCAsGraph;
-        API_GraphJSON apiGraphTo = new API_UndirectedGraphJSON(vGraph.getNodeList, vGraph.getEdgeList);
+        UtilCollectionGraph vGraph = reducedVcov.graph;
+        API_GraphJSON apiGraphTo = vGraph.ToAPIGraph();
         API_GraphJSON[] apiArr = new API_GraphJSON[2];
         apiArr[0] = apiGraphFrom;
         apiArr[1] = apiGraphTo;
@@ -99,4 +99,3 @@ public class sipserReduceToVCController : ControllerBase
         return jsonString;
     }
 }
-*/

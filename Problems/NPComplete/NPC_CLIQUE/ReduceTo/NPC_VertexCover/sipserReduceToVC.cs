@@ -1,10 +1,9 @@
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
-//using API.Problems.NPComplete.NPC_VERTEXCOVER;
+using API.Problems.NPComplete.NPC_VERTEXCOVER;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 
-/*
 class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
 
@@ -140,4 +139,3 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
 
     }
 }
-*/

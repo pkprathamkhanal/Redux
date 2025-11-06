@@ -10,7 +10,7 @@ namespace API.Interfaces;
 /// Expects graphs in the following formats:
 /// unweighted undirected: (N,E) where N is set of nodes, E is a set of edges represented as {a,b}
 /// unweighted directed  : (N,E) where N is set of nodes, E is a set of edges represented as (a,b)
-/// weighted undirected  : (N,E) where N is set of nodes, E is a set of edges represented as ({a,b}, w) where w is the weight (this needs to be looked at)
+/// weighted undirected  : (N,E) where N is set of nodes, E is a set of edges represented as ({a,b}, w) where w is the weight
 /// weighted directed    : (N,E) where N is set of nodes, E is a set of edges represented as ((a,b), w) where w is the weight
 /// Child of Graph class to fix some typing issues while codebase is converted. Expected to be removed
 class UtilCollectionGraph : Graph
@@ -123,6 +123,13 @@ class UtilCollectionGraph : Graph
             }
         }
         return graph;
+    }
+
+    public UtilCollectionGraph removeEdges(UtilCollection removedEdges)
+    {
+        HashSet<UtilCollection> edgeset = Edges.ToList().ToHashSet();
+        edgeset.ExceptWith(removedEdges.ToList().ToHashSet());
+        return new(Nodes, new UtilCollection(edgeset));
     }
 
     public override string ToString()

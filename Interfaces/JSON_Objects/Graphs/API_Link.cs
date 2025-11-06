@@ -29,7 +29,7 @@ class API_Link
 
     }
 
-    public API_Link(string s, string t, string a1 = "", string a2 = "", string color = "", string dashed = "", string delay = "",string weight = "1", bool directed = false)
+    public API_Link(string s, string t, string a1 = "", string a2 = "", string color = "", string dashed = "", string delay = "", string weight = "1", bool directed = false)
     {
         _source = s;
         _target = t;
