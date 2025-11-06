@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 using System.Text.Json;
-using API.Problems.NPComplete.NPC_ExactCover.ReduceTo.NPC_SUBSETSUM;
+using API.Problems.NPComplete.NPC_EXACTCOVER.ReduceTo.NPC_SUBSETSUM;
 
-namespace API.Problems.NPComplete.NPC_ExactCover;
+namespace API.Problems.NPComplete.NPC_EXACTCOVER;
 
 [ApiController]
 [Route("[controller]")]
@@ -23,7 +23,7 @@ public class KarpExactCoverToSubsetSumController : ControllerBase {
     [HttpGet("info")]
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        ExactCover defaultExactCover = new ExactCover();
+        EXACTCOVER defaultExactCover = new EXACTCOVER();
         SubsetSumReduction reduction = new SubsetSumReduction(defaultExactCover);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
@@ -37,7 +37,7 @@ public class KarpExactCoverToSubsetSumController : ControllerBase {
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        ExactCover defaultExactCover = new ExactCover(problemInstance);
+        EXACTCOVER defaultExactCover = new EXACTCOVER(problemInstance);
         SubsetSumReduction reduction = new SubsetSumReduction(defaultExactCover);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;

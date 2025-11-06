@@ -1,12 +1,12 @@
 using System.ComponentModel;
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_ExactCover;
+using API.Problems.NPComplete.NPC_EXACTCOVER;
 using SPADE;
 using Microsoft.Net.Http.Headers;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.ReduceTo.NPC_EXACTCOVER;
 
-class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
+class ExactCoverReduction : IReduction<HITTINGSET, EXACTCOVER>
 {
 
     // --- Fields ---
@@ -20,7 +20,7 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
     private HITTINGSET _reductionFrom;
-    private ExactCover _reductionTo;
+    private EXACTCOVER _reductionTo;
 
 
     // --- Properties ---
@@ -47,7 +47,7 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
             _reductionFrom = value;
         }
     }
-    public ExactCover reductionTo
+    public EXACTCOVER reductionTo
     {
         get
         {
@@ -68,7 +68,7 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
         _reductionTo = reduce();
 
     }
-    public ExactCover reduce()
+    public EXACTCOVER reduce()
     {
         UtilCollection universal = new UtilCollection("{}");
         Dictionary<UtilCollection,int> setsToElement = new Dictionary<UtilCollection,int>();
@@ -95,12 +95,12 @@ class ExactCoverReduction : IReduction<HITTINGSET, ExactCover>
         }
 
         string input = "(" + universal.ToString() + "," + subsets.ToString() + ")";
-        reductionTo = new ExactCover(input);
+        reductionTo = new EXACTCOVER(input);
 
         return reductionTo;
     }
 
-    public string mapSolutions(HITTINGSET problemFrom, ExactCover problemTo, string problemFromSolution)
+    public string mapSolutions(HITTINGSET problemFrom, EXACTCOVER problemTo, string problemFromSolution)
     {
         if (!problemFrom.defaultVerifier.verify(problemFrom, problemFromSolution))
         {

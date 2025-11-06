@@ -1,13 +1,13 @@
 using API.DummyClasses;
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
-using API.Problems.NPComplete.NPC_ExactCover.Solvers;
-using API.Problems.NPComplete.NPC_ExactCover.Verifiers;
+using API.Problems.NPComplete.NPC_EXACTCOVER.Solvers;
+using API.Problems.NPComplete.NPC_EXACTCOVER.Verifiers;
 using SPADE;
 
-namespace API.Problems.NPComplete.NPC_ExactCover;
+namespace API.Problems.NPComplete.NPC_EXACTCOVER;
 
-class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier,DummyVisualization> {
+class EXACTCOVER : IProblem<ExactCoverBruteForce,ExactCoverVerifier,DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Exact Cover";
@@ -48,9 +48,9 @@ class ExactCover : IProblem<ExactCoverBruteForce,ExactCoverVerifier,DummyVisuali
     }
     // --- Methods Including Constructors ---
 
-    public ExactCover() : this(_defaultInstance) {
+    public EXACTCOVER() : this(_defaultInstance) {
     }
-    public ExactCover(string input) {
+    public EXACTCOVER(string input) {
         instance = input;
 
         StringParser setcover = new("{(U,S) | U is set, S subset {a | a subset U}}");

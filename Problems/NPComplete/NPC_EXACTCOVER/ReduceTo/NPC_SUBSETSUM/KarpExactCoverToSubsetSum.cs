@@ -1,10 +1,10 @@
 using API.Interfaces;
-using API.Problems.NPComplete.NPC_ExactCover;
+using API.Problems.NPComplete.NPC_EXACTCOVER;
 using API.Problems.NPComplete.NPC_SUBSETSUM;
 
-namespace API.Problems.NPComplete.NPC_ExactCover.ReduceTo.NPC_SUBSETSUM;
+namespace API.Problems.NPComplete.NPC_EXACTCOVER.ReduceTo.NPC_SUBSETSUM;
 
-class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
+class SubsetSumReduction : IReduction<EXACTCOVER, SUBSETSUM>
 {
 
     // --- Fields ---
@@ -16,7 +16,7 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
     private string _complexity = "";
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
-    private ExactCover _reductionFrom;
+    private EXACTCOVER _reductionFrom;
     private SUBSETSUM _reductionTo;
 
 
@@ -32,7 +32,7 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
             _gadgetMap = value;
         }
     }
-    public ExactCover reductionFrom
+    public EXACTCOVER reductionFrom
     {
         get
         {
@@ -58,7 +58,7 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
 
 
     // --- Methods Including Constructors ---
-    public SubsetSumReduction(ExactCover from)
+    public SubsetSumReduction(EXACTCOVER from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
@@ -66,7 +66,7 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
     }
     public SUBSETSUM reduce()
     {
-        ExactCover ExactCoverInstance = _reductionFrom;
+        EXACTCOVER ExactCoverInstance = _reductionFrom;
         SUBSETSUM reducedSUBSETSUM = new SUBSETSUM();
 
         int r = reductionFrom.S.Count;
@@ -102,7 +102,7 @@ class SubsetSumReduction : IReduction<ExactCover, SUBSETSUM>
         return reducedSUBSETSUM;
     }
 
-    public string mapSolutions(ExactCover reductionFrom, SUBSETSUM problemTo, string reductionFromSolution)
+    public string mapSolutions(EXACTCOVER reductionFrom, SUBSETSUM problemTo, string reductionFromSolution)
     {
         if (!reductionFrom.defaultVerifier.verify(reductionFrom, reductionFromSolution))
         {
