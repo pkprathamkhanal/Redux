@@ -1,10 +1,11 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_SUBSETSUM.Solvers;
 using API.Problems.NPComplete.NPC_SUBSETSUM.Verifiers;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM;
 
-class SUBSETSUM : IProblem<SubsetSumBruteForce,SubsetSumVerifier> {
+class SUBSETSUM : IProblem<SubsetSumBruteForce,SubsetSumVerifier, DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Subset Sum";
@@ -23,7 +24,8 @@ class SUBSETSUM : IProblem<SubsetSumBruteForce,SubsetSumVerifier> {
 
     public string wikiName {get;} = "";
     public SubsetSumBruteForce defaultSolver {get;} = new SubsetSumBruteForce();
-    public SubsetSumVerifier defaultVerifier {get;} = new SubsetSumVerifier();
+    public SubsetSumVerifier defaultVerifier { get; } = new SubsetSumVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
 
     // --- Properties ---
     public List<string> S {
