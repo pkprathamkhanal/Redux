@@ -2,6 +2,7 @@ using API.Interfaces;
 using System.Linq;
 using API.Interfaces.Graphs.GraphParser;
 using SPADE;
+using System.Runtime.ConstrainedExecution;
 
 namespace API.Problems.NPComplete.NPC_NODESET.Verifiers;
 
@@ -100,17 +101,18 @@ class NodeSetVerifier : IVerifier<NODESET>
 
     public bool verify(NODESET problem, string certificate)
     {
-        return false;
         UtilCollectionGraph graph = problem.graph;
 
-        UtilCollection cert = toEdges(certificate, problem);
+        UtilCollection cert = new(certificate);
+
+        UtilCollection edgesToRemove = toEdges(certificate, problem);
 
         //Checks if certificate matches k-value;
-        if (cert.Count() > (certificate.Count(c => c == ',') + 1))
+        if (cert.Count() > problem.K)
         {
             return false;
         }
-        graph = graph.removeEdges(cert);
+        graph = graph.removeEdges(edgesToRemove);
 
         return isACyclical(graph);
     }
