@@ -7,10 +7,10 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
 {
 
     // --- Fields ---
-    public string reductionName {get;} = "WEIGHTEDCUT Reduction";
-    public string reductionDefinition {get;} = "Karp's Reduction from Graph Coloring to Clique Cover";
-    public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-    public string[] contributors {get;} = { "Andrija Sevaljevic" };
+    public string reductionName { get; } = "WEIGHTEDCUT Reduction";
+    public string reductionDefinition { get; } = "Karp's Reduction from Graph Coloring to Clique Cover";
+    public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string[] contributors { get; } = { "Andrija Sevaljevic" };
 
     private string _complexity = "";
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
@@ -72,34 +72,31 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
         List<(string source, string destination, int weight)> edges = new List<(string source, string destination, int weight)>();
 
         string instance = "(({";
-        for(int i = 1; i <= reductionFrom.S.Count; i++)
+        for (int i = 1; i <= reductionFrom.S.Count; i++)
         {
-            instance += i.ToString() + ',';
+            instance += i + ",";
             nodes.Add(i.ToString());
         }
 
-        instance = instance.TrimEnd(',') + "},{{";
-        for(int i = 0; i < reductionFrom.S.Count; i++)
+        instance = instance.TrimEnd(',') + "}, {(";
+        for (int i = 0; i < reductionFrom.S.Count; i++)
         {
-            for(int j = i + 1; j < reductionFrom.S.Count; j++)
+            for (int j = i + 1; j < reductionFrom.S.Count; j++)
             {
-               string edge = (i + 1) + "," + (j + 1) + "," +
-               (Int32.Parse(reductionFrom.S[i]) * Int32.Parse(reductionFrom.S[j])).ToString() + "},{";
-               instance += edge;
-               string source = (1 + i).ToString();
-               string destination = (1 + j).ToString();
-               int weight = Int32.Parse(reductionFrom.S[i]) * Int32.Parse(reductionFrom.S[j]);
-               edges.Add((source,destination,weight));
+                int weight = int.Parse(reductionFrom.S[i]) * int.Parse(reductionFrom.S[j]);
+                instance += $"({i + 1},{j + 1}),{weight}),(";
+                edges.Add(((i + 1).ToString(), (j + 1).ToString(), weight));
             }
         }
 
-        int sum = 0;
-        for(int i = 0; i < reductionFrom.S.Count; i++) {
-            sum += Int32.Parse(reductionFrom.S[i]);
-        }
+        // remove trailing ",(" safely
+        if (instance.EndsWith(",("))
+            instance = instance[..^2];
+
+        int sum = reductionFrom.S.Sum(int.Parse);
         sum = (sum * sum) / 4;
 
-        instance = instance.TrimEnd('{').TrimEnd(',') +"})," + sum.ToString() + ')';
+        instance += $"}}),{sum})";
 
         reducedWEIGHTEDCUT.K = sum;
         reducedWEIGHTEDCUT.nodes = nodes;
