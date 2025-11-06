@@ -35,13 +35,12 @@ class NodeSetDefaultVisualization : IVisualization<NODESET>
         API_GraphJSON apiGraph = nodeSet.graph.ToAPIGraph();
         
         for (int i = 0; i < apiGraph.nodes.Count; i++)
-            if(solutionNodes.Contains(apiGraph.nodes[i].name))
-                apiGraph.nodes[i].color = "Solution";
+            apiGraph.nodes[i].color = "Solution";
 
         foreach (var node in solutionNodes)
             foreach (var link in apiGraph.links)
                 if (link.source == node || link.target == node)
-                    link.color = "Red";
+                    link.color = "Solution";
 
         return apiGraph;
     }
