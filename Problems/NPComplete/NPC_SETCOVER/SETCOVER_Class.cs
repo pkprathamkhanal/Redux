@@ -67,7 +67,5 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier,DummyVisualization
         universal = setcover["U"].ToList().Select(node => node.ToString()).ToList();
         subsets = setcover["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
         _K = int.Parse(setcover["K"].ToString());
-
     }
-
 }
