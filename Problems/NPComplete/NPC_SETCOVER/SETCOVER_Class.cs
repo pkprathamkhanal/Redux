@@ -1,3 +1,4 @@
+using API.DummyClasses;
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_SETCOVER.Solvers;
 using API.Problems.NPComplete.NPC_SETCOVER.Verifiers;
@@ -6,7 +7,7 @@ using SPADE;
 
 namespace API.Problems.NPComplete.NPC_SETCOVER;
 
-class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
+class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier,DummyVisualization> {
 
     // --- Fields ---
     public string problemName {get;} = "Set Cover";
@@ -14,7 +15,7 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     public string problemDefinition {get;} = "Given a set of elements and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
 
-    private static string _defaultInstance = "{{1,2,3,4,5},{{1,2,3},{2,4},{3,4},{4,5}},3}";
+    private static string _defaultInstance = "({1,2,3,4,5},{{1,2,3},{2,4},{3,4},{4,5}},3)";
     public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;
     private List<string> _universal = new List<string>();
@@ -23,7 +24,8 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     public string wikiName {get;} = "";
     private int _K = 3;
     public SetCoverBruteForce defaultSolver {get;} = new SetCoverBruteForce();
-    public SetCoverVerifier defaultVerifier {get;} = new SetCoverVerifier();
+    public SetCoverVerifier defaultVerifier { get; } = new SetCoverVerifier();
+    public DummyVisualization defaultVisualization { get; } = new DummyVisualization();
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
@@ -60,11 +62,11 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier> {
     public SETCOVER(string GInput) {
         instance = GInput;
 
-        StringParser cliqueGraph = new("{(U,S,K) | U is set S subset {a | a subset U}}");
-        cliqueGraph.parse(GInput);
-        universal = cliqueGraph["N"].ToList().Select(node => node.ToString()).ToList();
-        subsets = cliqueGraph["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
-        _K = int.Parse(cliqueGraph["K"].ToString());
+        StringParser setcover = new("{(U,S,K) | U is set, S subset {a | a subset U}}");
+        setcover.parse(GInput);
+        universal = setcover["U"].ToList().Select(node => node.ToString()).ToList();
+        subsets = setcover["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
+        _K = int.Parse(setcover["K"].ToString());
 
     }
 
