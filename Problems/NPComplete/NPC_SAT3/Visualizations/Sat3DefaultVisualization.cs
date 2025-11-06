@@ -23,7 +23,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
     }
     public API_JSON visualize(SAT3 instance)
     {
-        return new API_empty();
+        return new API_SAT3(instance);
     }
 
     public API_JSON SolvedVizualization(SAT3 instance)
@@ -35,6 +35,6 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
         //Turn string into solution dictionary
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution);
         SipserClique sClique = reduction.solutionMappedToClusterNodes(reducedClique, solutionList);
-        return new API_SAT3(sClique.clusterNodes);
+        return new API_empty();
     }
 }
