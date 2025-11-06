@@ -1,11 +1,13 @@
 using API.Interfaces;
+using API.Problems.NPComplete.NPC_CLIQUE.Visualizers;
 using API.Problems.NPComplete.NPC_CLIQUECOVER.Solvers;
 using API.Problems.NPComplete.NPC_CLIQUECOVER.Verifiers;
+using API.Problems.NPComplete.NPC_CLIQUECOVER.Visualizations;
 using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CLIQUECOVER;
 
-class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,CliqueCoverGraph> {
+class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,CliqueCoverDefaultVisualization,UtilCollectionGraph> {
 
     // --- Fields ---
     public string problemName {get;} = "Clique Cover";
@@ -21,9 +23,9 @@ class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,Cliq
     private List<KeyValuePair<string, string>> _edges = new List<KeyValuePair<string, string>>();
     private int _K = 3;
     public CliqueCoverBruteForce defaultSolver {get;} = new CliqueCoverBruteForce();
-    public CliqueCoverVerifier defaultVerifier {get;} = new CliqueCoverVerifier();
-    private CliqueCoverGraph _cliqueCoverAsGraph;
-    public CliqueCoverGraph graph {get => _cliqueCoverAsGraph;}
+    public CliqueCoverVerifier defaultVerifier { get; } = new CliqueCoverVerifier();
+    public CliqueCoverDefaultVisualization defaultVisualization { get; } = new CliqueCoverDefaultVisualization();
+    public UtilCollectionGraph graph { get; }
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     // --- Properties ---
@@ -53,15 +55,6 @@ class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,Cliq
         }
     }
 
-    public CliqueCoverGraph cliqueCoverAsGraph {
-        get{
-            return _cliqueCoverAsGraph;
-        }
-        set{
-            _cliqueCoverAsGraph = value;
-        }
-    }
-
     // --- Methods Including Constructors ---
     public CLIQUECOVER() : this(_defaultInstance) {
 
@@ -80,7 +73,7 @@ class CLIQUECOVER : IGraphProblem<CliqueCoverBruteForce,CliqueCoverVerifier,Cliq
         }).ToList();
         _K = int.Parse(cliqueGraph["K"].ToString());
 
-        _cliqueCoverAsGraph = new CliqueCoverGraph(nodes, edges, _K);
+        graph = new UtilCollectionGraph(cliqueGraph["N"], cliqueGraph["E"]);
 
     }
 
