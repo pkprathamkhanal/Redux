@@ -50,21 +50,6 @@ class ArcSetVerifier : IVerifier<ARCSET> {
 
         while (updated)
         {
-
-            foreach (var entry in reachability)
-            {
-                Console.WriteLine("key");
-                Console.WriteLine(entry.Key.ToString());
-                Console.WriteLine("values");
-                foreach (var entry2 in entry.Value)
-                {
-                    Console.Write(entry2);
-                }
-                Console.WriteLine();
-                Console.WriteLine();
-            }
-            Console.WriteLine("---");
-
             Dictionary<UtilCollection, HashSet<UtilCollection>> oldReachability = reachability.ToDictionary(
                 kvp => kvp.Key,
                 kvp => new HashSet<UtilCollection>(kvp.Value)
