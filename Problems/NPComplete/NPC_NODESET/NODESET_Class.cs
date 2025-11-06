@@ -11,8 +11,8 @@ class NODESET : IGraphProblem<NodeSetBruteForce, NodeSetVerifier, NodeSetDefault
 
     // --- Fields ---
     public string problemName { get; } = "Feedback Node Set";
-    public string formalDefinition { get; } = "Feedback Node Set = ";
-    public string problemDefinition { get; } = "Node Set is the problem";
+    public string formalDefinition { get; } = "Feedback Node Set = {<G,k> | G is a directed graph that can be rendered acyclic by removal of at most k nodes}";
+    public string problemDefinition { get; } = "Feedback Node Set is solved by removing at most k nodes so that no cycles remain.";
     public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     private static string _defaultInstance = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
     public string defaultInstance { get; } = _defaultInstance;
@@ -83,46 +83,5 @@ class NODESET : IGraphProblem<NodeSetBruteForce, NodeSetVerifier, NodeSetDefault
         _K = int.Parse(nodeSet["K"].ToString());
 
         graph = new UtilCollectionGraph(nodeSet["N"], nodeSet["E"]);
-    }
-
-
-    public List<string> getNodes(string Ginput)
-    {
-
-        List<string> allGNodes = new List<string>();
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-
-        // [0] is nodes,  [1] is edges,  [2] is k.
-        string[] Gsections = strippedInput.Split(':');
-        string[] Gnodes = Gsections[0].Split(',');
-
-        foreach (string node in Gnodes)
-        {
-            allGNodes.Add(node);
-        }
-
-        return allGNodes;
-    }
-    public List<KeyValuePair<string, string>> getEdges(string Ginput)
-    {
-
-        List<KeyValuePair<string, string>> allGEdges = new List<KeyValuePair<string, string>>();
-
-        string strippedInput = Ginput.Replace("{", "").Replace("}", "").Replace(" ", "").Replace("(", "").Replace(")", "");
-
-        string[] Gsections = strippedInput.Split(':');
-        string[] Gedges = Gsections[1].Split('&');
-
-        foreach (string edge in Gedges)
-        {
-            string[] fromTo = edge.Split(',');
-            string nodeFrom = fromTo[0];
-            string nodeTo = fromTo[1];
-
-            KeyValuePair<string, string> fullEdge = new KeyValuePair<string, string>(nodeFrom, nodeTo);
-            allGEdges.Add(fullEdge);
-        }
-
-        return allGEdges;
     }
 }
