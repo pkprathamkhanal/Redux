@@ -8,7 +8,7 @@ class HittingSetVerifier : IVerifier<HITTINGSET> {
     // --- Fields ---
     public string verifierName {get;} = "Hitting Set Verifier";
     public string verifierDefinition {get;} = "This is a verifier for Hitting Set";
-    public string source {get;} = " ";
+    public string source {get;} = "";
     public string[] contributors {get;} = {"Russell Phillips"};
     private string _certificate =  "";
 

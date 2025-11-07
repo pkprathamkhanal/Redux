@@ -10,39 +10,13 @@ class ArcSetBruteForce : ISolver<ARCSET> {
     // --- Fields ---
     public string solverName {get;} = "Arc Set Brute Force Solver";
     public string solverDefinition {get;} = @" This Solver is a brute force solver, which checks all combinations of k edges until a solution is found or its determined there is no solution";
-    public string source {get;} = "wikipedia: https://en.wikipedia.org/wiki/Feedback_arc_set";
+    public string source {get;} = "";
 
-    public string[] contributors {get;} = { "Alex Diviney","Caleb Eardley"};
+    public string[] contributors {get;} = { "Alex Diviney","Caleb Eardley","Russell Phillips"};
 
     // --- Methods Including Constructors ---
     public ArcSetBruteForce() {
 
-    }
-    private long factorial(long x){
-        long y = 1;
-        for(long i=1; i<=x; i++){
-            y *= i;
-        }
-        return y;
-    }
-    private string indexListToCertificate(List<int> indecies, List<Edge> edges){
-        string certificate = "";
-        foreach(int i in indecies){
-            certificate += ","+edges[i].directedString();
-        }
-        return "{" + certificate.Substring(1) + "}";
-    }
-    private List<int> nextComb(List<int> combination, int size){
-        for(int i=combination.Count-1; i>=0; i--){
-            if(combination[i]+1 <= (i + size - combination.Count)){
-                combination[i] += 1;
-                for(int j = i+1; j < combination.Count; j++){
-                    combination[j] = combination[j-1]+1;
-                }
-                return combination;
-            }
-        }
-        return combination;
     }
 
     /**

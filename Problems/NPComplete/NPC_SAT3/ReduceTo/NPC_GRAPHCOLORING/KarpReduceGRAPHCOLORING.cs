@@ -1,10 +1,8 @@
 using API.Interfaces;
-//using API.Problems.NPComplete.NPC_GRAPHCOLORING;
-
+using API.Problems.NPComplete.NPC_GRAPHCOLORING;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_GRAPHCOLORING;
 
-/*
 class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
 {
 
@@ -424,6 +422,4 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
 
     #endregion
 
-
-*/
 

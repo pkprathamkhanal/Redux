@@ -12,9 +12,8 @@ class HamiltonianDefaultVisualization : IVisualization<HAMILTONIAN>
     // --- Fields ---
     public string visualizationName { get; } = " Hamiltonian Path Visualization";
     public string visualizationDefinition { get; } = "This is a default visualization for Hamiltonian Path";
-    public string source { get; } = " ";
+    public string source { get; } = "";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
-    public UtilCollectionGraph graph { get; set; }
     public string visualizationType { get; } = "Graph D3";
 
     // --- Methods Including Constructors ---

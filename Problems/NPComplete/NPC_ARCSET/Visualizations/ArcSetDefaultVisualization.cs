@@ -13,7 +13,7 @@ class ArcSetDefaultVisualization : IVisualization<ARCSET> {
     // --- Fields ---
     public string visualizationName {get;} = "Arc Set Visualization";
     public string visualizationDefinition {get;} = "This is a default visualization for Arc Set";
-    public string source {get;} = " ";
+    public string source {get;} = "";
     public string[] contributors {get;} = {"Russell Phillips"};
     public string visualizationType { get; } = "Graph D3";
 

@@ -1,5 +1,5 @@
 using API.Interfaces;
-//using API.Problems.NPComplete.NPC_ARCSET;
+using API.Problems.NPComplete.NPC_ARCSET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -7,7 +7,6 @@ using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_ARCSET;
-/*
 class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
 
   
@@ -23,7 +22,8 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
                                             Now looks at the pairs of edges in E and maps from 1 to 0. So an edge (A,B) turns into (<A,1>, <B,0>) and edge (B,A) becomes (<B,1>,<A,0>)
                                             Then add directed edges from every 0 node 'u' to 1 node 'u'. ie. creates edges from <A,0> to <A,1>, <B,0> to <B,1> … <Z,0> to <Z,1>
                                             Now the algorithm has created an ARCSET instance (in other words, a Digraph). ";
-    public string source {get;} = "http://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf"; //Alex NOTE: Change later to real citation.
+    public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     public string[] contributors {get;} = { "Daniel Igbokwe","Caleb Eardley"};
     private VERTEXCOVER _reductionFrom;
     private ARCSET _reductionTo;
@@ -78,10 +78,58 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     /// </returns>
     public ARCSET reduce() {
         VERTEXCOVER vertexcover = new VERTEXCOVER(_reductionFrom.instance);
-        VertexCoverGraph ug = vertexcover.graph;
-        string dgString = ug.reduction();
-        //ArcsetGraph dg = new ArcsetGraph(dgString,true);
-        ARCSET arcset = new ARCSET(dgString);
+        List<Node> newNodes = new List<Node>();
+        foreach(Node n in vertexcover.graph.Nodes){
+            Node newNode1 = new Node(n.name);
+            Node newNode2 = new Node(n.name);
+            newNode1.name = n.name+"0";
+            newNode2.name = n.name+"1";
+            newNodes.Add(newNode1);
+            newNodes.Add(newNode2);
+        }
+        //Turn undirected edges into paired directed edges.
+        List<Edge> newEdges = new List<Edge>();
+        List<Edge> numberedEdges = new List<Edge>();
+        foreach(Edge e in vertexcover.graph.Edges){
+            Edge newEdge1 = new Edge(e.source,e.target);
+            Edge newEdge2 = new Edge(e.target,e.source);
+            newEdges.Add(newEdge1);
+            newEdges.Add(newEdge2);
+        }
+
+        //map edges to to nodes
+        foreach(Edge e in newEdges){
+            Node newNode1 = new Node(e.source.name+"1");
+            Node newNode2 = new Node(e.target.name+"0");
+            Edge numberedEdge = new Edge(newNode1,newNode2);
+            numberedEdges.Add(numberedEdge);
+        }
+
+        //map from every 0 to 1
+        for(int i=0;i<newNodes.Count;++i){
+            if(i%2==0){
+                Edge newEdge = new Edge(newNodes[i],newNodes[i+1]);
+                numberedEdges.Add(newEdge);
+            }
+        }
+        newEdges.Clear(); //Getting rid of unsplit edges
+        newEdges = numberedEdges;
+        
+        //"{{1,2,3,4},{(4,1),(1,2),(4,3),(3,2),(2,4)},1}" //formatting
+        string nodeListStr = "";
+        foreach(Node node in newNodes){
+    
+            nodeListStr= nodeListStr+ node.name +",";
+        }
+        nodeListStr = nodeListStr.TrimEnd(',');
+        string edgeListStr = "";
+        foreach(Edge edge in newEdges){
+           string edgeStr = edge.directedString() +","; //this line is what makes this class distinct from Undirected Graph
+            edgeListStr = edgeListStr+ edgeStr+""; 
+        }
+        edgeListStr = edgeListStr.TrimEnd(',',' ');
+        string toStr = "(({"+nodeListStr+"}"+ ",{" + edgeListStr+"}"+"),"+vertexcover.K+")";
+        ARCSET arcset = new ARCSET(toStr);
         
         return arcset;
     }
@@ -110,4 +158,3 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     }
 }
 // return an instance of what you are reducing to
-*/

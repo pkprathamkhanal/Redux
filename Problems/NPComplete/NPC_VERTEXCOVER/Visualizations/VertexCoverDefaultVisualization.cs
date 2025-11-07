@@ -11,7 +11,7 @@ class VertexCoverDefaultVisualization : IVisualization<VERTEXCOVER>
     // --- Fields ---
     public string visualizationName { get; } = "Vertex Cover Visualization";
     public string visualizationDefinition { get; } = "This is a default visualization for Vertex Cover";
-    public string source { get; } = " ";
+    public string source { get; } = "";
     public string[] contributors { get; } = { "Russell Phillips" };
     public string visualizationType { get; } = "Graph D3";
 

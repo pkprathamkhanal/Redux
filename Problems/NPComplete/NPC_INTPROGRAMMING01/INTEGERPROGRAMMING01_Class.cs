@@ -11,9 +11,11 @@ class INTPROGRAMMING01 : IProblem<IntegerProgrammingBruteForce, GenericVerifier0
 
     // --- Fields ---
     public string problemName { get; } = "0-1 Integer Programming";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Integer_programming";
     public string formalDefinition { get; } = "0-1 Integer Programming = {<C,d> | C is an m*n matrix, d is a m-vector, and a n-vector x exists such that Cx is <= d. }";
     public string problemDefinition { get; } = "0-1 Integer Programming is a system of inequalities, where each variable can be either a 0 or a 1. It is represented by a matrix, where each collumn is a variable, and each row is an inequality. In this implementation the inequality is alway <=. A problem is 0-1 integer programable, if each variable has an assignment of 0 or 1, such that each inequality is satisfiable.";
     public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     public static string _defaultInstance { get; } = "(-1 1 -1),(0 0 -1),(-1 -1 1)<=(0 0 0)";
     public string defaultInstance { get; } = _defaultInstance;
     private List<List<int>> _C = new List<List<int>>();

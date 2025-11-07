@@ -11,6 +11,7 @@ class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPDefaultVisualization, U
 
     // --- Fields ---
     public string problemName {get;} = "Traveling Sales Person";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Travelling_salesman_problem";
     public string formalDefinition {get;} = "TSP = {<G,k> | G is a weighted graph where there is a path through every vertex whose weights add up to less than k}";
     public string problemDefinition {get;} = "";
     public string[] contributors {get;} = {"Andrija Sevaljevic"};

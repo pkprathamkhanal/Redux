@@ -1,16 +1,16 @@
 using API.Interfaces;
-//using API.Problems.NPComplete.NPC_SETCOVER;
+using API.Problems.NPComplete.NPC_SETCOVER;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_SETCOVER;
 
-/*
 class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
 {
 
     // --- Fields ---
     public string reductionName {get;} = "Karp's Clique to Set Cover Reduction";
     public string reductionDefinition {get;} = "";
-    public string source {get;} = "";
+    public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     public string[] contributors {get;} = { "Caleb Eardley" };
     private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
@@ -63,6 +63,7 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the VERTEXCOVER object passed into GareyAndJohnsonReduction.
+     */
     public SETCOVER reduce()
     {
         VERTEXCOVER VERTEXCOVERInstance = _reductionFrom;
@@ -116,4 +117,3 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
         return "No mapping";
     }
 }
-*/

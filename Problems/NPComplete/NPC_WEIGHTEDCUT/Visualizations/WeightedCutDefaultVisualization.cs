@@ -12,7 +12,7 @@ class WeightedCutDefaultVisualization : IVisualization<WEIGHTEDCUT>
     // --- Fields ---
     public string visualizationName { get; } = "Weighted Cut Visualization";
     public string visualizationDefinition { get; } = "This is a default visualization for Cut";
-    public string source { get; } = " ";
+    public string source { get; } = "";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
     public UtilCollectionGraph graph { get; set; }
     public string visualizationType { get; } = "Graph D3";

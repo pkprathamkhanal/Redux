@@ -18,10 +18,12 @@ class ARCSET : IGraphProblem<ArcSetBruteForce,ArcSetVerifier,ArcSetDefaultVisual
 
     // --- Fields ---
     public string problemName {get;} = "Feedback Arc Set";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Feedback_arc_set";
     public string formalDefinition {get;} = "ARCSET = {<G,k> | G is a directed graph that can be rendered acyclic by removal of at most k edges}";
     public string problemDefinition {get;} = "ARCSET, or the Feedback Arc Set satisfiability problem, is an NP-complete problem that can be described like the following. Given a directed graph, does removing a given set of edges render the graph acyclical? That is, does removing the edges break every cycle in the graph?";
 
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://en.wikipedia.org/wiki/Feedback_arc_set";
 
     //ALEX NOTE: The standard mathematical form for a DIGRAPH is A = {x,y,z} r = {(x,y),(y,z),(z,x)} where A is a set of nodes and r is a set of pairs of edges. (r stands for relation)
     //           Since Arcset also has a k value needed, we put the digraph and k in as a ordered pair. (({x,y,z},{(x,y),(y,z),(z,x)}),1) where the first item of the pair is the graph,

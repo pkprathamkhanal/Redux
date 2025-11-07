@@ -9,9 +9,11 @@ class INDEPENDENTSET : IGraphProblem<IndependentSetBruteForce,IndependentSetVeri
 
     // --- Fields ---
     public string problemName {get;} = "Independent Set";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Independent_set_(graph_theory)";
     public string formalDefinition {get;} = "In a graph G = (V, E), an independent set is a subset X of vertices no two of which are adjacent";
     public string problemDefinition {get;} = "An Independent Set is a set of nodes in a graph G, where no node is connected to another node in the set";
-    public string source {get;} = "Golumbic, M. C. (2004). Algorithmic graph theory and perfect graphs. Elsevier.";
+    public string source {get;} = "Wikimedia Foundation. (2025, September 8). Independent set (graph theory). Wikipedia. ";
+    public string sourceLink { get; } = "https://en.wikipedia.org/wiki/Independent_set_(graph_theory)";
     private static string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,a},{b,c},{c,a},{a,c},{c,b},{a,d},{d,a},{d,e},{e,a},{a,e},{e,d},{a,f},{f,a},{f,g},{g,a},{a,g},{g,f},{a,h},{h,a},{h,i},{i,a},{a,i},{i,h}}),4)";
     public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;

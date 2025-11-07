@@ -12,7 +12,7 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
     public string reductionDefinition {get;} = @"This Sipsers reduction converts the Clique problem into a Vertex Cover problem.
                                             This is done by first taking all possible edges in the original clique graph, and removing
                                             the edges that are actually in the clique graph from that set.";
-    public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
+    public string source { get; } = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
     public string[] contributors {get;} = {"Janita Aamir","Alex Diviney","Caleb Eardley"};
 
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();

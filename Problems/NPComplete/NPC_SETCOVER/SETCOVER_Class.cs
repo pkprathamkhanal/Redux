@@ -11,10 +11,11 @@ class SETCOVER : IProblem<SetCoverBruteForce,SetCoverVerifier,DummyVisualization
 
     // --- Fields ---
     public string problemName {get;} = "Set Cover";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Set_cover_problem";
     public string formalDefinition {get;} = "Sub Cover = {<S,T,k> | S is a set of elements, and there exists a grouping of k T subsetse equal to S}";
     public string problemDefinition {get;} = "Given a set of elements and a collection S of m sets whose union equals the universe, the set cover problem is to identify the smallest sub-collection of S whose union equals the universe";
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
-
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     private static string _defaultInstance = "({1,2,3,4,5},{{1,2,3},{2,4},{3,4},{4,5}},3)";
     public string defaultInstance { get; } = _defaultInstance;
     public string instance {get;set;} = string.Empty;

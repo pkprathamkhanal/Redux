@@ -8,7 +8,7 @@ class ArcSetVerifier : IVerifier<ARCSET> {
     public string verifierDefinition {get;} =  @"This Verifier takes in an arcset problem and a list of edges to remove from that problem. It removes those edges and then checks if the problem is still an instance of ARCSET
                                             ie. Does this input graph no longer have cycles after these input edges are removed? Returns true or false ";
     
-    public string source {get;} = "This verifier is essentially common knowledge, as it utilizes a widely recognized algorithm in computer science: The Depth First Search.";
+    public string source {get;} = "";
 
     private string _certificate = "{(2,4)}"; //The certificate should be in the form of a set of directed edges
     public string[] contributors {get;} = {"Alex Diviney","Caleb Eardley","Russell Phillips"};
@@ -72,7 +72,6 @@ class ArcSetVerifier : IVerifier<ARCSET> {
                     }
                 }
             }
-
         }
 
         return true;

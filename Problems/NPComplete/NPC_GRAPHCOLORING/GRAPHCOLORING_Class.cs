@@ -11,10 +11,12 @@ class GRAPHCOLORING : IGraphProblem<GraphColoringBruteForce, GraphColoringVerifi
 
     #region Fields
     public string problemName {get;} = "Graph Coloring";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Graph_coloring";
     public string formalDefinition {get;} = "GRAPHCOLORING = {<G,k> | G is a graph that has a k-coloring}";
     public string problemDefinition {get;} = "An assignment of labels (e.g., colors) to the vertices of a graph such that no two adjacent vertices are of the same label. This is called a vertex coloring.";
 
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     public string[] contributors {get;} = { "Daniel Igbokwe", "Alex Diviney" };
 
     private static string _defaultInstance = "(({a,b,c,d,e,f,g,h,i},{{a,b},{b,c},{a,c},{d,a},{d,e},{a,e},{a,f},{f,g},{g,a},{a,h},{h,i},{i,a}}),3)";

@@ -9,7 +9,7 @@ class DirectedHamiltonianVerifier : IVerifier<DIRECTEDHAMILTONIAN>
     // --- Fields ---
     public string verifierName {get;} = "Directed Hamiltonian Path Verifier";
     public string verifierDefinition {get;} = "This is a verifier for Directed Hamiltonian Path";
-    public string source {get;} = " ";
+    public string source {get;} = "";
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
 

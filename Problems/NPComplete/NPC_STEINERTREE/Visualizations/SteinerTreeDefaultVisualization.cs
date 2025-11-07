@@ -12,7 +12,7 @@ class SteinerTreeDefaultVisualization : IVisualization<STEINERTREE>
     // --- Fields ---
     public string visualizationName { get; } = "Steiner Tree Visualization";
     public string visualizationDefinition { get; } = "This is a default visualization for Steiner Tree";
-    public string source { get; } = " ";
+    public string source { get; } = "";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
     public UtilCollectionGraph graph { get; set; }
     public string visualizationType { get; } = "Graph D3";

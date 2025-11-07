@@ -13,6 +13,7 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     public string reductionDefinition {get;} = @"This reduction converts an independent set problem into a clique problem, 
                                             by taking the complement of the graph, or inverting all the edges.";
     public string source {get;} = "";
+    public string sourceLink { get; } = "https://en.wikipedia.org/wiki/Independent_set_(graph_theory)#Relationship_to_other_graph_parameters";
     public string[] contributors {get;} = {"Russell Phillips"};
 
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();

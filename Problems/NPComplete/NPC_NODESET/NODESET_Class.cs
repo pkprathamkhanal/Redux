@@ -11,9 +11,11 @@ class NODESET : IGraphProblem<NodeSetBruteForce, NodeSetVerifier, NodeSetDefault
 
     // --- Fields ---
     public string problemName { get; } = "Feedback Node Set";
+    public string problemLink { get; } = "https://en.wikipedia.org/wiki/Feedback_vertex_set";
     public string formalDefinition { get; } = "Feedback Node Set = {<G,k> | G is a directed graph that can be rendered acyclic by removal of at most k nodes}";
     public string problemDefinition { get; } = "Feedback Node Set is solved by removing at most k nodes so that no cycles remain.";
     public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
+    public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
     private static string _defaultInstance = "(({1,2,3,4},{(1,2),(2,4),(3,2),(4,1),(4,3)}),1)";
     public string defaultInstance { get; } = _defaultInstance;
     public string instance { get; set; } = string.Empty;

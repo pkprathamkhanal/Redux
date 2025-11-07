@@ -9,7 +9,8 @@ class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
     // --- Fields ---
     public string reductionName {get;} = "Feng's Knapsack Reduction";
     public string reductionDefinition {get;} = "Fengs reduction converts positive integers in SUBSETSUM to items in KNAPSACK";
-    public string source {get;} = "Feng, Thomas http://cgm.cs.mcgill.ca/~avis/courses/360/2003/assignments/sol4.pdf";
+    public string source {get;} = "Feng, Thomas";
+    public string sourceLink { get; } = "https://en.wikipedia.org/wiki/Steiner_tree_problem";
     public string[] contributors {get;} = {"Garret Stouffer, Daniel Igbokwe"};
   
     private string _complexity ="O(n)";

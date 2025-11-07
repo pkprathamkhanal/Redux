@@ -11,7 +11,7 @@ class IndependentSetDefaultVisualization : IVisualization<INDEPENDENTSET> {
     // --- Fields ---
     public string visualizationName {get;} = "Independent Set Visualization";
     public string visualizationDefinition {get;} = "This is a default visualization for Independent Set";
-    public string source {get;} = " ";
+    public string source {get;} = "";
     public string[] contributors {get;} = {"Russell Phillips"};
     public string visualizationType { get; } = "Graph D3";
 

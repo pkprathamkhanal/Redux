@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
-//using API.Problems.NPComplete.NPC_ARCSET;
+using API.Problems.NPComplete.NPC_ARCSET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Verifiers;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.Solvers;
 using System.Text.Json;
@@ -10,10 +10,10 @@ using API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_NODESET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_SETCOVER;
 using API.Interfaces.JSON_Objects.Graphs;
 using API.Interfaces.JSON_Objects;
+using API.Tools.ApiParameters;
 
 using System.Collections;
 
-/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Vertex Cover")]
@@ -51,8 +51,6 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
     }
 
 }
-*/
-/*
 [ApiController]
 [Route("[controller]")]
 [Tags("Vertex Cover")]
@@ -149,7 +147,7 @@ public class LawlerKarpController : ControllerBase {
     
     [ProducesResponseType(typeof(string), 200)]
     [HttpPost("mapSolution")]
-    public String mapSolution([FromBody]Tools.ApiParameters.MapSolution mapSolution){
+    public String mapSolution([FromBody]MapSolution mapSolution){
         var problemFrom = mapSolution.ProblemFrom;
         var problemTo = mapSolution.ProblemTo;
         var problemFromSolution = mapSolution.ProblemFromSolution;
@@ -163,4 +161,3 @@ public class LawlerKarpController : ControllerBase {
     }
 
 }
-*/

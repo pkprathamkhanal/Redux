@@ -7,7 +7,7 @@ class ExactCoverVerifier : IVerifier<EXACTCOVER> {
     // --- Fields ---
     public string verifierName {get;} = "Exact Cover Verifier";
     public string verifierDefinition {get;} = "This is a verifier for Exact Cover";
-    public string source {get;} = " ";
+    public string source {get;} = "";
     public string[] contributors {get;} = { "Caleb Eardley"};
 
     private string _certificate = "";
