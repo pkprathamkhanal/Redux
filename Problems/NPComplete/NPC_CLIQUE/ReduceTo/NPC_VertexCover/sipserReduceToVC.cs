@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_VERTEXCOVER;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 
-class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
+class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
 
 
     // --- Fields ---
@@ -47,7 +47,7 @@ class sipserReduction : IReduction<CLIQUE, VERTEXCOVER> {
     }
 
     // --- Methods Including Constructors ---
-    public sipserReduction(CLIQUE from) {
+    public sipserReductionVertexCover(CLIQUE from) {
         _reductionFrom = from;
         _reductionTo = reduce();
 

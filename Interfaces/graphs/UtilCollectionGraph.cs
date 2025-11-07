@@ -27,6 +27,13 @@ class UtilCollectionGraph : Graph
         Nodes = n;
         Edges = e;
 
+        if (Edges.Count() == 0)
+        {
+            IsWeighted = false;
+            IsDirected = false;
+            return;
+        }
+
         UtilCollection EdgeExample = Edges.ToList()[0];
 
         if (!EdgeExample.IsOrdered() || EdgeExample[0].IsValue())

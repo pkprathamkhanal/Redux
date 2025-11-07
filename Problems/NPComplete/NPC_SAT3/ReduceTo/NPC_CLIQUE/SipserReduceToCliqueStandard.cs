@@ -7,7 +7,7 @@ using API.Interfaces.Graphs.GraphParser;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 
-class SipserReduction : IReduction<SAT3, SipserClique>
+class SipserReductionClique : IReduction<SAT3, SipserClique>
 {
 
     // --- Fields ---
@@ -54,7 +54,7 @@ class SipserReduction : IReduction<SAT3, SipserClique>
     }
 
     // --- Methods Including Constructors ---
-    public SipserReduction(SAT3 from)
+    public SipserReductionClique(SAT3 from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();

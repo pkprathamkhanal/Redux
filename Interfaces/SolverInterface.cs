@@ -12,11 +12,9 @@ interface ISolver {
 
     string solve(string problem);
 
-    Steps GetSteps(string instance)
+    List<string> GetSteps(string instance)
     {
-        Steps steps = new Steps();
-        steps.Implemented = false;
-        return steps;
+        return new List<string>();
     }
 }
 
@@ -30,15 +28,13 @@ interface ISolver<T> : ISolver where T : IProblem {
     string solve(T problem);
 
 
-    Steps ISolver.GetSteps(string instance)
+    List<string> ISolver.GetSteps(string instance)
     {
         return GetSteps((T)Activator.CreateInstance(typeof(T), instance));
     }
 
-    Steps GetSteps(T problem)
+    List<string> GetSteps(T problem)
     {
-        Steps steps = new Steps();
-        steps.Implemented = false;
-        return steps;
+        return new List<string>();
     }
 }

@@ -25,7 +25,7 @@ public class sipserReduceToVCController : ControllerBase
     ///<summary>Returns a reduction object with info for Sipser's Clique to Vertex Cover reduction </summary>
     ///<response code="200">Returns sipserReduction Object</response>
 
-    [ProducesResponseType(typeof(sipserReduction), 200)]
+    [ProducesResponseType(typeof(sipserReductionVertexCover), 200)]
     [HttpGet("info")]
 
     public String getInfo()
@@ -33,7 +33,7 @@ public class sipserReduceToVCController : ControllerBase
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
-        sipserReduction reduction = new sipserReduction(defaultCLIQUE);
+        sipserReductionVertexCover reduction = new sipserReductionVertexCover(defaultCLIQUE);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -42,13 +42,13 @@ public class sipserReduceToVCController : ControllerBase
     ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),3)">Clique problem instance string.</param>
     ///<response code="200">Returns Sipser's Clique to Vertex Cover SipserReduction object</response>
 
-    [ProducesResponseType(typeof(sipserReduction), 200)]
+    [ProducesResponseType(typeof(sipserReductionVertexCover), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody] string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE defaultCLIQUE = new CLIQUE(problemInstance);
-        sipserReduction reduction = new sipserReduction(defaultCLIQUE);
+        sipserReductionVertexCover reduction = new sipserReductionVertexCover(defaultCLIQUE);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -65,7 +65,7 @@ public class sipserReduceToVCController : ControllerBase
         {
             apiGraphFrom.nodes[i].attribute1 = i.ToString();
         }
-        sipserReduction reduction = new sipserReduction(clique);
+        sipserReductionVertexCover reduction = new sipserReductionVertexCover(clique);
         VERTEXCOVER reducedVcov = reduction.reductionTo;
         UtilCollectionGraph vGraph = reducedVcov.graph;
         API_GraphJSON apiGraphTo = vGraph.ToAPIGraph();
@@ -93,7 +93,7 @@ public class sipserReduceToVCController : ControllerBase
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemFrom);
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemTo);
-        sipserReduction reduction = new sipserReduction(clique);
+        sipserReductionVertexCover reduction = new sipserReductionVertexCover(clique);
         string mappedSolution = reduction.mapSolutions(clique, vertexCover, problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;

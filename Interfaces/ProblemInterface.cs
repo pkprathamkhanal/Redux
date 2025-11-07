@@ -10,6 +10,7 @@ interface IProblem {
     string source {get;}
     string wikiName {get;}
     string defaultInstance{get;}
+    string instance{ get; }
 
     string[] contributors{ get; }
 

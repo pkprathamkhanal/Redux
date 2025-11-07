@@ -14,7 +14,7 @@ interface IVisualization
     API_JSON visualize(string problem);
     API_JSON SolvedVisualization(string problem);
 
-    API_JSON StepsVisualization(string problem, Steps steps);
+    List<API_JSON> StepsVisualization(string problem, List<string> steps);
 }
 
 interface IVisualization<U> : IVisualization where U : IProblem
@@ -40,15 +40,15 @@ interface IVisualization<U> : IVisualization where U : IProblem
         return new API_empty();
     }
 
-    API_JSON IVisualization.StepsVisualization(string problem, Steps steps)
+    List<API_JSON> IVisualization.StepsVisualization(string problem, List<string> steps)
     {
-        if (!steps.Implemented)
-            return new API_empty();
+        if (steps.Count == 0)
+            return new List<API_JSON>();
         return stepsVisualization((U)Activator.CreateInstance(typeof(U), problem), steps);
     }
 
-    API_JSON stepsVisualization(U problem, Steps steps)
+    List<API_JSON> stepsVisualization(U problem, List<string> steps)
     {
-        return new API_empty();
+        return new List<API_JSON>();
     }
 }

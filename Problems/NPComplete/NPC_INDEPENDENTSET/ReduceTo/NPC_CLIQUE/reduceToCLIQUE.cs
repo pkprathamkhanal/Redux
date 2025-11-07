@@ -50,9 +50,15 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     }
 
     // --- Methods Including Constructors ---
-    public CliqueReduction(INDEPENDENTSET from) {
+    public CliqueReduction(INDEPENDENTSET from)
+    {
         _reductionFrom = from;
         _reductionTo = reduce();
+
+    }
+
+    public CliqueReduction(string from) : this(new INDEPENDENTSET(from))
+    {
 
     }
 

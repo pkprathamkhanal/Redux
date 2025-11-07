@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Diagnostics;
 using API.Interfaces.Tools;
 using API.Interfaces.JSON_Objects;
 using API.Tools;
+using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
+using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 
 [ApiController]
 [Route("[controller]")]
@@ -17,6 +19,7 @@ public class ProblemProvider : ControllerBase
     public static readonly Dictionary<string, Type> Verifiers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVerifier).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Solvers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ISolver).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Visualizers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IVisualization).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
+    public static readonly Dictionary<string, Type> Reductions = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(IReduction).IsAssignableFrom(p) && p.IsClass).ToDictionary(x => x.Name.ToLower(), x => x);
     public static readonly Dictionary<string, Type> Interfaces = (new[] { Problems, Verifiers, Solvers, Visualizers }).SelectMany(d => d).ToDictionary(x => x.Key, x => x.Value);
 
 #pragma warning disable CS8603 // Possible null reference return.
@@ -49,6 +52,12 @@ public class ProblemProvider : ControllerBase
     {
         return Activator.CreateInstance(Visualizers[name.ToLower()]) as IVisualization;
     }
+
+    static IReduction Reduction(string name, string instance)
+    {
+        return Activator.CreateInstance(Reductions[name.ToLower()], instance) as IReduction;
+    }
+
 #pragma warning restore CS8603 // Possible null reference return.
 
     [ProducesResponseType(typeof(bool), 200)]
@@ -88,8 +97,7 @@ public class ProblemProvider : ControllerBase
         return Newtonsoft.Json.JsonConvert.SerializeObject(ProblemInstance(problem, problemInstance));
     }
 
-    [HttpPost("visualize")]
-    public string visualize(string visualization, string solver, [FromBody] string instance)
+    private string getVisualize(IVisualization visualization, List<string> steps, string instance)
     {
         var options = new JsonSerializerOptions
         {
@@ -97,18 +105,34 @@ public class ProblemProvider : ControllerBase
         };
         options.Converters.Add(new API_JSON_Converter<API_JSON>());
 
-        IVisualization viz = Visualization(visualization);
-        API_JSON visual = viz.visualize(instance);
-        Steps steps = Solver(solver).GetSteps(instance);
-        API_JSON apiSteps = viz.StepsVisualization(instance, steps);
-        API_JSON solution = viz.SolvedVisualization(instance);
+        API_JSON visual = visualization.visualize(instance);
+        List<API_JSON> apiSteps = visualization.StepsVisualization(instance, steps);
+        API_JSON solution = visualization.SolvedVisualization(instance);
 
-        List<API_JSON> list = new List<API_JSON> { visual };
-
-        if (apiSteps.GetType() != typeof(API_empty)) list.Add(apiSteps);
+        List<API_JSON> list = new List<API_JSON> { visual }; 
+        list.AddRange(apiSteps);
         if (solution.GetType() != typeof(API_empty)) list.Add(solution);
 
         return JsonSerializer.Serialize(list, options);
+    }
+
+    [HttpPost("visualize")]
+    public string visualize(string visualization, string solver, [FromBody] string instance)
+    {
+        return getVisualize(Visualization(visualization), Solver(solver).GetSteps(instance), instance);
+    }
+
+    [HttpPost("visualizeReduction")]
+    public string visualizeReduction(string reduction, string solver, [FromBody] string instance)
+    {
+        IReduction red = Reduction(reduction, instance);
+        ISolver sol = Solver(solver);
+
+        List<string> steps = sol.GetSteps(instance);
+        List<string> mappedSteps = steps.Select(step => red.mapSolutions(red.reductionFrom, red.reductionTo, step)).ToList();
+
+        return getVisualize(red.visualization, mappedSteps, red.reductionTo.instance);
+        
     }
 }
 

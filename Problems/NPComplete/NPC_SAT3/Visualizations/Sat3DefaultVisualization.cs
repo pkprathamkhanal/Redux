@@ -30,7 +30,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
     {
         Sat3BacktrackingSolver solver = instance.defaultSolver;
         string solution = solver.solve(instance);
-        SipserReduction reduction = new SipserReduction(instance);
+        SipserReductionClique reduction = new SipserReductionClique(instance);
         SipserClique reducedClique = reduction.reduce();
         //Turn string into solution dictionary
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution);
