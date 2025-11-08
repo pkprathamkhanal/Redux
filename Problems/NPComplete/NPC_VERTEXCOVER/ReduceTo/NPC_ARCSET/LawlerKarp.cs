@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
+using SPADE;
+using System.Collections;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_ARCSET;
 class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
@@ -80,20 +82,24 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     public ARCSET reduce() {
         VERTEXCOVER vertexcover = new VERTEXCOVER(_reductionFrom.instance);
         List<Node> newNodes = new List<Node>();
-        foreach(Node n in vertexcover.graph.Nodes){
-            Node newNode1 = new Node(n.name);
-            Node newNode2 = new Node(n.name);
-            newNode1.name = n.name+"0";
-            newNode2.name = n.name+"1";
+        foreach(UtilCollection n in vertexcover.graph.Nodes){
+            string name = n.ToString();
+            Node newNode1 = new Node(name);
+            Node newNode2 = new Node(name);
+            newNode1.name = name+"0";
+            newNode2.name = name+"1";
             newNodes.Add(newNode1);
             newNodes.Add(newNode2);
         }
         //Turn undirected edges into paired directed edges.
         List<Edge> newEdges = new List<Edge>();
         List<Edge> numberedEdges = new List<Edge>();
-        foreach(Edge e in vertexcover.graph.Edges){
-            Edge newEdge1 = new Edge(e.source,e.target);
-            Edge newEdge2 = new Edge(e.target,e.source);
+        foreach(UtilCollection e in vertexcover.graph.Edges){
+            List<UtilCollection> cast = e.ToList();
+            Node source = new Node(cast[0].ToString());
+            Node target = new Node(cast[1].ToString());
+            Edge newEdge1 = new Edge(source,target);
+            Edge newEdge2 = new Edge(target,source);
             newEdges.Add(newEdge1);
             newEdges.Add(newEdge2);
         }
@@ -131,18 +137,11 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
         edgeListStr = edgeListStr.TrimEnd(',',' ');
         string toStr = "(({"+nodeListStr+"}"+ ",{" + edgeListStr+"}"+"),"+vertexcover.K+")";
         ARCSET arcset = new ARCSET(toStr);
-        
+
         return arcset;
     }
 
     public string mapSolutions(string problemFromSolution){
-        //Check if the colution is correct
-        if(!reductionFrom.defaultVerifier.verify(reductionFrom,problemFromSolution)){
-            return "Solution is inccorect";
-        }
-
-        //NOTE :: should we verify if the reduction is correct, if so we might as well just take the problemFrom and create the problemTo
-
         //Parse problemFromSolution into a list of nodes
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemFromSolution);
 
