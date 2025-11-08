@@ -1,3 +1,5 @@
+using API.Interfaces.JSON_Objects;
+
 namespace API.Interfaces;
 
 interface IReduction
@@ -11,7 +13,7 @@ interface IReduction
     IProblem reductionFrom { get; }
     IProblem reductionTo { get; }
     IProblem reduce();
-    string mapSolutions(IProblem problemFrom, IProblem problemTo, string problemFromSolution);
+    string mapSolutions(string problemFromSolution);
 }
 
 interface IReduction<T, U> : IReduction where T : IProblem where U : IProblem
@@ -45,9 +47,4 @@ interface IReduction<T, U> : IReduction where T : IProblem where U : IProblem
     }
     new U reduce();
 
-    string IReduction.mapSolutions(IProblem problemFrom, IProblem problemTo, string problemFromSolution)
-    {
-        return mapSolutions(problemFrom, problemTo, problemFromSolution);
-    }
-    string mapSolutions(T problemFrom, U problemTo, string problemFromSolution);
 }

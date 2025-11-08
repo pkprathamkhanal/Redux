@@ -8,6 +8,7 @@ using API.Interfaces.JSON_Objects;
 using API.Tools;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
+using Antlr4.Runtime;
 
 [ApiController]
 [Route("[controller]")]
@@ -97,7 +98,7 @@ public class ProblemProvider : ControllerBase
         return Newtonsoft.Json.JsonConvert.SerializeObject(ProblemInstance(problem, problemInstance));
     }
 
-    private string getVisualize(IVisualization visualization, List<string> steps, string instance)
+    private string getVisualize(IVisualization visualization, List<string> steps, string solution, string instance)
     {
         var options = new JsonSerializerOptions
         {
@@ -107,11 +108,11 @@ public class ProblemProvider : ControllerBase
 
         API_JSON visual = visualization.visualize(instance);
         List<API_JSON> apiSteps = visualization.StepsVisualization(instance, steps);
-        API_JSON solution = visualization.SolvedVisualization(instance);
+        API_JSON solutionJson = visualization.SolvedVisualization(instance, solution);
 
         List<API_JSON> list = new List<API_JSON> { visual }; 
         list.AddRange(apiSteps);
-        if (solution.GetType() != typeof(API_empty)) list.Add(solution);
+        if (solution.GetType() != typeof(API_empty)) list.Add(solutionJson);
 
         return JsonSerializer.Serialize(list, options);
     }
@@ -119,7 +120,7 @@ public class ProblemProvider : ControllerBase
     [HttpPost("visualize")]
     public string visualize(string visualization, string solver, [FromBody] string instance)
     {
-        return getVisualize(Visualization(visualization), Solver(solver).GetSteps(instance), instance);
+        return getVisualize(Visualization(visualization), Solver(solver).GetSteps(instance), Solver(solver).solve(instance), instance);
     }
 
     [HttpPost("visualizeReduction")]
@@ -129,10 +130,19 @@ public class ProblemProvider : ControllerBase
         ISolver sol = Solver(solver);
 
         List<string> steps = sol.GetSteps(instance);
-        List<string> mappedSteps = steps.Select(step => red.mapSolutions(red.reductionFrom, red.reductionTo, step)).ToList();
+        List<string> mappedSteps = steps.Select(step => red.mapSolutions(step)).ToList();
 
-        return getVisualize(red.visualization, mappedSteps, red.reductionTo.instance);
-        
+        string mappedSol = red.mapSolutions(Solver(solver).solve(instance));
+
+        return getVisualize(red.visualization, mappedSteps, mappedSol, red.reductionTo.instance);
+
+    }
+
+    [HttpPost("gadgetMap")]
+    public string gadgetMap(string reduction, [FromBody] string instance)
+    {
+        IReduction red = Reduction(reduction, instance);
+        return JsonSerializer.Serialize(red.gadgetMap, new JsonSerializerOptions() { WriteIndented = true });
     }
 }
 

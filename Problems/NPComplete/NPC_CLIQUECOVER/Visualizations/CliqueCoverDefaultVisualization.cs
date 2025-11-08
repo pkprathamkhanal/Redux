@@ -32,7 +32,6 @@ class CliqueCoverDefaultVisualization : IVisualization<CLIQUECOVER> {
         API_GraphJSON apiGraph = cliqueCover.graph.ToAPIGraph();
         for(int i=0;i<apiGraph.nodes.Count;i++){
             int number = 0;
-            apiGraph.nodes[i].attribute1 = i.ToString();
             foreach(var j in solutionList) {
 
             if(j.Split(',').Contains(apiGraph.nodes[i].name)){ //we set the nodes as either having a true or false flag which will indicate to the frontend whether to highlight.

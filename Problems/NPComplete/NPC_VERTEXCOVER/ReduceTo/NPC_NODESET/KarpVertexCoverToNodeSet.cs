@@ -64,6 +64,7 @@ class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
         _reductionTo = reduce();
 
     }
+    public VertexCoverReduction(string instance) : this(new VERTEXCOVER(instance)) { }
     public NODESET reduce()
     {
         VERTEXCOVER VERTEXCOVERInstance = _reductionFrom;
@@ -100,18 +101,9 @@ class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
         return reducedNODESET;
     }
 
-    public string mapSolutions(VERTEXCOVER problemFrom, NODESET problemTo, string problemFromSolution)
+    public string mapSolutions(string problemFromSolution)
     {
-        if (true)
-        {
-            return "Solution is incorect";
-        }
-
-        return false.ToString();
-
-
-
-
+        return "";
     }
 }
 // return an instance of what you are reducing to

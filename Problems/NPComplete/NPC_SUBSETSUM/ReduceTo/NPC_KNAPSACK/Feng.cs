@@ -58,6 +58,7 @@ class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
         _reductionTo = reduce();
 
     }
+    public FengReduction(string instance) : this(new SUBSETSUM(instance)) { }
     public KNAPSACK reduce() {
         SUBSETSUM SUBSETSUMInstance = _reductionFrom;
         KNAPSACK reducedKNAPSACK = new KNAPSACK
@@ -84,8 +85,9 @@ class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
         return reducedKNAPSACK;
     }
 
-    public string mapSolutions(SUBSETSUM problemFrom, KNAPSACK problemTo, string problemFromSolution){
-        return "No mapping currently implemented.";
+    public string mapSolutions(string problemFromSolution)
+    {
+        return "";
     }
 }
 // return an instance of what you are reducing to

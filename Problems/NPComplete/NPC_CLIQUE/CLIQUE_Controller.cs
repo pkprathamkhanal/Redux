@@ -61,10 +61,6 @@ public class sipserReduceToVCController : ControllerBase
         var options = new JsonSerializerOptions { WriteIndented = true };
         CLIQUE clique = new CLIQUE(problemInstance);
         API_GraphJSON apiGraphFrom = clique.graph.ToAPIGraph();
-        for (int i = 0; i < apiGraphFrom.nodes.Count; i++)
-        {
-            apiGraphFrom.nodes[i].attribute1 = i.ToString();
-        }
         sipserReductionVertexCover reduction = new sipserReductionVertexCover(clique);
         VERTEXCOVER reducedVcov = reduction.reductionTo;
         UtilCollectionGraph vGraph = reducedVcov.graph;
@@ -94,7 +90,7 @@ public class sipserReduceToVCController : ControllerBase
         CLIQUE clique = new CLIQUE(problemFrom);
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemTo);
         sipserReductionVertexCover reduction = new sipserReductionVertexCover(clique);
-        string mappedSolution = reduction.mapSolutions(clique, vertexCover, problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }

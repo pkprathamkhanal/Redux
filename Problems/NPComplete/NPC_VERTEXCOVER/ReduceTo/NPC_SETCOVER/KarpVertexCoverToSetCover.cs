@@ -60,6 +60,7 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
         _reductionTo = reduce();
 
     }
+    public KarpVertexCoverToSetCover(string instance) : this(new VERTEXCOVER(instance)) { }
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the VERTEXCOVER object passed into GareyAndJohnsonReduction.
@@ -112,8 +113,8 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
         return reducedSetCover;
     }
 
-    public string mapSolutions(VERTEXCOVER problemFrom, SETCOVER problemTo, string problemFromSolution)
+    public string mapSolutions(string problemFromSolution)
     {
-        return "No mapping";
+        return "";
     }
 }

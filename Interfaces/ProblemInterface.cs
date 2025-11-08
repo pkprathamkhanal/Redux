@@ -1,3 +1,4 @@
+using API.Interfaces.JSON_Objects;
 using API.Interfaces.JSON_Objects.Graphs;
 
 namespace API.Interfaces;

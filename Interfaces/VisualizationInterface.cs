@@ -12,7 +12,7 @@ interface IVisualization
     string source { get; }
     string[] contributors { get; }
     API_JSON visualize(string problem);
-    API_JSON SolvedVisualization(string problem);
+    API_JSON SolvedVisualization(string problem, string solution);
 
     List<API_JSON> StepsVisualization(string problem, List<string> steps);
 }
@@ -28,14 +28,15 @@ interface IVisualization<U> : IVisualization where U : IProblem
     }
     API_JSON visualize(U problem);
 
-    API_JSON IVisualization.SolvedVisualization(string problem)
+    API_JSON IVisualization.SolvedVisualization(string problem, string solution)
     {
+        if (solution == "") return visualize(problem);
         // Should there be some sort of contraint that assures there is a constructor
         // that matches the signature of a single `string` argument?
         // Perhaps a static `FromInstance(string instance)` method for `IProblem` will work.
-        return SolvedVisualization((U)Activator.CreateInstance(typeof(U), problem));
+        return SolvedVisualization((U)Activator.CreateInstance(typeof(U), problem), solution);
     }
-    API_JSON SolvedVisualization(U problem)
+    API_JSON SolvedVisualization(U problem, string solution)
     {
         return new API_empty();
     }

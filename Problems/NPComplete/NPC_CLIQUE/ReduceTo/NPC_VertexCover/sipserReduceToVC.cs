@@ -47,11 +47,14 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     }
 
     // --- Methods Including Constructors ---
-    public sipserReductionVertexCover(CLIQUE from) {
+    public sipserReductionVertexCover(CLIQUE from)
+    {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
+
+    public sipserReductionVertexCover(string instance) : this(new CLIQUE(instance)) { }
 
     /// <summary>
     /// Reduces a CLIQUE instance to a VERTEXCOVER instance.
@@ -115,18 +118,13 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
 
     }
 
-    public string mapSolutions(CLIQUE problemFrom, VERTEXCOVER problemTo, string problemFromSolution){
-        //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
-            return "Clique solution is incorect " + problemFromSolution;
-        }
-
+    public string mapSolutions(string problemFromSolution){
         //Parse problemFromSolution into a list of nodes
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemFromSolution);
 
         //Map solution
         List<string> mappedSolutionList = new List<string>();
-        foreach(string node in problemFrom.nodes){
+        foreach(string node in reductionFrom.nodes){
             if(!solutionList.Contains(node)){
                 mappedSolutionList.Add(node);
             }

@@ -155,7 +155,7 @@ public class LawlerKarpController : ControllerBase {
         VERTEXCOVER vertexCover = new VERTEXCOVER(problemFrom);
         ARCSET arcset = new ARCSET(problemTo);
         LawlerKarp reduction = new LawlerKarp();
-        string mappedSolution = reduction.mapSolutions(vertexCover,arcset,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }

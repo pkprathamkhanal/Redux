@@ -60,7 +60,7 @@ public class FengController : ControllerBase {
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION part = new PARTITION(problemTo);
         PartitionReduction reduction = new PartitionReduction(sSum);
-        string mappedSolution = reduction.mapSolutions(sSum,part,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }
@@ -123,7 +123,7 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION partition = new PARTITION(problemTo);
         PartitionReduction reduction = new PartitionReduction(sSum);
-        string mappedSolution = reduction.mapSolutions(sSum,partition,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }

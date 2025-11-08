@@ -65,6 +65,7 @@ class SATReduction : IReduction<SAT, SAT3>
         _reductionTo = reduce();
 
     }
+    public SATReduction(string instance) : this(new SAT(instance)) { }
     public SAT3 reduce()
     {
         SAT SATInstance = _reductionFrom;
@@ -150,18 +151,9 @@ class SATReduction : IReduction<SAT, SAT3>
     }
 
 
-    public string mapSolutions(SAT reductionFrom, SAT3 problemTo, string reductionFromSolution)
+    public string mapSolutions(string reductionFromSolution)
     {
-        if (!reductionFrom.defaultVerifier.verify(reductionFrom, reductionFromSolution))
-        {
-            return "Solution is incorect";
-        }
-
-        return false.ToString();
-
-
-
-
+        return "";
     }
 
 }

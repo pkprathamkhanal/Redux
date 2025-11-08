@@ -1,5 +1,6 @@
 using API.Interfaces;
 using API.Problems.NPComplete.NPC_GRAPHCOLORING;
+using API.Problems.NPComplete.NPC_SAT;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_GRAPHCOLORING;
 
@@ -78,7 +79,7 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
         _reductionTo = reduce();
 
     }
-
+    public KarpReduction(string instance) : this(new SAT3(instance)) { }
 
     # endregion
 
@@ -314,10 +315,10 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
 
     }
 
-    public string mapSolutions(SAT3 problemFrom, GRAPHCOLORING problemTo, string problemFromSolution)
+    public string mapSolutions(string problemFromSolution)
     {
         //Check if the colution is correct
-        if (!problemFrom.defaultVerifier.verify(problemFrom, problemFromSolution))
+        if (!reductionFrom.defaultVerifier.verify(reductionFrom, problemFromSolution))
         {
             return "Solution is inccorect";
         }
@@ -343,7 +344,7 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
         //Map solution
         List<string> mappedSolutionList = new List<string>();
         List<string> variables = new List<string>();
-        foreach (string literal in problemFrom.literals)
+        foreach (string literal in reductionFrom.literals)
         {
             if (!variables.Contains(literal.Replace("!", "")))
             {
@@ -366,12 +367,12 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
                 mappedSolutionList.Add(string.Format("!{0}:1", variable));
             }
         }
-        for (int i = 0; i < problemFrom.clauses.Count; i++)
+        for (int i = 0; i < reductionFrom.clauses.Count; i++)
         {
             string l0, l1, l2;
-            l0 = problemFrom.clauses[i][0];
-            l1 = problemFrom.clauses[i][1];
-            l2 = problemFrom.clauses[i][2];
+            l0 = reductionFrom.clauses[i][0];
+            l1 = reductionFrom.clauses[i][1];
+            l2 = reductionFrom.clauses[i][2];
             int N0, N1, N2, N3, N4, N5;
 
             if (solutionList.Contains(l0) || solutionList.Contains(l1))

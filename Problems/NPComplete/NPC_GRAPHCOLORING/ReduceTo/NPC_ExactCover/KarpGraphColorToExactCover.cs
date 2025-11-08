@@ -65,6 +65,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
         _reductionTo = reduce();
 
     }
+    public GraphColorToExactCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
     public EXACTCOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;
@@ -169,13 +170,9 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
         return reducedExactCover;
     }
 
-    public string mapSolutions(GRAPHCOLORING reductionFrom, EXACTCOVER problemTo, string reductionFromSolution)
+    public string mapSolutions(string reductionFromSolution)
     {
-        if (!reductionFrom.defaultVerifier.verify(reductionFrom, reductionFromSolution))
-        {
-            return "Solution is incorect";
-        }
-        return false.ToString();
+        return "";
     }
 
 }

@@ -47,6 +47,7 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
         _reductionTo = reduce();
 
     }
+    public KarpIntProgStandard(string instance) : this(new SAT3(instance)) { }
     public INTPROGRAMMING01 reduce() {
         SAT3 SAT3Instance = _reductionFrom;
         INTPROGRAMMING01 reduced01INT = new INTPROGRAMMING01();
@@ -116,9 +117,9 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
         return reduced01INT;
     }
 
-    public string mapSolutions(SAT3 problemFrom, INTPROGRAMMING01 problemTo, string problemFromSolution){
+    public string mapSolutions(string problemFromSolution){
         // Check if the colution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
+        if(!reductionFrom.defaultVerifier.verify(reductionFrom,problemFromSolution)){
             return "Solution is inccorect";
         }
 
@@ -139,7 +140,7 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
         //Map solution
         List<string> mappedSolutionList = new List<string>();
         List<string> variables = new List<string>();
-        foreach(string literal in problemFrom.literals){
+        foreach(string literal in reductionFrom.literals){
             if(!variables.Contains(literal.Replace("!",""))){
                 variables.Add(literal.Replace("!",""));
             }

@@ -64,6 +64,7 @@ class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
         _reductionTo = reduce();
 
     }
+    public CliqueCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
     public CLIQUECOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;
@@ -99,18 +100,9 @@ class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
         return reducedCLIQUECOVER;
     }
 
-    public string mapSolutions(GRAPHCOLORING problemFrom, CLIQUECOVER problemTo, string problemFromSolution)
+    public string mapSolutions(string problemFromSolution)
     {
-        if (!problemFrom.defaultVerifier.verify(problemFrom, problemFromSolution))
-        {
-            return "Solution is incorect";
-        }
-
-        return false.ToString();
-
-
-
-
+        return "";
     }
 }
 // return an instance of what you are reducing to

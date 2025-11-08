@@ -1,5 +1,8 @@
 using API.Interfaces;
+using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
+using API.Interfaces.JSON_Objects;
+using API.Interfaces.JSON_Objects.Graphs;
 using API.Problems.NPComplete.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_INDEPENDENTSET;
 
@@ -106,27 +109,27 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
 
     }
 
-    public string mapSolutions(INDEPENDENTSET problemFrom, CLIQUE problemTo, string problemFromSolution){
-        //Check if the solution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
-            return "Indpendent Set solution is incorect " + problemFromSolution;
-        }
-
+    public string mapSolutions(string problemFromSolution)
+    {
         //Parse problemFromSolution into a list of nodes
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemFromSolution);
 
         //Map solution
         List<string> mappedSolutionList = new List<string>();
-        foreach(string node in problemFrom.nodes){
-            if(!solutionList.Contains(node)){
+        foreach (string node in reductionFrom.nodes)
+        {
+            if (!solutionList.Contains(node))
+            {
                 mappedSolutionList.Add(node);
             }
         }
         string problemToSolution = "";
-        foreach(string node in mappedSolutionList){
+        foreach (string node in mappedSolutionList)
+        {
             problemToSolution += node + ',';
         }
         return '{' + problemToSolution.TrimEnd(',') + '}';
 
     }
+
 }

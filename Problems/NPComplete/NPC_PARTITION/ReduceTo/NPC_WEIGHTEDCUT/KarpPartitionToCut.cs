@@ -64,6 +64,7 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
         _reductionTo = reduce();
 
     }
+    public WEIGHTEDCUTReduction(string instance) : this(new PARTITION(instance)) { }
     public WEIGHTEDCUT reduce()
     {
         PARTITION PARTITIONInstance = _reductionFrom;
@@ -108,18 +109,9 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
         return reducedWEIGHTEDCUT;
     }
 
-    public string mapSolutions(PARTITION reductionFrom, WEIGHTEDCUT problemTo, string reductionFromSolution)
+    public string mapSolutions(string reductionFromSolution)
     {
-        if (!reductionFrom.defaultVerifier.verify(reductionFrom, reductionFromSolution))
-        {
-            return "Solution is incorect";
-        }
-
-        return false.ToString();
-
-
-
-
+        return "";
     }
 }
 // return an instance of what you are reducing to

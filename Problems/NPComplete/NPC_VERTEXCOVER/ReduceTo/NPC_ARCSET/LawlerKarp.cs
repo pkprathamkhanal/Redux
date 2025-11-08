@@ -63,6 +63,7 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
         _reductionFrom = new VERTEXCOVER();
         _reductionTo = new ARCSET();
     }
+    public LawlerKarp(string instance) : this(new VERTEXCOVER(instance)) { }
     public LawlerKarp(VERTEXCOVER from) {
          _reductionFrom = from;
         _reductionTo = reduce();
@@ -134,9 +135,9 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
         return arcset;
     }
 
-    public string mapSolutions(VERTEXCOVER problemFrom, ARCSET problemTo, string problemFromSolution){
+    public string mapSolutions(string problemFromSolution){
         //Check if the colution is correct
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
+        if(!reductionFrom.defaultVerifier.verify(reductionFrom,problemFromSolution)){
             return "Solution is inccorect";
         }
 

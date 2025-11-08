@@ -24,9 +24,8 @@ class IndependentSetDefaultVisualization : IVisualization<INDEPENDENTSET> {
         return independentSet.graph.ToAPIGraph();
     }
     
-    public API_JSON SolvedVisualization(INDEPENDENTSET independentSet)
+    public API_JSON SolvedVisualization(INDEPENDENTSET independentSet, string solution)
     {
-        string solution = independentSet.defaultSolver.solve(independentSet);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = independentSet.graph.ToAPIGraph();

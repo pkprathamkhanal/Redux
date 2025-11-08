@@ -66,7 +66,7 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
         SipserReductionClique reduction = new SipserReductionClique(sat3);
-        string mappedSolution = reduction.mapSolutions(sat3,clique,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }
@@ -141,7 +141,7 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
         SAT3 sat3 = new SAT3(problemFrom);
         GRAPHCOLORING graphColoring = new GRAPHCOLORING(problemTo);
         KarpReduction reduction = new KarpReduction(sat3);
-        string mappedSolution = reduction.mapSolutions(sat3,graphColoring,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }
@@ -199,7 +199,7 @@ public class KarpIntProgStandardController : ControllerBase {
         SAT3 sat3 = new SAT3(problemFrom);
         INTPROGRAMMING01 intProg = new INTPROGRAMMING01(problemTo);
         KarpIntProgStandard reduction = new KarpIntProgStandard(sat3);
-        string mappedSolution = reduction.mapSolutions(sat3,intProg,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }
@@ -256,7 +256,7 @@ public class GareyJohnsonController : ControllerBase {
         SAT3 sat3 = new SAT3(problemFrom);
         DM3 dm3 = new DM3(problemTo);
         GareyJohnson reduction = new GareyJohnson(sat3);
-        string mappedSolution = reduction.mapSolutions(sat3,dm3,problemFromSolution);
+        string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
     }

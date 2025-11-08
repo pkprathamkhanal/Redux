@@ -53,6 +53,7 @@ class PartitionReduction : IReduction<SUBSETSUM, PARTITION> {
         _reductionTo = reduce();
 
     }
+    public PartitionReduction(string instance) : this(new SUBSETSUM(instance)) { }
     public PARTITION reduce() {
         SUBSETSUM SUBSETSUMInstance = _reductionFrom;
         PARTITION reducedPARTITION = new PARTITION();
@@ -79,16 +80,8 @@ class PartitionReduction : IReduction<SUBSETSUM, PARTITION> {
         return reducedPARTITION;
     }
 
-    public string mapSolutions(SUBSETSUM problemFrom,PARTITION problemTo, string problemFromSolution){
-        if(!problemFrom.defaultVerifier.verify(problemFrom,problemFromSolution)){
-            return "Subset Sum Solution is incorect";
-        }
-
-        return problemTo.S[0];
-       
-
-
-
+    public string mapSolutions(string problemFromSolution)
+    {
+        return reductionTo.S[0];
     }
 }
-// return an instance of what you are reducing to
