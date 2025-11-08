@@ -26,15 +26,8 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
         return new API_SAT3(instance);
     }
 
-    public API_JSON SolvedVizualization(SAT3 instance)
+    public API_JSON SolvedVisualization(SAT3 instance, string solution)
     {
-        Sat3BacktrackingSolver solver = instance.defaultSolver;
-        string solution = solver.solve(instance);
-        SipserReductionClique reduction = new SipserReductionClique(instance);
-        SipserClique reducedClique = reduction.reduce();
-        //Turn string into solution dictionary
-        List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution);
-        SipserClique sClique = reduction.solutionMappedToClusterNodes(reducedClique, solutionList);
-        return new API_empty();
+        return new API_SAT3(instance);
     }
 }

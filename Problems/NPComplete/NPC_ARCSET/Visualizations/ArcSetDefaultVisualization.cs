@@ -36,10 +36,8 @@ class ArcSetDefaultVisualization : IVisualization<ARCSET> {
     {
         return arcset.graph.ToAPIGraph();
     }
-    
-    public API_JSON SolvedVisualization(ARCSET arcset)
+    public API_JSON SolvedVisualization(ARCSET arcset, string solution)
     {
-        string solution = arcset.defaultSolver.solve(arcset);
         UtilCollection solutionEdges = new(solution);
 
         API_GraphJSON apiGraph = arcset.graph.ToAPIGraph();

@@ -24,10 +24,9 @@ class GraphColoringDefaultVisualization : IVisualization<GRAPHCOLORING> {
         return GRAPHCOLORING.graph.ToAPIGraph();
     }
     
-    public API_JSON SolvedVisualization(GRAPHCOLORING GRAPHCOLORING)
+    public API_JSON SolvedVisualization(GRAPHCOLORING GRAPHCOLORING, string solution)
     {
         string[] colors = {"Rose", "Solution", "Sand", "Green", "Cyan", "Wine", "Teal", "Olive"};
-        string solution = GRAPHCOLORING.defaultSolver.solve(GRAPHCOLORING);
         List<string> solutionList = solution.Replace("{{","").Replace("}}","").Split("},{").ToList();
         API_GraphJSON apiGraph = GRAPHCOLORING.graph.ToAPIGraph();
         for(int i=0;i<apiGraph.nodes.Count;i++){

@@ -26,9 +26,8 @@ class HamiltonianDefaultVisualization : IVisualization<HAMILTONIAN>
         return hamiltonian.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(HAMILTONIAN hamiltonian)
+    public API_JSON SolvedVisualization(HAMILTONIAN hamiltonian, string solution)
     {
-        string solution = hamiltonian.defaultSolver.solve(hamiltonian);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = hamiltonian.graph.ToAPIGraph();

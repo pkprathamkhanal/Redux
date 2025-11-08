@@ -54,6 +54,8 @@ class ARCSET : IGraphProblem<ArcSetBruteForce,ArcSetVerifier,ArcSetDefaultVisual
     }
     public ARCSET(string arcInput)
     {
+        instance = arcInput;
+
         StringParser arcset = new("{((N,E),K) | N is set, E subset N cross N, K is int}");
         arcset.parse(arcInput);
         graph = new UtilCollectionGraph(arcset["N"], arcset["E"]);

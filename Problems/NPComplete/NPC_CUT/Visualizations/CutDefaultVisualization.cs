@@ -26,9 +26,8 @@ class CutDefaultVisualization : IVisualization<CUT>
         return cut.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(CUT cut)
+    public API_JSON SolvedVisualization(CUT cut, string solution)
     {
-        string solution = cut.defaultSolver.solve(cut);
         List<KeyValuePair<string, string>> solutionEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solution);
         // removing duplicate edges since visualization cares about first edge only
         for (int i = solutionEdges.Count - 1; i >= 0; i--)

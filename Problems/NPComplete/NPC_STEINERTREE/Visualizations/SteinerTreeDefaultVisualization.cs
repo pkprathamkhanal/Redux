@@ -27,9 +27,8 @@ class SteinerTreeDefaultVisualization : IVisualization<STEINERTREE>
         return steinerTree.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(STEINERTREE steinerTree)
+    public API_JSON SolvedVisualization(STEINERTREE steinerTree, string solution)
     {
-        string solution = steinerTree.defaultSolver.solve(steinerTree);
         List<KeyValuePair<string, string>> solutionEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = steinerTree.graph.ToAPIGraph();

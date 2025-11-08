@@ -25,9 +25,8 @@ class VertexCoverDefaultVisualization : IVisualization<VERTEXCOVER>
         return vertexcover.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(VERTEXCOVER vertexcover)
+    public API_JSON SolvedVisualization(VERTEXCOVER vertexcover, string solution)
     {
-        string solution = vertexcover.defaultSolver.solve(vertexcover);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = vertexcover.graph.ToAPIGraph();

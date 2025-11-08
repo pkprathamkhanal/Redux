@@ -26,9 +26,8 @@ class TSPDefaultVisualization : IVisualization<TSP>
         return tsp.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(TSP tsp)
+    public API_JSON SolvedVisualization(TSP tsp, string solution)
     {
-        string solution = tsp.defaultSolver.solve(tsp);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = tsp.graph.ToAPIGraph();

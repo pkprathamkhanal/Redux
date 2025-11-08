@@ -27,9 +27,8 @@ class WeightedCutDefaultVisualization : IVisualization<WEIGHTEDCUT>
         return weightedCut.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(WEIGHTEDCUT weightedCut)
+    public API_JSON SolvedVisualization(WEIGHTEDCUT weightedCut, string solution)
     {
-        string solution = weightedCut.defaultSolver.solve(weightedCut);
         List<KeyValuePair<string, string>> solutionEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solution);
         // removing duplicate edges since visualization cares about first edge only
         for (int i = solutionEdges.Count - 1; i >= 0; i--)

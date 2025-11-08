@@ -23,11 +23,8 @@ class cliqueDefaultVisualization : IVisualization<CLIQUE>
     {
         return clique.graph.ToAPIGraph();
     }
-
-    public API_JSON SolvedVisualization(CLIQUE clique)
+    public API_JSON SolvedVisualization(CLIQUE clique, string solution)
     {
-        SipserClique sClique = new SipserClique(clique.instance);
-        string solution = clique.defaultSolver.solve(clique);
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(solution); //Note, this is just a convenience string to list function.
         API_GraphJSON apiGraph = clique.graph.ToAPIGraph();
         for (int i = 0; i < apiGraph.nodes.Count; i++)

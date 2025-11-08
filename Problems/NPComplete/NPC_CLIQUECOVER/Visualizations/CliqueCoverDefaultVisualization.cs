@@ -24,10 +24,9 @@ class CliqueCoverDefaultVisualization : IVisualization<CLIQUECOVER> {
         return cliquecover.graph.ToAPIGraph();
     }
     
-    public API_JSON SolvedVisualization(CLIQUECOVER cliqueCover)
+    public API_JSON SolvedVisualization(CLIQUECOVER cliqueCover, string solution)
     {
         string[] colors = {"Rose", "Indigo", "Sand", "Green", "Cyan", "Wine", "Teal", "Olive"};
-        string solution = cliqueCover.defaultSolver.solve(cliqueCover);
         List<string> solutionList = solution.Replace("{{","").Replace("}}","").Split("},{").ToList();
         API_GraphJSON apiGraph = cliqueCover.graph.ToAPIGraph();
         for(int i=0;i<apiGraph.nodes.Count;i++){

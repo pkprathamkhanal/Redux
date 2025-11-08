@@ -27,9 +27,8 @@ class NodeSetDefaultVisualization : IVisualization<NODESET>
         return nodeSet.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(NODESET nodeSet)
+    public API_JSON SolvedVisualization(NODESET nodeSet, string solution)
     {
-        string solution = nodeSet.defaultSolver.solve(nodeSet);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = nodeSet.graph.ToAPIGraph();

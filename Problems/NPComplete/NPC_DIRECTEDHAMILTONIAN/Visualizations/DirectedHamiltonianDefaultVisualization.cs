@@ -26,9 +26,8 @@ class DirectedHamiltonianDefaultVisualization : IVisualization<DIRECTEDHAMILTONI
         return directedHamiltonian.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(DIRECTEDHAMILTONIAN directedHamiltonian)
+    public API_JSON SolvedVisualization(DIRECTEDHAMILTONIAN directedHamiltonian, string solution)
     {
-        string solution = directedHamiltonian.defaultSolver.solve(directedHamiltonian);
         List<string> solutionNodes = GraphParser.parseNodeListWithStringFunctions(solution);
 
         API_GraphJSON apiGraph = directedHamiltonian.graph.ToAPIGraph();
