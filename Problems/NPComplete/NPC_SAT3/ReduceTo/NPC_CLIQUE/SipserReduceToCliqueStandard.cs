@@ -60,6 +60,7 @@ class SipserReductionClique : IReduction<SAT3, SipserClique>
         _reductionTo = reduce();
 
     }
+    public SipserReductionClique(string instance) : this(new SAT3(instance)) { }
     public SipserClique reduce()
     {
         SAT3 SAT3Instance = _reductionFrom;
