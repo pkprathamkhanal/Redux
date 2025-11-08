@@ -175,12 +175,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
         {
             return "Solution is incorect";
         }
-
         return false.ToString();
-
-
-
-
     }
 
 }

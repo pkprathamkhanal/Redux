@@ -55,10 +55,10 @@ class EXACTCOVER : IProblem<ExactCoverBruteForce,ExactCoverVerifier,DummyVisuali
     public EXACTCOVER(string input) {
         instance = input;
 
-        StringParser setcover = new("{(U,S) | U is set, S subset {a | a subset U}}");
-        setcover.parse(input);
-        X = setcover["U"].ToList().Select(node => node.ToString()).ToList();
-        S = setcover["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
+        StringParser exactcover = new("{(U,S) | U is set, S subset {a | a subset U}}");
+        exactcover.parse(input);
+        X = exactcover["U"].ToList().Select(node => node.ToString()).ToList();
+        S = exactcover["S"].ToList().Select(subset => subset.ToList().Select(item => item.ToString()).ToList()).ToList();
     }
 
 
