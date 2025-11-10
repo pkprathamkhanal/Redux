@@ -7,6 +7,7 @@ using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using API.Problems.NPComplete.NPC_SAT3;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_SAT3.Solvers;
+using Microsoft.AspNetCore.Mvc;
 
 class Sat3DefaultVisualization : IVisualization<SAT3>
 {
@@ -28,6 +29,28 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
 
     public API_JSON SolvedVisualization(SAT3 instance, string solution)
     {
-        return new API_SAT3(instance);
+        List<string> items = solution.TrimStart('{').TrimEnd('}').Split(",").ToList();
+        HashSet<string> highlight = new();
+        foreach (string item in items)
+        {
+            List<string> split = item.Split(":").ToList();
+            if (split[1] == "true")
+                highlight.Add(split[0]);
+            else
+                highlight.Add("!" + split[0]);
+        }
+
+        API_SAT3 sat = new API_SAT3(instance);
+
+        foreach (var clause in sat.clauses)
+            foreach (var literal in clause.literals)
+            {
+                if (highlight.Contains(literal.literal))
+                {
+                    literal.color = "Solution";
+                }
+            }
+
+        return sat;
     }
 }

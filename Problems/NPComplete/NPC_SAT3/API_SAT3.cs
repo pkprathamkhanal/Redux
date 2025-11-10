@@ -32,11 +32,13 @@ class API_SAT3 : API_JSON
     {
         public string id { get; set; }
         public string literal { get; set; }
+        public string color { get; set; }
 
         public Literal(string _literal, string _id)
         {
             id = _id;
             literal = _literal;
+            color = "background";
         }
     }
 }
