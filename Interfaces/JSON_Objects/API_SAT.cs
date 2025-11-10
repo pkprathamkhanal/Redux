@@ -38,7 +38,7 @@ class API_SAT : API_JSON
         {
             id = _id;
             literal = _literal;
-            color = "background";
+            color = "Background";
         }
     }
 }
