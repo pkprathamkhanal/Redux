@@ -22,7 +22,7 @@ interface IReduction<T, U> : IReduction where T : IProblem where U : IProblem
     {
         get
         {
-            return reductionFrom.defaultVisualization;
+            return reductionTo.defaultVisualization;
         }
     }
 
