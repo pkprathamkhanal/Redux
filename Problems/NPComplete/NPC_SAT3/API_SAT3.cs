@@ -24,7 +24,7 @@ class API_SAT3 : API_JSON
         public Clause(List<string> _literals, string _id)
         {
             id = _id;
-            literals = _literals.Select((s, i) => new Literal(s, id.ToString() + "," + i.ToString())).ToList();
+            literals = _literals.Select((s, i) => new Literal(s, id.ToString() + "-" + i.ToString())).ToList();
         }
     }
 
