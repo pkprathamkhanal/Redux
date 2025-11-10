@@ -26,4 +26,4 @@ An `IReduction` needs a `reduce` method that makes the resulting problem from th
 
 An `IReduction` should have a `mapSolutions` method that takes a solution certificate of the starting problem, and returns an equivalent solution certificate of the resulting problem.
 
-An `IReduction` may also have `gadgets` field which is a mapping from a list of ids in the starting problem to a list of ids in the resulting problem that are made out of each other. Ids should be generated uniquely from each problem. 
+An `IReduction` may also have `gadgets` field which is a mapping from a list of ids in the starting problem to a list of ids in the resulting problem that are made out of each other. Ids should be generated from a problem instance such that 
