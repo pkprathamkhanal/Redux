@@ -65,10 +65,8 @@ class SipserReduceToCliqueStandard : IReduction<SAT3, CLIQUE>
         List<string> node2List = node2.ToString().Split("_").ToList();
         return node1List[node1List.Count - 1] == node2List[node2List.Count - 1]; // node names may contain underscores, but clause number will always be the very last
     }
-    private string TrimAndStrip(string s)
+    private string removeClauseNumber(string s)
     {
-        if (s.StartsWith("!"))
-            s = s.Substring(1);
 
         int underscore = s.LastIndexOf('_');
         if (underscore == -1)
@@ -78,8 +76,12 @@ class SipserReduceToCliqueStandard : IReduction<SAT3, CLIQUE>
     }
     private bool isSameLiteral(UtilCollection node1, UtilCollection node2)
     {
-        string coreA = TrimAndStrip(node1.ToString());
-        string coreB = TrimAndStrip(node2.ToString());
+        string coreA = removeClauseNumber(node1.ToString());
+        if (coreA.StartsWith("!"))
+            coreA = coreA.Substring(1);
+        string coreB = removeClauseNumber(node2.ToString());
+        if (coreB.StartsWith("!"))
+            coreB = coreB.Substring(1);
         return coreA == coreB;
     }
 
@@ -343,108 +345,81 @@ class SipserReduceToCliqueStandard : IReduction<SAT3, CLIQUE>
         return node;
     }
 
-    public string mapSolutions(string problemFromSolution){
-        //Check if the colution is correct
-        if(!reductionFrom.defaultVerifier.verify(reductionFrom,problemFromSolution)){
-            return "3SAT Solution is incorect";
-        }
-        List<List<String>> newClauses = new List<List<string>>();
-        foreach(var clause in reductionFrom.clauses){
-            List<String> temp = new List<String>();
-            foreach(var element in clause){
-                temp.Add(element);
-            }
-            newClauses.Add(temp);
-        }
-        for (int i = 0; i < reductionFrom.clauses.Count; i++){
-            for (int j = 0; j < reductionFrom.clauses[i].Count; j++){
-                int count = 0;
-                for( int k = 0; k<i; k++){
-                    foreach(var element in reductionFrom.clauses[k]){
-                        if(element == reductionFrom.clauses[i][j]){
-                            count ++;
-                        }
-                    }
-                }
-                for( int k = 0; k<j; k++){
-                    if(reductionFrom.clauses[i][j] == reductionFrom.clauses[i][k]){
-                        count ++;
-                    }
-                }
-                if(count >0){
-                    newClauses[i][j] = reductionFrom.clauses[i][j] + "_" +count;
-                }
-                else{
-                    newClauses[i][j] = reductionFrom.clauses[i][j];
-                }
+    private bool alreadyContainsNodeFromClause(string node, List<string> potentialNodes)
+    {
+        foreach (string selNode in potentialNodes)
+        {
+            List<string> selNodeSplit = selNode.Split("_").ToList();
+            List<string> nodeSplit = node.Split("_").ToList();
+            if (selNodeSplit[selNodeSplit.Count - 1] == nodeSplit[nodeSplit.Count - 1])
+            {
+                return true;
             }
         }
-        reductionFrom.clauses = newClauses;
+        return false;
+    }
+    public string mapSolutions(string solution)
+    {
+        List<string> items = solution.TrimStart('(').TrimEnd(')').Split(",").ToList();
+        HashSet<string> trueLiterals = new();
+        foreach (string item in items)
+        {
+            List<string> split = item.Split(":").ToList();
+            if (split[1] == "True")
+                trueLiterals.Add(split[0]);
+            else
+                trueLiterals.Add("!" + split[0]);
+        }
 
-        //Parse problemFromSolution into a list of nodes
-        List<string> solutionList = problemFromSolution.Replace(" ","").Replace("(","").Replace(")","").Split(",").ToList();
-        for(int i=0; i<solutionList.Count; i++){
-            string[] tempSplit = solutionList[i].Split(":");
-            if(tempSplit[1] == "False"){
-                solutionList[i] = "!"+tempSplit[0];
+        List<string> potentialNodes = new();
+        foreach (string node in reductionTo.nodes)
+        {
+            if (trueLiterals.Contains(removeClauseNumber(node)))
+            {
+                if (alreadyContainsNodeFromClause(node, potentialNodes))
+                    continue;
+                potentialNodes.Add(node);
             }
-            else if(tempSplit[1] == "True"){
-                solutionList[i] = tempSplit[0];
-            }
-            else{solutionList[i] = "";}
-            
         }
-        solutionList.RemoveAll(x => string.IsNullOrEmpty(x));
 
-        //Map solution
-        List<string> tempMappedSolutionList = new List<string>();
-        List<string> mappedSolutionList = new List<string>();
-        foreach(string node in reductionTo.nodes){
-            if(solutionList.Contains(node.Split("_")[0])){
-                tempMappedSolutionList.Add(node);
-            }
-        }
-        foreach(List<string> clause in reductionFrom.clauses){
-            foreach(string node in tempMappedSolutionList){
-                if (clause.Contains(node) && !mappedSolutionList.Contains(node)){
-                    mappedSolutionList.Add(node);
-                    break;
-                }
-            }
-        }
-        string problemToSolution = "";
-        foreach(string node in mappedSolutionList){
-            problemToSolution += node + ',';
-        }
-        return '{' + problemToSolution.TrimEnd(',') + '}';
+    string mappedSol = "{";
+        foreach (string node in potentialNodes)
+            mappedSol += node + ",";
+        return mappedSol.TrimEnd(',') + "}";
     }
 
-    public string reverseMapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemToSolution){
-        if(!problemTo.defaultVerifier.verify(problemTo,problemToSolution)){
+    public string reverseMapSolutions(SAT3 problemFrom, SipserClique problemTo, string problemToSolution)
+    {
+        if (!problemTo.defaultVerifier.verify(problemTo, problemToSolution))
+        {
             return "Clique Solution is incorect";
         }
 
         //Parse problemFromSolution into a list of nodes
         List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemToSolution);
-      
+
 
         //Reverse Mapping
         List<string> reverseMappedSolutionList = new List<string>();
-        foreach(string node in solutionList){
+        foreach (string node in solutionList)
+        {
             string temp = node;
-            if(temp.Contains("_")){temp = temp.Substring(0,temp.IndexOf("_"));}
-            if(temp.Contains("!")){
-                temp = temp.Replace("!","") + ":False";
+            if (temp.Contains("_")) { temp = temp.Substring(0, temp.IndexOf("_")); }
+            if (temp.Contains("!"))
+            {
+                temp = temp.Replace("!", "") + ":False";
             }
-            else{
+            else
+            {
                 temp = temp + ":True";
             }
-            if(!reverseMappedSolutionList.Contains(temp)){reverseMappedSolutionList.Add(temp);}
+            if (!reverseMappedSolutionList.Contains(temp)) { reverseMappedSolutionList.Add(temp); }
 
         }
-        
+
         string problemFromSolution = "";
-        foreach(string literal in reverseMappedSolutionList){
+        foreach (string literal in reverseMappedSolutionList)
+        {
             problemFromSolution += literal + ',';
         }
         return '(' + problemFromSolution.TrimEnd(',') + ')';
