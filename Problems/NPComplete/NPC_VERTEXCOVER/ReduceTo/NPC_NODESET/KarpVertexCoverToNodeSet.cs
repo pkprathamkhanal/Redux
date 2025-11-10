@@ -50,6 +50,7 @@ class KarpVertexCoverToNodeSet : IReduction<VERTEXCOVER, NODESET>
     // --- Methods Including Constructors ---
     public KarpVertexCoverToNodeSet(VERTEXCOVER from)
     {
+        gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 

@@ -50,6 +50,7 @@ class GraphColoringToCliqueCover : IReduction<GRAPHCOLORING, CLIQUECOVER>
     // --- Methods Including Constructors ---
     public GraphColoringToCliqueCover(GRAPHCOLORING from)
     {
+        gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 
