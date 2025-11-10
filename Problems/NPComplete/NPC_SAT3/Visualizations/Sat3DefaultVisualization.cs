@@ -24,7 +24,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
     }
     public API_JSON visualize(SAT3 instance)
     {
-        return new API_SAT3(instance);
+        return new API_SAT(instance);
     }
 
     public API_JSON SolvedVisualization(SAT3 instance, string solution)
@@ -40,7 +40,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
                 highlight.Add("!" + split[0]);
         }
 
-        API_SAT3 sat = new API_SAT3(instance);
+        API_SAT sat = new API_SAT(instance);
 
         foreach (var clause in sat.clauses)
             foreach (var literal in clause.literals)

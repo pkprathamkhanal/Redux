@@ -8,10 +8,10 @@ using API.Problems.NPComplete.NPC_SAT3;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.VisualBasic;
 
-class API_SAT3 : API_JSON
+class API_SAT : API_JSON
 {
     public List<Clause> clauses { get; set; }
-    public API_SAT3(SAT3 instance)
+    public API_SAT(SAT3 instance)
     {
         clauses = instance.clauses.Select((c, i) => new Clause(c, i.ToString())).ToList();
     }
