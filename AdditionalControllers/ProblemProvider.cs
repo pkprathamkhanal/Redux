@@ -9,6 +9,7 @@ using API.Tools;
 using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 using Antlr4.Runtime;
+using API.Tools.ApiParameters;
 
 [ApiController]
 [Route("[controller]")]
@@ -148,6 +149,21 @@ public class ProblemProvider : ControllerBase
     {
         return JsonSerializer.Serialize(Reduction(reduction), new JsonSerializerOptions() { WriteIndented = true });
     }
+
+    [HttpPost("reduce")]
+    public string reduce(string reduction, [FromBody] string instance)
+    {
+        return JsonSerializer.Serialize(Reduction(reduction, instance), new JsonSerializerOptions() { WriteIndented = true });
+    }
+
+    [HttpPost("mapSolution")]
+    public string mapSolution(string reduction, string solution, [FromBody] string instance)
+    {
+        IReduction red = Reduction(reduction, instance);
+        string mappedSolution = red.mapSolutions(solution);
+        return JsonSerializer.Serialize(mappedSolution, new JsonSerializerOptions() { WriteIndented = true });
+    }
+
 
     [HttpPost("gadgets")]
     public string gadgets(string reduction, [FromBody] string instance)
