@@ -24,12 +24,12 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<summary>Returns a reduction object with info for Sipser's 3SAT to Clique reduction </summary>
 ///<response code="200">Returns SipserReduction object</response>
 
-    [ProducesResponseType(typeof(SipserReductionClique), 200)]
+    [ProducesResponseType(typeof(SipserReduceToCliqueStandard), 200)]
     [HttpGet("info")]
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3();
-        SipserReductionClique reduction = new SipserReductionClique(defaultSAT3);
+        SipserReduceToCliqueStandard reduction = new SipserReduceToCliqueStandard(defaultSAT3);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -38,12 +38,12 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
 ///<param name="problemInstance" example="(x1|!x2|x3)&amp;(!x1|x3|x1)&amp;(x2|!x3|x1)">3SAT problem instance string.</param>
 ///<response code="200">Returns Sipser's 3SAT to Clique SipserReduction object</response>
 
-    [ProducesResponseType(typeof(SipserReductionClique), 200)]
+    [ProducesResponseType(typeof(SipserReduceToCliqueStandard), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3(problemInstance);
-        SipserReductionClique reduction = new SipserReductionClique(defaultSAT3);
+        SipserReduceToCliqueStandard reduction = new SipserReduceToCliqueStandard(defaultSAT3);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -65,7 +65,7 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
-        SipserReductionClique reduction = new SipserReductionClique(sat3);
+        SipserReduceToCliqueStandard reduction = new SipserReduceToCliqueStandard(sat3);
         string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
@@ -86,7 +86,7 @@ public class SipserReduceToCliqueStandardController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         SipserClique clique = new SipserClique(problemTo);
-        SipserReductionClique reduction = new SipserReductionClique(sat3);
+        SipserReduceToCliqueStandard reduction = new SipserReduceToCliqueStandard(sat3);
         string mappedSolution = reduction.reverseMapSolutions(sat3,clique,problemToSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;

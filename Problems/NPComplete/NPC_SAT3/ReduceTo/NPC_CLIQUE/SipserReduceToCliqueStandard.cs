@@ -10,7 +10,7 @@ using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 
-class SipserReductionClique : IReduction<SAT3, CLIQUE>
+class SipserReduceToCliqueStandard : IReduction<SAT3, CLIQUE>
 {
 
     // --- Fields ---
@@ -49,15 +49,15 @@ class SipserReductionClique : IReduction<SAT3, CLIQUE>
     }
 
     // --- Methods Including Constructors ---
-    public SipserReductionClique(SAT3 from)
+    public SipserReduceToCliqueStandard(SAT3 from)
     {
         gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public SipserReductionClique(string instance) : this(new SAT3(instance)) { }
-    public SipserReductionClique() : this(new SAT3()) { }
+    public SipserReduceToCliqueStandard(string instance) : this(new SAT3(instance)) { }
+    public SipserReduceToCliqueStandard() : this(new SAT3()) { }
 
     private bool fromSameClause(UtilCollection node1, UtilCollection node2)
     {
