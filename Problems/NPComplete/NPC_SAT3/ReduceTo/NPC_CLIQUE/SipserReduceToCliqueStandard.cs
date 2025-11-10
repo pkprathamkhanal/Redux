@@ -102,7 +102,7 @@ class SipserReductionClique : IReduction<SAT3, CLIQUE>
                 string nodeName = literal + "_" + i;
                 nodes.Add(new UtilCollection(nodeName));
 
-                gadgets.Add(new Gadget("Orange", new List<string>() { i + "," + j }, new List<string> { nodeName }));
+                gadgets.Add(new Gadget("Orange", new List<string>() { i + "-" + j }, new List<string> { nodeName }));
                 nodesInClause.Add(nodeName);
             }
             gadgets.Add(new Gadget("Grey", new List<string>() { i.ToString() }, nodesInClause));
