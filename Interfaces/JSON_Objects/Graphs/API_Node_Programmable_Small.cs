@@ -78,7 +78,7 @@ class API_Node_Programmable_Small{
     {
         get
         {
-            return "id" + name;
+            return name;
         }
     }
     

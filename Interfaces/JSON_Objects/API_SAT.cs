@@ -23,7 +23,7 @@ class API_SAT : API_JSON
 
         public Clause(List<string> _literals, string _id)
         {
-            id = "class" + _id;
+            id = _id;
             literals = _literals.Select((s, i) => new Literal(s, id.ToString() + "-" + i.ToString())).ToList();
         }
     }
@@ -36,7 +36,7 @@ class API_SAT : API_JSON
 
         public Literal(string _literal, string _id)
         {
-            id = "id" + _id;
+            id = _id;
             literal = _literal;
             color = "background";
         }
