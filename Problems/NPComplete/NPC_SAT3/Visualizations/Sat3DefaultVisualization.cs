@@ -29,7 +29,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
 
     public API_JSON SolvedVisualization(SAT3 instance, string solution)
     {
-        List<string> items = solution.TrimStart('{').TrimEnd('}').Split(",").ToList();
+        List<string> items = solution.TrimStart('(').TrimEnd(')').Split(",").ToList();
         HashSet<string> highlight = new();
         foreach (string item in items)
         {

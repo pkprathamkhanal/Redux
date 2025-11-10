@@ -19,20 +19,12 @@ class SipserReductionClique : IReduction<SAT3, CLIQUE>
     public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
     public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney", "Caleb Eardley", "Russell Phillips"};
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
-    private List<Gadget> _gadgets;
     private SAT3 _reductionFrom;
     private CLIQUE _reductionTo;
 
 
     // --- Properties ---
-    public List<Gadget> gadgets {
-        get{
-            return _gadgets;
-        }
-        set{
-            _gadgets = value;
-        }
-    }
+    public List<Gadget> gadgets { get; set; }
     public SAT3 reductionFrom
     {
         get
