@@ -65,6 +65,7 @@ class SipserReductionClique : IReduction<SAT3, CLIQUE>
 
     }
     public SipserReductionClique(string instance) : this(new SAT3(instance)) { }
+    public SipserReductionClique() : this(new SAT3()) { }
 
     private bool fromSameClause(UtilCollection node1, UtilCollection node2)
     {

@@ -66,6 +66,7 @@ class SubsetSumReduction : IReduction<EXACTCOVER, SUBSETSUM>
 
     }
     public SubsetSumReduction(string instance) : this(new EXACTCOVER(instance)) { }
+    public SubsetSumReduction() : this(new EXACTCOVER()) { }
     public SUBSETSUM reduce()
     {
         EXACTCOVER ExactCoverInstance = _reductionFrom;

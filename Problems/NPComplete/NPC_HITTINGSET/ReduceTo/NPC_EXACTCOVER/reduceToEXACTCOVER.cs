@@ -70,6 +70,7 @@ class ExactCoverReduction : IReduction<HITTINGSET, EXACTCOVER>
 
     }
     public ExactCoverReduction(string instance) : this(new HITTINGSET(instance)) { }
+    public ExactCoverReduction() : this(new HITTINGSET()) { }
     public EXACTCOVER reduce()
     {
         UtilCollection universal = new UtilCollection("{}");

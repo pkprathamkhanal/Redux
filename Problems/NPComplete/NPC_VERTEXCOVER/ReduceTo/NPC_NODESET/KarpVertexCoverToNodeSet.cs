@@ -65,6 +65,7 @@ class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
 
     }
     public VertexCoverReduction(string instance) : this(new VERTEXCOVER(instance)) { }
+    public VertexCoverReduction() : this(new VERTEXCOVER()) { }
     public NODESET reduce()
     {
         VERTEXCOVER VERTEXCOVERInstance = _reductionFrom;

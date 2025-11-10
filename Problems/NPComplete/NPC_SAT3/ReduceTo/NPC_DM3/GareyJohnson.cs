@@ -50,6 +50,7 @@ class GareyJohnson : IReduction<SAT3, DM3> {
 
     }
     public GareyJohnson(string instance) : this(new SAT3(instance)) { }
+    public GareyJohnson() : this(new SAT3()) { }
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the SAT3 object passed into GareyAndJohnsonReduction.

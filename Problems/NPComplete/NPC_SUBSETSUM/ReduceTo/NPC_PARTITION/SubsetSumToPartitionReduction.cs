@@ -54,6 +54,7 @@ class PartitionReduction : IReduction<SUBSETSUM, PARTITION> {
 
     }
     public PartitionReduction(string instance) : this(new SUBSETSUM(instance)) { }
+    public PartitionReduction() : this(new SUBSETSUM()) { }
     public PARTITION reduce() {
         SUBSETSUM SUBSETSUMInstance = _reductionFrom;
         PARTITION reducedPARTITION = new PARTITION();

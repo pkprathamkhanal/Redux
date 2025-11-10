@@ -66,6 +66,7 @@ class SATReduction : IReduction<SAT, SAT3>
 
     }
     public SATReduction(string instance) : this(new SAT(instance)) { }
+    public SATReduction() : this(new SAT()) { }
     public SAT3 reduce()
     {
         SAT SATInstance = _reductionFrom;

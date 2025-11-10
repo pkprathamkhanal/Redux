@@ -48,6 +48,7 @@ class KarpIntProgStandard : IReduction<SAT3, INTPROGRAMMING01> {
 
     }
     public KarpIntProgStandard(string instance) : this(new SAT3(instance)) { }
+    public KarpIntProgStandard() : this(new SAT3()) { }
     public INTPROGRAMMING01 reduce() {
         SAT3 SAT3Instance = _reductionFrom;
         INTPROGRAMMING01 reduced01INT = new INTPROGRAMMING01();

@@ -65,6 +65,7 @@ class WEIGHTEDCUTReduction : IReduction<PARTITION, WEIGHTEDCUT>
 
     }
     public WEIGHTEDCUTReduction(string instance) : this(new PARTITION(instance)) { }
+    public WEIGHTEDCUTReduction() : this(new PARTITION()) { }
     public WEIGHTEDCUT reduce()
     {
         PARTITION PARTITIONInstance = _reductionFrom;

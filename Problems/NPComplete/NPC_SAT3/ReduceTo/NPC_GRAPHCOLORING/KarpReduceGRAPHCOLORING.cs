@@ -80,6 +80,7 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
 
     }
     public KarpReduction(string instance) : this(new SAT3(instance)) { }
+    public KarpReduction() : this(new SAT3()) { }
 
     # endregion
 

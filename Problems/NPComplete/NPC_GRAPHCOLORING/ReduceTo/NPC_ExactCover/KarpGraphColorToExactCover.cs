@@ -66,6 +66,7 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
 
     }
     public GraphColorToExactCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
+    public GraphColorToExactCoverReduction() : this(new GRAPHCOLORING()) { }
     public EXACTCOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;

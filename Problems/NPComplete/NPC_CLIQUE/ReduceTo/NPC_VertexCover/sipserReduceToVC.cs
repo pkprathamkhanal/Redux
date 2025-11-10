@@ -55,6 +55,7 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     }
 
     public sipserReductionVertexCover(string instance) : this(new CLIQUE(instance)) { }
+    public sipserReductionVertexCover() : this(new CLIQUE()) { }
 
     /// <summary>
     /// Reduces a CLIQUE instance to a VERTEXCOVER instance.

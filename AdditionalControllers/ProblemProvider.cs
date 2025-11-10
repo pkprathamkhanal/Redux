@@ -59,6 +59,11 @@ public class ProblemProvider : ControllerBase
         return Activator.CreateInstance(Reductions[name.ToLower()], instance) as IReduction;
     }
 
+    static IReduction Reduction(string name)
+    {
+        return Activator.CreateInstance(Reductions[name.ToLower()]) as IReduction;
+    }
+
 #pragma warning restore CS8603 // Possible null reference return.
 
     [ProducesResponseType(typeof(bool), 200)]
@@ -110,7 +115,7 @@ public class ProblemProvider : ControllerBase
         List<API_JSON> apiSteps = visualization.StepsVisualization(instance, steps);
         API_JSON solutionJson = visualization.SolvedVisualization(instance, solution);
 
-        List<API_JSON> list = new List<API_JSON> { visual }; 
+        List<API_JSON> list = new List<API_JSON> { visual };
         list.AddRange(apiSteps);
         if (solution.GetType() != typeof(API_empty)) list.Add(solutionJson);
 
@@ -136,6 +141,12 @@ public class ProblemProvider : ControllerBase
 
         return getVisualize(red.visualization, mappedSteps, mappedSol, red.reductionTo.instance);
 
+    }
+
+    [HttpGet("reductionInfo")]
+    public string reductionInfo(string reduction)
+    {
+        return JsonSerializer.Serialize(Reduction(reduction), new JsonSerializerOptions() { WriteIndented = true });
     }
 
     [HttpPost("gadgets")]

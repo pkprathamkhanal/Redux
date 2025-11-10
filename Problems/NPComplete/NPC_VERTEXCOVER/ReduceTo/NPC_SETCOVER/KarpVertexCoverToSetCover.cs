@@ -61,6 +61,7 @@ class KarpVertexCoverToSetCover : IReduction<VERTEXCOVER, SETCOVER>
 
     }
     public KarpVertexCoverToSetCover(string instance) : this(new VERTEXCOVER(instance)) { }
+    public KarpVertexCoverToSetCover() : this(new VERTEXCOVER()) { }
     /***************************************************
      * reduce() called after GareyAndJohnsonReduction reduction, and returns a THREE_DM object, that
      * is a reduction from the VERTEXCOVER object passed into GareyAndJohnsonReduction.

@@ -59,6 +59,7 @@ class FengReduction : IReduction<SUBSETSUM, KNAPSACK> {
 
     }
     public FengReduction(string instance) : this(new SUBSETSUM(instance)) { }
+    public FengReduction() : this(new SUBSETSUM()) { }
     public KNAPSACK reduce() {
         SUBSETSUM SUBSETSUMInstance = _reductionFrom;
         KNAPSACK reducedKNAPSACK = new KNAPSACK

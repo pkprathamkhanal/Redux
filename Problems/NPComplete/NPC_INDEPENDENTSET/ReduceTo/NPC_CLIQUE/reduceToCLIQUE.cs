@@ -65,6 +65,7 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     {
 
     }
+    public CliqueReduction() : this(new INDEPENDENTSET()) { }
 
     /// <summary>
     /// Reduces a CLIQUE instance to a VERTEXCOVER instance.

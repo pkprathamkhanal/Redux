@@ -60,18 +60,11 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
 
     // --- Methods Including Constructors ---
 
-    public LawlerKarp(){
-
-        _reductionFrom = new VERTEXCOVER();
-        _reductionTo = new ARCSET();
-    }
     public LawlerKarp(string instance) : this(new VERTEXCOVER(instance)) { }
+    public LawlerKarp() : this(new VERTEXCOVER()) { }
     public LawlerKarp(VERTEXCOVER from) {
          _reductionFrom = from;
         _reductionTo = reduce();
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        String jsonString = JsonSerializer.Serialize(reduce(),options);
-        
     }
     /// <summary>
     ///  Uses the VertexCover object's reduction utility to convert to a Arcset Graph and returns that equivalent object.

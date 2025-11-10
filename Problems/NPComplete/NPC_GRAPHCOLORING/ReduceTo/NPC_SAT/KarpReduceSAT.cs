@@ -78,6 +78,7 @@ class KarpReduceSAT : IReduction<GRAPHCOLORING, SAT>
         _reductionTo = reduce();
     }
     public KarpReduceSAT(string instance) : this(new GRAPHCOLORING(instance)) { }
+    public KarpReduceSAT() : this(new GRAPHCOLORING()) { }
     #endregion
 
 

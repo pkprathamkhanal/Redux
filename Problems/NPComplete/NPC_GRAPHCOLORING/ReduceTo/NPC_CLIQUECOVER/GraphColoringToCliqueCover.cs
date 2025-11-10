@@ -65,6 +65,7 @@ class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
 
     }
     public CliqueCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
+    public CliqueCoverReduction() : this(new GRAPHCOLORING()) { }
     public CLIQUECOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;
