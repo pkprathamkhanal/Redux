@@ -3,7 +3,7 @@ using API.Problems.NPComplete.NPC_PARTITION;
 
 namespace API.Problems.NPComplete.NPC_SUBSETSUM.ReduceTo.NPC_PARTITION;
 
-class PartitionReduction : IReduction<SUBSETSUM, PARTITION> {
+class SubsetSumToPartitionReduction : IReduction<SUBSETSUM, PARTITION> {
 
     // --- Fields ---
     public string reductionName {get;} = "PARTITION Reduction";
@@ -48,13 +48,13 @@ class PartitionReduction : IReduction<SUBSETSUM, PARTITION> {
 
 
     // --- Methods Including Constructors ---
-    public PartitionReduction(SUBSETSUM from) {
+    public SubsetSumToPartitionReduction(SUBSETSUM from) {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public PartitionReduction(string instance) : this(new SUBSETSUM(instance)) { }
-    public PartitionReduction() : this(new SUBSETSUM()) { }
+    public SubsetSumToPartitionReduction(string instance) : this(new SUBSETSUM(instance)) { }
+    public SubsetSumToPartitionReduction() : this(new SUBSETSUM()) { }
     public PARTITION reduce() {
         SUBSETSUM SUBSETSUMInstance = _reductionFrom;
         PARTITION reducedPARTITION = new PARTITION();

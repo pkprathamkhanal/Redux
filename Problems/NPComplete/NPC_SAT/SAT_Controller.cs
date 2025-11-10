@@ -18,13 +18,13 @@ public class KarpSATToSAT3Controller : ControllerBase
     ///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
     ///<response code="200">Returns CliqueCoverReduction object</response>
 
-    [ProducesResponseType(typeof(SATReduction), 200)]
+    [ProducesResponseType(typeof(KarpSATToSAT3), 200)]
     [HttpGet("info")]
     public String getInfo()
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT defaultSAT = new SAT();
-        SATReduction reduction = new SATReduction(defaultSAT);
+        KarpSATToSAT3 reduction = new KarpSATToSAT3(defaultSAT);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -33,13 +33,13 @@ public class KarpSATToSAT3Controller : ControllerBase
     ///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
     ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
-    [ProducesResponseType(typeof(SATReduction), 200)]
+    [ProducesResponseType(typeof(KarpSATToSAT3), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT defaultSAT = new SAT(problemInstance);
-        SATReduction reduction = new SATReduction(defaultSAT);
+        KarpSATToSAT3 reduction = new KarpSATToSAT3(defaultSAT);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }

@@ -16,14 +16,14 @@ public class reduceToEXACTCOVERController : ControllerBase {
 ///<summary>Returns a reduction object with info for reduction to clique </summary>
 ///<response code="200">Returns sipserReduction Object</response>
 
-    [ProducesResponseType(typeof(ExactCoverReduction), 200)]
+    [ProducesResponseType(typeof(reduceToEXACTCOVER), 200)]
     [HttpGet("info")]
 
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET defaultHITTINGSET = new HITTINGSET();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
-        ExactCoverReduction reduction = new ExactCoverReduction(defaultHITTINGSET);
+        reduceToEXACTCOVER reduction = new reduceToEXACTCOVER(defaultHITTINGSET);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -37,7 +37,7 @@ public class reduceToEXACTCOVERController : ControllerBase {
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         HITTINGSET defaultHITTINGSET = new HITTINGSET(problemInstance);
-        ExactCoverReduction reduction = new ExactCoverReduction(defaultHITTINGSET);
+        reduceToEXACTCOVER reduction = new reduceToEXACTCOVER(defaultHITTINGSET);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }

@@ -6,7 +6,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace API.Problems.NPComplete.NPC_HITTINGSET.ReduceTo.NPC_EXACTCOVER;
 
-class ExactCoverReduction : IReduction<HITTINGSET, EXACTCOVER>
+class reduceToEXACTCOVER : IReduction<HITTINGSET, EXACTCOVER>
 {
 
     // --- Fields ---
@@ -63,14 +63,14 @@ class ExactCoverReduction : IReduction<HITTINGSET, EXACTCOVER>
 
 
     // --- Methods Including Constructors ---
-    public ExactCoverReduction(HITTINGSET from)
+    public reduceToEXACTCOVER(HITTINGSET from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public ExactCoverReduction(string instance) : this(new HITTINGSET(instance)) { }
-    public ExactCoverReduction() : this(new HITTINGSET()) { }
+    public reduceToEXACTCOVER(string instance) : this(new HITTINGSET(instance)) { }
+    public reduceToEXACTCOVER() : this(new HITTINGSET()) { }
     public EXACTCOVER reduce()
     {
         UtilCollection universal = new UtilCollection("{}");

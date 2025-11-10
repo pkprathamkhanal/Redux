@@ -21,14 +21,14 @@ public class reduceToCLIQUEController : ControllerBase {
 ///<summary>Returns a reduction object with info for reduction to clique </summary>
 ///<response code="200">Returns sipserReduction Object</response>
 
-    [ProducesResponseType(typeof(CliqueReduction), 200)]
+    [ProducesResponseType(typeof(reduceToCLIQUE), 200)]
     [HttpGet("info")]
 
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         INDEPENDENTSET defaultINDEPENDENTSET = new INDEPENDENTSET();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
-        CliqueReduction reduction = new CliqueReduction(defaultINDEPENDENTSET);
+        reduceToCLIQUE reduction = new reduceToCLIQUE(defaultINDEPENDENTSET);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -37,12 +37,12 @@ public class reduceToCLIQUEController : ControllerBase {
 ///<param name="problemInstance" example="(({1,2,3,4},{{4,1},{1,2},{4,3},{3,2},{2,4}}),2)">Independent Set problem instance string.</param>
 ///<response code="200">Returns Independent Set to CliqueReduction object</response>
 
-    [ProducesResponseType(typeof(CliqueReduction), 200)]
+    [ProducesResponseType(typeof(reduceToCLIQUE), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         INDEPENDENTSET defaultINDEPENDENTSET = new INDEPENDENTSET(problemInstance);
-        CliqueReduction reduction = new CliqueReduction(defaultINDEPENDENTSET);
+        reduceToCLIQUE reduction = new reduceToCLIQUE(defaultINDEPENDENTSET);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }

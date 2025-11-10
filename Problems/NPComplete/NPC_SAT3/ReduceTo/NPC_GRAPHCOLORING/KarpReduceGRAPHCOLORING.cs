@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SAT;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_GRAPHCOLORING;
 
-class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
+class KarReduceGRAPHCOLORING : IReduction<SAT3, GRAPHCOLORING>
 {
 
 
@@ -73,14 +73,14 @@ class KarpReduction : IReduction<SAT3, GRAPHCOLORING>
     #endregion
 
     #region Constructors
-    public KarpReduction(SAT3 from)
+    public KarReduceGRAPHCOLORING(SAT3 from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public KarpReduction(string instance) : this(new SAT3(instance)) { }
-    public KarpReduction() : this(new SAT3()) { }
+    public KarReduceGRAPHCOLORING(string instance) : this(new SAT3(instance)) { }
+    public KarReduceGRAPHCOLORING() : this(new SAT3()) { }
 
     # endregion
 

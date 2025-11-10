@@ -59,7 +59,7 @@ public class FengController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION part = new PARTITION(problemTo);
-        PartitionReduction reduction = new PartitionReduction(sSum);
+        SubsetSumToPartitionReduction reduction = new SubsetSumToPartitionReduction(sSum);
         string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;
@@ -81,13 +81,13 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<summary>Returns a reduction object with info for Subset Sum to Partition Reduction </summary>
 ///<response code="200">Returns PartitionReduction object</response>
 
-    [ProducesResponseType(typeof(PartitionReduction), 200)]
+    [ProducesResponseType(typeof(SubsetSumToPartitionReduction), 200)]
     [HttpGet("info")]
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
-        PartitionReduction reduction = new PartitionReduction(defaultSUBSETSUM);
+        SubsetSumToPartitionReduction reduction = new SubsetSumToPartitionReduction(defaultSUBSETSUM);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -96,12 +96,12 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
 ///<param name="problemInstance" example="{{1,7,12,15} : 28}">Subset Sum problem instance string.</param>
 ///<response code="200">Returns Fengs's Subset Sum to Partition object</response>
 
-    [ProducesResponseType(typeof(PartitionReduction), 200)]
+    [ProducesResponseType(typeof(SubsetSumToPartitionReduction), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM defaultSUBSETSUM = new SUBSETSUM(problemInstance);
-        PartitionReduction reduction = new PartitionReduction(defaultSUBSETSUM);
+        SubsetSumToPartitionReduction reduction = new SubsetSumToPartitionReduction(defaultSUBSETSUM);
         string jsonString = JsonSerializer.Serialize(reduction, options);
        // Console.WriteLine("reduced form is: "+ jsonString);
         return jsonString;
@@ -122,7 +122,7 @@ public class SubsetSumToPartitionReductionController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SUBSETSUM sSum = new SUBSETSUM(problemFrom);
         PARTITION partition = new PARTITION(problemTo);
-        PartitionReduction reduction = new PartitionReduction(sSum);
+        SubsetSumToPartitionReduction reduction = new SubsetSumToPartitionReduction(sSum);
         string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;

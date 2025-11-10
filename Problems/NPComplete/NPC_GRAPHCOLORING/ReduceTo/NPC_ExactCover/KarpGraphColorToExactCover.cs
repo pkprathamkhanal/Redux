@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_EXACTCOVER;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_EXACTCOVER;
 
-class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
+class KarpGraphColorToExactCover : IReduction<GRAPHCOLORING, EXACTCOVER>
 {
 
     // --- Fields ---
@@ -59,14 +59,14 @@ class GraphColorToExactCoverReduction : IReduction<GRAPHCOLORING, EXACTCOVER>
 
 
     // --- Methods Including Constructors ---
-    public GraphColorToExactCoverReduction(GRAPHCOLORING from)
+    public KarpGraphColorToExactCover(GRAPHCOLORING from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public GraphColorToExactCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
-    public GraphColorToExactCoverReduction() : this(new GRAPHCOLORING()) { }
+    public KarpGraphColorToExactCover(string instance) : this(new GRAPHCOLORING(instance)) { }
+    public KarpGraphColorToExactCover() : this(new GRAPHCOLORING()) { }
     public EXACTCOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;

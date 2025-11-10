@@ -25,13 +25,13 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
 ///<summary>Returns a reduction object with info for Graph Coloring to CliqueCover Reduction </summary>
 ///<response code="200">Returns VertexCoverReduction object</response>
 
-    [ProducesResponseType(typeof(VertexCoverReduction), 200)]
+    [ProducesResponseType(typeof(KarpVertexCoverToNodeSet), 200)]
     [HttpGet("info")]
     public String getInfo() {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER();
         //SipserReduction reduction = new SipserReduction(defaultSAT3);
-        VertexCoverReduction reduction = new VertexCoverReduction(defaultVERTEXCOVER);
+        KarpVertexCoverToNodeSet reduction = new KarpVertexCoverToNodeSet(defaultVERTEXCOVER);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -40,12 +40,12 @@ public class KarpVertexCoverToNodeSetController : ControllerBase {
 ///<param name="problemInstance" example="{{1,7,12,15} : 28}">Graph Coloring problem instance string.</param>
 ///<response code="200">Returns Fengs's Graph Coloring to CliqueCover object</response>
 
-    [ProducesResponseType(typeof(VertexCoverReduction), 200)]
+    [ProducesResponseType(typeof(KarpVertexCoverToNodeSet), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance) {
         var options = new JsonSerializerOptions { WriteIndented = true };
         VERTEXCOVER defaultVERTEXCOVER = new VERTEXCOVER(problemInstance);
-        VertexCoverReduction reduction = new VertexCoverReduction(defaultVERTEXCOVER);
+        KarpVertexCoverToNodeSet reduction = new KarpVertexCoverToNodeSet(defaultVERTEXCOVER);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }

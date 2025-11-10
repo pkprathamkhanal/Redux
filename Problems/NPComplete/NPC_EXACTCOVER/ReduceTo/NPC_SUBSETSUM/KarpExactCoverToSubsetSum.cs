@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SUBSETSUM;
 
 namespace API.Problems.NPComplete.NPC_EXACTCOVER.ReduceTo.NPC_SUBSETSUM;
 
-class SubsetSumReduction : IReduction<EXACTCOVER, SUBSETSUM>
+class KarpExactCoverToSubsetSum : IReduction<EXACTCOVER, SUBSETSUM>
 {
 
     // --- Fields ---
@@ -59,14 +59,14 @@ class SubsetSumReduction : IReduction<EXACTCOVER, SUBSETSUM>
 
 
     // --- Methods Including Constructors ---
-    public SubsetSumReduction(EXACTCOVER from)
+    public KarpExactCoverToSubsetSum(EXACTCOVER from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public SubsetSumReduction(string instance) : this(new EXACTCOVER(instance)) { }
-    public SubsetSumReduction() : this(new EXACTCOVER()) { }
+    public KarpExactCoverToSubsetSum(string instance) : this(new EXACTCOVER(instance)) { }
+    public KarpExactCoverToSubsetSum() : this(new EXACTCOVER()) { }
     public SUBSETSUM reduce()
     {
         EXACTCOVER ExactCoverInstance = _reductionFrom;

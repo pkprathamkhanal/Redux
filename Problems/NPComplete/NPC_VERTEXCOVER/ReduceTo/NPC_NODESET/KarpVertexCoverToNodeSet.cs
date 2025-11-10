@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_VERTEXCOVER;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_NODESET;
 
-class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
+class KarpVertexCoverToNodeSet : IReduction<VERTEXCOVER, NODESET>
 {
 
     // --- Fields ---
@@ -58,14 +58,14 @@ class VertexCoverReduction : IReduction<VERTEXCOVER, NODESET>
 
 
     // --- Methods Including Constructors ---
-    public VertexCoverReduction(VERTEXCOVER from)
+    public KarpVertexCoverToNodeSet(VERTEXCOVER from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public VertexCoverReduction(string instance) : this(new VERTEXCOVER(instance)) { }
-    public VertexCoverReduction() : this(new VERTEXCOVER()) { }
+    public KarpVertexCoverToNodeSet(string instance) : this(new VERTEXCOVER(instance)) { }
+    public KarpVertexCoverToNodeSet() : this(new VERTEXCOVER()) { }
     public NODESET reduce()
     {
         VERTEXCOVER VERTEXCOVERInstance = _reductionFrom;

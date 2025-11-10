@@ -105,13 +105,13 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
 ///<summary>Returns a reduction object with info for Karps's 3SAT to Graph Coloring reduction </summary>
 ///<response code="200">Returns KarpReduction object</response>
 
-    [ProducesResponseType(typeof(KarpReduction), 200)]
+    [ProducesResponseType(typeof(KarReduceGRAPHCOLORING), 200)]
     [HttpGet("info")]
     public String getInfo(){
 
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 defaultSAT3 = new SAT3();
-        KarpReduction reduction = new KarpReduction(defaultSAT3);
+        KarReduceGRAPHCOLORING reduction = new KarReduceGRAPHCOLORING(defaultSAT3);
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
     }
@@ -120,11 +120,11 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
 ///<param name="problemInstance" example="(x1|!x2|x3)&amp;(!x1|x3|x1)&amp;(x2|!x3|x1)">3SAT problem instance string.</param>
 ///<response code="200">Returns Karp's 3SAT to Graph Coloring KarpReduction object</response>
 
-    [ProducesResponseType(typeof(KarpReduction), 200)]
+    [ProducesResponseType(typeof(KarReduceGRAPHCOLORING), 200)]
     [HttpPost("reduce")]
     public String getReduce([FromBody]string problemInstance){
          
-        KarpReduction reduction = new KarpReduction(new SAT3(problemInstance));
+        KarReduceGRAPHCOLORING reduction = new KarReduceGRAPHCOLORING(new SAT3(problemInstance));
         var options = new JsonSerializerOptions { WriteIndented = true };
         string jsonString = JsonSerializer.Serialize(reduction, options);
         return jsonString;
@@ -140,7 +140,7 @@ public class KarpReduceGRAPHCOLORINGController : ControllerBase {
         var options = new JsonSerializerOptions { WriteIndented = true };
         SAT3 sat3 = new SAT3(problemFrom);
         GRAPHCOLORING graphColoring = new GRAPHCOLORING(problemTo);
-        KarpReduction reduction = new KarpReduction(sat3);
+        KarReduceGRAPHCOLORING reduction = new KarReduceGRAPHCOLORING(sat3);
         string mappedSolution = reduction.mapSolutions(problemFromSolution);
         string jsonString = JsonSerializer.Serialize(mappedSolution, options);
         return jsonString;

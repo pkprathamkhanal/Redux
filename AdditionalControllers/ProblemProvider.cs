@@ -133,6 +133,7 @@ public class ProblemProvider : ControllerBase
     public string visualizeReduction(string reduction, string solver, [FromBody] string instance)
     {
         IReduction red = Reduction(reduction, instance);
+        Console.WriteLine("unreachable");
         ISolver sol = Solver(solver);
 
         List<string> steps = sol.GetSteps(instance);

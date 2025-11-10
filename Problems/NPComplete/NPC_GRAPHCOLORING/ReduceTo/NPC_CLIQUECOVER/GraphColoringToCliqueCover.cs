@@ -3,7 +3,7 @@ using API.Problems.NPComplete.NPC_CLIQUECOVER;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_CLIQUECOVER;
 
-class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
+class GraphColoringToCliqueCover : IReduction<GRAPHCOLORING, CLIQUECOVER>
 {
 
     // --- Fields ---
@@ -58,14 +58,14 @@ class CliqueCoverReduction : IReduction<GRAPHCOLORING, CLIQUECOVER>
 
 
     // --- Methods Including Constructors ---
-    public CliqueCoverReduction(GRAPHCOLORING from)
+    public GraphColoringToCliqueCover(GRAPHCOLORING from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public CliqueCoverReduction(string instance) : this(new GRAPHCOLORING(instance)) { }
-    public CliqueCoverReduction() : this(new GRAPHCOLORING()) { }
+    public GraphColoringToCliqueCover(string instance) : this(new GRAPHCOLORING(instance)) { }
+    public GraphColoringToCliqueCover() : this(new GRAPHCOLORING()) { }
     public CLIQUECOVER reduce()
     {
         GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;

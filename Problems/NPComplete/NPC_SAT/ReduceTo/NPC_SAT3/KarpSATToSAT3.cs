@@ -4,7 +4,7 @@ using API.Problems.NPComplete.NPC_SAT3;
 
 namespace API.Problems.NPComplete.NPC_SAT.ReduceTo.NPC_SAT3;
 
-class SATReduction : IReduction<SAT, SAT3>
+class KarpSATToSAT3 : IReduction<SAT, SAT3>
 {
 
     // --- Fields ---
@@ -59,14 +59,14 @@ class SATReduction : IReduction<SAT, SAT3>
 
 
     // --- Methods Including Constructors ---
-    public SATReduction(SAT from)
+    public KarpSATToSAT3(SAT from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
-    public SATReduction(string instance) : this(new SAT(instance)) { }
-    public SATReduction() : this(new SAT()) { }
+    public KarpSATToSAT3(string instance) : this(new SAT(instance)) { }
+    public KarpSATToSAT3() : this(new SAT()) { }
     public SAT3 reduce()
     {
         SAT SATInstance = _reductionFrom;

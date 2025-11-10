@@ -9,7 +9,7 @@ using SPADE;
 
 namespace API.Problems.NPComplete.NPC_INDEPENDENTSET.ReduceTo.NPC_CLIQUE;
 
-class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
+class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
 
 
     // --- Fields ---
@@ -54,18 +54,18 @@ class CliqueReduction : IReduction<INDEPENDENTSET, CLIQUE> {
     }
 
     // --- Methods Including Constructors ---
-    public CliqueReduction(INDEPENDENTSET from)
+    public reduceToCLIQUE(INDEPENDENTSET from)
     {
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
 
-    public CliqueReduction(string from) : this(new INDEPENDENTSET(from))
+    public reduceToCLIQUE(string from) : this(new INDEPENDENTSET(from))
     {
 
     }
-    public CliqueReduction() : this(new INDEPENDENTSET()) { }
+    public reduceToCLIQUE() : this(new INDEPENDENTSET()) { }
 
     /// <summary>
     /// Reduces a CLIQUE instance to a VERTEXCOVER instance.
