@@ -10,7 +10,7 @@ class SAT3 : IProblem<Sat3BacktrackingSolver,SAT3Verifier,Sat3DefaultVisualizati
     public string problemName {get;} = "3SAT";
     public string problemLink { get; } = "https://en.wikipedia.org/wiki/Boolean_satisfiability_problem#3-satisfiability";
     public string formalDefinition {get;} = "3SAT = {Φ | Φ is a satisfiable Boolean formula in 3CNF}";
-    public string problemDefinition {get;} = "3SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi (with a maximum of 3 literals per clause) to result in 'True'";
+    public string problemDefinition {get;} = "3SAT, or the Boolean satisfiability problem, is a problem that asks for a list of assignments to the literals of phi (with a maximum of 3 literals per clause) to result in 'True'.";
     public string[] contributors {get;} = { "Kaden Marchetti"};
     public string source {get;} = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";

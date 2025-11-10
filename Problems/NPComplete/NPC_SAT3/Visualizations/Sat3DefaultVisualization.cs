@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 class Sat3DefaultVisualization : IVisualization<SAT3>
 {
-    public string visualizationName { get; } = "3 SAT visualization";
-    public string visualizationDefinition { get; } = "This is a default visualization for 3 SAT";
+    public string visualizationName { get; } = "3SAT visualization";
+    public string visualizationDefinition { get; } = "This is a default visualization for 3SAT";
     public string source { get; } = "";
     public string[] contributors { get; } = { "Kaden Marchetti" };
     public string visualizationType { get; } = "Boolean Satisfiability";
