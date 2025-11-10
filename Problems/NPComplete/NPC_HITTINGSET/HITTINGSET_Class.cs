@@ -69,7 +69,6 @@ class HITTINGSET : IProblem<HittingSetBruteForce, HittingSetVerifier, DummyVisua
     {
         instance = instanceStr;
         StringParser HittingSet = new("{(U,S) | U is set, S subset {a | a subset U}}");
-        Console.WriteLine("Parsing Hitting Set instance: " + instance);
         HittingSet.parse(instance);
         _universalSet = HittingSet["U"];
         _subsets = HittingSet["S"];
