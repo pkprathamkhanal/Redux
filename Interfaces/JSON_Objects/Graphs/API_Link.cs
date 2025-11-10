@@ -143,7 +143,7 @@ class API_Link
     {
         get
         {
-            return source + "," + target;
+            return source + "-" + target;
         }
     }
     
