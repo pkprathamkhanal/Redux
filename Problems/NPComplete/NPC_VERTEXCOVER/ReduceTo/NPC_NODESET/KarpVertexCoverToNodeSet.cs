@@ -1,6 +1,8 @@
 using API.Interfaces;
+using API.Interfaces.JSON_Objects;
 using API.Problems.NPComplete.NPC_NODESET;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_VERTEXCOVER.ReduceTo.NPC_NODESET;
 
@@ -14,24 +16,12 @@ class KarpVertexCoverToNodeSet : IReduction<VERTEXCOVER, NODESET>
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     private string _complexity = "";
-    private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
-
+    public List<Gadget> gadgets { get; }
     private VERTEXCOVER _reductionFrom;
     private NODESET _reductionTo;
 
 
     // --- Properties ---
-    public Dictionary<Object, Object> gadgetMap
-    {
-        get
-        {
-            return _gadgetMap;
-        }
-        set
-        {
-            _gadgetMap = value;
-        }
-    }
     public VERTEXCOVER reductionFrom
     {
         get
@@ -76,6 +66,12 @@ class KarpVertexCoverToNodeSet : IReduction<VERTEXCOVER, NODESET>
         {
             instance += node + ',';
         }
+
+        foreach (UtilCollection node in VERTEXCOVERInstance.graph.Nodes)
+        {
+            gadgets.Add(new Gadget("ElementHighlight", new List<string>() { node.ToString() }, new List<string>() { node.ToString() }));
+        }
+        // --- Generate G string for new CLIQUE ---
 
         instance = instance.TrimEnd(',') + "},{(";
         foreach (var node in reductionFrom.nodes)

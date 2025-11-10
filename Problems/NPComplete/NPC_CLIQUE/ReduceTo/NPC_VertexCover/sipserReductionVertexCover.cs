@@ -1,6 +1,8 @@
 using API.Interfaces;
 using API.Interfaces.Graphs.GraphParser;
+using API.Interfaces.JSON_Objects;
 using API.Problems.NPComplete.NPC_VERTEXCOVER;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 
@@ -15,20 +17,12 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     public string source { get; } = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
     public string[] contributors {get;} = {"Janita Aamir","Alex Diviney","Caleb Eardley"};
 
-    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
+    public List<Gadget> gadgets { get; }
     private CLIQUE _reductionFrom;
     private VERTEXCOVER _reductionTo;
 
     private string _complexity = "";
 
-    public Dictionary<Object,Object> gadgetMap {
-        get{
-            return _gadgetMap;
-        }
-        set{
-            _gadgetMap = value;
-        }
-    }
     public CLIQUE reductionFrom {
         get {
             return _reductionFrom;
@@ -49,6 +43,7 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     // --- Methods Including Constructors ---
     public sipserReductionVertexCover(CLIQUE from)
     {
+        gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 
@@ -99,6 +94,10 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
             }
         }
 
+        foreach (UtilCollection node in CLIQUEInstance.graph.Nodes)
+        {
+            gadgets.Add(new Gadget("ElementHighlight", new List<string>() { node.ToString() }, new List<string>() { node.ToString() }));
+        }
         // --- Generate G string for new CLIQUE ---
         string nodesString = "";
         foreach (string nodes in CLIQUEInstance.nodes) {

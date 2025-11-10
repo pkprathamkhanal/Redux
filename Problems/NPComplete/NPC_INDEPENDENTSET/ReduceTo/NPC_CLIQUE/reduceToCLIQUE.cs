@@ -20,7 +20,7 @@ class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
     public string sourceLink { get; } = "https://en.wikipedia.org/wiki/Independent_set_(graph_theory)#Relationship_to_other_graph_parameters";
     public string[] contributors {get;} = {"Russell Phillips"};
 
-    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
+    public List<Gadget> gadgets { get; }
     private INDEPENDENTSET _reductionFrom;
     private CLIQUE _reductionTo;
 
@@ -28,14 +28,6 @@ class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
 
 
     // --- Properties ---
-    public Dictionary<Object,Object> gadgetMap {
-        get{
-            return _gadgetMap;
-        }
-        set{
-            _gadgetMap = value;
-        }
-    }
     public INDEPENDENTSET reductionFrom {
         get {
             return _reductionFrom;
@@ -56,6 +48,7 @@ class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
     // --- Methods Including Constructors ---
     public reduceToCLIQUE(INDEPENDENTSET from)
     {
+        gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 
@@ -81,15 +74,25 @@ class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
 
         List<KeyValuePair<string, string>> edges = new List<KeyValuePair<string, string>>();
 
-        foreach(var i in INDPENDENTSETInstance.nodes){
-            foreach(var j in INDPENDENTSETInstance.nodes){
-                KeyValuePair<string, string> pairCheck1 = new KeyValuePair<string, string>(i,j);
-                KeyValuePair<string, string> pairCheck2 = new KeyValuePair<string, string>(j,i);
-                if(!(INDPENDENTSETInstance.edges.Contains(pairCheck1) || INDPENDENTSETInstance.edges.Contains(pairCheck2) || i.Equals(j) || edges.Contains(pairCheck1) || edges.Contains(pairCheck2))){
+        foreach (var i in INDPENDENTSETInstance.nodes)
+        {
+            foreach (var j in INDPENDENTSETInstance.nodes)
+            {
+                KeyValuePair<string, string> pairCheck1 = new KeyValuePair<string, string>(i, j);
+                KeyValuePair<string, string> pairCheck2 = new KeyValuePair<string, string>(j, i);
+                if (!(INDPENDENTSETInstance.edges.Contains(pairCheck1) || INDPENDENTSETInstance.edges.Contains(pairCheck2) || i.Equals(j) || edges.Contains(pairCheck1) || edges.Contains(pairCheck2)))
+                {
                     edges.Add(pairCheck1);
                 }
             }
         }
+
+        //set up gadgets
+        foreach (UtilCollection node in INDPENDENTSETInstance.graph.Nodes)
+        {
+            gadgets.Add(new Gadget("ElementHighlight", new List<string>() { node.ToString() }, new List<string>() { node.ToString() }));
+        }
+
         // --- Generate G string for new CLIQUE ---
         string nodesString = "";
         foreach (string nodes in INDPENDENTSETInstance.nodes) {

@@ -1,13 +1,6 @@
-
-
 using API.Interfaces;
-using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.JSON_Objects;
-using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using API.Problems.NPComplete.NPC_SAT3;
-using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
-using API.Problems.NPComplete.NPC_SAT3.Solvers;
-using Microsoft.AspNetCore.Mvc;
 
 class Sat3DefaultVisualization : IVisualization<SAT3>
 {

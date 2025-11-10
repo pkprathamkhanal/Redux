@@ -1,5 +1,7 @@
 using API.Interfaces;
+using API.Interfaces.JSON_Objects;
 using API.Problems.NPComplete.NPC_CLIQUECOVER;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.ReduceTo.NPC_CLIQUECOVER;
 
@@ -14,24 +16,12 @@ class GraphColoringToCliqueCover : IReduction<GRAPHCOLORING, CLIQUECOVER>
     public string[] contributors {get;} = { "Andrija Sevaljevic" };
 
     private string _complexity = "";
-    private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
-
+    public List<Gadget> gadgets { get; }
     private GRAPHCOLORING _reductionFrom;
     private CLIQUECOVER _reductionTo;
 
 
     // --- Properties ---
-    public Dictionary<Object, Object> gadgetMap
-    {
-        get
-        {
-            return _gadgetMap;
-        }
-        set
-        {
-            _gadgetMap = value;
-        }
-    }
     public GRAPHCOLORING reductionFrom
     {
         get
@@ -68,7 +58,6 @@ class GraphColoringToCliqueCover : IReduction<GRAPHCOLORING, CLIQUECOVER>
     public GraphColoringToCliqueCover() : this(new GRAPHCOLORING()) { }
     public CLIQUECOVER reduce()
     {
-        GRAPHCOLORING GRAPHCOLORINGInstance = _reductionFrom;
         CLIQUECOVER reducedCLIQUECOVER = new CLIQUECOVER();
 
         string instance = "(({";
@@ -90,6 +79,12 @@ class GraphColoringToCliqueCover : IReduction<GRAPHCOLORING, CLIQUECOVER>
                 }
             }
         }
+
+        foreach (UtilCollection node in reductionFrom.graph.Nodes)
+        {
+            gadgets.Add(new Gadget("ElementHighlight", new List<string>() { node.ToString() }, new List<string>() { node.ToString() }));
+        }
+        // --- Generate G string for new CLIQUE ---
 
         instance = instance.TrimEnd('{').TrimEnd(',') +"})," + reductionFrom.K.ToString() + ')';
 

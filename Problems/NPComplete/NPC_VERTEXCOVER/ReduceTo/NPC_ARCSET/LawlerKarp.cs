@@ -29,18 +29,7 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     public string[] contributors {get;} = { "Daniel Igbokwe","Caleb Eardley"};
     private VERTEXCOVER _reductionFrom;
     private ARCSET _reductionTo;
-    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
-
-
     // --- Properties ---
-    public Dictionary<Object,Object> gadgetMap {
-        get{
-            return _gadgetMap;
-        }
-        set{
-            _gadgetMap = value;
-        }
-    }
     public VERTEXCOVER reductionFrom {
         get {
             return _reductionFrom;

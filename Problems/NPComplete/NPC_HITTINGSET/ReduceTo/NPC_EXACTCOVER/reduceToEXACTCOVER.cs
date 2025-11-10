@@ -18,25 +18,12 @@ class reduceToEXACTCOVER : IReduction<HITTINGSET, EXACTCOVER>
 
     private string _complexity = "";
 
-    private Dictionary<Object, Object> _gadgetMap = new Dictionary<Object, Object>();
 
     private HITTINGSET _reductionFrom;
     private EXACTCOVER _reductionTo;
 
 
     // --- Properties ---
-
-    public Dictionary<Object, Object> gadgetMap
-    {
-        get
-        {
-            return _gadgetMap;
-        }
-        set
-        {
-            _gadgetMap = value;
-        }
-    }
     public HITTINGSET reductionFrom
     {
         get
