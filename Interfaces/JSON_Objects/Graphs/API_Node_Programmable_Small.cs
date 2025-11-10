@@ -30,7 +30,8 @@ class API_Node_Programmable_Small{
     }
     
     public string name{
-        get{
+        get
+        {
             return _name;
         }
     }
@@ -61,12 +62,23 @@ class API_Node_Programmable_Small{
         }
     }
 
-    public string dashed{
-        get{
+    public string dashed
+    {
+        get
+        {
             return _dashed;
         }
-        set{
+        set
+        {
             _dashed = value;
+        }
+    }
+    
+    public string id
+    {
+        get
+        {
+            return name;
         }
     }
     

@@ -4,30 +4,33 @@ using API.Problems.NPComplete.NPC_SAT3;
 using API.Problems.NPComplete.NPC_CLIQUE.Inherited;
 using System.Text.Json;
 using API.Interfaces.Graphs.GraphParser;
+using API.Interfaces.JSON_Objects;
+using SPADE;
+using API.Interfaces.Graphs;
 
 namespace API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 
-class SipserReductionClique : IReduction<SAT3, SipserClique>
+class SipserReductionClique : IReduction<SAT3, CLIQUE>
 {
 
     // --- Fields ---
     public string reductionName {get;} = "Sipser's Clique Reduction";
     public string reductionDefinition {get;} = "Sipsers reduction converts clauses from 3SAT into clusters of nodes in a graph for which CLIQUES exist";
     public string source {get;} = "Sipser, Michael. Introduction to the Theory of Computation.ACM Sigact News 27.1 (1996): 27-29.";
-    public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney", "Caleb Eardley"};
+    public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney", "Caleb Eardley", "Russell Phillips"};
     private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
-
+    private List<Gadget> _gadgets;
     private SAT3 _reductionFrom;
-    private SipserClique _reductionTo;
+    private CLIQUE _reductionTo;
 
 
     // --- Properties ---
-    public Dictionary<Object,Object> gadgetMap {
+    public List<Gadget> gadgets {
         get{
-            return _gadgetMap;
+            return _gadgets;
         }
         set{
-            _gadgetMap = value;
+            _gadgets = value;
         }
     }
     public SAT3 reductionFrom
@@ -41,7 +44,7 @@ class SipserReductionClique : IReduction<SAT3, SipserClique>
             _reductionFrom = value;
         }
     }
-    public SipserClique reductionTo
+    public CLIQUE reductionTo
     {
         get
         {
@@ -56,12 +59,80 @@ class SipserReductionClique : IReduction<SAT3, SipserClique>
     // --- Methods Including Constructors ---
     public SipserReductionClique(SAT3 from)
     {
+        gadgets = new();
         _reductionFrom = from;
         _reductionTo = reduce();
 
     }
     public SipserReductionClique(string instance) : this(new SAT3(instance)) { }
-    public SipserClique reduce()
+
+    private bool fromSameClause(UtilCollection node1, UtilCollection node2)
+    {
+        List<string> node1List = node1.ToString().Split("_").ToList();
+        List<string> node2List = node2.ToString().Split("_").ToList();
+        return node1List[node1List.Count - 1] == node2List[node2List.Count - 1]; // node names may contain underscores, but clause number will always be the very last
+    }
+    private string TrimAndStrip(string s)
+    {
+        if (s.StartsWith("!"))
+            s = s.Substring(1);
+
+        int underscore = s.LastIndexOf('_');
+        if (underscore == -1)
+            return s;
+
+        return s.Substring(0, underscore);
+    }
+    private bool isSameLiteral(UtilCollection node1, UtilCollection node2)
+    {
+        string coreA = TrimAndStrip(node1.ToString());
+        string coreB = TrimAndStrip(node2.ToString());
+        return coreA == coreB;
+    }
+
+    private bool isInverse(UtilCollection node1, UtilCollection node2)
+    {
+        if (!isSameLiteral(node1, node2)) return false;
+        return node1.ToString()[0] == '!' ^ node2.ToString()[0] == '!';
+    }
+
+    public CLIQUE reduce()
+    {
+        UtilCollection nodes = new("{}");
+        UtilCollection edges = new("{}");
+        for (int i = 0; i < reductionFrom.clauses.Count; i++)
+        {
+            List<string> nodesInClause = new();
+            for (int j = 0; j < reductionFrom.clauses[i].Count; j++)
+            {
+                string literal = reductionFrom.clauses[i][j];
+                string nodeName = literal + "_" + i;
+                nodes.Add(new UtilCollection(nodeName));
+
+                gadgets.Add(new Gadget("Orange", new List<string>() { i + "," + j }, new List<string> { nodeName }));
+                nodesInClause.Add(nodeName);
+            }
+            gadgets.Add(new Gadget("Grey", new List<string>() { i.ToString() }, nodesInClause));
+        }
+
+        foreach (UtilCollection node1 in nodes)
+            foreach (UtilCollection node2 in nodes)
+            {
+                if (node1.Equals(node2)) continue;
+                if (fromSameClause(node1, node2)) continue; //no edges between nodes of the same clause
+                if (isInverse(node1, node2)) continue; //no edges between literals that are always opposite of eachother
+
+                UtilCollection edge = new("{}");
+                edge.Add(node1);
+                edge.Add(node2);
+                edges.Add(edge);
+            }
+
+        reductionTo = new CLIQUE($"(({nodes},{edges}),{reductionFrom.clauses.Count})");
+        return reductionTo;
+
+    }
+    public SipserClique reduce2()
     {
         SAT3 SAT3Instance = _reductionFrom;
 
@@ -190,8 +261,8 @@ class SipserReductionClique : IReduction<SAT3, SipserClique>
         //Console.WriteLine(G);
         var options = new JsonSerializerOptions { WriteIndented = false };
         //Update gadget mapping to set literals as keys and nodes as values.
-        // List<SAT3Gadget> satGadgetList = new List<SAT3Gadget>();
-        // List<CLIQUEGadget> cliqueGadgetList = new List<CLIQUEGadget>();
+
+
         List<string> satGadgetList = new List<string>();
         List<string> cliqueGadgetList = new List<string>();
         int id = 0;

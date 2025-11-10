@@ -138,5 +138,13 @@ class API_Link
             _directed = value;
         }
     }
+
+    public string id
+    {
+        get
+        {
+            return source + "," + target;
+        }
+    }
     
 }

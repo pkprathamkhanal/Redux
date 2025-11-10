@@ -138,11 +138,11 @@ public class ProblemProvider : ControllerBase
 
     }
 
-    [HttpPost("gadgetMap")]
-    public string gadgetMap(string reduction, [FromBody] string instance)
+    [HttpPost("gadgets")]
+    public string gadgets(string reduction, [FromBody] string instance)
     {
         IReduction red = Reduction(reduction, instance);
-        return JsonSerializer.Serialize(red.gadgetMap, new JsonSerializerOptions() { WriteIndented = true });
+        return JsonSerializer.Serialize(red.gadgets, new JsonSerializerOptions() { WriteIndented = true });
     }
 }
 

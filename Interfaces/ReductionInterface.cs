@@ -9,7 +9,7 @@ interface IReduction
     string source { get; }
     string[] contributors { get; }
     IVisualization visualization { get; }
-    Dictionary<Object, Object> gadgetMap { get; }
+    List<Gadget> gadgets { get; }
     IProblem reductionFrom { get; }
     IProblem reductionTo { get; }
     IProblem reduce();
@@ -26,18 +26,20 @@ interface IReduction<T, U> : IReduction where T : IProblem where U : IProblem
         }
     }
 
-    IProblem IReduction.reductionFrom { 
+    IProblem IReduction.reductionFrom
+    {
         get
         {
             return reductionFrom;
         }
     }
     new T reductionFrom { get; }
-    IProblem IReduction.reductionTo {
+    IProblem IReduction.reductionTo
+    {
         get
         {
             return reductionTo;
-        } 
+        }
     }
     new U reductionTo { get; }
 
@@ -47,4 +49,11 @@ interface IReduction<T, U> : IReduction where T : IProblem where U : IProblem
     }
     new U reduce();
 
+    List<Gadget> IReduction.gadgets
+    {
+        get
+        {
+            return new List<Gadget>();
+        }
+    }
 }
