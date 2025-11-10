@@ -34,7 +34,7 @@ class Sat3DefaultVisualization : IVisualization<SAT3>
         foreach (string item in items)
         {
             List<string> split = item.Split(":").ToList();
-            if (split[1] == "true")
+            if (split[1] == "True")
                 highlight.Add(split[0]);
             else
                 highlight.Add("!" + split[0]);
