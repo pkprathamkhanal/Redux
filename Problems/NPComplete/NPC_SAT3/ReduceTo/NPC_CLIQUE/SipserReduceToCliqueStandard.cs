@@ -120,8 +120,9 @@ class SipserReduceToCliqueStandard : IReduction<SAT3, CLIQUE>
                 edge.Add(node2);
                 edges.Add(edge);
             }
-
+        Console.WriteLine($"(({nodes},{edges}),{reductionFrom.clauses.Count})");
         reductionTo = new CLIQUE($"(({nodes},{edges}),{reductionFrom.clauses.Count})");
+        
         return reductionTo;
 
     }
