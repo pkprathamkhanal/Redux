@@ -68,6 +68,12 @@ public class ProblemProvider : ControllerBase
 
 #pragma warning restore CS8603 // Possible null reference return.
 
+    /// <summary>
+    /// Takes a problem instance, a solution certificate, and returns if that is a correct solution
+    /// </summary>
+    /// <param name="verifier" example = "cliqueverifier">the verifier to use</param>
+    /// <param name="verify">The certificate and problem instance</param>
+    /// <returns>true or false</returns>
     [ProducesResponseType(typeof(bool), 200)]
     [HttpPost("verify")]
     public string verify(string verifier, [FromBody] Verify verify)
@@ -79,6 +85,12 @@ public class ProblemProvider : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Takes a problem instance and a solver and returns the soltuion
+    /// </summary>
+    /// <param name="solver" example = "Sat3BacktrackingSolver">The solver to use</param>
+    /// <param name="problemInstance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">The instance of the problem to solve</param>
+    /// <returns>solution certificate</returns>
     [HttpPost("solve")]
     public string solve(string solver, [FromBody] string problemInstance)
     {
@@ -89,6 +101,11 @@ public class ProblemProvider : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Gets info about a particular object
+    /// </summary>
+    /// <param name="interface" example = "3SAT">the name of the object to get the info of</param>
+    /// <returns>an object instance</returns>
     [ProducesResponseType(typeof(object), 200)]
     [HttpGet("info")]
     public string info(string @interface)
@@ -97,6 +114,12 @@ public class ProblemProvider : ControllerBase
         return Newtonsoft.Json.JsonConvert.SerializeObject(Activator.CreateInstance(Interfaces[@interface.ToLower()]));
     }
 
+    /// <summary>
+    /// Makes an instance of a problem from an instance string
+    /// </summary>
+    /// <param name="problem" example = "3SAT">problem name</param>
+    /// <param name="problemInstance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">instance string</param>
+    /// <returns>object instance</returns>
     [ProducesResponseType(typeof(IProblem), 200)]
     [HttpPost("problemInstance")]
     public string problemInstance(string problem, [FromBody] string problemInstance)
@@ -124,12 +147,26 @@ public class ProblemProvider : ControllerBase
         return JsonSerializer.Serialize(list, options);
     }
 
+    /// <summary>
+    /// Gets the visualization of an object
+    /// </summary>
+    /// <param name="visualization" example = "Sat3DefaultVisualization">The visualization to use</param>
+    /// <param name="solver" example = "Sat3BacktrackingSolver">The solver to use for steps and solution</param>
+    /// <param name="instance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">the instance of the problem</param>
+    /// <returns>a list containing the basic visualization, any steps from the solver, and the solved visualization</returns>
     [HttpPost("visualize")]
     public string visualize(string visualization, string solver, [FromBody] string instance)
     {
         return getVisualize(Visualization(visualization), Solver(solver).GetSteps(instance), Solver(solver).solve(instance), instance);
     }
 
+    /// <summary>
+    /// Reduces a problem and returns the visualization of the reduction
+    /// </summary>
+    /// <param name="reduction" example = "SipserReduceToCliqueStandard">List of reductions to use, seperated by a dash. Can use a single reduction</param>
+    /// <param name="solver" example = "Sat3BacktrackingSolver">The solver to use for steps and solution</param>
+    /// <param name="instance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">the instance string of the problem</param>
+    /// <returns>a list containing the basic visualization, any steps from the solver, and the solved visualization</returns>
     [HttpPost("visualizeReduction")]
     public string visualizeReduction(string reduction, string solver, [FromBody] string instance)
     {
@@ -151,12 +188,25 @@ public class ProblemProvider : ControllerBase
         return getVisualize(red.visualization, steps, solution, instance);
     }
 
+    /// <summary>
+    /// returns the reduction of a problem
+    /// </summary>
+    /// <param name="reduction" example = "SipserReduceToCliqueStandard">the reduction to use</param>
+    /// <param name="instance" example = "(x1 | !x2 | x3) &amp; !x1 | x3 | x1) &amp; (x2 | !x3 | x1)">instance of a problem</param>
+    /// <returns>reduction</returns>
     [HttpPost("reduce")]
     public string reduce(string reduction, [FromBody] string instance)
     {
         return JsonSerializer.Serialize(Reduction(reduction, instance), new JsonSerializerOptions() { WriteIndented = true });
     }
 
+    /// <summary>
+    /// Maps the solution from one problem to another
+    /// </summary>
+    /// <param name="reduction" example = "SipserReduceToCliqueStandard">reduction to use</param>
+    /// <param name="solution" example = "(x1:True)">solution certificate</param>
+    /// <param name="instance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">instance of the problem</param>
+    /// <returns>solution certificate of the reduction</returns>
     [HttpPost("mapSolution")]
     public string mapSolution(string reduction, string solution, [FromBody] string instance)
     {
@@ -166,6 +216,12 @@ public class ProblemProvider : ControllerBase
     }
 
 
+    /// <summary>
+    /// Gets the gadget map of a reduction
+    /// </summary>
+    /// <param name="reduction" example = "SipserReduceToCliqueStandard">reduction to use</param>
+    /// <param name="instance" example = "(x1 | !x2 | x3) &amp; (!x1 | x3 | x1) &amp; (x2 | !x3 | x1)">the instance of the problem</param>
+    /// <returns>gadget map</returns>
     [HttpPost("gadgets")]
     public string gadgets(string reduction, [FromBody] string instance)
     {
