@@ -45,7 +45,7 @@ class ArcSetDefaultVisualization : IVisualization<ARCSET> {
             if(LinkInUtil(solutionEdges, apiGraph.links[i])){ 
                apiGraph.links[i].color = "Red"; 
             }
-            else{apiGraph.links[i].color = "Grey";}
+            else{apiGraph.links[i].color = "Background";}
         }
         return apiGraph;
     }

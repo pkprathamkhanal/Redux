@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using API.Interfaces.Graphs;
 using API.Interfaces.Graphs.GraphParser;
+using API.Interfaces.JSON_Objects;
 using SPADE;
 using System.Collections;
 
@@ -26,7 +27,8 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
                                             Now the algorithm has created an ARCSET instance (in other words, a Digraph). ";
     public string source { get; } = "Karp, Richard M. Reducibility among combinatorial problems. Complexity of computer computations. Springer, Boston, MA, 1972. 85-103.";
     public string sourceLink { get; } = "https://cgi.di.uoa.gr/~sgk/teaching/grad/handouts/karp.pdf";
-    public string[] contributors {get;} = { "Daniel Igbokwe","Caleb Eardley"};
+    public string[] contributors { get; } = { "Daniel Igbokwe", "Caleb Eardley" };
+     public List<Gadget> gadgets { get; }
     private VERTEXCOVER _reductionFrom;
     private ARCSET _reductionTo;
     // --- Properties ---
@@ -52,7 +54,8 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     public LawlerKarp(string instance) : this(new VERTEXCOVER(instance)) { }
     public LawlerKarp() : this(new VERTEXCOVER()) { }
     public LawlerKarp(VERTEXCOVER from) {
-         _reductionFrom = from;
+        gadgets = new();
+        _reductionFrom = from;
         _reductionTo = reduce();
     }
     /// <summary>
@@ -64,15 +67,18 @@ class LawlerKarp : IReduction<VERTEXCOVER, ARCSET> {
     public ARCSET reduce() {
         VERTEXCOVER vertexcover = new VERTEXCOVER(_reductionFrom.instance);
         List<Node> newNodes = new List<Node>();
-        foreach(UtilCollection n in vertexcover.graph.Nodes){
+        foreach (UtilCollection n in vertexcover.graph.Nodes)
+        {
             string name = n.ToString();
             Node newNode1 = new Node(name);
             Node newNode2 = new Node(name);
-            newNode1.name = name+"0";
-            newNode2.name = name+"1";
+            newNode1.name = name + "0";
+            newNode2.name = name + "1";
             newNodes.Add(newNode1);
             newNodes.Add(newNode2);
+            gadgets.Add(new Gadget("ElementHighlight", new List<string>() { name.ToString() }, new List<string>() { name + "0", name + "1"  }));
         }
+        
         //Turn undirected edges into paired directed edges.
         List<Edge> newEdges = new List<Edge>();
         List<Edge> numberedEdges = new List<Edge>();
