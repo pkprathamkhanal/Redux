@@ -131,18 +131,18 @@ public class ProblemProvider : ControllerBase
     }
 
     [HttpPost("visualizeReduction")]
-    public string visualizeReduction(string reductions, string solver, [FromBody] string instance)
+    public string visualizeReduction(string reduction, string solver, [FromBody] string instance)
     {
-        List<string> reds = reductions.Split("-").ToList();
+        List<string> reds = reduction.Split("-").ToList();
 
         ISolver sol = Solver(solver);
         List<string> steps = sol.GetSteps(instance);
         string solution = sol.solve(instance);
 
         IReduction? red = null;
-        foreach (string reduction in reds)
+        foreach (string reductionname in reds)
         {
-            red = Reduction(reduction, instance);
+            red = Reduction(reductionname, instance);
             steps = steps.Select(step => red.mapSolutions(step)).ToList();
             solution = red.mapSolutions(solution);
             instance = red.reductionTo.instance;
