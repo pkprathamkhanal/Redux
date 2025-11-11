@@ -17,15 +17,15 @@ class {NAME_PASCEL_CASE}Visualization : IVisualization<{NAME_UPPERCASE}>
     {
 
     }
-    public API_JSON visualize(SAT3 instance)
+    public API_JSON visualize({NAME_UPPERCASE} instance)
     {
         //TODO: implement visualization
         
         //if graph problem below should be fine
-        return clique.graph.ToAPIGraph();
+        return {NAME_UPPERCASE}.graph.ToAPIGraph();
     }
 
-    public API_JSON SolvedVisualization(SAT3 instance, string solution)
+    public API_JSON SolvedVisualization({NAME_UPPERCASE} instance, string solution)
     {
         //TODO: implement SolvedVisualization (remove method if not implemented)
     }
