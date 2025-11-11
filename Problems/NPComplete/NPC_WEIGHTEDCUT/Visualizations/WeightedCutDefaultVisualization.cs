@@ -3,6 +3,7 @@ using System.Text.Json;
 using API.Interfaces.Graphs.GraphParser;
 using API.Interfaces.JSON_Objects.Graphs;
 using API.Interfaces.JSON_Objects;
+using SPADE;
 
 namespace API.Problems.NPComplete.NPC_WEIGHTEDCUT.Visualizations;
 
@@ -27,12 +28,18 @@ class WeightedCutDefaultVisualization : IVisualization<WEIGHTEDCUT>
         return weightedCut.graph.ToAPIGraph();
     }
 
+    public List<KeyValuePair<string, string>> parseSolution(string solution)
+    {
+        UtilCollection sol = new(solution);
+        return sol.ToList().Select(edge =>
+        {
+            List<UtilCollection> cast = edge[0].ToList();
+            return new KeyValuePair<string, string>(cast[0].ToString(),cast[1].ToString());
+        }).ToList();
+    }
     public API_JSON SolvedVisualization(WEIGHTEDCUT weightedCut, string solution)
     {
-        List<KeyValuePair<string, string>> solutionEdges = GraphParser.parseUndirectedEdgeListWithStringFunctions(solution);
-        // removing duplicate edges since visualization cares about first edge only
-        for (int i = solutionEdges.Count - 1; i >= 0; i--)
-            if (i % 2 == 1) solutionEdges.RemoveAt(i);
+        List<KeyValuePair<string, string>> solutionEdges = parseSolution(solution);
 
         API_GraphJSON apiGraph = weightedCut.graph.ToAPIGraph();
 
