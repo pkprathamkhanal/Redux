@@ -20,8 +20,6 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     public List<Gadget> gadgets { get; }
     private CLIQUE _reductionFrom;
     private VERTEXCOVER _reductionTo;
-    private Dictionary<Object,Object> _gadgetMap = new Dictionary<Object,Object>();
-
     private string _complexity = "";
 
     public CLIQUE reductionFrom {
@@ -63,8 +61,6 @@ class sipserReductionVertexCover : IReduction<CLIQUE, VERTEXCOVER> {
     public VERTEXCOVER reduce() {
         CLIQUE CLIQUEInstance = _reductionFrom;
         VERTEXCOVER reducedVERTEXCOVER = new VERTEXCOVER();
-
-        _gadgetMap = new Dictionary<object, object>();
 
         // Assign clique nodes to vertexcover nodes.
         reducedVERTEXCOVER.nodes = CLIQUEInstance.nodes;
