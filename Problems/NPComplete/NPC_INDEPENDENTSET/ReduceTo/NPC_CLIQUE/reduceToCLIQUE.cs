@@ -116,25 +116,7 @@ class reduceToCLIQUE : IReduction<INDEPENDENTSET, CLIQUE> {
 
     public string mapSolutions(string problemFromSolution)
     {
-        //Parse problemFromSolution into a list of nodes
-        List<string> solutionList = GraphParser.parseNodeListWithStringFunctions(problemFromSolution);
-
-        //Map solution
-        List<string> mappedSolutionList = new List<string>();
-        foreach (string node in reductionFrom.nodes)
-        {
-            if (!solutionList.Contains(node))
-            {
-                mappedSolutionList.Add(node);
-            }
-        }
-        string problemToSolution = "";
-        foreach (string node in mappedSolutionList)
-        {
-            problemToSolution += node + ',';
-        }
-        return '{' + problemToSolution.TrimEnd(',') + '}';
-
+        return problemFromSolution;
     }
 
 }

@@ -10,6 +10,7 @@ using API.Problems.NPComplete.NPC_SAT3.ReduceTo.NPC_CLIQUE;
 using API.Problems.NPComplete.NPC_CLIQUE.ReduceTo.NPC_VertexCover;
 using Antlr4.Runtime;
 using API.Tools.ApiParameters;
+using System.Dynamic;
 
 [ApiController]
 [Route("[controller]")]
@@ -130,18 +131,24 @@ public class ProblemProvider : ControllerBase
     }
 
     [HttpPost("visualizeReduction")]
-    public string visualizeReduction(string reduction, string solver, [FromBody] string instance)
+    public string visualizeReduction(string reductions, string solver, [FromBody] string instance)
     {
-        IReduction red = Reduction(reduction, instance);
+        List<string> reds = reductions.Split("-").ToList();
+
         ISolver sol = Solver(solver);
-
         List<string> steps = sol.GetSteps(instance);
-        List<string> mappedSteps = steps.Select(step => red.mapSolutions(step)).ToList();
+        string solution = sol.solve(instance);
 
-        string mappedSol = red.mapSolutions(Solver(solver).solve(instance));
+        IReduction? red = null;
+        foreach (string reduction in reds)
+        {
+            red = Reduction(reduction, instance);
+            steps = steps.Select(step => red.mapSolutions(step)).ToList();
+            solution = red.mapSolutions(solution);
+            instance = red.reductionTo.instance;
+        }
 
-        return getVisualize(red.visualization, mappedSteps, mappedSol, red.reductionTo.instance);
-
+        return getVisualize(red.visualization, steps, solution, instance);
     }
 
     [HttpPost("reduce")]
