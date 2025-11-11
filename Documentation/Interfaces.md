@@ -15,7 +15,7 @@ An `ISolver` needs a method that takes an instance of a problem, and returns the
 ## IVisualization
 An `IVisualization` needs a method `visualize` that takes a problem and returns and `API_JSON` object that represents a visualization. Currently there are two visualizations implemented, one for boolean satisfiability problems, `API_SAT` and one for graph problems, `API_graph`. These both are the visualiation types `Boolean Satisfiability` and `Graph D3` respectively. This visualization type should be set in the feild `visualizationType`. 
 
-An `IVisualization` may also implement the method `SolvedVisualization` that also takes in a solution, and highlights parts of the problem that are in the solution.
+An `IVisualization` may also implement the method `SolvedVisualization` that also takes in a solution, and highlights parts of the problem that are in the solution, by setting colors to elements.
 
 An `Iisualization` may also implement the method `StepsVisualization` which takes in a list of solution certificates and returns a list of `API_JSON` that visualizes each step.
 
@@ -24,6 +24,6 @@ The `IReduction` interface represents a reduction from one IProblem to another I
 
 An `IReduction` needs a `reduce` method that makes the resulting problem from the starting problem. This function may also make a `gadgets` object.
 
-An `IReduction` should have a `mapSolutions` method that takes a solution certificate of the starting problem, and returns an equivalent solution certificate of the resulting problem.
+An `IReduction` also needs a `mapSolutions` method that takes a solution certificate of the starting problem, and returns an equivalent solution certificate of the resulting problem.
 
-An `IReduction` may also have `gadgets` field which is a mapping from a list of ids in the starting problem to a list of ids in the resulting problem that are made out of each other. Ids should be generated from a problem instance such that 
+An `IReduction` also needs to have a `gadgets` field which is a way to tell the front end what parts of a problem are related to each other. Every problem instance has unique and consistent ids assigned to each element in them. Graph and boolean satisfiability problems automatically assign these ids. The gadgets field is an object that has a color that should be dislayed on mouse over, a list of ids in the starting problem, and a list of ids in the resulting problem, that should all be highlighted together. Typically the gadget field should be set up during the `reduce` funciton.
