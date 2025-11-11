@@ -9,8 +9,8 @@ namespace API.Problems.NPComplete.NPC_GRAPHCOLORING.Visualizations;
 class GraphColoringDefaultVisualization : IVisualization<GRAPHCOLORING> {
 
     // --- Fields ---
-    public string visualizationName {get;} = "Independent Set Visualization";
-    public string visualizationDefinition {get;} = "This is a default visualization for Independent Set";
+    public string visualizationName {get;} = "Graph Coloring Visualization";
+    public string visualizationDefinition {get;} = "This is a default visualization for Graph Coloring";
     public string source {get;} = "";
     public string[] contributors {get;} = {"Andrija Sevaljevic", "Russell Phillips"};
     public string visualizationType { get; } = "Graph D3";

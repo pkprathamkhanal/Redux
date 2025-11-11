@@ -9,8 +9,8 @@ namespace API.Problems.NPComplete.NPC_CLIQUECOVER.Visualizations;
 class CliqueCoverDefaultVisualization : IVisualization<CLIQUECOVER> {
 
     // --- Fields ---
-    public string visualizationName {get;} = "Independent Set Visualization";
-    public string visualizationDefinition {get;} = "This is a default visualization for Independent Set";
+    public string visualizationName {get;} = "Clique Cover Visualization";
+    public string visualizationDefinition {get;} = "This is a default visualization for Clique Cover";
     public string source {get;} = "";
     public string[] contributors {get;} = {"Andrija Sevaljevic", "Russell Phillips"};
     public string visualizationType { get; } = "Graph D3";
