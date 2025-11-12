@@ -10,7 +10,7 @@ class TSPDefaultVisualization : IVisualization<TSP>
 {
 
     // --- Fields ---
-    public string visualizationName { get; } = "Travelling Sales Person Visualization";
+    public string visualizationName { get; } = "Travelling Salesperson Visualization";
     public string visualizationDefinition { get; } = "This is a default visualization for Travelling Sales Person";
     public string source { get; } = "";
     public string[] contributors { get; } = { "Andrija Sevaljevic" };
