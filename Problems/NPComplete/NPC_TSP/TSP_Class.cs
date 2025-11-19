@@ -12,9 +12,21 @@ class TSP : IGraphProblem<TSPBruteForce, TSPVerifier, TSPDefaultVisualization, U
     // --- Fields ---
     public string problemName {get;} = "Traveling Salesperson";
     public string problemLink { get; } = "https://en.wikipedia.org/wiki/Travelling_salesman_problem";
-    public string formalDefinition {get;} = "TSP = {<G,k> | G is a weighted graph where there is a path through every vertex whose weights add up to less than k}";
-    public string problemDefinition {get;} = "";
+    public string formalDefinition {get;} = 
+        "TSP = {<G,k> | G is a weighted graph where there exists a Hamiltonian cycle whose total weight is less than k }";
+    public string problemDefinition {get;} =
+        "The Traveling Salesperson Problem (TSP) asks whether there exists a Hamiltonian cycle in a weighted graph G such that the total cost of the tour is less than a given bound k. "
+      + "This decision version of TSP determines if a route exists that visits every vertex exactly once and returns to the start while staying within the weight limit.";
     public string[] contributors {get;} = {"Andrija Sevaljevic"};
+    public string contributorsLink { get; } = "https://redux.portneuf.cose.isu.edu/aboutus";
+    public string source {get;} = 
+        "Karp, Richard M. Reducibility among combinatorial problems. In Complexity of Computer Computations, 1972.";
+    public string sourceLink { get; } = 
+        "https://en.wikipedia.org/wiki/Travelling_salesman_problem";
+    public string wikiName {get;} = "Travelling_salesman_problem";
+    public string[] contributors {get;} = {"Andrija Sevaljevic"};
+    public string contributorsLink { get; } = "https://redux.portneuf.cose.isu.edu/aboutus";
+
     
     public string source {get;} = "";
     private static string _defaultInstance { get; } = "(({New York,Chicago,Denver,Los Angeles,Miami},{({New York,Chicago},790),({New York,Denver},1770),({New York,Los Angeles},2450),({New York,Miami},1280),({Chicago,Denver},1000),({Chicago,Los Angeles},2015),({Chicago,Miami},1370),({Denver,Los Angeles},1015),({Denver,Miami},2060),({Los Angeles,Miami},2745)}),8000)";
