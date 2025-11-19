@@ -42,6 +42,9 @@ class ARCSET : IGraphProblem<ArcSetBruteForce,ArcSetVerifier,ArcSetDefaultVisual
     public ArcSetDefaultVisualization defaultVisualization { get; } = new ArcSetDefaultVisualization();
 
     public string[] contributors { get; } = { "Alex Diviney" };
+    public string contributorsLink { get; } = "https://redux.portneuf.cose.isu.edu/aboutus";
+
+    
 
     public int K;
 
