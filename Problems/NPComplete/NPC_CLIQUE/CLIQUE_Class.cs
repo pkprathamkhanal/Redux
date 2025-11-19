@@ -27,6 +27,8 @@ class CLIQUE : IGraphProblem<CliqueBruteForce,CliqueVerifier,cliqueDefaultVisual
     public cliqueDefaultVisualization defaultVisualization { get; } = new cliqueDefaultVisualization();
     public UtilCollectionGraph graph { get; set; }
     public string[] contributors {get;} = { "Kaden Marchetti", "Alex Diviney" };
+    public string contributorsLink { get; } = "https://redux.portneuf.cose.isu.edu/aboutus";
+
 
     // --- Properties ---
     public List<string> nodes {
